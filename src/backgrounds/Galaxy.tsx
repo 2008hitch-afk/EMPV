@@ -173,9 +173,9 @@ void main() {
     float alpha = smoothstep(0.008, 0.27, energy);
     alpha = min(alpha * 1.08, 0.98);
 
-    // Neutral moving matter. Palette is applied deterministically in CSS.
-    float neutral = mix(0.78, 0.48, clamp(energy, 0.0, 1.0));
-    gl_FragColor = vec4(vec3(neutral), alpha);
+    // Geometry stays neutral; the selected theme tint colors only the moving matter.
+    vec3 movingInk = mix(uTint, uTint * 0.62, clamp(energy, 0.0, 1.0));
+    gl_FragColor = vec4(movingInk, alpha);
   } else {
     gl_FragColor = vec4(col, 1.0);
   }
