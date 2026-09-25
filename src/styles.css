@@ -1989,10 +1989,6 @@ footer {
 }
 
 
-:root[data-visual-theme="galaxy"] .hero h1 .outline {
-  -webkit-text-stroke-color: var(--outline-ink);
-}
-
 :root[data-visual-theme="galaxy"] .hero .eyebrow,
 :root[data-visual-theme="galaxy"] .section-code,
 :root[data-visual-theme="galaxy"] .section-head .eyebrow,
@@ -2010,76 +2006,4 @@ footer {
   background:
     radial-gradient(circle at 64% 38%, color-mix(in srgb, var(--galaxy-accent) 14%, transparent), transparent 48%),
     var(--visual-dark);
-}
-
-
-/* Typography treatments adapted from React Bits GradientText,
-   Magic UI Animated Shiny Text and Magic UI Line Shadow Text. */
-:root[data-visual-theme="galaxy"] .hero h1 .outline {
-  position: relative;
-  display: block;
-  z-index: 0;
-  color: transparent;
-  -webkit-text-stroke: 0.8px color-mix(in oklch, var(--copy-gradient-a) 55%, transparent);
-  background-image:
-    linear-gradient(
-      110deg,
-      var(--copy-gradient-a) 0%,
-      var(--copy-gradient-b) 28%,
-      var(--copy-shine) 46%,
-      var(--copy-gradient-b) 62%,
-      var(--copy-gradient-c) 100%
-    );
-  background-size: 240% 100%;
-  background-position: 0% 50%;
-  background-clip: text;
-  -webkit-background-clip: text;
-  animation: empv-copy-shine 10s cubic-bezier(.6,.6,0,1) infinite alternate;
-}
-
-:root[data-visual-theme="galaxy"] .hero h1 .outline::after {
-  content: attr(data-text);
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  transform: translate(0.035em, 0.035em);
-  background:
-    repeating-linear-gradient(
-      45deg,
-      transparent 0 0.035em,
-      color-mix(in oklch, var(--copy-shadow) 28%, transparent) 0.035em 0.055em,
-      transparent 0.055em 0.09em
-    );
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  opacity: 0.42;
-  pointer-events: none;
-}
-
-:root[data-visual-theme="galaxy"] .section-head h2,
-:root[data-visual-theme="galaxy"] .faq-intro h2,
-:root[data-visual-theme="galaxy"] .person-editorial-copy h3 {
-  color: transparent;
-  background-image:
-    linear-gradient(
-      118deg,
-      var(--copy-gradient-a) 0%,
-      var(--ink) 48%,
-      color-mix(in oklch, var(--copy-gradient-b) 72%, var(--ink)) 100%
-    );
-  background-clip: text;
-  -webkit-background-clip: text;
-}
-
-@keyframes empv-copy-shine {
-  0%, 16% { background-position: 0% 50%; }
-  84%, 100% { background-position: 100% 50%; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  :root[data-visual-theme="galaxy"] .hero h1 .outline {
-    animation: none;
-    background-position: 50% 50%;
-  }
 }
