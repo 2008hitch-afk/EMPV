@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type MouseEvent } from "react";
 import { ArrowLeft, ArrowUpRight, MousePointer2 } from "lucide-react";
 import BackgroundEffect, {
   BACKGROUND_OPTIONS,
@@ -17,6 +17,16 @@ function readInitialEffect(): BackgroundName {
 
 export default function BackgroundLab() {
   const [effect, setEffect] = useState<BackgroundName>(readInitialEffect);
+
+  const onPagePointerMove = (event: MouseEvent<HTMLDivElement>) => {
+    event.currentTarget.style.setProperty("--pointer-x", `${event.clientX}px`);
+    event.currentTarget.style.setProperty("--pointer-y", `${event.clientY}px`);
+    event.currentTarget.style.setProperty("--glow-opacity", "1");
+  };
+
+  const onPagePointerLeave = (event: MouseEvent<HTMLDivElement>) => {
+    event.currentTarget.style.setProperty("--glow-opacity", "0");
+  };
   const [tuning, setTuning] = useState<BackgroundTuning>(DEFAULT_TUNING);
 
   const current = useMemo(
@@ -30,7 +40,12 @@ export default function BackgroundLab() {
   const previewHref = effect === "none" ? "../" : `../?bg=${effect}`;
 
   return (
-    <div className="background-lab">
+    <div
+      className="background-lab"
+      onMouseMove={onPagePointerMove}
+      onMouseLeave={onPagePointerLeave}
+    >
+      <div className="global-pointer-glow" aria-hidden="true" />
       <header className="lab-topbar">
         <a href="../" className="lab-back">
           <ArrowLeft size={16} />
