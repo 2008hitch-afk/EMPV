@@ -20,7 +20,7 @@ type Project = {
 
 const copy = {
   it: {
-    nav: { work: "Progetti", labs: "In sviluppo", people: "Enrico + Michele" },
+    nav: { work: "Progetti", labs: "AI Lab", people: "Enrico + Michele" },
     heroEyebrow: "Enrico Peruffo × Michele Valleri · Bergamo",
     heroTitleA: "Progettiamo sistemi",
     heroTitleB: "intorno al lavoro reale.",
@@ -33,12 +33,12 @@ const copy = {
     selectedTitle: "Progetti realizzati",
     selectedIntro:
       "Ogni progetto parte da un processo esistente. Il risultato non è uno stack tecnologico: è un modo diverso di lavorare.",
-    labsLabel: "02 / In sviluppo",
-    labsTitle: "Alcune domande meritano di diventare progetti.",
+    labsLabel: "02 / AI Lab",
+    labsTitle: "Un laboratorio per trasformare ipotesi AI in sistemi verificabili.",
     labsIntro:
-      "Non tutto nasce da un brief cliente. Esploriamo prodotti, infrastrutture e linee di ricerca che potrebbero diventare sistemi autonomi.",
+      "Qui sviluppiamo e testiamo progetti AI che non nascono da un brief cliente: infrastrutture, prodotti e linee di ricerca costruiti per capire se un'idea può diventare un sistema reale.",
     labsNote:
-      "Esperimenti, prototipi e direzioni di ricerca selezionate · alcuni dettagli restano intenzionalmente non pubblici.",
+      "Prototipi, esperimenti e progetti AI in evoluzione · rendiamo pubblica la direzione, non i dettagli che costituiscono il vantaggio tecnico.",
     faqLabel: "03 / FAQ",
     faqTitle: "Domande che vale la pena chiarire.",
     faqIntro:
@@ -59,7 +59,7 @@ const copy = {
     language: "EN",
   },
   en: {
-    nav: { work: "Projects", labs: "In development", people: "Enrico + Michele" },
+    nav: { work: "Projects", labs: "AI Lab", people: "Enrico + Michele" },
     heroEyebrow: "Enrico Peruffo × Michele Valleri · Bergamo",
     heroTitleA: "We design systems",
     heroTitleB: "around real work.",
@@ -72,8 +72,8 @@ const copy = {
     selectedTitle: "Projects delivered",
     selectedIntro:
       "Every project starts from an existing process. The outcome is not a technology stack: it is a different way of working.",
-    labsLabel: "02 / In development",
-    labsTitle: "Some questions are worth turning into projects.",
+    labsLabel: "02 / AI Lab",
+    labsTitle: "A lab for turning AI hypotheses into verifiable systems.",
     labsIntro:
       "Not everything starts from a client brief. We explore products, infrastructure and research directions that may become standalone systems.",
     labsNote:
@@ -215,7 +215,7 @@ const faqs: Record<Lang, { question: string; answer: string }[]> = {
         "Ricostruiamo il processo reale: persone, passaggi, strumenti, dati, vincoli e decisioni. Poi individuiamo il cambiamento più piccolo capace di eliminare un attrito importante, lo rendiamo verificabile e solo dopo estendiamo il sistema.",
     },
     {
-      question: "I progetti “In sviluppo” possono diventare startup?",
+      question: "I progetti dell'AI Lab possono diventare startup?",
       answer:
         "Alcuni sì. Il Lab serve proprio a separare un'idea interessante da una tesi che regge tecnicamente e come prodotto. Quando una direzione dimostra abbastanza valore può evolvere in prodotto autonomo, spin-off o nuova iniziativa.",
     },
@@ -252,7 +252,7 @@ const faqs: Record<Lang, { question: string; answer: string }[]> = {
         "We reconstruct the real process: people, handoffs, tools, data, constraints and decisions. Then we identify the smallest change capable of removing a meaningful friction, make it verifiable and only then expand the system.",
     },
     {
-      question: "Can the projects in “In development” become startups?",
+      question: "Can AI Lab projects become startups?",
       answer:
         "Some can. The Lab exists to separate an interesting idea from a technical and product thesis that actually holds. When a direction demonstrates enough value, it can evolve into a standalone product, spin-off or new venture.",
     },
