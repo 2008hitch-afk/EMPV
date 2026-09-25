@@ -253,8 +253,8 @@ const it: Record<string, DetailContent> = {
     lead:
       "Un esperimento su come ricostruire automaticamente un sistema digitale reale in una rappresentazione interrogabile, mantenendo insieme codice, runtime, configurazioni, API, documentazione ed evidenze.",
     tags: ["System understanding", "Evidence", "Architecture"],
-    statusLabel: "Domanda",
-    status: "Può un sistema spiegare se stesso senza ridursi a un diagramma statico?",
+    statusLabel: "Stato repo",
+    status: "Research / model-definition. Nessuno schema canonico o stack implementativo è ancora congelato.",
     comparison: {
       leftLabel: "Oggi",
       leftTitle: "La conoscenza del sistema è frammentata",
@@ -298,8 +298,8 @@ const it: Record<string, DetailContent> = {
     lead:
       "Un laboratorio per capire cosa un modello eseguito localmente sa davvero fare su un workload specifico, usando prove riproducibili e confini operativi espliciti.",
     tags: ["Local models", "Evaluation", "Evidence"],
-    statusLabel: "Tesi",
-    status: "Un benchmark generico non basta per decidere se affidare un lavoro reale a un modello.",
+    statusLabel: "Stato repo",
+    status: "Public Core 0.3.1 RC1 · hitch-local-ai==0.3.1 · schema 1.0.1.",
     comparison: {
       leftLabel: "Problema",
       leftTitle: "Il nome del modello non è una garanzia",
@@ -343,8 +343,8 @@ const it: Record<string, DetailContent> = {
     lead:
       "Un prototipo di ricerca commerciale che prova a trovare aziende partendo dai loro problemi operativi osservabili, invece di partire da liste e arricchirle dopo.",
     tags: ["Problem discovery", "Research", "Qualification"],
-    statusLabel: "Ipotesi",
-    status: "La qualità del prospecting può migliorare se la ricerca parte dal problema e conserva l'evidenza.",
+    statusLabel: "Milestone corrente",
+    status: "Problem Research → Prospect Research → Qualification.",
     comparison: {
       leftLabel: "Approccio comune",
       leftTitle: "Lista → arricchimento → outreach",
@@ -434,7 +434,7 @@ const it: Record<string, DetailContent> = {
       "Ricerca su sistemi AI che non comprimono automaticamente evidenze contrastanti in una risposta unica, ma mantengono storia, contraddizioni, versioni e ragioni dietro le conclusioni.",
     tags: ["Reasoning", "Evidence", "Trust"],
     statusLabel: "Fase",
-    status: "Ricerca di fattibilità: novità scientifica e fattibilità non sono ancora assunte come dimostrate.",
+    status: "Phase 0 — Call decomposition and research governance. Nessun claim di novelty è considerato validato.",
     comparison: {
       leftLabel: "Problema",
       leftTitle: "Una risposta può nascondere il percorso che l'ha prodotta",
@@ -558,8 +558,8 @@ const en: Record<string, DetailContent> = {
     ...it["system-twin"],
     kicker: "Exploration / systems intelligence",
     lead: "An experiment in reconstructing a real digital system into an interrogable representation while keeping code, runtime, configuration, APIs, documentation and evidence connected.",
-    statusLabel: "Question",
-    status: "Can a system explain itself without collapsing into a static diagram?",
+    statusLabel: "Repository state",
+    status: "Research / model-definition. No canonical schema or implementation stack is frozen yet.",
     comparison: {
       leftLabel: "Today", leftTitle: "System knowledge is fragmented", leftBody: "Repositories, deployments, telemetry, documentation and APIs describe different parts of the same reality and often refer to different moments in time.",
       rightLabel: "Direction", rightTitle: "A semantic model with evidence and time", rightBody: "The research tries to connect those sources in a shared model that distinguishes what is observed, declared, derived or inferred."
@@ -575,8 +575,8 @@ const en: Record<string, DetailContent> = {
     ...it["local-ai"],
     kicker: "Applied R&D / capability evaluation",
     lead: "A lab for understanding what a locally executed model can actually do on a specific workload, using reproducible evidence and explicit operating boundaries.",
-    statusLabel: "Thesis",
-    status: "A generic benchmark is not enough to decide whether real work should be entrusted to a model.",
+    statusLabel: "Repository state",
+    status: "Public Core 0.3.1 RC1 · hitch-local-ai==0.3.1 · schema 1.0.1.",
     comparison: {
       leftLabel: "Problem", leftTitle: "The model name is not a guarantee", leftBody: "Two models with similar benchmark scores can behave very differently when tools, constraints, structured outputs and real operational sequences are involved.",
       rightLabel: "Direction", rightTitle: "Test the workload before deployment", rightBody: "The path separates discovery, observed candidate, test, preflight, bounded run, evidence and comparison without turning one successful test into operational authorization."
@@ -592,8 +592,8 @@ const en: Record<string, DetailContent> = {
     ...it["opportunity-engine"],
     kicker: "Prototype / commercial intelligence",
     lead: "A commercial research prototype that tries to find companies by starting from observable operational problems instead of starting from lists and enriching them later.",
-    statusLabel: "Hypothesis",
-    status: "Prospecting quality may improve when research starts from the problem and preserves evidence.",
+    statusLabel: "Current milestone",
+    status: "Problem Research → Prospect Research → Qualification.",
     comparison: {
       leftLabel: "Common approach", leftTitle: "List → enrichment → outreach", leftBody: "Start with a set of companies and look for enough signals to personalize contact.",
       rightLabel: "Experiment", rightTitle: "Problem → signals → companies", rightBody: "Research operational patterns first, then identify companies showing those signals and finally try to qualify them with traceable sources."
@@ -627,7 +627,7 @@ const en: Record<string, DetailContent> = {
     kicker: "Research / epistemic AI",
     lead: "Research into AI systems that do not automatically compress conflicting evidence into one answer, but preserve history, contradictions, versions and the reasons behind conclusions.",
     statusLabel: "Phase",
-    status: "Feasibility research: scientific novelty and feasibility are not treated as already demonstrated.",
+    status: "Phase 0 — Call decomposition and research governance. No novelty claim is considered validated.",
     comparison: {
       leftLabel: "Problem", leftTitle: "An answer can hide the path that produced it", leftBody: "When sources, time or context conflict, merging everything into a single representation can erase important information.",
       rightLabel: "Direction", rightTitle: "Reasoning that carries its evidence", rightBody: "The research explores versioned graphs, epistemic branching, temporal contradiction, belief revision and planning that seeks new evidence when what is available is insufficient."
