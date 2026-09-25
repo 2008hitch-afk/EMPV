@@ -78,9 +78,9 @@ const copy = {
     labsLabel: "02 / AI Lab",
     labsTitle: "A lab for turning AI hypotheses into verifiable systems.",
     labsIntro:
-      "Not everything starts from a client brief. We explore products, infrastructure and research directions that may become standalone systems.",
+      "Here we develop and test AI projects that do not start from a client brief: infrastructure, products and research directions built to find out whether an idea can become a real system.",
     labsNote:
-      "Selected experiments, prototypes and research directions · some details intentionally remain undisclosed.",
+      "Evolving AI prototypes, experiments and projects · we make the direction public, not the details that form the technical advantage.",
     faqLabel: "03 / FAQ",
     faqTitle: "Questions worth clarifying.",
     faqIntro:
