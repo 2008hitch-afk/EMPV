@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type MouseEvent } from "react";
+import { useEffect, useMemo, useState, type CSSProperties, type MouseEvent } from "react";
 import { ArrowDownRight, ArrowUpRight, Languages } from "lucide-react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 
@@ -233,7 +233,7 @@ function ProjectCard({ project }: { project: Project }) {
         {
           "--spot-x": `${spot.x}%`,
           "--spot-y": `${spot.y}%`,
-        } as React.CSSProperties
+        } as CSSProperties
       }
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
