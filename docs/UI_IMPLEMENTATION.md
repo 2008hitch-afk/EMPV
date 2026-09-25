@@ -12,11 +12,11 @@ EMPV is intentionally designed as an editorial technology portfolio rather than 
 The current implementation adapts those ideas into project-owned React/CSS rather than importing whole repositories.
 
 ## Current visual system
-- Base: warm off-white paper + near-black ink
-- Signal color: orange-red
+- Base: warm off-white paper + near-black ink, kept visually continuous across sections
+- Accent: orange-red is reserved for subtle pointer/hover interaction rather than section fills
 - Type: Manrope + DM Mono
-- Motion: animated technical grid, scanning lines, ticker, viewport reveals, hover response
-- Portraits: abstract placeholders only; replace with real photography later
+- Motion: animated technical grid, scanning lines, viewport reveals and pointer-reactive ambient glow
+- Portraits: monochrome abstract placeholders only; replace with real photography later
 
 ## Content model
 1. Hero / positioning
