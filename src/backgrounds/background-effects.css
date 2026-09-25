@@ -37,7 +37,7 @@
 
 .effect-galaxy {
   filter: none;
-  mix-blend-mode: multiply;
+  mix-blend-mode: normal;
 }
 
 /* Galaxy hue is supplied by the selected repo-derived theme tint in the shader. */
