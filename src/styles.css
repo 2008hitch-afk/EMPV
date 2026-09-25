@@ -12,6 +12,9 @@
   --signal: #ff4b19;
   --hairline: rgba(17, 17, 15, 0.18);
   --mono: "DM Mono", "SFMono-Regular", Consolas, monospace;
+  --pointer-x: 50vw;
+  --pointer-y: 50vh;
+  --glow-opacity: 0;
 }
 
 * {
@@ -53,15 +56,12 @@ button {
 .detail-shell,
 .background-lab {
   min-height: 100vh;
-  --pointer-x: 50vw;
-  --pointer-y: 50vh;
-  --glow-opacity: 0;
 }
 
 .global-pointer-glow {
   position: fixed;
   inset: 0;
-  z-index: 45;
+  z-index: 48;
   pointer-events: none;
   opacity: var(--glow-opacity);
   background: radial-gradient(
