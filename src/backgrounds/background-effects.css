@@ -21,7 +21,13 @@
 .effect-threads,
 .effect-waves,
 .effect-galaxy,
-.effect-orb {
+.effect-orb,
+.effect-sliced-waves,
+.effect-side-rays,
+.effect-light-tunnel,
+.effect-scanner,
+.effect-prism,
+.effect-dither {
   pointer-events: auto;
 }
 
@@ -41,7 +47,13 @@
   .effect-threads,
   .effect-waves,
   .effect-galaxy,
-  .effect-orb {
+  .effect-orb,
+  .effect-sliced-waves,
+  .effect-side-rays,
+  .effect-light-tunnel,
+  .effect-scanner,
+  .effect-prism,
+  .effect-dither {
     pointer-events: none;
   }
 }
