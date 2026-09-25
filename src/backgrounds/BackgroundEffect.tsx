@@ -18,29 +18,51 @@ export type BackgroundName =
   | "prism"
   | "dither";
 
-export type GalaxyPalette = "steel" | "indigo" | "sage";
+export type GalaxyPalette =
+  | "mist"
+  | "zinc"
+  | "mauve"
+  | "olive"
+  | "taupe"
+  | "amber"
+  | "blue"
+  | "indigo";
 
 export const GALAXY_PALETTES: Record<
   GalaxyPalette,
-  { label: string; tint: [number, number, number]; hueShift: number; saturation: number }
+  { label: string; tint: [number, number, number] }
 > = {
-  steel: {
-    label: "Steel",
-    tint: [0.31, 0.48, 0.72],
-    hueShift: 212,
-    saturation: 0.14,
+  mist: {
+    label: "Mist",
+    tint: [0.4039, 0.4703, 0.4860],
+  },
+  zinc: {
+    label: "Zinc",
+    tint: [0.4430, 0.4429, 0.4838],
+  },
+  mauve: {
+    label: "Mauve",
+    tint: [0.4748, 0.4115, 0.4827],
+  },
+  olive: {
+    label: "Olive",
+    tint: [0.4860, 0.4859, 0.4035],
+  },
+  taupe: {
+    label: "Taupe",
+    tint: [0.4860, 0.4276, 0.4042],
+  },
+  amber: {
+    label: "Amber",
+    tint: [0.8838, 0.4434, 0.0],
+  },
+  blue: {
+    label: "Blue",
+    tint: [0.1693, 0.4980, 1.0],
   },
   indigo: {
     label: "Indigo",
-    tint: [0.48, 0.37, 0.70],
-    hueShift: 238,
-    saturation: 0.16,
-  },
-  sage: {
-    label: "Sage",
-    tint: [0.31, 0.58, 0.45],
-    hueShift: 158,
-    saturation: 0.14,
+    tint: [0.3822, 0.3719, 1.0],
   },
 };
 
@@ -176,7 +198,7 @@ export default function BackgroundEffect({
   name,
   tuning = DEFAULT_TUNING,
   className = "",
-  galaxyPalette = "steel",
+  galaxyPalette = "mist",
 }: {
   name: BackgroundName;
   tuning?: BackgroundTuning;
@@ -285,13 +307,13 @@ export default function BackgroundEffect({
           <Galaxy
             starSpeed={0.12 + speed * 0.35}
             density={0.38 + intensity * 0.82}
-            hueShift={galaxyColors.hueShift}
+            hueShift={0}
             speed={0.15 + speed * 0.55}
             mouseInteraction={tuning.pointer}
             glowIntensity={0.12 + intensity * 0.30}
-            saturation={galaxyColors.saturation}
+            saturation={0}
             tint={galaxyColors.tint}
-            tintStrength={0.97}
+            tintStrength={0}
             mouseRepulsion={tuning.pointer}
             twinkleIntensity={0.10 + intensity * 0.22}
             rotationSpeed={0.025 + speed * 0.08}
