@@ -19,6 +19,11 @@ type Project = {
   question?: string;
   state?: string;
   focus?: string;
+  processVisual?: {
+    input: string;
+    core: string;
+    outputs: string[];
+  };
 };
 
 const copy = {
@@ -113,6 +118,11 @@ const selected: Record<Lang, Project[]> = {
         "Da informazioni distribuite tra cartelle, ufficio, officina e sopralluoghi a un unico sistema che accompagna la commessa dal rilievo alla posa.",
       meta: ["Commesse", "Campo → officina", "Dati condivisi", "Automazioni"],
       accent: "infisso",
+      processVisual: {
+        input: "Sopralluogo + rilievi",
+        core: "Commessa unica",
+        outputs: ["Amministrazione", "Officina", "Materiali", "Posa"],
+      },
     },
     {
       index: "02",
@@ -123,6 +133,11 @@ const selected: Record<Lang, Project[]> = {
         "Un unico sistema per coordinare pazienti, professionisti, appuntamenti, sedute e amministrazione, rispettando ruoli e responsabilità differenti.",
       meta: ["Operations", "Scheduling", "Ruoli", "Amministrazione"],
       accent: "change",
+      processVisual: {
+        input: "Paziente + appuntamento",
+        core: "Flusso condiviso",
+        outputs: ["Professionista", "Segreteria", "Pagamenti", "Amministrazione"],
+      },
     },
     {
       index: "03",
@@ -133,6 +148,11 @@ const selected: Record<Lang, Project[]> = {
         "Prenotazione cliente e lavoro quotidiano dello staff nello stesso sistema: soggiorni, disponibilità, attività, grooming, documenti e pagamenti.",
       meta: ["Hospitality ops", "Booking", "Area cliente", "Daily operations"],
       accent: "kennel",
+      processVisual: {
+        input: "Prenotazione",
+        core: "Soggiorno",
+        outputs: ["Disponibilità", "Operativo giornaliero", "Grooming", "Pagamenti"],
+      },
     },
     {
       index: "04",
@@ -143,6 +163,11 @@ const selected: Record<Lang, Project[]> = {
         "Da richieste libere e difficili da valutare a un percorso guidato che raccoglie le informazioni necessarie prima che Cube prepari il preventivo.",
       meta: ["Lead flow", "Richiesta guidata", "Website", "Human review"],
       accent: "cube",
+      processVisual: {
+        input: "Richiesta evento",
+        core: "Percorso guidato",
+        outputs: ["Dati completi", "Valutazione Cube", "Preventivo"],
+      },
     },
   ],
   en: [
@@ -155,6 +180,11 @@ const selected: Record<Lang, Project[]> = {
         "From information split across folders, office, workshop and site surveys to one system that follows each job from measurement to installation.",
       meta: ["Jobs", "Field → workshop", "Shared data", "Automation"],
       accent: "infisso",
+      processVisual: {
+        input: "Site survey + measurements",
+        core: "One shared job",
+        outputs: ["Administration", "Workshop", "Materials", "Installation"],
+      },
     },
     {
       index: "02",
@@ -165,6 +195,11 @@ const selected: Record<Lang, Project[]> = {
         "One operating system for patients, professionals, appointments, sessions and administration, while preserving distinct roles and responsibilities.",
       meta: ["Operations", "Scheduling", "Roles", "Administration"],
       accent: "change",
+      processVisual: {
+        input: "Patient + appointment",
+        core: "Shared workflow",
+        outputs: ["Professional", "Secretariat", "Payments", "Administration"],
+      },
     },
     {
       index: "03",
@@ -175,6 +210,11 @@ const selected: Record<Lang, Project[]> = {
         "Customer booking and staff operations in the same system: stays, availability, tasks, grooming, documents and payments.",
       meta: ["Hospitality ops", "Booking", "Customer area", "Daily operations"],
       accent: "kennel",
+      processVisual: {
+        input: "Booking",
+        core: "Stay",
+        outputs: ["Availability", "Daily operations", "Grooming", "Payments"],
+      },
     },
     {
       index: "04",
@@ -185,6 +225,11 @@ const selected: Record<Lang, Project[]> = {
         "From unstructured requests that were hard to evaluate to a guided flow that collects the information Cube needs before preparing a quote.",
       meta: ["Lead flow", "Guided request", "Website", "Human review"],
       accent: "cube",
+      processVisual: {
+        input: "Event request",
+        core: "Guided request",
+        outputs: ["Complete brief", "Cube review", "Quote"],
+      },
     },
   ],
 };
@@ -402,14 +447,35 @@ const labs: Record<Lang, Project[]> = {
   ],
 };
 
-function ProjectVisual({ accent, index }: { accent: string; index: string }) {
+function ProjectVisual({ project }: { project: Project }) {
+  if (!project.processVisual) return null;
+
+  const { input, core, outputs } = project.processVisual;
+
   return (
-    <div className={`project-visual visual-${accent}`} aria-hidden="true">
-      <div className="visual-grid" />
-      <div className="visual-orbit orbit-a" />
-      <div className="visual-orbit orbit-b" />
-      <div className="visual-core">{index}</div>
-      <div className="visual-coordinate">EMPV / {accent.toUpperCase()} / 26</div>
+    <div className={`project-visual process-visual visual-${project.accent}`} aria-hidden="true">
+      <div className="process-stage process-input">
+        <span>01</span>
+        <strong>{input}</strong>
+      </div>
+
+      <div className="process-connector" />
+
+      <div className="process-stage process-core">
+        <span>02</span>
+        <strong>{core}</strong>
+      </div>
+
+      <div className="process-connector process-connector-output" />
+
+      <div className="process-outputs">
+        {outputs.map((output, index) => (
+          <div className="process-output" key={output}>
+            <span>{String(index + 3).padStart(2, "0")}</span>
+            <strong>{output}</strong>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
@@ -441,7 +507,7 @@ function ProjectCard({ project, href }: { project: Project; href: string }) {
       viewport={{ once: true, margin: "-8%" }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
-      <ProjectVisual accent={project.accent} index={project.index} />
+      <ProjectVisual project={project} />
       <div className="project-copy">
         <div className="project-topline">
           <span>{project.index}</span>
@@ -531,41 +597,30 @@ function LabRow({
   );
 }
 
-function PortraitPlaceholder({
-  initials,
+function PersonProfile({
   name,
   role,
   text,
-  note,
   variant,
 }: {
-  initials: string;
   name: string;
   role: string;
   text: string;
-  note: string;
   variant: "a" | "b";
 }) {
   return (
     <motion.article
-      className="person"
-      initial={{ opacity: 0, y: 32 }}
+      className="person person-editorial"
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-10%" }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className={`portrait portrait-${variant}`}>
-        <div className="portrait-noise" />
-        <div className="portrait-ring ring-1" />
-        <div className="portrait-ring ring-2" />
-        <div className="portrait-initials">{initials}</div>
-        <span>{note}</span>
-      </div>
-      <div className="person-copy">
-        <div className="person-index">{variant === "a" ? "E / 01" : "M / 02"}</div>
-        <h3>{name}</h3>
+      <div className="person-index">{variant === "a" ? "01" : "02"}</div>
+      <div className="person-editorial-copy">
         <p className="role">{role}</p>
-        <p>{text}</p>
+        <h3>{name}</h3>
+        <p className="person-description">{text}</p>
       </div>
     </motion.article>
   );
@@ -703,15 +758,7 @@ function PortfolioApp() {
 
       <main>
         <section className="hero" id="top">
-          {activeBackground === "none" ? (
-            <div className="tech-field" aria-hidden="true">
-              <div className="scan scan-a" />
-              <div className="scan scan-b" />
-              <div className="signal-dot dot-a" />
-              <div className="signal-dot dot-b" />
-              <div className="signal-dot dot-c" />
-            </div>
-          ) : (
+          {activeBackground !== "none" && (
             <BackgroundEffect name={activeBackground} className="hero-background-effect" />
           )}
 
@@ -730,11 +777,6 @@ function PortfolioApp() {
             </div>
           </motion.div>
 
-          <div className="hero-code" aria-hidden="true">
-            <span>45.6983° N</span>
-            <span>09.6773° E</span>
-            <span>SYS / PROD / AI</span>
-          </div>
         </section>
 
         <section className="manifesto section-pad">
@@ -825,20 +867,16 @@ function PortfolioApp() {
           </div>
 
           <div className="people-grid">
-            <PortraitPlaceholder
-              initials="EP"
+            <PersonProfile
               name="Enrico Peruffo"
               role={c.enricoRole}
               text={c.enricoText}
-              note={c.portraitNote}
               variant="a"
             />
-            <PortraitPlaceholder
-              initials="MV"
+            <PersonProfile
               name="Michele Valleri"
               role={c.micheleRole}
               text={c.micheleText}
-              note={c.portraitNote}
               variant="b"
             />
           </div>
