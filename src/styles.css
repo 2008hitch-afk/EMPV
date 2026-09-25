@@ -49,7 +49,9 @@ button {
   color: var(--paper);
 }
 
-.site-shell {
+.site-shell,
+.detail-shell,
+.background-lab {
   min-height: 100vh;
   --pointer-x: 50vw;
   --pointer-y: 50vh;
