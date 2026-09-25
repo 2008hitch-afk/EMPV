@@ -53,7 +53,12 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
         ? "Torna a In sviluppo"
         : "Back to In development";
 
-  const backHref = detail.type === "project" ? "./#work" : "./#labs";
+  const activeBg = new URLSearchParams(window.location.search).get("bg");
+  const bgParam = activeBg ? `?bg=${activeBg}` : "";
+  const backHref =
+    detail.type === "project"
+      ? `./${bgParam}#work`
+      : `./${bgParam}#labs`;
 
   function toggleLang() {
     setLang((current) => {
