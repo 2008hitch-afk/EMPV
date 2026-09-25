@@ -557,109 +557,69 @@ footer {
   position: relative;
   min-height: 350px;
   overflow: hidden;
-  border: 1px solid var(--hairline);
-  background: color-mix(in srgb, var(--paper) 94%, var(--ink) 6%);
-  color: var(--ink);
+  background: var(--visual-dark);
+  color: var(--paper);
+  border-radius: 2px;
   isolation: isolate;
 }
 
-.process-visual {
-  display: grid;
-  grid-template-columns: minmax(118px, 0.8fr) 54px minmax(138px, 0.9fr) 54px minmax(168px, 1.2fr);
-  align-items: center;
-  gap: 0;
-  padding: 32px;
-}
-
-.process-stage,
-.process-output {
-  position: relative;
-  border-top: 1px solid var(--hairline);
-  padding-top: 12px;
-}
-
-.process-stage span,
-.process-output span {
-  display: block;
-  margin-bottom: 7px;
-  color: var(--muted);
-  font-size: 0.62rem;
-  letter-spacing: 0.045em;
-}
-
-.process-stage strong,
-.process-output strong {
-  display: block;
-  font-size: clamp(0.95rem, 1.35vw, 1.3rem);
-  line-height: 1.2;
-  letter-spacing: -0.025em;
-  font-weight: 600;
-}
-
-.process-core {
-  align-self: stretch;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 24px 18px;
-  border: 1px solid var(--ink);
-  background: var(--ink);
-  color: var(--paper);
-}
-
-.process-core span {
-  color: color-mix(in srgb, var(--paper) 62%, transparent);
-}
-
-.process-connector {
-  position: relative;
-  height: 1px;
-  margin: 0 10px;
-  background: var(--hairline);
-}
-
-.process-connector::after {
-  content: "";
+.visual-grid {
   position: absolute;
-  right: -1px;
-  top: 50%;
-  width: 6px;
-  height: 6px;
-  border-top: 1px solid var(--ink);
-  border-right: 1px solid var(--ink);
-  transform: translateY(-50%) rotate(45deg);
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+  background-size: 38px 38px;
+  mask-image: radial-gradient(circle at 50% 50%, black, transparent 78%);
 }
 
-.process-outputs {
-  display: grid;
-  gap: 18px;
-}
-
-.process-output {
-  padding-left: 14px;
-}
-
-.process-output::before {
-  content: "";
+.visual-orbit {
   position: absolute;
-  left: 0;
-  top: 17px;
-  width: 5px;
-  height: 5px;
+  border: 1px solid rgba(255,255,255,0.45);
   border-radius: 50%;
-  background: var(--ink);
+  transition: transform 700ms cubic-bezier(.22,1,.36,1);
 }
 
-.project-card:hover .process-core {
-  transform: translateY(-2px);
+.orbit-a {
+  width: 70%;
+  aspect-ratio: 1;
+  left: 15%;
+  top: -5%;
 }
 
-.process-core {
-  transition: transform 260ms cubic-bezier(.22,1,.36,1);
+.orbit-b {
+  width: 42%;
+  aspect-ratio: 1;
+  right: 8%;
+  bottom: -8%;
 }
 
-:root[data-visual-theme="galaxy"] .project-visual {
-  background: rgba(232, 235, 240, 0.48);
+.project-card:hover .orbit-a {
+  transform: rotate(16deg) scale(1.08);
+}
+
+.project-card:hover .orbit-b {
+  transform: rotate(-24deg) scale(0.92);
+}
+
+.visual-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: clamp(6rem, 11vw, 10rem);
+  line-height: 1;
+  letter-spacing: -0.1em;
+  font-weight: 600;
+  color: var(--visual-paper);
+  mix-blend-mode: screen;
+}
+
+.visual-coordinate {
+  position: absolute;
+  bottom: 18px;
+  left: 18px;
+  color: rgba(255,255,255,0.6);
 }
 
 .project-copy {
@@ -1301,27 +1261,7 @@ footer {
   }
 
   .project-visual {
-    min-height: 300px;
-  }
-
-  .process-visual {
-    grid-template-columns: minmax(110px, 0.9fr) 38px minmax(130px, 1fr);
-    grid-template-rows: auto auto;
-    gap: 18px 0;
-    padding: 26px 22px;
-  }
-
-  .process-connector-output {
-    display: none;
-  }
-
-  .process-outputs {
-    grid-column: 1 / -1;
-    grid-row: 2;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 14px 20px;
-    padding-top: 18px;
-    border-top: 1px solid var(--hairline);
+    min-height: 52vw;
   }
 
   .project-copy {
@@ -1401,42 +1341,7 @@ footer {
   }
 
   .project-visual {
-    min-height: 0;
-  }
-
-  .process-visual {
-    display: block;
-    padding: 22px 18px;
-  }
-
-  .process-stage {
-    margin-bottom: 20px;
-  }
-
-  .process-connector {
-    width: 1px;
-    height: 24px;
-    margin: -10px 0 10px 12px;
-    background: var(--hairline);
-  }
-
-  .process-connector::after {
-    right: auto;
-    left: -2px;
-    top: auto;
-    bottom: -1px;
-    transform: rotate(135deg);
-  }
-
-  .process-core {
-    margin-bottom: 24px;
-  }
-
-  .process-outputs {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 12px;
-    padding-top: 16px;
+    min-height: 72vw;
   }
 
   .project-copy h3 {
