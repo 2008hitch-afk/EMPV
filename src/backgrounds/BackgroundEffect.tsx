@@ -313,7 +313,6 @@ export default function BackgroundEffect({
             glowIntensity={0.12 + intensity * 0.30}
             saturation={0}
             tint={galaxyColors.tint}
-            tintStrength={0}
             mouseRepulsion={tuning.pointer}
             twinkleIntensity={0.10 + intensity * 0.22}
             rotationSpeed={0.025 + speed * 0.08}
