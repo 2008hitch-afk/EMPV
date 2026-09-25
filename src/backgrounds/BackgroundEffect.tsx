@@ -108,7 +108,7 @@ export default function BackgroundEffect({
   return (
     <div
       className={`background-effect effect-${name} ${className}`}
-      style={{ opacity: 0.26 + intensity * 0.5 }}
+      style={{ opacity: 0.48 + intensity * 0.42 }}
       aria-hidden="true"
     >
       <Suspense fallback={<div className="background-effect-loading" />}>
@@ -116,8 +116,8 @@ export default function BackgroundEffect({
           <Floating3DParticles
             quantity={Math.round(130 + intensity * 430)}
             color="#11110f"
-            size={0.8 + intensity * 1.8}
-            opacity={0.08 + intensity * 0.2}
+            size={1.1 + intensity * 2.4}
+            opacity={0.2 + intensity * 0.38}
             drift={0.04 + speed * 0.32}
             depth={depth}
           />
@@ -160,14 +160,14 @@ export default function BackgroundEffect({
             beamWidth={1.4}
             beamHeight={16}
             beamNumber={Math.round(7 + intensity * 7)}
-            lightColor="#ffffff"
-            beamColor="#242420"
+            lightColor="#2b2b27"
+            beamColor="#10100e"
             backgroundColor="#ecebe5"
             speed={0.18 + speed * 0.72}
-            noiseIntensity={0.4 + intensity * 1.2}
+            noiseIntensity={0.65 + intensity * 1.6}
             scale={0.1 + depth * 0.13}
             rotation={-8}
-            lightMode
+            lightMode={false}
           />
         )}
 
