@@ -17,68 +17,74 @@ type Project = {
 
 const copy = {
   it: {
-    nav: { work: "Lavori", labs: "Labs / R&D", people: "Chi siamo" },
-    heroEyebrow: "Portfolio indipendente · Bergamo, IT",
-    heroTitleA: "Sistemi, prodotti",
-    heroTitleB: "e ricerca applicata.",
+    nav: { work: "Progetti", labs: "In sviluppo", people: "Enrico + Michele" },
+    heroEyebrow: "Enrico Peruffo × Michele Valleri · Bergamo",
+    heroTitleA: "Progettiamo sistemi",
+    heroTitleB: "intorno al lavoro reale.",
     heroBody:
-      "EMPV è il portfolio di Enrico Peruffo e Michele Valleri. Progettiamo e costruiamo software, automazioni e sistemi AI partendo dal problema, non dalla tecnologia.",
-    scroll: "Scorri per esplorare",
+      "Entriamo nei processi, capiamo dove si perdono tempo e informazioni e costruiamo il sistema digitale necessario: software, automazioni e AI solo quando servono davvero.",
+    scroll: "Esplora i progetti",
     manifesto:
-      "Ci interessa ciò che succede tra un problema reale e un sistema che funziona. Analizziamo il lavoro, scegliamo gli strumenti giusti e costruiamo solo ciò che serve.",
-    selectedLabel: "01 / Selected work",
-    selectedTitle: "Lavori selezionati",
+      "Non partiamo da una tecnologia da utilizzare. Partiamo da come viene svolto il lavoro: chi fa cosa, dove si ripetono le informazioni, cosa rallenta il processo e quali decisioni devono restare alle persone. Da lì decidiamo cosa costruire.",
+    selectedLabel: "01 / Progetti",
+    selectedTitle: "Progetti realizzati",
     selectedIntro:
-      "Progetti costruiti attorno a flussi reali, persone reali e vincoli operativi reali.",
-    labsLabel: "02 / Labs & R&D",
-    labsTitle: "Costruiamo anche ciò che ancora non esiste.",
+      "Ogni progetto parte da un processo esistente. Il risultato non è uno stack tecnologico: è un modo diverso di lavorare.",
+    labsLabel: "02 / In sviluppo",
+    labsTitle: "Alcune domande meritano di diventare progetti.",
     labsIntro:
-      "Prodotti proprietari, infrastruttura AI locale e ricerca sperimentale: il laboratorio dove testiamo idee prima che diventino sistemi.",
+      "Non tutto nasce da un brief cliente. Esploriamo prodotti, infrastrutture e linee di ricerca che potrebbero diventare sistemi autonomi.",
+    labsNote:
+      "Esperimenti, prototipi e direzioni di ricerca selezionate · alcuni dettagli restano intenzionalmente non pubblici.",
     peopleLabel: "03 / People",
-    peopleTitle: "Due prospettive. Un unico modo di costruire.",
-    enricoRole: "AI & Systems Engineer",
+    peopleTitle: "Enrico + Michele",
+    peopleIntro:
+      "I progetti nascono nel punto in cui progettazione del processo e costruzione tecnica si incontrano.",
+    enricoRole: "AI & Systems Engineering",
     enricoText:
-      "Architetture software, AI locale, orchestrazione, infrastruttura e sistemi tecnici. Trasforma idee complesse in ambienti eseguibili e verificabili.",
-    micheleRole: "Product, Process & AI Specialist",
+      "Architetture software, infrastruttura, AI locale, orchestrazione e implementazione tecnica. Porta sistemi complessi da ipotesi a ambienti eseguibili e verificabili.",
+    micheleRole: "Product & Process Design",
     micheleText:
-      "Analisi dei processi, product architecture, workflow e applicazione dell’AI al lavoro reale. Trasforma problemi poco definiti in sistemi costruibili.",
+      "Analisi dei processi, progettazione del prodotto e trasformazione dei problemi operativi in sistemi costruibili.",
     portraitNote: "Ritratto in arrivo",
     footerTop: "EMPV / Enrico + Michele",
-    footerBottom: "Software · Systems · AI · Product · Research",
+    footerBottom: "Systems · Products · AI · Research",
     language: "EN",
-    projectKind: "Progetto",
   },
   en: {
-    nav: { work: "Work", labs: "Labs / R&D", people: "People" },
-    heroEyebrow: "Independent portfolio · Bergamo, IT",
-    heroTitleA: "Systems, products",
-    heroTitleB: "and applied research.",
+    nav: { work: "Projects", labs: "In development", people: "Enrico + Michele" },
+    heroEyebrow: "Enrico Peruffo × Michele Valleri · Bergamo",
+    heroTitleA: "We design systems",
+    heroTitleB: "around real work.",
     heroBody:
-      "EMPV is the portfolio of Enrico Peruffo and Michele Valleri. We design and build software, automation and AI systems starting from the problem — not the technology.",
-    scroll: "Scroll to explore",
+      "We step into processes, understand where time and information are lost, then build the digital system that is actually needed — software, automation and AI only when they add real value.",
+    scroll: "Explore projects",
     manifesto:
-      "We care about what happens between a real problem and a system that works. We study the work, choose the right tools and build only what is needed.",
-    selectedLabel: "01 / Selected work",
-    selectedTitle: "Selected work",
+      "We do not start with a technology to deploy. We start with how work is actually done: who does what, where information is repeated, what slows the process down and which decisions should remain human. From there, we decide what to build.",
+    selectedLabel: "01 / Projects",
+    selectedTitle: "Projects delivered",
     selectedIntro:
-      "Projects shaped around real workflows, real people and real operational constraints.",
-    labsLabel: "02 / Labs & R&D",
-    labsTitle: "We also build what does not exist yet.",
+      "Every project starts from an existing process. The outcome is not a technology stack: it is a different way of working.",
+    labsLabel: "02 / In development",
+    labsTitle: "Some questions are worth turning into projects.",
     labsIntro:
-      "Proprietary products, local AI infrastructure and experimental research: the lab where ideas are tested before they become systems.",
+      "Not everything starts from a client brief. We explore products, infrastructure and research directions that may become standalone systems.",
+    labsNote:
+      "Selected experiments, prototypes and research directions · some details intentionally remain undisclosed.",
     peopleLabel: "03 / People",
-    peopleTitle: "Two perspectives. One way of building.",
-    enricoRole: "AI & Systems Engineer",
+    peopleTitle: "Enrico + Michele",
+    peopleIntro:
+      "Projects take shape where process design and technical execution meet.",
+    enricoRole: "AI & Systems Engineering",
     enricoText:
-      "Software architecture, local AI, orchestration, infrastructure and technical systems. Turns complex ideas into executable, verifiable environments.",
-    micheleRole: "Product, Process & AI Specialist",
+      "Software architecture, infrastructure, local AI, orchestration and technical implementation. Turns complex hypotheses into executable and verifiable systems.",
+    micheleRole: "Product & Process Design",
     micheleText:
-      "Process analysis, product architecture, workflows and applied AI. Turns loosely defined problems into systems that can actually be built.",
+      "Process analysis, product design and the transformation of operational problems into systems that can actually be built.",
     portraitNote: "Portrait coming soon",
     footerTop: "EMPV / Enrico + Michele",
-    footerBottom: "Software · Systems · AI · Product · Research",
+    footerBottom: "Systems · Products · AI · Research",
     language: "IT",
-    projectKind: "Project",
   },
 } as const;
 
@@ -86,58 +92,76 @@ const selected: Record<Lang, Project[]> = {
   it: [
     {
       index: "01",
-      name: "Cloeshouse Pet Resort",
-      kind: "Client work",
+      name: "L'Infisso",
+      kind: "Progetto cliente",
       description:
-        "Sistema digitale end-to-end per prenotazioni, area cliente, operatività giornaliera, grooming, documenti e flussi di pagamento.",
-      meta: ["Product system", "Laravel", "Booking", "Operations"],
-      accent: "kennel",
+        "Da informazioni distribuite tra cartelle, ufficio, officina e sopralluoghi a un unico sistema che accompagna la commessa dal rilievo alla posa.",
+      meta: ["Commesse", "Campo → officina", "Dati condivisi", "Automazioni"],
+      accent: "infisso",
     },
     {
       index: "02",
       name: "Centro Change",
-      kind: "Client work",
+      kind: "Progetto cliente",
       description:
-        "Piattaforma operativa per un centro di psicologia: ruoli, prenotazioni, sedute, pagamenti, indisponibilità e conteggi mensili.",
-      meta: ["Workflow", "Frappe", "Roles", "Operations"],
+        "Un unico sistema per coordinare pazienti, professionisti, appuntamenti, sedute e amministrazione, rispettando ruoli e responsabilità differenti.",
+      meta: ["Operations", "Scheduling", "Ruoli", "Amministrazione"],
       accent: "change",
     },
     {
       index: "03",
-      name: "Cube Audio Service",
-      kind: "Client work",
+      name: "Cloeshouse Pet Resort",
+      kind: "Progetto cliente",
       description:
-        "Presenza digitale e sistema di richiesta strutturato per un service audio, con architettura pronta al deploy e gestione lead senza database.",
-      meta: ["Website", "Laravel", "Lead flow", "Deployment"],
+        "Prenotazione cliente e lavoro quotidiano dello staff nello stesso sistema: soggiorni, disponibilità, attività, grooming, documenti e pagamenti.",
+      meta: ["Hospitality ops", "Booking", "Area cliente", "Daily operations"],
+      accent: "kennel",
+    },
+    {
+      index: "04",
+      name: "Cube Audio Service",
+      kind: "Progetto cliente",
+      description:
+        "Da richieste libere e difficili da valutare a un percorso guidato che raccoglie le informazioni necessarie prima che Cube prepari il preventivo.",
+      meta: ["Lead flow", "Richiesta guidata", "Website", "Human review"],
       accent: "cube",
     },
   ],
   en: [
     {
       index: "01",
-      name: "Cloeshouse Pet Resort",
-      kind: "Client work",
+      name: "L'Infisso",
+      kind: "Client project",
       description:
-        "An end-to-end digital system for booking, customer area, daily operations, grooming, documents and payment flows.",
-      meta: ["Product system", "Laravel", "Booking", "Operations"],
-      accent: "kennel",
+        "From information split across folders, office, workshop and site surveys to one system that follows each job from measurement to installation.",
+      meta: ["Jobs", "Field → workshop", "Shared data", "Automation"],
+      accent: "infisso",
     },
     {
       index: "02",
       name: "Centro Change",
-      kind: "Client work",
+      kind: "Client project",
       description:
-        "An operating platform for a psychology center: roles, appointments, sessions, payments, availability and monthly reconciliation.",
-      meta: ["Workflow", "Frappe", "Roles", "Operations"],
+        "One operating system for patients, professionals, appointments, sessions and administration, while preserving distinct roles and responsibilities.",
+      meta: ["Operations", "Scheduling", "Roles", "Administration"],
       accent: "change",
     },
     {
       index: "03",
-      name: "Cube Audio Service",
-      kind: "Client work",
+      name: "Cloeshouse Pet Resort",
+      kind: "Client project",
       description:
-        "Digital presence and structured request system for an audio service company, with deploy-ready architecture and database-free lead handling.",
-      meta: ["Website", "Laravel", "Lead flow", "Deployment"],
+        "Customer booking and staff operations in the same system: stays, availability, tasks, grooming, documents and payments.",
+      meta: ["Hospitality ops", "Booking", "Customer area", "Daily operations"],
+      accent: "kennel",
+    },
+    {
+      index: "04",
+      name: "Cube Audio Service",
+      kind: "Client project",
+      description:
+        "From unstructured requests that were hard to evaluate to a guided flow that collects the information Cube needs before preparing a quote.",
+      meta: ["Lead flow", "Guided request", "Website", "Human review"],
       accent: "cube",
     },
   ],
@@ -147,59 +171,95 @@ const labs: Record<Lang, Project[]> = {
   it: [
     {
       index: "A",
-      name: "Pet Operations SaaS",
-      kind: "Product",
+      name: "System Twin",
+      kind: "Exploration",
       description:
-        "Gestionale multi-tenant per strutture pet: booking engine, area cliente, task, soggiorni, configurazione commerciale e reporting operativo.",
-      meta: ["SaaS", "Multi-tenant", "Operations", "Product"],
-      accent: "saas",
+        "Sistemi capaci di ricostruire e spiegare automaticamente come funziona davvero un software complesso a partire dalle evidenze che produce.",
+      meta: ["System understanding", "Evidence", "Architecture"],
+      accent: "twin",
     },
     {
       index: "B",
-      name: "Local AI Capability Lab",
-      kind: "Open R&D",
+      name: "Local AI",
+      kind: "Applied R&D",
       description:
-        "Framework per descrivere, testare e validare workload AI locali con evidenze riproducibili, confini operativi espliciti e qualificazione verificabile.",
-      meta: ["Local AI", "Evaluation", "Evidence", "Open source"],
+        "Un laboratorio per misurare quali compiti un modello AI locale sa realmente svolgere, con prove riproducibili invece di benchmark generici.",
+      meta: ["Local models", "Evaluation", "Evidence"],
       accent: "local",
     },
     {
       index: "C",
-      name: "DeepRAP / Epistemic AI",
+      name: "Opportunity Engine",
+      kind: "Prototype",
+      description:
+        "Una macchina di ricerca commerciale che parte dai problemi operativi osservabili e cerca aziende che mostrano quei segnali, invece di partire da liste di prospect.",
+      meta: ["Problem discovery", "Research", "Qualification"],
+      accent: "opportunity",
+    },
+    {
+      index: "D",
+      name: "Vertical Operations",
+      kind: "Product direction",
+      description:
+        "Sistemi operativi verticali che collegano acquisto del cliente, configurazione del servizio e lavoro quotidiano dello staff nello stesso prodotto.",
+      meta: ["Vertical SaaS", "Operations", "Product"],
+      accent: "vertical",
+    },
+    {
+      index: "E",
+      name: "Trustworthy Reasoning",
       kind: "Research",
       description:
-        "Ricerca su evidence graphs, branching epistemico, contraddizioni temporali, belief revision e planning verificabile per sistemi cognitive AI.",
-      meta: ["Research", "Knowledge graphs", "Reasoning", "Trust"],
-      accent: "deep",
+        "Ricerca su AI che mantiene evidenze, versioni, contraddizioni e incertezza invece di nasconderle dietro una singola risposta.",
+      meta: ["Reasoning", "Evidence", "Trust"],
+      accent: "reasoning",
     },
   ],
   en: [
     {
       index: "A",
-      name: "Pet Operations SaaS",
-      kind: "Product",
+      name: "System Twin",
+      kind: "Exploration",
       description:
-        "A multi-tenant operating platform for pet facilities: booking engine, customer area, tasks, stays, commercial configuration and operational reporting.",
-      meta: ["SaaS", "Multi-tenant", "Operations", "Product"],
-      accent: "saas",
+        "Systems that can reconstruct and explain how complex software actually works from the evidence it produces.",
+      meta: ["System understanding", "Evidence", "Architecture"],
+      accent: "twin",
     },
     {
       index: "B",
-      name: "Local AI Capability Lab",
-      kind: "Open R&D",
+      name: "Local AI",
+      kind: "Applied R&D",
       description:
-        "A framework to describe, test and validate local-AI workloads through reproducible evidence, explicit operational boundaries and verifiable qualification.",
-      meta: ["Local AI", "Evaluation", "Evidence", "Open source"],
+        "A lab for measuring which tasks a local AI model can actually perform, using reproducible evidence instead of generic benchmarks.",
+      meta: ["Local models", "Evaluation", "Evidence"],
       accent: "local",
     },
     {
       index: "C",
-      name: "DeepRAP / Epistemic AI",
+      name: "Opportunity Engine",
+      kind: "Prototype",
+      description:
+        "A commercial research machine that starts from observable operational problems and looks for companies showing those signals instead of starting from prospect lists.",
+      meta: ["Problem discovery", "Research", "Qualification"],
+      accent: "opportunity",
+    },
+    {
+      index: "D",
+      name: "Vertical Operations",
+      kind: "Product direction",
+      description:
+        "Vertical operating systems connecting what customers buy, how the service is configured and the daily work generated for staff.",
+      meta: ["Vertical SaaS", "Operations", "Product"],
+      accent: "vertical",
+    },
+    {
+      index: "E",
+      name: "Trustworthy Reasoning",
       kind: "Research",
       description:
-        "Research into evidence graphs, epistemic branching, temporal contradiction, belief revision and verifiable planning for cognitive AI systems.",
-      meta: ["Research", "Knowledge graphs", "Reasoning", "Trust"],
-      accent: "deep",
+        "Research into AI systems that preserve evidence, versions, contradictions and uncertainty instead of hiding them behind a single answer.",
+      meta: ["Reasoning", "Evidence", "Trust"],
+      accent: "reasoning",
     },
   ],
 };
@@ -421,9 +481,11 @@ function PortfolioApp() {
         </section>
 
         <section className="labs section-pad" id="labs">
-          <div className="labs-intro">
-            <div className="eyebrow">{c.labsLabel}</div>
-            <h2>{c.labsTitle}</h2>
+          <div className="section-head labs-head">
+            <div>
+              <div className="eyebrow">{c.labsLabel}</div>
+              <h2>{c.labsTitle}</h2>
+            </div>
             <p>{c.labsIntro}</p>
           </div>
 
@@ -452,6 +514,7 @@ function PortfolioApp() {
               </motion.article>
             ))}
           </div>
+          <p className="labs-note">{c.labsNote}</p>
         </section>
 
         <section className="people section-pad" id="people">
@@ -460,6 +523,7 @@ function PortfolioApp() {
               <div className="eyebrow">{c.peopleLabel}</div>
               <h2>{c.peopleTitle}</h2>
             </div>
+            <p>{c.peopleIntro}</p>
           </div>
 
           <div className="people-grid">
