@@ -484,16 +484,15 @@ function LabRow({
       <div className="lab-identity">
         <span className="lab-kind">{project.kind}</span>
         <h3>{project.name}</h3>
-        <p className="lab-description">{project.description}</p>
-        <p className="lab-meta">{project.meta.join(" · ")}</p>
       </div>
 
-      <div className="lab-question">
-        <span>{lang === "it" ? "Cosa stiamo testando" : "What we are testing"}</span>
-        <strong>{project.question}</strong>
-      </div>
+      <div className="lab-content">
+        <div className="lab-question">
+          <span>{lang === "it" ? "Cosa stiamo testando" : "What we are testing"}</span>
+          <strong>{project.question}</strong>
+        </div>
 
-      <div className="lab-evidence">
+        <div className="lab-evidence">
         <div className="lab-state">
           <span>{lang === "it" ? "Stato del repo" : "Repository state"}</span>
           <p>{project.state}</p>
@@ -501,6 +500,7 @@ function LabRow({
         <div className="lab-focus">
           <span>{lang === "it" ? "Focus corrente" : "Current focus"}</span>
           <p>{project.focus}</p>
+        </div>
         </div>
       </div>
 
