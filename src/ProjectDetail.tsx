@@ -49,9 +49,7 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
       ? lang === "it"
         ? "Torna ai progetti"
         : "Back to projects"
-      : lang === "it"
-        ? "Torna a In sviluppo"
-        : "Back to In development";
+      : "AI Lab";
 
   const activeBg = new URLSearchParams(window.location.search).get("bg");
   const bgParam = activeBg ? `?bg=${activeBg}` : "";
@@ -100,7 +98,7 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
           >
             <div className="detail-kicker-row">
               <span className="eyebrow">
-                EMPV / {detail.type === "project" ? (lang === "it" ? "Progetto" : "Project") : "R&D"}
+                EMPV / {detail.type === "project" ? (lang === "it" ? "Progetto" : "Project") : "AI Lab"}
               </span>
               <span className="detail-index">{detail.index}</span>
             </div>
