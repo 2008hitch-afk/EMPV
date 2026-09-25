@@ -47,7 +47,7 @@ const copy = {
     faqIntro:
       "Il punto non è applicare più tecnologia. È capire quale cambiamento serve davvero, cosa conviene costruire e quali limiti mantenere espliciti.",
     peopleLabel: "04 / People",
-    peopleTitle: "Enrico + Michele",
+    peopleTitle: "Scopri il team",
     peopleIntro:
       "I progetti nascono nel punto in cui progettazione del processo e costruzione tecnica si incontrano.",
     enricoRole: "AI & Systems Engineering",
@@ -86,7 +86,7 @@ const copy = {
     faqIntro:
       "The point is not to apply more technology. It is to understand what change is actually needed, what is worth building and which boundaries should remain explicit.",
     peopleLabel: "04 / People",
-    peopleTitle: "Enrico + Michele",
+    peopleTitle: "Meet the team",
     peopleIntro:
       "Projects take shape where process design and technical execution meet.",
     enricoRole: "AI & Systems Engineering",
