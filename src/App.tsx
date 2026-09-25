@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState, type CSSProperties, type MouseEvent } from "react";
 import { ArrowDownRight, ArrowUpRight, Languages } from "lucide-react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import BackgroundLab from "./BackgroundLab";
 import BackgroundEffect, { BACKGROUND_OPTIONS, type BackgroundName } from "./backgrounds/BackgroundEffect";
 import ProjectDetail from "./ProjectDetail";
@@ -478,6 +478,8 @@ function readHomepageBackground(): BackgroundName {
 
 function PortfolioApp() {
   const [lang, setLang] = useState<Lang>("it");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
   const activeBackground = useMemo(readHomepageBackground, []);
   const backgroundParam = activeBackground === "none" ? "" : `&bg=${activeBackground}`;
   const reduceMotion = useReducedMotion();
@@ -492,24 +494,107 @@ function PortfolioApp() {
     document.documentElement.lang = lang;
   }, [lang]);
 
+  useEffect(() => {
+    const sections = ["work", "labs", "people"]
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visible?.target.id) setActiveSection(visible.target.id);
+      },
+      { rootMargin: "-28% 0px -58% 0px", threshold: [0, 0.08, 0.2] },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
   const toggleLang = () => setLang((current) => (current === "it" ? "en" : "it"));
 
   return (
     <div className="site-shell">
-      <header className="topbar">
-        <a className="wordmark" href="#top" aria-label="EMPV home">
-          EMPV<span className="wordmark-dot">•</span>
+      <header className="topbar topbar-home">
+        <a className="wordmark wordmark-pill" href="#top" aria-label="EMPV home">
+          <span className="wordmark-signal" aria-hidden="true" />
+          EMPV
         </a>
-        <nav aria-label="Primary navigation">
-          <a href="#work">{c.nav.work}</a>
-          <a href="#labs">{c.nav.labs}</a>
-          <a href="#people">{c.nav.people}</a>
+
+        <nav className="desktop-nav" aria-label="Primary navigation">
+          <a className={activeSection === "work" ? "is-active" : ""} href="#work">
+            <span>{c.nav.work}</span>
+          </a>
+          <a className={activeSection === "labs" ? "is-active" : ""} href="#labs">
+            <span>{c.nav.labs}</span>
+          </a>
+          <a className={activeSection === "people" ? "is-active" : ""} href="#people">
+            <span>{c.nav.people}</span>
+          </a>
         </nav>
-        <button className="lang-switch" type="button" onClick={toggleLang}>
-          <Languages size={15} strokeWidth={1.6} />
-          {c.language}
-        </button>
+
+        <div className="topbar-actions">
+          <button className="lang-switch desktop-lang" type="button" onClick={toggleLang}>
+            <Languages size={15} strokeWidth={1.6} />
+            {c.language}
+          </button>
+          <button
+            className={`mobile-menu-toggle ${menuOpen ? "is-open" : ""}`}
+            type="button"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <span />
+            <span />
+          </button>
+        </div>
       </header>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.nav
+            className="mobile-nav-panel"
+            aria-label="Mobile navigation"
+            initial={{ opacity: 0, y: -12, scale: 0.985 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.99 }}
+            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {[
+              ["01", "work", c.nav.work],
+              ["02", "labs", c.nav.labs],
+              ["03", "people", c.nav.people],
+            ].map(([index, id, label]) => (
+              <a
+                key={id}
+                className={activeSection === id ? "is-active" : ""}
+                href={`#${id}`}
+                onClick={() => setMenuOpen(false)}
+              >
+                <span className="mobile-nav-index">{index}</span>
+                <strong>{label}</strong>
+                <ArrowUpRight size={20} strokeWidth={1.35} />
+              </a>
+            ))}
+            <button
+              className="mobile-nav-language"
+              type="button"
+              onClick={() => {
+                toggleLang();
+                setMenuOpen(false);
+              }}
+            >
+              <Languages size={17} strokeWidth={1.5} />
+              <span>{lang === "it" ? "English" : "Italiano"}</span>
+              <span>{c.language}</span>
+            </button>
+          </motion.nav>
+        )}
+      </AnimatePresence>
 
       <main>
         <section className="hero" id="top">
