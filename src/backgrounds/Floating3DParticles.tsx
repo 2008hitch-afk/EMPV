@@ -1,4 +1,5 @@
 import * as React from "react"
+import "./Floating3DParticles.css"
 
 export interface Floating3DParticlesProps extends Omit<
   React.CanvasHTMLAttributes<HTMLCanvasElement>,
