@@ -256,11 +256,11 @@ export default function BackgroundEffect({
           <Galaxy
             starSpeed={0.12 + speed * 0.35}
             density={0.25 + intensity * 0.62}
-            hueShift={0}
+            hueShift={212}
             speed={0.15 + speed * 0.55}
             mouseInteraction={tuning.pointer}
             glowIntensity={0.08 + intensity * 0.22}
-            saturation={0}
+            saturation={0.14}
             mouseRepulsion={tuning.pointer}
             twinkleIntensity={0.08 + intensity * 0.18}
             rotationSpeed={0.025 + speed * 0.08}
