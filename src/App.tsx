@@ -552,7 +552,15 @@ function readHomepageBackground(): BackgroundName {
 
 function readGalaxyPalette(): GalaxyPalette {
   const value = new URLSearchParams(window.location.search).get("palette");
-  return value === "indigo" || value === "sage" ? value : "steel";
+  const aliases: Record<string, GalaxyPalette> = {
+    steel: "mist",
+    sage: "olive",
+  };
+  if (value && value in aliases) return aliases[value];
+  return (["mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"] as const)
+    .includes(value as GalaxyPalette)
+    ? (value as GalaxyPalette)
+    : "mist";
 }
 
 function GalaxyPaletteSwitcher({
@@ -730,7 +738,7 @@ function PortfolioApp({
             <div className="eyebrow">{c.heroEyebrow}</div>
             <h1>
               <span>{c.heroTitleA}</span>
-              <span className="outline">{c.heroTitleB}</span>
+              <span className="outline" data-text={c.heroTitleB}>{c.heroTitleB}</span>
             </h1>
             <div className="hero-bottom">
               <p>{c.heroBody}</p>
