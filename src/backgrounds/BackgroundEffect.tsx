@@ -297,7 +297,7 @@ export default function BackgroundEffect({
             rotationSpeed={0.025 + speed * 0.08}
             repulsionStrength={0.5 + intensity}
             transparent
-            lightMode
+            lightMode={false}
           />
         )}
 
