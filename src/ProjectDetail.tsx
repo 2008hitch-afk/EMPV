@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type MouseEvent } from "react";
 import { ArrowLeft, ArrowUpRight, Languages } from "lucide-react";
 import { motion } from "motion/react";
 import { getDetail, type SiteLang } from "./detailContent";
@@ -16,6 +16,16 @@ function updateLangInUrl(lang: SiteLang) {
 
 export default function ProjectDetail({ slug, initialLang = "it" }: DetailPageProps) {
   const [lang, setLang] = useState<SiteLang>(initialLang);
+
+  const onPagePointerMove = (event: MouseEvent<HTMLDivElement>) => {
+    event.currentTarget.style.setProperty("--pointer-x", `${event.clientX}px`);
+    event.currentTarget.style.setProperty("--pointer-y", `${event.clientY}px`);
+    event.currentTarget.style.setProperty("--glow-opacity", "1");
+  };
+
+  const onPagePointerLeave = (event: MouseEvent<HTMLDivElement>) => {
+    event.currentTarget.style.setProperty("--glow-opacity", "0");
+  };
   const detail = useMemo(() => getDetail(lang, slug), [lang, slug]);
 
   useEffect(() => {
@@ -25,7 +35,12 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
 
   if (!detail) {
     return (
-      <div className="detail-shell">
+      <div
+        className="detail-shell"
+        onMouseMove={onPagePointerMove}
+        onMouseLeave={onPagePointerLeave}
+      >
+        <div className="global-pointer-glow" aria-hidden="true" />
         <header className="topbar detail-topbar">
           <a className="wordmark" href="./" aria-label="EMPV home">
             EMPV<span className="wordmark-dot">•</span>
@@ -63,7 +78,12 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
   }
 
   return (
-    <div className="detail-shell">
+    <div
+      className="detail-shell"
+      onMouseMove={onPagePointerMove}
+      onMouseLeave={onPagePointerLeave}
+    >
+      <div className="global-pointer-glow" aria-hidden="true" />
       <header className="topbar detail-topbar">
         <a className="wordmark" href="./" aria-label="EMPV home">
           EMPV<span className="wordmark-dot">•</span>
