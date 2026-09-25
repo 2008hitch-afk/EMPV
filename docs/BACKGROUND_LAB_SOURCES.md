@@ -16,6 +16,13 @@ This experimental area intentionally evaluates third-party open-code background 
 - Waves
 - Galaxy
 - Orb
+- Silk
+- Sliced Waves
+- Side Rays
+- Light Tunnel
+- Scanner
+- Prism
+- Dither
 - Source repository: `DavidHDev/react-bits`
 - Upstream license: MIT + Commons Clause as published by the upstream project
 
