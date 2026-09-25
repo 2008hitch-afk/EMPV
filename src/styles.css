@@ -183,41 +183,12 @@ footer {
 .wordmark-pill {
   display: inline-flex;
   align-items: center;
-  gap: 9px;
   min-height: 40px;
-  padding: 0 14px 0 11px;
+  padding: 0 14px;
   border-radius: 999px;
 }
 
-.wordmark-signal {
-  position: relative;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--ink);
-  box-shadow: 0 0 0 4px rgba(127, 143, 169, 0.09);
-}
 
-.wordmark-signal::after {
-  content: "";
-  position: absolute;
-  inset: -4px;
-  border: 1px solid var(--hairline);
-  border-radius: inherit;
-  animation: nav-signal 2.8s ease-out infinite;
-}
-
-@keyframes nav-signal {
-  0%, 36% { transform: scale(0.72); opacity: 0; }
-  48% { opacity: 0.7; }
-  86%, 100% { transform: scale(1.55); opacity: 0; }
-}
-
-.wordmark-dot {
-  color: var(--ink);
-  margin-left: 2px;
-  opacity: 0.38;
-}
 
 .desktop-nav {
   justify-self: center;
@@ -236,7 +207,7 @@ footer {
   display: inline-flex;
   align-items: center;
   min-height: 38px;
-  padding: 0 16px;
+  padding: 0 15px;
   border-radius: 999px;
   font-family: var(--ui);
   font-size: 0.78rem;
