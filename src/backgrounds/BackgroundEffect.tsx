@@ -293,9 +293,9 @@ export default function BackgroundEffect({
 
         {name === "sliced-waves" && (
           <SlicedWaves
-            color1="#181816"
-            color2="#77766f"
-            color3="#d3d2cc"
+            color1="#11110f"
+            color2="#464640"
+            color3="#8c8b84"
             columns={12}
             rows={7}
             barThickness={0.08 + intensity * 0.08}
@@ -304,34 +304,34 @@ export default function BackgroundEffect({
             waveSpread={0.7 + depth * 0.45}
             rowOffset={0.72}
             softness={0.08}
-            glow={0.08 + intensity * 0.22}
-            brightness={0.72 + intensity * 0.36}
-            contrast={1.05}
-            opacity={0.45 + intensity * 0.4}
+            glow={0.06 + intensity * 0.16}
+            brightness={0.9 + intensity * 0.35}
+            contrast={1.28}
+            opacity={0.68 + intensity * 0.3}
             orientation="horizontal"
             alternate
             mouseInteraction={tuning.pointer}
             mouseStrength={0.25 + intensity * 0.55}
             mouseRadius={0.22 + depth * 0.18}
             grain
-            grainIntensity={0.025}
-            lightMode
+            grainIntensity={0.02}
+            lightMode={false}
           />
         )}
 
         {name === "side-rays" && (
           <SideRays
             speed={0.25 + speed * 1.1}
-            rayColor1="#1b1b18"
-            rayColor2="#8b8a83"
-            intensity={0.45 + intensity * 1.15}
-            spread={1.1 + depth * 1.1}
+            rayColor1="#1a1a18"
+            rayColor2="#55544f"
+            intensity={1.6 + intensity * 2.2}
+            spread={1.45 + depth * 1.35}
             origin="top-right"
-            tilt={-0.15}
+            tilt={-8}
             saturation={0}
-            blend={0.72}
-            falloff={1.8}
-            opacity={0.42 + intensity * 0.42}
+            blend={0.5}
+            falloff={1.28}
+            opacity={0.82 + intensity * 0.18}
           />
         )}
 
