@@ -427,7 +427,7 @@ const it: Record<string, DetailContent> = {
   "trustworthy-reasoning": {
     slug: "trustworthy-reasoning",
     type: "lab",
-    index: "E",
+    index: "D",
     title: "Trustworthy Reasoning",
     kicker: "Research / epistemic AI",
     lead:
