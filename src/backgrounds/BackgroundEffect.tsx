@@ -18,6 +18,32 @@ export type BackgroundName =
   | "prism"
   | "dither";
 
+export type GalaxyPalette = "steel" | "indigo" | "sage";
+
+export const GALAXY_PALETTES: Record<
+  GalaxyPalette,
+  { label: string; tint: [number, number, number]; hueShift: number; saturation: number }
+> = {
+  steel: {
+    label: "Steel",
+    tint: [0.43, 0.54, 0.70],
+    hueShift: 212,
+    saturation: 0.14,
+  },
+  indigo: {
+    label: "Indigo",
+    tint: [0.46, 0.43, 0.64],
+    hueShift: 238,
+    saturation: 0.16,
+  },
+  sage: {
+    label: "Sage",
+    tint: [0.42, 0.56, 0.49],
+    hueShift: 158,
+    saturation: 0.14,
+  },
+};
+
 export type BackgroundTuning = {
   intensity: number;
   speed: number;
@@ -150,14 +176,17 @@ export default function BackgroundEffect({
   name,
   tuning = DEFAULT_TUNING,
   className = "",
+  galaxyPalette = "steel",
 }: {
   name: BackgroundName;
   tuning?: BackgroundTuning;
   className?: string;
+  galaxyPalette?: GalaxyPalette;
 }) {
   const intensity = clamp01(tuning.intensity);
   const speed = clamp01(tuning.speed);
   const depth = clamp01(tuning.depth);
+  const galaxyColors = GALAXY_PALETTES[galaxyPalette];
 
   if (name === "none") return null;
 
@@ -256,11 +285,13 @@ export default function BackgroundEffect({
           <Galaxy
             starSpeed={0.12 + speed * 0.35}
             density={0.25 + intensity * 0.62}
-            hueShift={212}
+            hueShift={galaxyColors.hueShift}
             speed={0.15 + speed * 0.55}
             mouseInteraction={tuning.pointer}
             glowIntensity={0.08 + intensity * 0.22}
-            saturation={0.14}
+            saturation={galaxyColors.saturation}
+            tint={galaxyColors.tint}
+            tintStrength={0.88}
             mouseRepulsion={tuning.pointer}
             twinkleIntensity={0.08 + intensity * 0.18}
             rotationSpeed={0.025 + speed * 0.08}
