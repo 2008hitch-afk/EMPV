@@ -192,7 +192,7 @@ export default function BackgroundEffect({
 
   return (
     <div
-      className={`background-effect effect-${name} ${className}`}
+      className={`background-effect effect-${name} ${name === "galaxy" ? `galaxy-palette-${galaxyPalette}` : ""} ${className}`}
       style={{ opacity: 0.48 + intensity * 0.42 }}
       aria-hidden="true"
     >
