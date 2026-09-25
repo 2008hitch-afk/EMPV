@@ -322,16 +322,16 @@ export default function BackgroundEffect({
         {name === "side-rays" && (
           <SideRays
             speed={0.25 + speed * 1.1}
-            rayColor1="#1a1a18"
-            rayColor2="#55544f"
-            intensity={1.6 + intensity * 2.2}
-            spread={1.45 + depth * 1.35}
+            rayColor1="#ffffff"
+            rayColor2="#d7d7d2"
+            intensity={2.8 + intensity * 3.2}
+            spread={1.6 + depth * 1.5}
             origin="top-right"
-            tilt={-8}
+            tilt={-10}
             saturation={0}
-            blend={0.5}
-            falloff={1.28}
-            opacity={0.82 + intensity * 0.18}
+            blend={0.46}
+            falloff={1.12}
+            opacity={1}
           />
         )}
 
@@ -400,22 +400,22 @@ export default function BackgroundEffect({
 
         {name === "prism" && (
           <Prism
-            height={3.2}
-            baseWidth={5.1}
-            animationType={tuning.pointer ? "hover" : "rotate"}
-            glow={0.08 + intensity * 0.35}
-            offset={{ x: 0.2, y: 0 }}
-            noise={0.15}
+            height={4.1}
+            baseWidth={6.4}
+            animationType={tuning.pointer ? "3drotate" : "rotate"}
+            glow={1.3 + intensity * 2.2}
+            offset={{ x: 0.15, y: 0 }}
+            noise={0.025}
             transparent
-            scale={2.7 + depth * 1.1}
+            scale={3.8 + depth * 1.6}
             hueShift={0}
-            colorFrequency={0.25}
-            hoverStrength={0.35 + intensity * 0.6}
+            colorFrequency={0.55}
+            hoverStrength={0.8 + intensity * 1.2}
             inertia={0.04}
-            bloom={0.08 + intensity * 0.28}
+            bloom={1.2 + intensity * 1.8}
             suspendWhenOffscreen
-            timeScale={0.1 + speed * 0.45}
-            lightMode
+            timeScale={0.18 + speed * 0.7}
+            lightMode={false}
           />
         )}
 
