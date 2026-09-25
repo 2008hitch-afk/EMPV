@@ -45,3 +45,15 @@
     pointer-events: none;
   }
 }
+
+.lab-background-effect {
+  opacity: 1 !important;
+}
+
+.lab-background-effect.effect-particles {
+  filter: contrast(1.2);
+}
+
+.lab-background-effect.effect-beams {
+  filter: contrast(1.15);
+}
