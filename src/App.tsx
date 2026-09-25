@@ -470,49 +470,27 @@ function LabRow({
   href: string;
   lang: Lang;
 }) {
-  const [spot, setSpot] = useState({ x: 50, y: 50 });
-
-  function onMove(event: MouseEvent<HTMLAnchorElement>) {
-    const box = event.currentTarget.getBoundingClientRect();
-    setSpot({
-      x: event.clientX - box.left,
-      y: event.clientY - box.top,
-    });
-  }
-
   return (
     <motion.a
-      className="lab-row lab-experiment"
+      className="lab-row lab-register-row"
       href={href}
-      onMouseMove={onMove}
-      style={
-        {
-          "--lab-x": `${spot.x}px`,
-          "--lab-y": `${spot.y}px`,
-        } as CSSProperties
-      }
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-8%" }}
-      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
     >
       <div className="lab-index">{project.index}</div>
 
-      <div className="lab-main">
-        <span>{project.kind}</span>
+      <div className="lab-identity">
+        <span className="lab-kind">{project.kind}</span>
         <h3>{project.name}</h3>
         <p className="lab-description">{project.description}</p>
+        <p className="lab-meta">{project.meta.join(" · ")}</p>
+      </div>
 
-        <div className="lab-question">
-          <span>{lang === "it" ? "Cosa stiamo testando" : "What we are testing"}</span>
-          <strong>{project.question}</strong>
-        </div>
-
-        <div className="lab-tags">
-          {project.meta.map((item) => (
-            <span key={item}>{item}</span>
-          ))}
-        </div>
+      <div className="lab-question">
+        <span>{lang === "it" ? "Cosa stiamo testando" : "What we are testing"}</span>
+        <strong>{project.question}</strong>
       </div>
 
       <div className="lab-evidence">
@@ -526,7 +504,7 @@ function LabRow({
         </div>
       </div>
 
-      <ArrowUpRight className="lab-arrow" size={24} strokeWidth={1.3} />
+      <ArrowUpRight className="lab-arrow" size={22} strokeWidth={1.25} />
     </motion.a>
   );
 }
