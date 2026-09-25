@@ -193,7 +193,7 @@ export default function BackgroundEffect({
   return (
     <div
       className={`background-effect effect-${name} ${name === "galaxy" ? `galaxy-palette-${galaxyPalette}` : ""} ${className}`}
-      style={{ opacity: 0.48 + intensity * 0.42 }}
+      style={{ opacity: name === "galaxy" ? 0.9 : 0.48 + intensity * 0.42 }}
       aria-hidden="true"
     >
       <Suspense fallback={<div className="background-effect-loading" />}>
@@ -284,16 +284,16 @@ export default function BackgroundEffect({
         {name === "galaxy" && (
           <Galaxy
             starSpeed={0.12 + speed * 0.35}
-            density={0.25 + intensity * 0.62}
+            density={0.38 + intensity * 0.82}
             hueShift={galaxyColors.hueShift}
             speed={0.15 + speed * 0.55}
             mouseInteraction={tuning.pointer}
-            glowIntensity={0.08 + intensity * 0.22}
+            glowIntensity={0.12 + intensity * 0.30}
             saturation={galaxyColors.saturation}
             tint={galaxyColors.tint}
             tintStrength={0.97}
             mouseRepulsion={tuning.pointer}
-            twinkleIntensity={0.08 + intensity * 0.18}
+            twinkleIntensity={0.10 + intensity * 0.22}
             rotationSpeed={0.025 + speed * 0.08}
             repulsionStrength={0.5 + intensity}
             transparent
