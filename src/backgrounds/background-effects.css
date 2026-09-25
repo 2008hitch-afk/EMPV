@@ -31,9 +31,12 @@
   pointer-events: auto;
 }
 
-.effect-orb,
-.effect-galaxy {
+.effect-orb {
   filter: grayscale(1) contrast(0.82);
+}
+
+.effect-galaxy {
+  filter: saturate(1.05) contrast(0.84);
 }
 
 .hero-background-effect {
