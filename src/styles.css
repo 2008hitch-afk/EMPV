@@ -284,13 +284,13 @@ footer {
 }
 
 .section-pad {
-  padding: 120px 28px;
+  padding: 104px 28px;
 }
 
 .manifesto {
   display: grid;
-  grid-template-columns: 1fr 3fr;
-  gap: 28px;
+  grid-template-columns: 0.8fr 2.2fr;
+  gap: 56px;
   border-bottom: 1px solid var(--hairline);
 }
 
@@ -300,36 +300,35 @@ footer {
 
 .manifesto p {
   margin: 0;
-  max-width: 1180px;
-  font-size: clamp(2.2rem, 5vw, 5.6rem);
-  line-height: 0.99;
-  letter-spacing: -0.055em;
+  max-width: 1120px;
+  font-size: clamp(1.9rem, 3.8vw, 4.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.05em;
   font-weight: 500;
 }
 
 .section-head {
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  gap: 60px;
+  grid-template-columns: minmax(0, 1.7fr) minmax(280px, 0.8fr);
+  gap: 72px;
   align-items: end;
-  margin-bottom: 64px;
+  margin-bottom: 48px;
 }
 
-.section-head h2,
-.labs-intro h2 {
+.section-head h2 {
   margin: 10px 0 0;
-  font-size: clamp(3rem, 7vw, 7rem);
-  line-height: 0.9;
-  letter-spacing: -0.065em;
+  max-width: 980px;
+  font-size: clamp(2.8rem, 5.8vw, 6.2rem);
+  line-height: 0.92;
+  letter-spacing: -0.062em;
   font-weight: 600;
 }
 
-.section-head > p,
-.labs-intro > p {
+.section-head > p {
   margin: 0;
   max-width: 520px;
-  font-size: 1.04rem;
-  line-height: 1.6;
+  font-size: 1rem;
+  line-height: 1.62;
   color: #3b3a36;
 }
 
@@ -340,9 +339,9 @@ footer {
 .project-card {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(360px, 0.95fr) minmax(0, 1.05fr);
-  gap: 42px;
-  padding: 32px 0;
+  grid-template-columns: minmax(340px, 0.9fr) minmax(0, 1.1fr);
+  gap: 48px;
+  padding: 28px 0;
   border-bottom: 1px solid var(--hairline);
   overflow: hidden;
 }
@@ -367,7 +366,7 @@ footer {
 
 .project-visual {
   position: relative;
-  min-height: 390px;
+  min-height: 350px;
   overflow: hidden;
   background: #181816;
   color: var(--paper);
@@ -435,10 +434,10 @@ footer {
 }
 
 .project-copy {
-  padding: 6px 70px 18px 0;
+  padding: 6px 70px 16px 0;
   display: flex;
   flex-direction: column;
-  min-height: 390px;
+  min-height: 350px;
 }
 
 .project-topline {
@@ -451,18 +450,18 @@ footer {
 }
 
 .project-copy h3 {
-  margin: auto 0 20px;
-  font-size: clamp(2.4rem, 5vw, 5.4rem);
-  line-height: 0.9;
-  letter-spacing: -0.06em;
+  margin: auto 0 18px;
+  font-size: clamp(2.25rem, 4.4vw, 4.8rem);
+  line-height: 0.92;
+  letter-spacing: -0.058em;
   font-weight: 600;
 }
 
 .project-copy > p {
-  margin: 0 0 24px;
-  max-width: 650px;
-  font-size: 1.05rem;
-  line-height: 1.55;
+  margin: 0 0 22px;
+  max-width: 690px;
+  font-size: 1.02rem;
+  line-height: 1.58;
 }
 
 .tags,
@@ -503,22 +502,6 @@ footer {
   color: var(--muted);
 }
 
-.labs-intro {
-  display: grid;
-  grid-template-columns: 1fr 2fr 1fr;
-  align-items: end;
-  gap: 34px;
-  padding-bottom: 78px;
-}
-
-.labs-intro h2 {
-  grid-column: 2;
-}
-
-.labs-intro > p {
-  color: #3b3a36;
-}
-
 .lab-list {
   border-top: 1px solid var(--hairline);
 }
@@ -526,10 +509,10 @@ footer {
 .lab-row {
   position: relative;
   display: grid;
-  grid-template-columns: 0.4fr 2fr 1fr 32px;
-  gap: 28px;
+  grid-template-columns: 0.3fr minmax(0, 2fr) minmax(210px, 0.9fr) 32px;
+  gap: 30px;
   align-items: start;
-  padding: 32px 0 38px;
+  padding: 34px 0 40px;
   border-bottom: 1px solid var(--hairline);
   transition: background 220ms ease, padding 220ms ease;
 }
@@ -555,8 +538,8 @@ footer {
 
 .lab-main h3 {
   margin: 8px 0 12px;
-  font-size: clamp(2rem, 4vw, 4.3rem);
-  line-height: 0.95;
+  font-size: clamp(2rem, 3.6vw, 3.9rem);
+  line-height: 0.96;
   letter-spacing: -0.05em;
 }
 
@@ -576,12 +559,23 @@ footer {
   justify-self: end;
 }
 
+.labs-note {
+  margin: 34px 0 0 auto;
+  max-width: 650px;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  line-height: 1.6;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+}
+
 .people {
   border-bottom: 1px solid var(--hairline);
 }
 
 .people-head {
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1.7fr) minmax(280px, 0.8fr);
 }
 
 .people-grid {
@@ -789,16 +783,12 @@ footer {
 
   .manifesto,
   .section-head,
-  .labs-intro {
+  .people-head {
     grid-template-columns: 1fr;
   }
 
   .manifesto {
     gap: 34px;
-  }
-
-  .labs-intro h2 {
-    grid-column: 1;
   }
 
   .project-card {
@@ -860,8 +850,7 @@ footer {
     font-size: 10vw;
   }
 
-  .section-head h2,
-  .labs-intro h2 {
+  .section-head h2 {
     font-size: 13vw;
   }
 
