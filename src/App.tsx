@@ -39,7 +39,11 @@ const copy = {
       "Non tutto nasce da un brief cliente. Esploriamo prodotti, infrastrutture e linee di ricerca che potrebbero diventare sistemi autonomi.",
     labsNote:
       "Esperimenti, prototipi e direzioni di ricerca selezionate · alcuni dettagli restano intenzionalmente non pubblici.",
-    peopleLabel: "03 / People",
+    faqLabel: "03 / FAQ",
+    faqTitle: "Domande che vale la pena chiarire.",
+    faqIntro:
+      "Il punto non è applicare più tecnologia. È capire quale cambiamento serve davvero, cosa conviene costruire e quali limiti mantenere espliciti.",
+    peopleLabel: "04 / People",
     peopleTitle: "Enrico + Michele",
     peopleIntro:
       "I progetti nascono nel punto in cui progettazione del processo e costruzione tecnica si incontrano.",
@@ -74,7 +78,11 @@ const copy = {
       "Not everything starts from a client brief. We explore products, infrastructure and research directions that may become standalone systems.",
     labsNote:
       "Selected experiments, prototypes and research directions · some details intentionally remain undisclosed.",
-    peopleLabel: "03 / People",
+    faqLabel: "03 / FAQ",
+    faqTitle: "Questions worth clarifying.",
+    faqIntro:
+      "The point is not to apply more technology. It is to understand what change is actually needed, what is worth building and which boundaries should remain explicit.",
+    peopleLabel: "04 / People",
     peopleTitle: "Enrico + Michele",
     peopleIntro:
       "Projects take shape where process design and technical execution meet.",
@@ -174,6 +182,84 @@ const selected: Record<Lang, Project[]> = {
         "From unstructured requests that were hard to evaluate to a guided flow that collects the information Cube needs before preparing a quote.",
       meta: ["Lead flow", "Guided request", "Website", "Human review"],
       accent: "cube",
+    },
+  ],
+};
+
+
+const faqs: Record<Lang, { question: string; answer: string }[]> = {
+  it: [
+    {
+      question: "Che tipo di problemi affrontate?",
+      answer:
+        "Situazioni in cui il lavoro dipende da passaggi manuali, informazioni disperse, strumenti che non comunicano o decisioni che richiedono troppo contesto ricostruito ogni volta. Prima di proporre una soluzione cerchiamo di capire dove nasce davvero l'attrito operativo.",
+    },
+    {
+      question: "Partite sempre dall'AI?",
+      answer:
+        "No. L'AI è una possibilità, non il punto di partenza. Se un problema si risolve meglio con software tradizionale, integrazioni o automazioni deterministiche, preferiamo la soluzione più semplice. Usiamo AI quando cambia realmente ciò che il sistema può fare.",
+    },
+    {
+      question: "Costruite tutto da zero?",
+      answer:
+        "Quasi mai per principio. Valutiamo prima ciò che esiste già, preserviamo gli strumenti specialistici che funzionano e costruiamo il layer mancante. Il valore non è riscrivere tutto: è far funzionare meglio il sistema complessivo.",
+    },
+    {
+      question: "Potete lavorare con dati che devono restare in azienda?",
+      answer:
+        "Sì. Quando privacy, proprietà del dato, latenza o controllo lo richiedono, progettiamo anche architetture locali o on-premise e flussi in cui i dati non devono uscire dall'organizzazione. Il cloud resta uno strumento, non un requisito.",
+    },
+    {
+      question: "Come inizia un progetto?",
+      answer:
+        "Ricostruiamo il processo reale: persone, passaggi, strumenti, dati, vincoli e decisioni. Poi individuiamo il cambiamento più piccolo capace di eliminare un attrito importante, lo rendiamo verificabile e solo dopo estendiamo il sistema.",
+    },
+    {
+      question: "I progetti “In sviluppo” possono diventare startup?",
+      answer:
+        "Alcuni sì. Il Lab serve proprio a separare un'idea interessante da una tesi che regge tecnicamente e come prodotto. Quando una direzione dimostra abbastanza valore può evolvere in prodotto autonomo, spin-off o nuova iniziativa.",
+    },
+    {
+      question: "Siete aperti a partnership o investimenti?",
+      answer:
+        "Su alcune direzioni selezionate sì, soprattutto quando la controparte porta capitale, distribuzione, dati, competenza di dominio o capacità di validazione scientifica e industriale. Nel sito mostriamo la tesi e il problema; i dettagli che costituiscono vantaggio operativo restano non pubblici.",
+    },
+  ],
+  en: [
+    {
+      question: "What kind of problems do you work on?",
+      answer:
+        "Situations where work depends on manual handoffs, scattered information, disconnected tools or decisions that require people to reconstruct context over and over. Before proposing a solution, we identify where the operational friction actually starts.",
+    },
+    {
+      question: "Do you always start with AI?",
+      answer:
+        "No. AI is an option, not the starting point. If traditional software, integrations or deterministic automation solve the problem better, we prefer the simpler system. We use AI when it materially changes what the product can do.",
+    },
+    {
+      question: "Do you build everything from scratch?",
+      answer:
+        "Almost never by principle. We first assess what already works, preserve mature specialist tools and build the missing layer around them. The value is not rewriting everything; it is making the overall system work better.",
+    },
+    {
+      question: "Can you work with data that needs to stay inside the company?",
+      answer:
+        "Yes. When privacy, data ownership, latency or control justify it, we design local or on-premise architectures and workflows where data does not need to leave the organization. Cloud remains a tool, not a requirement.",
+    },
+    {
+      question: "How does a project start?",
+      answer:
+        "We reconstruct the real process: people, handoffs, tools, data, constraints and decisions. Then we identify the smallest change capable of removing a meaningful friction, make it verifiable and only then expand the system.",
+    },
+    {
+      question: "Can the projects in “In development” become startups?",
+      answer:
+        "Some can. The Lab exists to separate an interesting idea from a technical and product thesis that actually holds. When a direction demonstrates enough value, it can evolve into a standalone product, spin-off or new venture.",
+    },
+    {
+      question: "Are you open to partnerships or investment?",
+      answer:
+        "For selected directions, yes — especially when the counterpart brings capital, distribution, data, domain expertise or scientific and industrial validation. The site shows the thesis and the problem; details that form part of the operational advantage remain private.",
     },
   ],
 };
@@ -527,6 +613,31 @@ function PortfolioApp() {
             ))}
           </div>
           <p className="labs-note">{c.labsNote}</p>
+        </section>
+
+        <section className="faq section-pad" id="faq">
+          <div className="faq-layout">
+            <div className="faq-intro">
+              <div className="eyebrow">{c.faqLabel}</div>
+              <h2>{c.faqTitle}</h2>
+              <p>{c.faqIntro}</p>
+            </div>
+
+            <div className="faq-list">
+              {faqs[lang].map((item, index) => (
+                <details className="faq-item" key={item.question}>
+                  <summary>
+                    <span className="faq-index">{String(index + 1).padStart(2, "0")}</span>
+                    <span className="faq-question">{item.question}</span>
+                    <span className="faq-toggle" aria-hidden="true">+</span>
+                  </summary>
+                  <div className="faq-answer">
+                    <p>{item.answer}</p>
+                  </div>
+                </details>
+              ))}
+            </div>
+          </div>
         </section>
 
         <section className="people section-pad" id="people">
