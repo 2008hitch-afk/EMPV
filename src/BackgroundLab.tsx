@@ -44,7 +44,7 @@ export default function BackgroundLab() {
       </header>
 
       <section className="lab-preview">
-        <BackgroundEffect name={effect} tuning={tuning} />
+        <BackgroundEffect name={effect} tuning={tuning} className="lab-background-effect" />
 
         <div className="lab-preview-grid" aria-hidden="true" />
         <div className="lab-preview-copy">
