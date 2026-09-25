@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type MouseEvent } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowUpRight, Languages } from "lucide-react";
 import { motion } from "motion/react";
 import { getDetail, type SiteLang } from "./detailContent";
@@ -35,12 +35,7 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
 
   if (!detail) {
     return (
-      <div
-        className="detail-shell"
-        onMouseMove={onPagePointerMove}
-        onMouseLeave={onPagePointerLeave}
-      >
-        <div className="global-pointer-glow" aria-hidden="true" />
+      <div className="detail-shell">
         <header className="topbar detail-topbar">
           <a className="wordmark" href="./" aria-label="EMPV home">
             EMPV<span className="wordmark-dot">•</span>
@@ -78,12 +73,7 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
   }
 
   return (
-    <div
-      className="detail-shell"
-      onMouseMove={onPagePointerMove}
-      onMouseLeave={onPagePointerLeave}
-    >
-      <div className="global-pointer-glow" aria-hidden="true" />
+    <div className="detail-shell">
       <header className="topbar detail-topbar">
         <a className="wordmark" href="./" aria-label="EMPV home">
           EMPV<span className="wordmark-dot">•</span>
