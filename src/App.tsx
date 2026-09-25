@@ -738,7 +738,7 @@ function PortfolioApp({
             <div className="eyebrow">{c.heroEyebrow}</div>
             <h1>
               <span>{c.heroTitleA}</span>
-              <span className="outline" data-text={c.heroTitleB}>{c.heroTitleB}</span>
+              <span className="outline">{c.heroTitleB}</span>
             </h1>
             <div className="hero-bottom">
               <p>{c.heroBody}</p>
