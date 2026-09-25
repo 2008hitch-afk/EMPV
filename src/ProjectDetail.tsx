@@ -100,17 +100,30 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
               <span className="detail-index">{detail.index}</span>
             </div>
 
-            <div className="detail-title-wrap">
+            <div className={`detail-title-wrap ${detail.type === "project" ? "detail-title-project" : ""}`}>
               <p className="detail-kicker">{detail.kicker}</p>
-              <h1>{detail.title}</h1>
+              {detail.type === "project" && (
+                <p className="detail-project-name">{detail.title}</p>
+              )}
+              <h1>{detail.type === "project" ? detail.problemTitle ?? detail.title : detail.title}</h1>
             </div>
 
             <div className="detail-hero-bottom">
               <p className="detail-lead">{detail.lead}</p>
 
               <div className="detail-status">
-                <span>{detail.statusLabel}</span>
-                <strong>{detail.status}</strong>
+                <span>
+                  {detail.type === "project"
+                    ? lang === "it"
+                      ? "Cosa abbiamo cambiato"
+                      : "What we changed"
+                    : detail.statusLabel}
+                </span>
+                <strong>
+                  {detail.type === "project"
+                    ? detail.solutionTitle ?? detail.status
+                    : detail.status}
+                </strong>
               </div>
             </div>
 
