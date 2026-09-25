@@ -113,7 +113,7 @@ vec3 StarLayer(vec2 uv) {
       vec2 pad = vec2(tris(seed * 34.0 + uTime * uSpeed / 10.0), tris(seed * 38.0 + uTime * uSpeed / 30.0)) - 0.5;
 
       float star = Star(gv - offset - pad, flareSize);
-      vec3 color = base;
+      vec3 color = vec3(1.0, 0.0, 0.0);
 
       float twinkle = trisn(uTime * uSpeed + seed * 6.2831) * 0.5 + 1.0;
       twinkle = mix(1.0, twinkle, uTwinkleIntensity);
@@ -173,7 +173,7 @@ void main() {
     alpha = min(alpha * 1.08, 0.98);
 
     // Geometry stays neutral; the selected theme tint colors only the moving matter.
-    vec3 movingInk = mix(uTint, uTint * 0.62, clamp(energy, 0.0, 1.0));
+    vec3 movingInk = vec3(1.0, 0.0, 0.0);
     gl_FragColor = vec4(movingInk, alpha);
   } else {
     gl_FragColor = vec4(col, 1.0);
