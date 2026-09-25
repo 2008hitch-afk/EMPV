@@ -407,23 +407,8 @@ function PortfolioApp() {
 
   const toggleLang = () => setLang((current) => (current === "it" ? "en" : "it"));
 
-  const onPagePointerMove = (event: MouseEvent<HTMLDivElement>) => {
-    event.currentTarget.style.setProperty("--pointer-x", `${event.clientX}px`);
-    event.currentTarget.style.setProperty("--pointer-y", `${event.clientY}px`);
-    event.currentTarget.style.setProperty("--glow-opacity", "1");
-  };
-
-  const onPagePointerLeave = (event: MouseEvent<HTMLDivElement>) => {
-    event.currentTarget.style.setProperty("--glow-opacity", "0");
-  };
-
   return (
-    <div
-      className="site-shell"
-      onMouseMove={onPagePointerMove}
-      onMouseLeave={onPagePointerLeave}
-    >
-      <div className="global-pointer-glow" aria-hidden="true" />
+    <div className="site-shell">
       <header className="topbar">
         <a className="wordmark" href="#top" aria-label="EMPV home">
           EMPV<span className="wordmark-dot">•</span>
@@ -593,9 +578,44 @@ function App() {
   const detailSlug = params.get("project") ?? params.get("lab");
   const initialLang: SiteLang = params.get("lang") === "en" ? "en" : "it";
 
-  if (isBackgroundLab) return <BackgroundLab />;
-  if (detailSlug) return <ProjectDetail slug={detailSlug} initialLang={initialLang} />;
-  return <PortfolioApp />;
+  useEffect(() => {
+    const root = document.documentElement;
+
+    const onPointerMove = (event: PointerEvent) => {
+      root.style.setProperty("--pointer-x", `${event.clientX}px`);
+      root.style.setProperty("--pointer-y", `${event.clientY}px`);
+      root.style.setProperty("--glow-opacity", "1");
+    };
+
+    const onPointerLeave = () => {
+      root.style.setProperty("--glow-opacity", "0");
+    };
+
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    document.documentElement.addEventListener("mouseleave", onPointerLeave);
+
+    return () => {
+      window.removeEventListener("pointermove", onPointerMove);
+      document.documentElement.removeEventListener("mouseleave", onPointerLeave);
+      root.style.setProperty("--glow-opacity", "0");
+    };
+  }, []);
+
+  let page;
+  if (isBackgroundLab) {
+    page = <BackgroundLab />;
+  } else if (detailSlug) {
+    page = <ProjectDetail slug={detailSlug} initialLang={initialLang} />;
+  } else {
+    page = <PortfolioApp />;
+  }
+
+  return (
+    <>
+      <div className="global-pointer-glow" aria-hidden="true" />
+      {page}
+    </>
+  );
 }
 
 export default App;
