@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Manrope:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap');
 
 :root {
   font-family: "Manrope", Arial, sans-serif;
@@ -18,7 +18,7 @@
   --visual-paper: rgba(236, 235, 229, 0.9);
   --glow-core: rgba(255, 75, 25, 0.13);
   --glow-mid: rgba(255, 75, 25, 0.055);
-  --mono: "DM Mono", "SFMono-Regular", Consolas, monospace;
+  --ui: "Manrope", Arial, sans-serif;
   --pointer-x: 50vw;
   --pointer-y: 50vh;
   --glow-opacity: 0;
@@ -181,7 +181,7 @@ footer {
 .topbar nav {
   display: flex;
   gap: 28px;
-  font-family: var(--mono);
+  font-family: var(--ui);
   font-size: 0.72rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -205,7 +205,7 @@ footer {
   display: flex;
   gap: 7px;
   align-items: center;
-  font-family: var(--mono);
+  font-family: var(--ui);
   font-size: 0.72rem;
   cursor: pointer;
 }
@@ -232,9 +232,9 @@ footer {
 .hero-code,
 .visual-coordinate,
 .person-index {
-  font-family: var(--mono);
+  font-family: var(--ui);
   font-size: 0.68rem;
-  letter-spacing: 0.07em;
+  letter-spacing: 0.045em;
   text-transform: uppercase;
 }
 
@@ -279,7 +279,7 @@ footer {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family: var(--mono);
+  font-family: var(--ui);
   font-size: 0.7rem;
   text-transform: uppercase;
 }
@@ -517,7 +517,7 @@ footer {
 .project-topline {
   display: flex;
   justify-content: space-between;
-  font-family: var(--mono);
+  font-family: var(--ui);
   font-size: 0.68rem;
   text-transform: uppercase;
   color: var(--muted);
@@ -550,7 +550,7 @@ footer {
   border: 1px solid var(--hairline);
   border-radius: 999px;
   padding: 6px 10px;
-  font-family: var(--mono);
+  font-family: var(--ui);
   font-size: 0.62rem;
   text-transform: uppercase;
 }
@@ -599,13 +599,13 @@ footer {
 }
 
 .lab-index {
-  font-family: var(--mono);
+  font-family: var(--ui);
   color: var(--muted);
   font-size: 0.76rem;
 }
 
 .lab-main > span {
-  font-family: var(--mono);
+  font-family: var(--ui);
   font-size: 0.64rem;
   text-transform: uppercase;
   color: var(--muted);
@@ -638,7 +638,7 @@ footer {
   margin: 34px 0 0 auto;
   max-width: 650px;
   color: var(--muted);
-  font-family: var(--mono);
+  font-family: var(--ui);
   font-size: 0.66rem;
   line-height: 1.6;
   letter-spacing: 0.045em;
@@ -718,7 +718,7 @@ footer {
 
 .faq-index {
   padding-top: 6px;
-  font-family: var(--mono);
+  font-family: var(--ui);
   font-size: 0.64rem;
   color: var(--muted);
   letter-spacing: 0.04em;
@@ -734,7 +734,7 @@ footer {
 
 .faq-toggle {
   justify-self: end;
-  font-family: var(--mono);
+  font-family: var(--ui);
   font-size: 1.45rem;
   line-height: 1;
   color: var(--muted);
@@ -911,7 +911,7 @@ footer {
   z-index: 5;
   left: 18px;
   bottom: 18px;
-  font-family: var(--mono);
+  font-family: var(--ui);
   font-size: 0.66rem;
   text-transform: uppercase;
   opacity: 0.6;
@@ -947,7 +947,7 @@ footer {
 
 .person-copy .role {
   color: var(--muted);
-  font-family: var(--mono);
+  font-family: var(--ui);
   text-transform: uppercase;
   font-size: 0.69rem;
   margin: 4px 0 18px;
@@ -978,7 +978,7 @@ footer {
   border-top: 1px solid var(--hairline);
   display: grid;
   grid-template-columns: 1fr 1fr auto;
-  font-family: var(--mono);
+  font-family: var(--ui);
   font-size: 0.65rem;
   text-transform: uppercase;
   color: var(--muted);
@@ -1169,7 +1169,7 @@ footer {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-family: var(--mono);
+  font-family: var(--ui);
   font-size: 0.68rem;
   text-transform: uppercase;
   letter-spacing: 0.045em;
@@ -1189,16 +1189,6 @@ footer {
   border-bottom: 1px solid var(--hairline);
 }
 
-.detail-grid-bg {
-  position: absolute;
-  inset: 68px 0 0;
-  background-image:
-    linear-gradient(var(--hairline) 1px, transparent 1px),
-    linear-gradient(90deg, var(--hairline) 1px, transparent 1px);
-  background-size: 8vw 8vw;
-  opacity: 0.2;
-  mask-image: linear-gradient(to bottom, black 0%, rgba(0,0,0,.58) 56%, transparent 100%);
-}
 
 .detail-hero-index {
   position: absolute;
@@ -1231,7 +1221,7 @@ footer {
 }
 
 .detail-index {
-  font-family: var(--mono);
+  font-family: var(--ui);
   font-size: 0.72rem;
   color: var(--muted);
 }
@@ -1247,10 +1237,10 @@ footer {
 
 .detail-kicker {
   margin: 0 0 14px;
-  font-family: var(--mono);
+  font-family: var(--ui);
   font-size: 0.68rem;
   text-transform: uppercase;
-  letter-spacing: 0.055em;
+  letter-spacing: 0.045em;
   color: var(--muted);
 }
 
@@ -1301,10 +1291,10 @@ footer {
 .detail-status span {
   display: block;
   margin-bottom: 11px;
-  font-family: var(--mono);
+  font-family: var(--ui);
   font-size: 0.62rem;
   text-transform: uppercase;
-  letter-spacing: 0.055em;
+  letter-spacing: 0.045em;
   color: var(--muted);
 }
 
@@ -1427,7 +1417,7 @@ footer {
 .detail-block li {
   padding: 13px 0;
   border-bottom: 1px solid var(--hairline);
-  font-family: var(--mono);
+  font-family: var(--ui);
   font-size: 0.68rem;
   line-height: 1.5;
   text-transform: uppercase;
@@ -1493,7 +1483,7 @@ footer {
   display: inline-flex;
   gap: 10px;
   align-items: center;
-  font-family: var(--mono);
+  font-family: var(--ui);
   font-size: 0.72rem;
   text-transform: uppercase;
 }
