@@ -305,7 +305,7 @@ function readHomepageBackground(): BackgroundName {
   const value = new URLSearchParams(window.location.search).get("bg");
   return BACKGROUND_OPTIONS.some((item) => item.id === value)
     ? (value as BackgroundName)
-    : "none";
+    : "galaxy";
 }
 
 function PortfolioApp() {
