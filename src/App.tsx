@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState, type CSSProperties, type MouseEvent } from "react";
 import { ArrowDownRight, ArrowUpRight, Languages } from "lucide-react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import BackgroundLab from "./BackgroundLab";
+import BackgroundEffect, { BACKGROUND_OPTIONS, type BackgroundName } from "./backgrounds/BackgroundEffect";
 
 type Lang = "it" | "en";
 
@@ -299,8 +301,16 @@ function PortraitPlaceholder({
   );
 }
 
-function App() {
+function readHomepageBackground(): BackgroundName {
+  const value = new URLSearchParams(window.location.search).get("bg");
+  return BACKGROUND_OPTIONS.some((item) => item.id === value)
+    ? (value as BackgroundName)
+    : "none";
+}
+
+function PortfolioApp() {
   const [lang, setLang] = useState<Lang>("it");
+  const activeBackground = useMemo(readHomepageBackground, []);
   const reduceMotion = useReducedMotion();
   const c = copy[lang];
   const projectList = useMemo(() => selected[lang], [lang]);
@@ -349,13 +359,17 @@ function App() {
 
       <main>
         <section className="hero" id="top">
-          <div className="tech-field" aria-hidden="true">
-            <div className="scan scan-a" />
-            <div className="scan scan-b" />
-            <div className="signal-dot dot-a" />
-            <div className="signal-dot dot-b" />
-            <div className="signal-dot dot-c" />
-          </div>
+          {activeBackground === "none" ? (
+            <div className="tech-field" aria-hidden="true">
+              <div className="scan scan-a" />
+              <div className="scan scan-b" />
+              <div className="signal-dot dot-a" />
+              <div className="signal-dot dot-b" />
+              <div className="signal-dot dot-c" />
+            </div>
+          ) : (
+            <BackgroundEffect name={activeBackground} className="hero-background-effect" />
+          )}
 
           <motion.div className="hero-inner" style={{ y: heroY, opacity: heroOpacity }}>
             <div className="eyebrow">{c.heroEyebrow}</div>
@@ -479,6 +493,13 @@ function App() {
       </footer>
     </div>
   );
+}
+
+function App() {
+  const normalizedPath = window.location.pathname.replace(/\/$/, "");
+  const isBackgroundLab = normalizedPath.endsWith("/background-lab");
+
+  return isBackgroundLab ? <BackgroundLab /> : <PortfolioApp />;
 }
 
 export default App;
