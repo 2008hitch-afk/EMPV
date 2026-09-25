@@ -315,8 +315,23 @@ function App() {
 
   const toggleLang = () => setLang((current) => (current === "it" ? "en" : "it"));
 
+  const onPagePointerMove = (event: MouseEvent<HTMLDivElement>) => {
+    event.currentTarget.style.setProperty("--pointer-x", `${event.clientX}px`);
+    event.currentTarget.style.setProperty("--pointer-y", `${event.clientY}px`);
+    event.currentTarget.style.setProperty("--glow-opacity", "1");
+  };
+
+  const onPagePointerLeave = (event: MouseEvent<HTMLDivElement>) => {
+    event.currentTarget.style.setProperty("--glow-opacity", "0");
+  };
+
   return (
-    <div className="site-shell">
+    <div
+      className="site-shell"
+      onMouseMove={onPagePointerMove}
+      onMouseLeave={onPagePointerLeave}
+    >
+      <div className="global-pointer-glow" aria-hidden="true" />
       <header className="topbar">
         <a className="wordmark" href="#top" aria-label="EMPV home">
           EMPV<span className="wordmark-dot">•</span>
@@ -361,18 +376,6 @@ function App() {
             <span>45.6983° N</span>
             <span>09.6773° E</span>
             <span>SYS / PROD / AI</span>
-          </div>
-        </section>
-
-        <section className="ticker" aria-label="Disciplines">
-          <div className="ticker-track">
-            {[0, 1].map((copyIndex) => (
-              <div className="ticker-set" key={copyIndex} aria-hidden={copyIndex === 1}>
-                <span>SOFTWARE</span><i>✦</i><span>SYSTEMS</span><i>✦</i>
-                <span>PRODUCT</span><i>✦</i><span>AUTOMATION</span><i>✦</i>
-                <span>LOCAL AI</span><i>✦</i><span>RESEARCH</span><i>✦</i>
-              </div>
-            ))}
           </div>
         </section>
 
