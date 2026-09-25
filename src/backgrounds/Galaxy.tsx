@@ -169,10 +169,13 @@ void main() {
     vec3 ink = clamp(col * 0.48, 0.0, 0.82);
     gl_FragColor = vec4(mix(vec3(1.0), ink, coverage), 1.0);
   } else if (uTransparent) {
-    float alpha = length(col);
-    alpha = smoothstep(0.0, 0.3, alpha);
-    alpha = min(alpha, 1.0);
-    gl_FragColor = vec4(col, alpha);
+    float energy = max(max(col.r, col.g), col.b);
+    float alpha = smoothstep(0.015, 0.34, energy);
+    alpha = min(alpha * 0.92, 0.92);
+
+    // On EMPV's light canvas, use the selected tint as a darker moving ink.
+    vec3 movingInk = mix(uTint * 0.92, uTint * 0.48, clamp(energy, 0.0, 1.0));
+    gl_FragColor = vec4(movingInk, alpha);
   } else {
     gl_FragColor = vec4(col, 1.0);
   }
