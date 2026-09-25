@@ -46,3 +46,24 @@ The site selectively uses patterns and principles associated with shadcn/ui, Tai
 ## Status
 
 First creative prototype. Real portraits, final project imagery, final copy review and deployment are intentionally still open.
+
+
+## Background Lab
+
+Experimental route:
+
+`/background-lab`
+
+The lab compares the same EMPV hero against selectively imported background components from Magic UI and React Bits. It exposes intensity, speed, depth and pointer-interaction controls without changing the default homepage.
+
+Quick homepage comparisons are also available through:
+
+- `?bg=particles`
+- `?bg=aero`
+- `?bg=beams`
+- `?bg=threads`
+- `?bg=waves`
+- `?bg=galaxy`
+- `?bg=orb`
+
+The production/default homepage remains `?bg=none`.
