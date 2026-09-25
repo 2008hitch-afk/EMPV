@@ -27,50 +27,69 @@
 
 
 :root[data-visual-theme="galaxy"] {
-  /* Shared canvas/background: intentionally identical across all three options. */
+  /* STEEL — cool editorial / engineering */
   --paper: #e3e6ea;
-  --topbar-bg: rgba(227, 230, 234, 0.80);
-  --visual-paper: rgba(232, 235, 239, 0.92);
-
-  /* STEEL */
-  --ink: #18202b;
-  --muted: #687587;
-  --signal: #6483ad;
-  --galaxy-accent: #6483ad;
-  --hairline: rgba(24, 32, 43, 0.15);
-  --text-soft: #465363;
-  --text-muted-strong: #526174;
-  --visual-dark: #17202c;
-  --glow-core: rgba(100, 131, 173, 0.20);
-  --glow-mid: rgba(120, 149, 187, 0.08);
+  --ink: #172231;
+  --muted: #68788e;
+  --signal: #5f82b3;
+  --galaxy-accent: #5f82b3;
+  --hairline: rgba(23, 34, 49, 0.16);
+  --text-soft: #425267;
+  --text-muted-strong: #50627a;
+  --topbar-bg: rgba(226, 231, 237, 0.84);
+  --visual-dark: #152131;
+  --visual-paper: rgba(232, 237, 243, 0.94);
+  --glow-core: rgba(95, 130, 179, 0.22);
+  --glow-mid: rgba(119, 151, 193, 0.09);
+  --outline-ink: #587aa6;
+  --surface-wash: rgba(95, 130, 179, 0.060);
+  --surface-wash-soft: rgba(95, 130, 179, 0.026);
+  --nav-wash: rgba(208, 220, 234, 0.42);
+  --hover-wash: rgba(95, 130, 179, 0.055);
 }
 
 :root[data-visual-theme="galaxy"][data-galaxy-palette="indigo"] {
-  /* Same background, warmer violet-black typography and dusty indigo motion. */
-  --ink: #211f2c;
-  --muted: #756f84;
-  --signal: #766aa7;
-  --galaxy-accent: #766aa7;
-  --hairline: rgba(33, 31, 44, 0.15);
-  --text-soft: #554f64;
-  --text-muted-strong: #625b72;
-  --visual-dark: #201d2b;
-  --glow-core: rgba(118, 106, 167, 0.20);
-  --glow-mid: rgba(139, 128, 184, 0.08);
+  /* INDIGO — more expressive / research-led */
+  --paper: #e7e5eb;
+  --ink: #241d34;
+  --muted: #776c89;
+  --signal: #7865b0;
+  --galaxy-accent: #7865b0;
+  --hairline: rgba(36, 29, 52, 0.16);
+  --text-soft: #564b69;
+  --text-muted-strong: #655879;
+  --topbar-bg: rgba(232, 228, 238, 0.84);
+  --visual-dark: #21192f;
+  --visual-paper: rgba(239, 235, 244, 0.94);
+  --glow-core: rgba(120, 101, 176, 0.22);
+  --glow-mid: rgba(145, 127, 194, 0.09);
+  --outline-ink: #7462a3;
+  --surface-wash: rgba(120, 101, 176, 0.065);
+  --surface-wash-soft: rgba(120, 101, 176, 0.028);
+  --nav-wash: rgba(220, 212, 232, 0.44);
+  --hover-wash: rgba(120, 101, 176, 0.060);
 }
 
 :root[data-visual-theme="galaxy"][data-galaxy-palette="sage"] {
-  /* Same background, mineral green-black typography and sage motion. */
-  --ink: #19251f;
-  --muted: #687a71;
-  --signal: #5f8d79;
-  --galaxy-accent: #5f8d79;
-  --hairline: rgba(25, 37, 31, 0.15);
-  --text-soft: #465a51;
-  --text-muted-strong: #52675e;
-  --visual-dark: #18251f;
-  --glow-core: rgba(95, 141, 121, 0.20);
-  --glow-mid: rgba(117, 157, 140, 0.08);
+  /* SAGE — mineral / calm systems palette */
+  --paper: #e3e9e5;
+  --ink: #17281f;
+  --muted: #687d72;
+  --signal: #568c73;
+  --galaxy-accent: #568c73;
+  --hairline: rgba(23, 40, 31, 0.16);
+  --text-soft: #405b4e;
+  --text-muted-strong: #4d6b5d;
+  --topbar-bg: rgba(227, 235, 230, 0.84);
+  --visual-dark: #15271e;
+  --visual-paper: rgba(234, 241, 237, 0.94);
+  --glow-core: rgba(86, 140, 115, 0.22);
+  --glow-mid: rgba(111, 160, 138, 0.09);
+  --outline-ink: #53846e;
+  --surface-wash: rgba(86, 140, 115, 0.065);
+  --surface-wash-soft: rgba(86, 140, 115, 0.028);
+  --nav-wash: rgba(211, 227, 218, 0.44);
+  --hover-wash: rgba(86, 140, 115, 0.060);
 }
 
 :root[data-visual-theme="galaxy"] body {
@@ -83,8 +102,9 @@
 
 :root[data-visual-theme="galaxy"] .hero {
   background:
-    radial-gradient(circle at 78% 18%, rgba(255,255,255,0.34), transparent 38%),
-    linear-gradient(180deg, rgba(227,230,234,0.10), rgba(227,230,234,0.46));
+    radial-gradient(circle at 78% 18%, var(--surface-wash), transparent 40%),
+    linear-gradient(180deg, rgba(255,255,255,0.06), var(--surface-wash-soft) 46%, transparent 100%),
+    var(--paper);
 }
 
 :root[data-visual-theme="galaxy"] .manifesto,
@@ -95,7 +115,7 @@
 :root[data-visual-theme="galaxy"] footer,
 :root[data-visual-theme="galaxy"] .detail-shell {
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.055), transparent 160px),
+    linear-gradient(180deg, var(--surface-wash-soft), transparent 180px),
     var(--paper);
 }
 
@@ -113,7 +133,7 @@
 
 :root[data-visual-theme="galaxy"] .lab-row:hover,
 :root[data-visual-theme="galaxy"] .faq-item summary:hover {
-  background: rgba(66, 78, 96, 0.028);
+  background: var(--hover-wash);
 }
 
 :root[data-visual-theme="galaxy"] .portrait::before,
@@ -1867,7 +1887,7 @@ footer {
 :root[data-visual-theme="galaxy"] .mobile-menu-toggle,
 :root[data-visual-theme="galaxy"] .mobile-nav-panel,
 :root[data-visual-theme="galaxy"] .mobile-nav-language {
-  background-color: rgba(232, 235, 240, 0.34);
+  background-color: var(--nav-wash);
 }
 
 :root[data-visual-theme="galaxy"] .desktop-nav a::before,
@@ -1891,4 +1911,28 @@ footer {
 :root[data-visual-theme="galaxy"] ::selection {
   background: var(--galaxy-accent);
   color: var(--paper);
+}
+
+
+:root[data-visual-theme="galaxy"] .hero h1 .outline {
+  -webkit-text-stroke-color: var(--outline-ink);
+}
+
+:root[data-visual-theme="galaxy"] .hero .eyebrow,
+:root[data-visual-theme="galaxy"] .section-code,
+:root[data-visual-theme="galaxy"] .section-head .eyebrow,
+:root[data-visual-theme="galaxy"] .detail-kicker,
+:root[data-visual-theme="galaxy"] .detail-index {
+  color: color-mix(in srgb, var(--galaxy-accent) 78%, var(--muted));
+}
+
+:root[data-visual-theme="galaxy"] .tags span,
+:root[data-visual-theme="galaxy"] .lab-tags span {
+  background: color-mix(in srgb, var(--galaxy-accent) 3.5%, transparent);
+}
+
+:root[data-visual-theme="galaxy"] .project-visual {
+  background:
+    radial-gradient(circle at 64% 38%, color-mix(in srgb, var(--galaxy-accent) 14%, transparent), transparent 48%),
+    var(--visual-dark);
 }
