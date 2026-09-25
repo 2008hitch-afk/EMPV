@@ -479,6 +479,7 @@ function readHomepageBackground(): BackgroundName {
 function PortfolioApp() {
   const [lang, setLang] = useState<Lang>("it");
   const activeBackground = useMemo(readHomepageBackground, []);
+  const backgroundParam = activeBackground === "none" ? "" : `&bg=${activeBackground}`;
   const reduceMotion = useReducedMotion();
   const c = copy[lang];
   const projectList = useMemo(() => selected[lang], [lang]);
@@ -571,7 +572,7 @@ function PortfolioApp() {
               <ProjectCard
                 key={project.name}
                 project={project}
-                href={`?project=${project.slug}&lang=${lang}`}
+                href={`?project=${project.slug}&lang=${lang}${backgroundParam}`}
               />
             ))}
           </div>
@@ -591,7 +592,7 @@ function PortfolioApp() {
               <motion.a
                 className="lab-row"
                 key={project.name}
-                href={`?lab=${project.slug}&lang=${lang}`}
+                href={`?lab=${project.slug}&lang=${lang}${backgroundParam}`}
                 initial={{ opacity: 0, x: -24 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-8%" }}
@@ -688,9 +689,11 @@ function App() {
   const params = new URLSearchParams(window.location.search);
   const detailSlug = params.get("project") ?? params.get("lab");
   const initialLang: SiteLang = params.get("lang") === "en" ? "en" : "it";
+  const visualTheme = params.get("bg") === "galaxy" ? "galaxy" : "default";
 
   useEffect(() => {
     const root = document.documentElement;
+    root.dataset.visualTheme = visualTheme;
 
     const onPointerMove = (event: PointerEvent) => {
       root.style.setProperty("--pointer-x", `${event.clientX}px`);
@@ -710,7 +713,7 @@ function App() {
       document.documentElement.removeEventListener("mouseleave", onPointerLeave);
       root.style.setProperty("--glow-opacity", "0");
     };
-  }, []);
+  }, [visualTheme]);
 
   let page;
   if (isBackgroundLab) {
