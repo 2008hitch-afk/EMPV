@@ -45,12 +45,37 @@ button {
 }
 
 ::selection {
-  background: var(--signal);
-  color: #fff;
+  background: var(--ink);
+  color: var(--paper);
 }
 
 .site-shell {
   min-height: 100vh;
+  --pointer-x: 50vw;
+  --pointer-y: 50vh;
+  --glow-opacity: 0;
+}
+
+.global-pointer-glow {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  pointer-events: none;
+  opacity: var(--glow-opacity);
+  background: radial-gradient(
+    520px circle at var(--pointer-x) var(--pointer-y),
+    rgba(255, 75, 25, 0.13),
+    rgba(255, 75, 25, 0.055) 22%,
+    transparent 66%
+  );
+  mix-blend-mode: multiply;
+  transition: opacity 220ms ease;
+}
+
+main,
+footer {
+  position: relative;
+  z-index: 1;
 }
 
 .topbar {
@@ -75,8 +100,9 @@ button {
 }
 
 .wordmark-dot {
-  color: var(--signal);
+  color: var(--ink);
   margin-left: 2px;
+  opacity: 0.38;
 }
 
 .topbar nav {
@@ -210,8 +236,8 @@ button {
 
 .scan {
   position: absolute;
-  background: var(--signal);
-  opacity: 0.65;
+  background: var(--ink);
+  opacity: 0.22;
 }
 
 .scan-a {
@@ -233,8 +259,8 @@ button {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: var(--signal);
-  box-shadow: 0 0 0 10px rgba(255, 75, 25, 0.08);
+  background: var(--ink);
+  box-shadow: 0 0 0 10px rgba(17, 17, 15, 0.055);
   animation: pulse 2.5s ease-in-out infinite;
 }
 
@@ -255,39 +281,6 @@ button {
 @keyframes pulse {
   0%, 100% { transform: scale(0.65); opacity: 0.35; }
   50% { transform: scale(1); opacity: 1; }
-}
-
-.ticker {
-  overflow: hidden;
-  border-bottom: 1px solid var(--hairline);
-  padding: 14px 0;
-  background: var(--ink);
-  color: var(--paper);
-}
-
-.ticker-track {
-  display: flex;
-  width: max-content;
-  animation: ticker 26s linear infinite;
-}
-
-.ticker-set {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  padding-right: 24px;
-  font-family: var(--mono);
-  font-size: 0.74rem;
-  letter-spacing: 0.08em;
-}
-
-.ticker-set i {
-  color: var(--signal);
-  font-style: normal;
-}
-
-@keyframes ticker {
-  to { transform: translateX(-50%); }
 }
 
 .section-pad {
@@ -361,7 +354,7 @@ button {
   pointer-events: none;
   background: radial-gradient(
     440px circle at var(--spot-x) var(--spot-y),
-    rgba(255, 75, 25, 0.085),
+    rgba(255, 75, 25, 0.07),
     transparent 62%
   );
   opacity: 0;
@@ -430,7 +423,7 @@ button {
   line-height: 1;
   letter-spacing: -0.1em;
   font-weight: 600;
-  color: var(--signal);
+  color: rgba(236, 235, 229, 0.9);
   mix-blend-mode: screen;
 }
 
@@ -440,12 +433,6 @@ button {
   left: 18px;
   color: rgba(255,255,255,0.6);
 }
-
-.visual-change .visual-core { color: #97ff5f; }
-.visual-cube .visual-core { color: #79a8ff; }
-.visual-saas .visual-core { color: #ffcf44; }
-.visual-local .visual-core { color: #7dffdc; }
-.visual-deep .visual-core { color: #d9a5ff; }
 
 .project-copy {
   padding: 6px 70px 18px 0;
@@ -507,12 +494,13 @@ button {
 }
 
 .labs {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--paper);
+  color: var(--ink);
+  border-top: 1px solid var(--hairline);
 }
 
 .labs .eyebrow {
-  color: rgba(236,235,229,0.5);
+  color: var(--muted);
 }
 
 .labs-intro {
@@ -528,11 +516,11 @@ button {
 }
 
 .labs-intro > p {
-  color: rgba(236,235,229,0.68);
+  color: #3b3a36;
 }
 
 .lab-list {
-  border-top: 1px solid rgba(236,235,229,0.2);
+  border-top: 1px solid var(--hairline);
 }
 
 .lab-row {
@@ -542,19 +530,19 @@ button {
   gap: 28px;
   align-items: start;
   padding: 32px 0 38px;
-  border-bottom: 1px solid rgba(236,235,229,0.2);
+  border-bottom: 1px solid var(--hairline);
   transition: background 220ms ease, padding 220ms ease;
 }
 
 .lab-row:hover {
-  background: rgba(236,235,229,0.045);
+  background: rgba(17, 17, 15, 0.025);
   padding-left: 14px;
   padding-right: 14px;
 }
 
 .lab-index {
   font-family: var(--mono);
-  color: var(--signal);
+  color: var(--muted);
   font-size: 0.76rem;
 }
 
@@ -562,7 +550,7 @@ button {
   font-family: var(--mono);
   font-size: 0.64rem;
   text-transform: uppercase;
-  color: rgba(236,235,229,0.48);
+  color: var(--muted);
 }
 
 .lab-main h3 {
@@ -575,13 +563,13 @@ button {
 .lab-main p {
   margin: 0;
   max-width: 760px;
-  color: rgba(236,235,229,0.64);
+  color: #4b4a45;
   line-height: 1.55;
 }
 
 .lab-tags span {
-  border-color: rgba(236,235,229,0.22);
-  color: rgba(236,235,229,0.7);
+  border-color: var(--hairline);
+  color: var(--muted);
 }
 
 .lab-arrow {
@@ -621,8 +609,8 @@ button {
   position: absolute;
   inset: -20%;
   background:
-    radial-gradient(circle at 35% 30%, rgba(255, 75, 25, 0.8), transparent 24%),
-    radial-gradient(circle at 70% 65%, rgba(121, 168, 255, 0.65), transparent 25%),
+    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.32), transparent 24%),
+    radial-gradient(circle at 70% 65%, rgba(150, 150, 145, 0.44), transparent 25%),
     radial-gradient(circle at 50% 52%, rgba(255,255,255,0.14), transparent 40%);
   filter: blur(22px);
   animation: portrait-flow 12s ease-in-out infinite alternate;
@@ -630,8 +618,8 @@ button {
 
 .portrait-b::before {
   background:
-    radial-gradient(circle at 65% 22%, rgba(151, 255, 95, 0.64), transparent 23%),
-    radial-gradient(circle at 30% 72%, rgba(217, 165, 255, 0.7), transparent 25%),
+    radial-gradient(circle at 65% 22%, rgba(255, 255, 255, 0.3), transparent 23%),
+    radial-gradient(circle at 30% 72%, rgba(120, 120, 116, 0.5), transparent 25%),
     radial-gradient(circle at 50% 52%, rgba(255,255,255,0.14), transparent 40%);
   animation-delay: -5s;
 }
@@ -726,7 +714,7 @@ button {
 }
 
 .person-copy .role {
-  color: var(--signal);
+  color: var(--muted);
   font-family: var(--mono);
   text-transform: uppercase;
   font-size: 0.69rem;
@@ -904,6 +892,12 @@ footer {
 
   .footer-mark {
     font-size: 29vw;
+  }
+}
+
+@media (hover: none), (pointer: coarse) {
+  .global-pointer-glow {
+    display: none;
   }
 }
 
