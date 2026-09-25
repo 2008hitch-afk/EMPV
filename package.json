@@ -6,13 +6,19 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "postbuild": "node scripts/copy-404.mjs"
   },
   "dependencies": {
     "lucide-react": "^1.48.0",
     "motion": "^13.4.3",
     "react": "^19.3.0",
-    "react-dom": "^19.3.0"
+    "react-dom": "^19.3.0",
+    "vgpu": "^0.3.1",
+    "three": "^0.180.0",
+    "@react-three/fiber": "^9.3.0",
+    "@react-three/drei": "^10.7.4",
+    "ogl": "^1.0.11"
   },
   "devDependencies": {
     "@types/react": "^19.3.0",
