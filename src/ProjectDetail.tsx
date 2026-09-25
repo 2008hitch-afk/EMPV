@@ -88,7 +88,6 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
 
       <main>
         <section className="detail-hero">
-          <div className="detail-grid-bg" aria-hidden="true" />
           <div className="detail-hero-index" aria-hidden="true">
             {detail.index}
           </div>
