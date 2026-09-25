@@ -36,6 +36,8 @@ uniform float uMouseActiveFactor;
 uniform float uAutoCenterRepulsion;
 uniform bool uTransparent;
 uniform float uLightMode;
+uniform vec3 uTint;
+uniform float uTintStrength;
 
 varying vec2 vUv;
 
@@ -107,6 +109,7 @@ vec3 StarLayer(vec2 uv) {
       float sat = length(base - vec3(dot(base, vec3(0.299, 0.587, 0.114)))) * uSaturation;
       float val = max(max(base.r, base.g), base.b);
       base = hsv2rgb(vec3(hue, sat, val));
+      base = mix(base, uTint, uTintStrength);
 
       vec2 pad = vec2(tris(seed * 34.0 + uTime * uSpeed / 10.0), tris(seed * 38.0 + uTime * uSpeed / 30.0)) - 0.5;
 
@@ -194,6 +197,8 @@ interface GalaxyProps {
   autoCenterRepulsion?: number;
   transparent?: boolean;
   lightMode?: boolean;
+  tint?: [number, number, number];
+  tintStrength?: number;
 }
 
 export default function Galaxy({
@@ -214,6 +219,8 @@ export default function Galaxy({
   autoCenterRepulsion = 0,
   transparent = true,
   lightMode = false,
+  tint = [0.44, 0.53, 0.66],
+  tintStrength = 0.84,
   ...rest
 }: GalaxyProps) {
   const ctnDom = useRef<HTMLDivElement>(null);
@@ -284,7 +291,9 @@ export default function Galaxy({
         uMouseActiveFactor: { value: 0.0 },
         uAutoCenterRepulsion: { value: autoCenterRepulsion },
         uTransparent: { value: transparent },
-        uLightMode: { value: lightMode ? 1 : 0 }
+        uLightMode: { value: lightMode ? 1 : 0 },
+        uTint: { value: new Float32Array(tint) },
+        uTintStrength: { value: tintStrength }
       }
     });
 
@@ -377,7 +386,9 @@ export default function Galaxy({
     repulsionStrength,
     autoCenterRepulsion,
     transparent,
-    lightMode
+    lightMode,
+    tint,
+    tintStrength
   ]);
 
   return <div ref={ctnDom} className="galaxy-container" {...rest} />;
