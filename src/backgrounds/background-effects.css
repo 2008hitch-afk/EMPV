@@ -69,3 +69,11 @@
 .lab-background-effect.effect-beams {
   filter: contrast(1.15);
 }
+
+.lab-background-effect.effect-side-rays {
+  filter: grayscale(1) invert(1) contrast(1.45);
+}
+
+.lab-background-effect.effect-prism {
+  filter: grayscale(1) contrast(1.85) brightness(0.62);
+}
