@@ -9,7 +9,14 @@ export type BackgroundName =
   | "threads"
   | "waves"
   | "galaxy"
-  | "orb";
+  | "orb"
+  | "silk"
+  | "sliced-waves"
+  | "side-rays"
+  | "light-tunnel"
+  | "scanner"
+  | "prism"
+  | "dither";
 
 export type BackgroundTuning = {
   intensity: number;
@@ -27,6 +34,13 @@ const Threads = lazy(() => import("./Threads"));
 const Waves = lazy(() => import("./Waves"));
 const Galaxy = lazy(() => import("./Galaxy"));
 const Orb = lazy(() => import("./Orb"));
+const Silk = lazy(() => import("./Silk"));
+const SlicedWaves = lazy(() => import("./SlicedWaves"));
+const SideRays = lazy(() => import("./SideRays"));
+const LightTunnel = lazy(() => import("./LightTunnel"));
+const Scanner = lazy(() => import("./Scanner"));
+const Prism = lazy(() => import("./Prism"));
+const Dither = lazy(() => import("./Dither"));
 
 export const DEFAULT_TUNING: BackgroundTuning = {
   intensity: 0.42,
@@ -83,6 +97,48 @@ export const BACKGROUND_OPTIONS: Array<{
     label: "Orb",
     source: "React Bits",
     note: "Shader object test",
+  },
+  {
+    id: "silk",
+    label: "Silk",
+    source: "React Bits",
+    note: "Soft illuminated wave field",
+  },
+  {
+    id: "sliced-waves",
+    label: "Sliced Waves",
+    source: "React Bits",
+    note: "Geometric glowing wave bars",
+  },
+  {
+    id: "side-rays",
+    label: "Side Rays",
+    source: "React Bits",
+    note: "Directional volumetric light",
+  },
+  {
+    id: "light-tunnel",
+    label: "Light Tunnel",
+    source: "React Bits",
+    note: "Fibre-optic depth tunnel",
+  },
+  {
+    id: "scanner",
+    label: "Scanner",
+    source: "React Bits",
+    note: "Oscilloscope interference field",
+  },
+  {
+    id: "prism",
+    label: "Prism",
+    source: "React Bits",
+    note: "Volumetric rotating object",
+  },
+  {
+    id: "dither",
+    label: "Dither",
+    source: "React Bits",
+    note: "Dithered procedural waves",
   },
 ];
 
@@ -221,6 +277,160 @@ export default function BackgroundEffect({
             rotateOnHover={tuning.pointer}
             forceHoverState={false}
             backgroundColor="#ecebe5"
+          />
+        )}
+
+        {name === "silk" && (
+          <Silk
+            speed={0.7 + speed * 2.6}
+            scale={0.75 + depth * 0.7}
+            color="#c9c8c1"
+            noiseIntensity={0.45 + intensity * 1.25}
+            rotation={-0.12}
+            lightMode
+          />
+        )}
+
+        {name === "sliced-waves" && (
+          <SlicedWaves
+            color1="#181816"
+            color2="#77766f"
+            color3="#d3d2cc"
+            columns={12}
+            rows={7}
+            barThickness={0.08 + intensity * 0.08}
+            speed={0.08 + speed * 0.52}
+            travel={0.45 + depth * 0.5}
+            waveSpread={0.7 + depth * 0.45}
+            rowOffset={0.72}
+            softness={0.08}
+            glow={0.08 + intensity * 0.22}
+            brightness={0.72 + intensity * 0.36}
+            contrast={1.05}
+            opacity={0.45 + intensity * 0.4}
+            orientation="horizontal"
+            alternate
+            mouseInteraction={tuning.pointer}
+            mouseStrength={0.25 + intensity * 0.55}
+            mouseRadius={0.22 + depth * 0.18}
+            grain
+            grainIntensity={0.025}
+            lightMode
+          />
+        )}
+
+        {name === "side-rays" && (
+          <SideRays
+            speed={0.25 + speed * 1.1}
+            rayColor1="#1b1b18"
+            rayColor2="#8b8a83"
+            intensity={0.45 + intensity * 1.15}
+            spread={1.1 + depth * 1.1}
+            origin="top-right"
+            tilt={-0.15}
+            saturation={0}
+            blend={0.72}
+            falloff={1.8}
+            opacity={0.42 + intensity * 0.42}
+          />
+        )}
+
+        {name === "light-tunnel" && (
+          <LightTunnel
+            cableColor="#20201d"
+            pulseColor="#8f8e87"
+            tunnelColor="#d8d7d1"
+            tunnelOpacity={0.1 + intensity * 0.12}
+            speed={0.03 + speed * 0.16}
+            flowDirection="outward"
+            pulseSpeed={0.45 + speed * 1.1}
+            pulseLength={0.18}
+            pulseBlend={0.75}
+            pulseWidth={0.8}
+            cableCount={16}
+            thickness={0.2 + intensity * 0.18}
+            rimWidth={0.1}
+            waviness={0.12 + intensity * 0.18}
+            sway={0.12 + depth * 0.28}
+            size={0.92 + depth * 0.22}
+            glow={0.14 + intensity * 0.28}
+            fadeNear={0.55}
+            fadeFar={2.2}
+            brightness={0.72 + intensity * 0.36}
+            colorVariance={false}
+            grain
+            grainIntensity={0.02}
+            opacity={0.62 + intensity * 0.28}
+            mouseInteraction={tuning.pointer}
+            mouseStrength={0.04 + intensity * 0.08}
+            lightMode
+          />
+        )}
+
+        {name === "scanner" && (
+          <Scanner
+            color1="#1a1a18"
+            color2="#77766f"
+            color3="#d8d7d1"
+            speed={0.12 + speed * 0.48}
+            sweepSpeed={0.08 + speed * 0.34}
+            sweepWidth={1.35}
+            sweepFalloff={7}
+            scale={1.2 + depth * 0.55}
+            frequency={1.7}
+            ripple={0.08 + intensity * 0.16}
+            bandDensity={9}
+            lineSharpness={5.5}
+            glow={0.06 + intensity * 0.16}
+            scanDirection="vertical"
+            colorSpread={0.25}
+            brightness={0.7 + intensity * 0.32}
+            contrast={1.1}
+            softness={1.7}
+            vignette={0.2}
+            scanline
+            grain
+            grainIntensity={0.018}
+            opacity={0.5 + intensity * 0.38}
+            mouseInteraction={tuning.pointer}
+            mouseRadius={0.35}
+            mouseStrength={0.18 + intensity * 0.22}
+          />
+        )}
+
+        {name === "prism" && (
+          <Prism
+            height={3.2}
+            baseWidth={5.1}
+            animationType={tuning.pointer ? "hover" : "rotate"}
+            glow={0.08 + intensity * 0.35}
+            offset={{ x: 0.2, y: 0 }}
+            noise={0.15}
+            transparent
+            scale={2.7 + depth * 1.1}
+            hueShift={0}
+            colorFrequency={0.25}
+            hoverStrength={0.35 + intensity * 0.6}
+            inertia={0.04}
+            bloom={0.08 + intensity * 0.28}
+            suspendWhenOffscreen
+            timeScale={0.1 + speed * 0.45}
+            lightMode
+          />
+        )}
+
+        {name === "dither" && (
+          <Dither
+            waveSpeed={0.01 + speed * 0.06}
+            waveFrequency={1.8 + depth * 1.7}
+            waveAmplitude={0.15 + intensity * 0.3}
+            waveColor={[0.12, 0.12, 0.105]}
+            backgroundColor={[0.92, 0.915, 0.89]}
+            colorNum={4}
+            pixelSize={2}
+            disableAnimation={speed < 0.02}
+            enableMouseInteraction={tuning.pointer}
+            mouseRadius={0.35 + depth * 0.45}
           />
         )}
       </Suspense>
