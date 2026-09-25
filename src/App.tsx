@@ -23,7 +23,7 @@ type Project = {
 
 const copy = {
   it: {
-    nav: { work: "Progetti", labs: "AI Lab", people: "Enrico + Michele" },
+    nav: { work: "Progetti", labs: "AI Lab", faq: "FAQ", people: "Enrico + Michele" },
     heroEyebrow: "Enrico Peruffo × Michele Valleri · Bergamo",
     heroTitleA: "Progettiamo sistemi",
     heroTitleB: "intorno al lavoro reale.",
@@ -62,7 +62,7 @@ const copy = {
     language: "EN",
   },
   en: {
-    nav: { work: "Projects", labs: "AI Lab", people: "Enrico + Michele" },
+    nav: { work: "Projects", labs: "AI Lab", faq: "FAQ", people: "Enrico + Michele" },
     heroEyebrow: "Enrico Peruffo × Michele Valleri · Bergamo",
     heroTitleA: "We design systems",
     heroTitleB: "around real work.",
@@ -597,7 +597,7 @@ function PortfolioApp() {
   }, [lang]);
 
   useEffect(() => {
-    const sections = ["work", "labs", "people"]
+    const sections = ["work", "labs", "faq", "people"]
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => Boolean(section));
 
@@ -622,7 +622,6 @@ function PortfolioApp() {
     <div className="site-shell">
       <header className="topbar topbar-home">
         <a className="wordmark wordmark-pill" href="#top" aria-label="EMPV home">
-          <span className="wordmark-signal" aria-hidden="true" />
           EMPV
         </a>
 
@@ -632,6 +631,9 @@ function PortfolioApp() {
           </a>
           <a className={activeSection === "labs" ? "is-active" : ""} href="#labs">
             <span>{c.nav.labs}</span>
+          </a>
+          <a className={activeSection === "faq" ? "is-active" : ""} href="#faq">
+            <span>{c.nav.faq}</span>
           </a>
           <a className={activeSection === "people" ? "is-active" : ""} href="#people">
             <span>{c.nav.people}</span>
@@ -669,7 +671,8 @@ function PortfolioApp() {
             {[
               ["01", "work", c.nav.work],
               ["02", "labs", c.nav.labs],
-              ["03", "people", c.nav.people],
+              ["03", "faq", c.nav.faq],
+              ["04", "people", c.nav.people],
             ].map(([index, id, label]) => (
               <a
                 key={id}
