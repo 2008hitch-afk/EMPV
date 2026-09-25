@@ -22,6 +22,7 @@
   --pointer-x: 50vw;
   --pointer-y: 50vh;
   --glow-opacity: 0;
+  --page-gutter: clamp(44px, 4vw, 72px);
 }
 
 
@@ -402,7 +403,7 @@ footer {
   min-height: 100svh;
   position: relative;
   overflow: hidden;
-  padding: 108px 28px 32px;
+  padding: 108px var(--page-gutter) 32px;
   border-bottom: 1px solid var(--hairline);
 }
 
@@ -472,7 +473,7 @@ footer {
 
 
 .section-pad {
-  padding: 104px 28px;
+  padding: 104px var(--page-gutter);
 }
 
 .manifesto {
@@ -1088,7 +1089,7 @@ footer {
 }
 
 footer {
-  padding: 70px 28px 28px;
+  padding: 70px var(--page-gutter) var(--page-gutter);
   background: var(--paper);
 }
 
@@ -1202,6 +1203,10 @@ footer {
   .people-grid {
     grid-template-columns: 1fr;
     gap: 70px;
+  }
+
+  footer {
+    padding: 70px 28px 28px;
   }
 
   .footer-meta {
