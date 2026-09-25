@@ -3,10 +3,13 @@ import { ArrowDownRight, ArrowUpRight, Languages } from "lucide-react";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import BackgroundLab from "./BackgroundLab";
 import BackgroundEffect, { BACKGROUND_OPTIONS, type BackgroundName } from "./backgrounds/BackgroundEffect";
+import ProjectDetail from "./ProjectDetail";
+import type { SiteLang } from "./detailContent";
 
-type Lang = "it" | "en";
+type Lang = SiteLang;
 
 type Project = {
+  slug: string;
   index: string;
   name: string;
   kind: string;
@@ -92,6 +95,7 @@ const selected: Record<Lang, Project[]> = {
   it: [
     {
       index: "01",
+      slug: "infisso",
       name: "L'Infisso",
       kind: "Progetto cliente",
       description:
@@ -101,6 +105,7 @@ const selected: Record<Lang, Project[]> = {
     },
     {
       index: "02",
+      slug: "centro-change",
       name: "Centro Change",
       kind: "Progetto cliente",
       description:
@@ -110,6 +115,7 @@ const selected: Record<Lang, Project[]> = {
     },
     {
       index: "03",
+      slug: "cloeshouse",
       name: "Cloeshouse Pet Resort",
       kind: "Progetto cliente",
       description:
@@ -119,6 +125,7 @@ const selected: Record<Lang, Project[]> = {
     },
     {
       index: "04",
+      slug: "cube",
       name: "Cube Audio Service",
       kind: "Progetto cliente",
       description:
@@ -130,6 +137,7 @@ const selected: Record<Lang, Project[]> = {
   en: [
     {
       index: "01",
+      slug: "infisso",
       name: "L'Infisso",
       kind: "Client project",
       description:
@@ -139,6 +147,7 @@ const selected: Record<Lang, Project[]> = {
     },
     {
       index: "02",
+      slug: "centro-change",
       name: "Centro Change",
       kind: "Client project",
       description:
@@ -148,6 +157,7 @@ const selected: Record<Lang, Project[]> = {
     },
     {
       index: "03",
+      slug: "cloeshouse",
       name: "Cloeshouse Pet Resort",
       kind: "Client project",
       description:
@@ -157,6 +167,7 @@ const selected: Record<Lang, Project[]> = {
     },
     {
       index: "04",
+      slug: "cube",
       name: "Cube Audio Service",
       kind: "Client project",
       description:
@@ -171,6 +182,7 @@ const labs: Record<Lang, Project[]> = {
   it: [
     {
       index: "A",
+      slug: "system-twin",
       name: "System Twin",
       kind: "Exploration",
       description:
@@ -180,6 +192,7 @@ const labs: Record<Lang, Project[]> = {
     },
     {
       index: "B",
+      slug: "local-ai",
       name: "Local AI",
       kind: "Applied R&D",
       description:
@@ -189,6 +202,7 @@ const labs: Record<Lang, Project[]> = {
     },
     {
       index: "C",
+      slug: "opportunity-engine",
       name: "Opportunity Engine",
       kind: "Prototype",
       description:
@@ -198,6 +212,7 @@ const labs: Record<Lang, Project[]> = {
     },
     {
       index: "D",
+      slug: "vertical-operations",
       name: "Vertical Operations",
       kind: "Product direction",
       description:
@@ -207,6 +222,7 @@ const labs: Record<Lang, Project[]> = {
     },
     {
       index: "E",
+      slug: "trustworthy-reasoning",
       name: "Trustworthy Reasoning",
       kind: "Research",
       description:
@@ -218,6 +234,7 @@ const labs: Record<Lang, Project[]> = {
   en: [
     {
       index: "A",
+      slug: "system-twin",
       name: "System Twin",
       kind: "Exploration",
       description:
@@ -227,6 +244,7 @@ const labs: Record<Lang, Project[]> = {
     },
     {
       index: "B",
+      slug: "local-ai",
       name: "Local AI",
       kind: "Applied R&D",
       description:
@@ -236,6 +254,7 @@ const labs: Record<Lang, Project[]> = {
     },
     {
       index: "C",
+      slug: "opportunity-engine",
       name: "Opportunity Engine",
       kind: "Prototype",
       description:
@@ -245,6 +264,7 @@ const labs: Record<Lang, Project[]> = {
     },
     {
       index: "D",
+      slug: "vertical-operations",
       name: "Vertical Operations",
       kind: "Product direction",
       description:
@@ -254,6 +274,7 @@ const labs: Record<Lang, Project[]> = {
     },
     {
       index: "E",
+      slug: "trustworthy-reasoning",
       name: "Trustworthy Reasoning",
       kind: "Research",
       description:
@@ -276,10 +297,10 @@ function ProjectVisual({ accent, index }: { accent: string; index: string }) {
   );
 }
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project, href }: { project: Project; href: string }) {
   const [spot, setSpot] = useState({ x: 50, y: 50 });
 
-  function onMove(event: MouseEvent<HTMLElement>) {
+  function onMove(event: MouseEvent<HTMLAnchorElement>) {
     const box = event.currentTarget.getBoundingClientRect();
     setSpot({
       x: ((event.clientX - box.left) / box.width) * 100,
@@ -288,8 +309,9 @@ function ProjectCard({ project }: { project: Project }) {
   }
 
   return (
-    <motion.article
+    <motion.a
       className="project-card"
+      href={href}
       onMouseMove={onMove}
       style={
         {
@@ -317,7 +339,7 @@ function ProjectCard({ project }: { project: Project }) {
         </div>
       </div>
       <ArrowUpRight className="project-arrow" size={26} strokeWidth={1.4} />
-    </motion.article>
+    </motion.a>
   );
 }
 
@@ -475,7 +497,11 @@ function PortfolioApp() {
           </div>
           <div className="project-list">
             {projectList.map((project) => (
-              <ProjectCard key={project.name} project={project} />
+              <ProjectCard
+                key={project.name}
+                project={project}
+                href={`?project=${project.slug}&lang=${lang}`}
+              />
             ))}
           </div>
         </section>
@@ -491,9 +517,10 @@ function PortfolioApp() {
 
           <div className="lab-list">
             {labList.map((project) => (
-              <motion.article
+              <motion.a
                 className="lab-row"
                 key={project.name}
+                href={`?lab=${project.slug}&lang=${lang}`}
                 initial={{ opacity: 0, x: -24 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, margin: "-8%" }}
@@ -511,7 +538,7 @@ function PortfolioApp() {
                   ))}
                 </div>
                 <ArrowUpRight className="lab-arrow" size={24} strokeWidth={1.3} />
-              </motion.article>
+              </motion.a>
             ))}
           </div>
           <p className="labs-note">{c.labsNote}</p>
@@ -562,8 +589,13 @@ function PortfolioApp() {
 function App() {
   const normalizedPath = window.location.pathname.replace(/\/$/, "");
   const isBackgroundLab = normalizedPath.endsWith("/background-lab");
+  const params = new URLSearchParams(window.location.search);
+  const detailSlug = params.get("project") ?? params.get("lab");
+  const initialLang: SiteLang = params.get("lang") === "en" ? "en" : "it";
 
-  return isBackgroundLab ? <BackgroundLab /> : <PortfolioApp />;
+  if (isBackgroundLab) return <BackgroundLab />;
+  if (detailSlug) return <ProjectDetail slug={detailSlug} initialLang={initialLang} />;
+  return <PortfolioApp />;
 }
 
 export default App;
