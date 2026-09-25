@@ -75,5 +75,6 @@
 }
 
 .lab-background-effect.effect-prism {
-  filter: grayscale(1) contrast(1.85) brightness(0.62);
+  filter: none;
+  background: #11110f;
 }
