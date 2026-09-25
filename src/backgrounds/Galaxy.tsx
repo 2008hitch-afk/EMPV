@@ -298,11 +298,15 @@ export default function Galaxy({
         program.uniforms.uStarSpeed.value = (t * 0.001 * starSpeed) / 10.0;
       }
 
-      const lerpFactor = 0.05;
-      smoothMousePos.current.x += (targetMousePos.current.x - smoothMousePos.current.x) * lerpFactor;
-      smoothMousePos.current.y += (targetMousePos.current.y - smoothMousePos.current.y) * lerpFactor;
+      const positionLerp = 0.22;
+      const activeLerp = 0.16;
+      smoothMousePos.current.x +=
+        (targetMousePos.current.x - smoothMousePos.current.x) * positionLerp;
+      smoothMousePos.current.y +=
+        (targetMousePos.current.y - smoothMousePos.current.y) * positionLerp;
 
-      smoothMouseActive.current += (targetMouseActive.current - smoothMouseActive.current) * lerpFactor;
+      smoothMouseActive.current +=
+        (targetMouseActive.current - smoothMouseActive.current) * activeLerp;
 
       program.uniforms.uMouse.value[0] = smoothMousePos.current.x;
       program.uniforms.uMouse.value[1] = smoothMousePos.current.y;
@@ -313,29 +317,45 @@ export default function Galaxy({
     animateId = requestAnimationFrame(update);
     ctn.appendChild(gl.canvas);
 
-    function handleMouseMove(e: MouseEvent) {
+    function handlePointerMove(e: PointerEvent) {
+      if (e.pointerType === 'touch') return;
+
       const rect = ctn.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = 1.0 - (e.clientY - rect.top) / rect.height;
+      const isInside =
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom;
+
+      if (!isInside || rect.width === 0 || rect.height === 0) {
+        targetMouseActive.current = 0.0;
+        return;
+      }
+
+      const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      const y = Math.max(0, Math.min(1, 1.0 - (e.clientY - rect.top) / rect.height));
+
       targetMousePos.current = { x, y };
       targetMouseActive.current = 1.0;
     }
 
-    function handleMouseLeave() {
+    function handlePointerLeave() {
       targetMouseActive.current = 0.0;
     }
 
     if (mouseInteraction) {
-      ctn.addEventListener('mousemove', handleMouseMove);
-      ctn.addEventListener('mouseleave', handleMouseLeave);
+      window.addEventListener('pointermove', handlePointerMove, { passive: true });
+      document.documentElement.addEventListener('mouseleave', handlePointerLeave);
+      window.addEventListener('blur', handlePointerLeave);
     }
 
     return () => {
       cancelAnimationFrame(animateId);
       window.removeEventListener('resize', resize);
       if (mouseInteraction) {
-        ctn.removeEventListener('mousemove', handleMouseMove);
-        ctn.removeEventListener('mouseleave', handleMouseLeave);
+        window.removeEventListener('pointermove', handlePointerMove);
+        document.documentElement.removeEventListener('mouseleave', handlePointerLeave);
+        window.removeEventListener('blur', handlePointerLeave);
       }
       ctn.removeChild(gl.canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
