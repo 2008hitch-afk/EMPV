@@ -400,21 +400,21 @@ export default function BackgroundEffect({
 
         {name === "prism" && (
           <Prism
-            height={4.1}
-            baseWidth={6.4}
-            animationType={tuning.pointer ? "3drotate" : "rotate"}
-            glow={1.3 + intensity * 2.2}
-            offset={{ x: 0.15, y: 0 }}
-            noise={0.025}
-            transparent
-            scale={3.8 + depth * 1.6}
+            height={3.5}
+            baseWidth={5.5}
+            animationType={tuning.pointer ? "hover" : "rotate"}
+            glow={1}
+            offset={{ x: 0, y: 0 }}
+            noise={0.5}
+            transparent={false}
+            scale={3.6}
             hueShift={0}
-            colorFrequency={0.55}
-            hoverStrength={0.8 + intensity * 1.2}
-            inertia={0.04}
-            bloom={1.2 + intensity * 1.8}
-            suspendWhenOffscreen
-            timeScale={0.18 + speed * 0.7}
+            colorFrequency={1}
+            hoverStrength={2}
+            inertia={0.05}
+            bloom={1}
+            suspendWhenOffscreen={false}
+            timeScale={0.5}
             lightMode={false}
           />
         )}
