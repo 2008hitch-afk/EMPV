@@ -24,6 +24,14 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [lang, slug]);
 
+  const currentParams = new URLSearchParams(window.location.search);
+  const activeBg = currentParams.get("bg");
+  const activePalette = currentParams.get("palette");
+  const backParams = new URLSearchParams();
+  if (activeBg) backParams.set("bg", activeBg);
+  if (activePalette) backParams.set("palette", activePalette);
+  const bgParam = backParams.toString() ? `?${backParams.toString()}` : "";
+
   if (!detail) {
     return (
       <div className="detail-shell">
@@ -35,7 +43,7 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
         <main className="detail-not-found">
           <div className="eyebrow">EMPV / 404</div>
           <h1>{lang === "it" ? "Progetto non trovato." : "Project not found."}</h1>
-          <a className="detail-back-link" href="./">
+          <a className="detail-back-link" href={`./${bgParam}`}>
             <ArrowLeft size={18} strokeWidth={1.4} />
             {lang === "it" ? "Torna alla home" : "Back home"}
           </a>
@@ -51,13 +59,6 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
         : "Back to projects"
       : "AI Lab";
 
-  const currentParams = new URLSearchParams(window.location.search);
-  const activeBg = currentParams.get("bg");
-  const activePalette = currentParams.get("palette");
-  const backParams = new URLSearchParams();
-  if (activeBg) backParams.set("bg", activeBg);
-  if (activePalette) backParams.set("palette", activePalette);
-  const bgParam = backParams.toString() ? `?${backParams.toString()}` : "";
   const backHref =
     detail.type === "project"
       ? `./${bgParam}#work`
@@ -74,7 +75,7 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
   return (
     <div className="detail-shell">
       <header className="topbar detail-topbar">
-        <a className="wordmark" href="./" aria-label="EMPV home">
+        <a className="wordmark" href={`./${bgParam}`} aria-label="EMPV home">
           EMPV
         </a>
 
