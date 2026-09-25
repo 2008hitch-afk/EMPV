@@ -26,19 +26,19 @@ export const GALAXY_PALETTES: Record<
 > = {
   steel: {
     label: "Steel",
-    tint: [0.43, 0.54, 0.70],
+    tint: [0.31, 0.48, 0.72],
     hueShift: 212,
     saturation: 0.14,
   },
   indigo: {
     label: "Indigo",
-    tint: [0.46, 0.43, 0.64],
+    tint: [0.48, 0.37, 0.70],
     hueShift: 238,
     saturation: 0.16,
   },
   sage: {
     label: "Sage",
-    tint: [0.42, 0.56, 0.49],
+    tint: [0.31, 0.58, 0.45],
     hueShift: 158,
     saturation: 0.14,
   },
@@ -291,7 +291,7 @@ export default function BackgroundEffect({
             glowIntensity={0.08 + intensity * 0.22}
             saturation={galaxyColors.saturation}
             tint={galaxyColors.tint}
-            tintStrength={0.88}
+            tintStrength={0.97}
             mouseRepulsion={tuning.pointer}
             twinkleIntensity={0.08 + intensity * 0.18}
             rotationSpeed={0.025 + speed * 0.08}
