@@ -18,15 +18,6 @@ function readInitialEffect(): BackgroundName {
 export default function BackgroundLab() {
   const [effect, setEffect] = useState<BackgroundName>(readInitialEffect);
 
-  const onPagePointerMove = (event: MouseEvent<HTMLDivElement>) => {
-    event.currentTarget.style.setProperty("--pointer-x", `${event.clientX}px`);
-    event.currentTarget.style.setProperty("--pointer-y", `${event.clientY}px`);
-    event.currentTarget.style.setProperty("--glow-opacity", "1");
-  };
-
-  const onPagePointerLeave = (event: MouseEvent<HTMLDivElement>) => {
-    event.currentTarget.style.setProperty("--glow-opacity", "0");
-  };
   const [tuning, setTuning] = useState<BackgroundTuning>(DEFAULT_TUNING);
 
   const current = useMemo(
