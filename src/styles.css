@@ -30,15 +30,30 @@
   --paper: #e3e6ea;
   --ink: #171a20;
   --muted: #747b86;
-  --signal: #8190aa;
+  --signal: #7187a8;
+  --galaxy-accent: #7187a8;
   --hairline: rgba(23, 26, 32, 0.145);
   --text-soft: #4d535d;
   --text-muted-strong: #59616d;
   --topbar-bg: rgba(227, 230, 234, 0.80);
   --visual-dark: #1a1e26;
   --visual-paper: rgba(232, 235, 239, 0.92);
-  --glow-core: rgba(121, 141, 174, 0.16);
-  --glow-mid: rgba(137, 156, 187, 0.065);
+  --glow-core: rgba(113, 135, 168, 0.16);
+  --glow-mid: rgba(126, 147, 178, 0.065);
+}
+
+:root[data-visual-theme="galaxy"][data-galaxy-palette="indigo"] {
+  --signal: #786f9d;
+  --galaxy-accent: #786f9d;
+  --glow-core: rgba(120, 111, 157, 0.16);
+  --glow-mid: rgba(136, 128, 173, 0.065);
+}
+
+:root[data-visual-theme="galaxy"][data-galaxy-palette="sage"] {
+  --signal: #6f8d80;
+  --galaxy-accent: #6f8d80;
+  --glow-core: rgba(111, 141, 128, 0.16);
+  --glow-mid: rgba(126, 153, 141, 0.065);
 }
 
 :root[data-visual-theme="galaxy"] body {
@@ -813,7 +828,7 @@ footer {
 }
 
 :root[data-visual-theme="galaxy"] .labs {
-  --lab-accent: #71809a;
+  --lab-accent: var(--galaxy-accent);
   background: var(--paper);
 }
 
@@ -983,6 +998,66 @@ footer {
   line-height: 1.72;
 }
 
+
+.galaxy-palette-switcher {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 52;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: var(--topbar-bg);
+  box-shadow: 0 10px 30px rgba(20, 25, 34, 0.07);
+  backdrop-filter: blur(18px) saturate(1.12);
+}
+
+.galaxy-palette-switcher > span {
+  padding: 0 9px 0 10px;
+  color: var(--muted);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.galaxy-palette-switcher button {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.galaxy-palette-switcher button:hover,
+.galaxy-palette-switcher button.is-active {
+  color: var(--ink);
+  border-color: var(--hairline);
+  background: rgba(255,255,255,0.28);
+}
+
+.palette-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.palette-dot-steel { background: #7187a8; }
+.palette-dot-indigo { background: #786f9d; }
+.palette-dot-sage { background: #6f8d80; }
+
 @media (max-width: 900px) {
   .faq-layout {
     grid-template-columns: 1fr;
@@ -1114,6 +1189,22 @@ footer {
 }
 
 @media (max-width: 900px) {
+  .galaxy-palette-switcher {
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    justify-content: center;
+  }
+
+  .galaxy-palette-switcher > span {
+    display: none;
+  }
+
+  .galaxy-palette-switcher button {
+    flex: 1;
+    justify-content: center;
+  }
+
   .topbar {
     top: 12px;
     width: calc(100% - 24px);
@@ -1766,4 +1857,11 @@ footer {
 :root[data-visual-theme="galaxy"] .mobile-nav-panel > a:hover,
 :root[data-visual-theme="galaxy"] .mobile-nav-panel > a.is-active {
   background: rgba(245, 247, 250, 0.46);
+}
+
+
+:root[data-visual-theme="galaxy"] .labs .eyebrow,
+:root[data-visual-theme="galaxy"] .lab-question > span,
+:root[data-visual-theme="galaxy"] .faq-item[open] .faq-toggle {
+  color: var(--galaxy-accent);
 }
