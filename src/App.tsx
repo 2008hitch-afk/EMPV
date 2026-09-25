@@ -2,7 +2,12 @@ import { useEffect, useMemo, useState, type CSSProperties, type MouseEvent } fro
 import { ArrowDownRight, ArrowUpRight, Languages } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import BackgroundLab from "./BackgroundLab";
-import BackgroundEffect, { BACKGROUND_OPTIONS, type BackgroundName } from "./backgrounds/BackgroundEffect";
+import BackgroundEffect, {
+  BACKGROUND_OPTIONS,
+  GALAXY_PALETTES,
+  type BackgroundName,
+  type GalaxyPalette,
+} from "./backgrounds/BackgroundEffect";
 import ProjectDetail from "./ProjectDetail";
 import type { SiteLang } from "./detailContent";
 
@@ -545,12 +550,51 @@ function readHomepageBackground(): BackgroundName {
     : "none";
 }
 
-function PortfolioApp() {
+function readGalaxyPalette(): GalaxyPalette {
+  const value = new URLSearchParams(window.location.search).get("palette");
+  return value === "indigo" || value === "sage" ? value : "steel";
+}
+
+function GalaxyPaletteSwitcher({
+  value,
+  onChange,
+}: {
+  value: GalaxyPalette;
+  onChange: (palette: GalaxyPalette) => void;
+}) {
+  return (
+    <div className="galaxy-palette-switcher" aria-label="Galaxy color variants">
+      <span>Galaxy</span>
+      {(Object.keys(GALAXY_PALETTES) as GalaxyPalette[]).map((palette) => (
+        <button
+          key={palette}
+          type="button"
+          className={value === palette ? "is-active" : ""}
+          onClick={() => onChange(palette)}
+          aria-pressed={value === palette}
+        >
+          <i className={`palette-dot palette-dot-${palette}`} aria-hidden="true" />
+          {GALAXY_PALETTES[palette].label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function PortfolioApp({
+  galaxyPalette,
+  onGalaxyPaletteChange,
+}: {
+  galaxyPalette: GalaxyPalette;
+  onGalaxyPaletteChange: (palette: GalaxyPalette) => void;
+}) {
   const [lang, setLang] = useState<Lang>("it");
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const activeBackground = useMemo(readHomepageBackground, []);
-  const backgroundParam = activeBackground === "none" ? "" : `&bg=${activeBackground}`;
+  const paletteParam = activeBackground === "galaxy" ? `&palette=${galaxyPalette}` : "";
+  const backgroundParam =
+    activeBackground === "none" ? "" : `&bg=${activeBackground}${paletteParam}`;
   const reduceMotion = useReducedMotion();
   const c = copy[lang];
   const projectList = useMemo(() => selected[lang], [lang]);
@@ -668,10 +712,18 @@ function PortfolioApp() {
         )}
       </AnimatePresence>
 
+      {activeBackground === "galaxy" && (
+        <GalaxyPaletteSwitcher value={galaxyPalette} onChange={onGalaxyPaletteChange} />
+      )}
+
       <main>
         <section className="hero" id="top">
           {activeBackground !== "none" && (
-            <BackgroundEffect name={activeBackground} className="hero-background-effect" />
+            <BackgroundEffect
+              name={activeBackground}
+              className="hero-background-effect"
+              galaxyPalette={galaxyPalette}
+            />
           )}
 
           <motion.div className="hero-inner" style={{ y: heroY, opacity: heroOpacity }}>
@@ -814,10 +866,20 @@ function App() {
   const detailSlug = params.get("project") ?? params.get("lab");
   const initialLang: SiteLang = params.get("lang") === "en" ? "en" : "it";
   const visualTheme = params.get("bg") === "galaxy" ? "galaxy" : "default";
+  const [galaxyPalette, setGalaxyPalette] = useState<GalaxyPalette>(readGalaxyPalette);
+
+  function updateGalaxyPalette(next: GalaxyPalette) {
+    setGalaxyPalette(next);
+    const url = new URL(window.location.href);
+    url.searchParams.set("bg", "galaxy");
+    url.searchParams.set("palette", next);
+    window.history.replaceState({}, "", url);
+  }
 
   useEffect(() => {
     const root = document.documentElement;
     root.dataset.visualTheme = visualTheme;
+    root.dataset.galaxyPalette = galaxyPalette;
 
     const onPointerMove = (event: PointerEvent) => {
       root.style.setProperty("--pointer-x", `${event.clientX}px`);
@@ -837,7 +899,7 @@ function App() {
       document.documentElement.removeEventListener("mouseleave", onPointerLeave);
       root.style.setProperty("--glow-opacity", "0");
     };
-  }, [visualTheme]);
+  }, [visualTheme, galaxyPalette]);
 
   let page;
   if (isBackgroundLab) {
@@ -845,7 +907,12 @@ function App() {
   } else if (detailSlug) {
     page = <ProjectDetail slug={detailSlug} initialLang={initialLang} />;
   } else {
-    page = <PortfolioApp />;
+    page = (
+      <PortfolioApp
+        galaxyPalette={galaxyPalette}
+        onGalaxyPaletteChange={updateGalaxyPalette}
+      />
+    );
   }
 
   return (
