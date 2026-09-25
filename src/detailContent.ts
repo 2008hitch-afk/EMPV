@@ -23,6 +23,8 @@ export type DetailContent = {
   title: string;
   kicker: string;
   lead: string;
+  problemTitle?: string;
+  solutionTitle?: string;
   tags: string[];
   statusLabel: string;
   status: string;
@@ -38,8 +40,10 @@ const it: Record<string, DetailContent> = {
     index: "01",
     title: "L'Infisso",
     kicker: "Sistema operativo per commesse",
+    problemTitle: "Le informazioni della commessa non seguivano la commessa.",
+    solutionTitle: "Abbiamo trasformato la commessa nella fonte comune del lavoro.",
     lead:
-      "Una commessa attraversa sopralluogo, amministrazione, officina, materiali, consegna e posa. Il progetto nasce per evitare che la stessa informazione venga ricostruita ogni volta da persone e strumenti diversi.",
+      "Una commessa passava dal sopralluogo all'ufficio, poi all'officina e infine alla posa. Ma clienti, documenti, misure e stato del lavoro non vivevano nello stesso posto: una parte era nelle cartelle Windows, una parte nel software specialistico e una parte nelle persone che stavano seguendo il lavoro.",
     tags: ["Commesse", "Campo → officina", "Dati condivisi", "Automazioni"],
     statusLabel: "Direzione",
     status: "Un dato raccolto una volta, disponibile alla persona giusta nel momento giusto.",
@@ -55,8 +59,8 @@ const it: Record<string, DetailContent> = {
     },
     blocks: [
       {
-        label: "01 / Il problema",
-        title: "La commessa esisteva in più posti contemporaneamente.",
+        label: "01 / Perché era un problema",
+        title: "Ogni passaggio poteva richiedere di cercare o ricreare informazioni già raccolte.",
         body:
           "Il nodo non era sostituire ogni strumento, ma evitare reinserimenti, passaggi informali e perdita di contesto mentre la stessa commessa passava dal campo all'ufficio, poi all'officina e infine alla posa.",
         bullets: [
@@ -67,20 +71,20 @@ const it: Record<string, DetailContent> = {
         ],
       },
       {
-        label: "02 / La decisione",
-        title: "Costruire intorno al processo, non intorno al software esistente.",
+        label: "02 / Come abbiamo ragionato",
+        title: "Non sostituire tutto. Creare uno strato operativo condiviso intorno alla commessa.",
         body:
           "Il nuovo sistema diventa lo strato operativo condiviso. Gli strumenti specialistici restano dove hanno senso e vengono collegati solo quando la fattibilità tecnica e il beneficio sono reali.",
       },
       {
-        label: "03 / Il sistema",
-        title: "Campo, ufficio e officina leggono la stessa realtà.",
+        label: "03 / Cosa abbiamo cambiato",
+        title: "Campo, ufficio e officina lavorano sulla stessa commessa.",
         body:
           "Il nucleo comprende gestione clienti e commesse, rilievi guidati, viste dedicate ai diversi ruoli, avanzamento e priorità, stato di materiali e accessori, promemoria, checklist e predisposizione assistita di comunicazioni e ordini.",
       },
       {
-        label: "04 / Cosa ci interessa",
-        title: "Ridurre il numero di volte in cui un'informazione deve essere ricreata.",
+        label: "04 / Come funziona adesso",
+        title: "Il dato viene raccolto una volta e riutilizzato nelle fasi successive.",
         body:
           "È un esempio di ciò che intendiamo per sistema costruito intorno al lavoro reale: prima si ricostruisce il flusso, poi si decide dove centralizzare, dove integrare e dove mantenere una decisione umana.",
       },
@@ -93,8 +97,10 @@ const it: Record<string, DetailContent> = {
     index: "02",
     title: "Centro Change",
     kicker: "Piattaforma operativa per un centro di psicologia",
+    problemTitle: "Il problema non erano le prenotazioni. Era tutto ciò che succedeva tra una prenotazione e l'altra.",
+    solutionTitle: "Abbiamo portato quei passaggi dentro un unico flusso operativo.",
     lead:
-      "Una piattaforma unica per coordinare pazienti, professionisti, appuntamenti, sedute, pagamenti operativi e attività amministrative senza perdere i confini tra ruoli e dati sensibili.",
+      "Pazienti, appuntamenti, professionisti, pagamenti e attività amministrative vivevano su più strumenti. La segreteria doveva riportare informazioni da una piattaforma all'altra, controllare manualmente gli stati e ricostruire continuamente cosa fosse successo.",
     tags: ["Operations", "Scheduling", "Ruoli", "Amministrazione"],
     statusLabel: "Obiettivo",
     status: "Ridurre i passaggi manuali senza semplificare ciò che deve restare controllato.",
@@ -110,26 +116,26 @@ const it: Record<string, DetailContent> = {
     },
     blocks: [
       {
-        label: "01 / Il problema",
-        title: "Centralizzare senza perdere separazione e responsabilità.",
+        label: "01 / Perché era un problema",
+        title: "La segreteria faceva da ponte manuale tra strumenti che non condividevano lo stesso stato.",
         body:
           "In un centro psicologico non basta mettere tutto nello stesso database. Segreteria, professionisti e direzione devono vedere e modificare cose diverse; le note professionali non possono diventare semplicemente 'dati del centro'.",
       },
       {
-        label: "02 / La decisione",
-        title: "Una sola piattaforma, ma confini espliciti.",
+        label: "02 / Come abbiamo ragionato",
+        title: "Centralizzare il flusso, non appiattire ruoli e responsabilità.",
         body:
           "Il disegno usa identità canoniche per paziente e professionista, contesto di centro, autorizzazioni server-side e audit delle correzioni. L'esperienza quotidiana resta semplice, mentre regole e permessi rimangono nel backend.",
       },
       {
-        label: "03 / Il sistema",
-        title: "Scheduling, sedute e amministrazione nello stesso flusso.",
+        label: "03 / Cosa abbiamo cambiato",
+        title: "Paziente, appuntamento, seduta e stato amministrativo condividono lo stesso flusso.",
         body:
           "Disponibilità, prenotazioni, spostamenti, chiusura delle sedute, stato pagamenti, pacchetti, regola delle 48 ore, promemoria, report e correzioni autorizzate vengono trattati come parti dello stesso sistema operativo.",
       },
       {
-        label: "04 / Architettura",
-        title: "Riutilizzare ciò che è maturo, costruire solo il delta.",
+        label: "04 / Come funziona adesso",
+        title: "L'operatività quotidiana è unificata; regole e permessi restano autorevoli nel backend.",
         body:
           "La direzione tecnica parte da Frappe / ERPNext e Marley Healthcare, estendendoli con un layer dedicato quando regole, sicurezza o workflow non possono essere rappresentati correttamente in modo nativo.",
       },
@@ -142,8 +148,10 @@ const it: Record<string, DetailContent> = {
     index: "03",
     title: "Cloeshouse Pet Resort",
     kicker: "Booking e operatività sulla stessa piattaforma",
+    problemTitle: "Una prenotazione non è semplicemente una data su un calendario.",
+    solutionTitle: "Abbiamo progettato booking e operatività come un unico sistema.",
     lead:
-      "Il cliente non vede soltanto un calendario. La prenotazione deve diventare lavoro operativo per lo staff: disponibilità, soggiorno, cane, documenti, grooming, caparra e attività giornaliere devono restare coerenti.",
+      "Ogni prenotazione occupa capacità reale e porta con sé cliente, animale, documenti, caparra, servizi aggiuntivi e attività durante il soggiorno. Se queste informazioni vengono trattate come moduli separati, lo staff deve continuamente riallinearle.",
     tags: ["Hospitality ops", "Booking", "Area cliente", "Daily operations"],
     statusLabel: "Principio",
     status: "Quello che il cliente prenota deve diventare automaticamente lavoro operativo.",
@@ -159,26 +167,26 @@ const it: Record<string, DetailContent> = {
     },
     blocks: [
       {
-        label: "01 / Il nucleo",
-        title: "La prenotazione è l'inizio, non la fine.",
+        label: "01 / Perché era un problema",
+        title: "La prenotazione genera conseguenze operative che un semplice calendario non rappresenta.",
         body:
           "Disponibilità degli alloggi, ciclo di vita della prenotazione, dati del cane, grooming, accordi, pagamenti e giornata operativa vengono trattati come parti dello stesso prodotto.",
       },
       {
-        label: "02 / Il cliente",
-        title: "Una sola identità anche quando la scheda nasce dallo staff.",
+        label: "02 / Come abbiamo ragionato",
+        title: "Booking, cliente, animale e soggiorno devono appartenere allo stesso dominio.",
         body:
           "Se lo staff ha già creato cliente, cane e prenotazioni, l'attivazione online recupera quella stessa identità invece di creare un duplicato. Il profilo resta collegato allo storico già presente.",
       },
       {
-        label: "03 / L'operatività",
-        title: "Lo staff lavora su ciò che è realmente presente e previsto.",
+        label: "03 / Cosa abbiamo cambiato",
+        title: "Quello che viene prenotato diventa direttamente informazione operativa per lo staff.",
         body:
           "Il sistema distingue disponibilità per struttura e box dalla vista operativa giornaliera, gestisce arrivi e partenze, grooming, documenti e stato di conferma legato alla caparra.",
       },
       {
-        label: "04 / Architettura",
-        title: "Prodotto web con dominio e regole lato server.",
+        label: "04 / Come funziona adesso",
+        title: "Disponibilità, arrivi, partenze, servizi, documenti e caparra restano nello stesso flusso.",
         body:
           "Laravel, componenti di piattaforma dedicati, area amministrativa e integrazione myPOS costituiscono il nucleo tecnico. Le API esposte restano limitate ai flussi che servono davvero al prodotto.",
       },
@@ -191,8 +199,10 @@ const it: Record<string, DetailContent> = {
     index: "04",
     title: "Cube Audio Service",
     kicker: "Richieste più strutturate, decisione ancora umana",
+    problemTitle: "Cube riceveva richieste, ma prima di valutarle doveva ricostruire cosa il cliente stesse realmente chiedendo.",
+    solutionTitle: "Non abbiamo automatizzato il preventivo. Abbiamo automatizzato la raccolta delle informazioni necessarie per farlo bene.",
     lead:
-      "Per un service audio, due eventi apparentemente simili possono richiedere impianti, logistica e assistenza molto diverse. L'obiettivo era raccogliere prima le informazioni che servono davvero a chi prepara il preventivo.",
+      "Tipo di evento, partecipanti, location, accessibilità, attrezzatura, trasporto, montaggio e assistenza potevano emergere in momenti diversi della conversazione. Prima ancora di quotare il lavoro, Cube doveva ricostruire il contesto.",
     tags: ["Lead flow", "Richiesta guidata", "Website", "Human review"],
     statusLabel: "Scelta",
     status: "Guidare la richiesta senza fingere di poter automatizzare il preventivo.",
@@ -208,26 +218,26 @@ const it: Record<string, DetailContent> = {
     },
     blocks: [
       {
-        label: "01 / Il problema",
-        title: "Prima del preventivo serve capire l'evento.",
+        label: "01 / Perché era un problema",
+        title: "Ogni richiesta incompleta spostava lavoro di raccolta informazioni sul team Cube.",
         body:
           "Conferenze, matrimoni, DJ set e feste private non richiedono lo stesso tipo di informazione. Un form generico produce lead, ma non necessariamente richieste valutabili.",
       },
       {
-        label: "02 / La decisione",
-        title: "Strutturare senza trasformare il form in un configuratore infinito.",
+        label: "02 / Come abbiamo ragionato",
+        title: "Chiedere prima solo ciò che serve davvero per poter valutare l'evento.",
         body:
           "La V1 mantiene poche diramazioni principali e raccoglie ciò che serve per una prima valutazione: tipo di evento, data, luogo, partecipanti, servizi, alimentazione, accessi, logistica e contatti.",
       },
       {
-        label: "03 / Il confine",
-        title: "La tecnologia prepara; Cube decide.",
+        label: "03 / Cosa abbiamo cambiato",
+        title: "La richiesta arriva già strutturata, ma la valutazione resta umana.",
         body:
           "Il riepilogo è indicativo, non vengono mostrati prezzi e ogni richiesta viene valutata direttamente dal team. È una scelta di prodotto, non una mancanza di automazione.",
       },
       {
-        label: "04 / Il risultato",
-        title: "Una presenza digitale che produce richieste più utilizzabili.",
+        label: "04 / Come funziona adesso",
+        title: "Il sito raccoglie il contesto; Cube parte da una richiesta già leggibile.",
         body:
           "Il sito e il percorso guidato diventano un unico ingresso commerciale: la persona racconta l'evento, il sistema struttura i dati e Cube riceve un contesto più consistente su cui lavorare.",
       },
@@ -464,8 +474,10 @@ const en: Record<string, DetailContent> = {
   infisso: {
     ...it.infisso,
     kicker: "Operating system for job workflows",
+    problemTitle: "The information did not move with the job.",
+    solutionTitle: "We turned the job itself into the shared source of work.",
     lead:
-      "A single job moves through site survey, administration, workshop, materials, delivery and installation. The project is designed to stop the same information from being rebuilt repeatedly by different people and tools.",
+      "A job moved from site survey to office, then workshop and installation. But customers, documents, measurements and operational status did not live in the same place: some were in Windows folders, some in specialist software and some in the people following the work.",
     statusLabel: "Direction",
     status: "Capture data once, make it available to the right person in the right form.",
     comparison: {
@@ -488,7 +500,9 @@ const en: Record<string, DetailContent> = {
   "centro-change": {
     ...it["centro-change"],
     kicker: "Operating platform for a psychology center",
-    lead: "One platform for patients, professionals, appointments, sessions and operational administration while preserving clear boundaries between roles and sensitive information.",
+    problemTitle: "The problem was not booking. It was everything happening between one appointment and the next.",
+    solutionTitle: "We brought those handoffs into one operating flow.",
+    lead: "Patients, appointments, professionals, payments and administrative work lived across multiple tools. The secretariat had to re-enter information, manually check status and repeatedly reconstruct what had happened.",
     statusLabel: "Goal",
     status: "Reduce manual handoffs without simplifying what still requires control.",
     comparison: {
@@ -505,7 +519,9 @@ const en: Record<string, DetailContent> = {
   cloeshouse: {
     ...it.cloeshouse,
     kicker: "Booking and operations on one platform",
-    lead: "The customer does not just see a calendar. A booking must become staff work: availability, stay, dog data, documents, grooming, deposit and daily operations all need to remain consistent.",
+    problemTitle: "A booking is not simply a date on a calendar.",
+    solutionTitle: "We designed booking and operations as one system.",
+    lead: "Every booking consumes real capacity and carries customer, animal, document, deposit, add-on service and stay-related work. If those facts live in separate modules, staff must continuously reconcile them.",
     statusLabel: "Principle",
     status: "What the customer books should automatically become operational work.",
     comparison: {
@@ -522,7 +538,9 @@ const en: Record<string, DetailContent> = {
   cube: {
     ...it.cube,
     kicker: "More structured requests, human decision retained",
-    lead: "For an audio service company, two apparently similar events can require very different equipment, logistics and support. The goal was to collect the information the quoting team really needs before evaluation starts.",
+    problemTitle: "Cube received requests, but had to reconstruct what the customer was actually asking for before evaluating them.",
+    solutionTitle: "We did not automate the quote. We automated the information collection needed to prepare it well.",
+    lead: "Event type, audience size, venue, access constraints, equipment, transport, setup and technical support could emerge at different moments in the conversation. Before quoting, Cube first had to rebuild the context.",
     statusLabel: "Choice",
     status: "Guide the request without pretending the quote can be automated.",
     comparison: {
