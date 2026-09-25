@@ -36,12 +36,45 @@
 }
 
 .effect-galaxy {
-  filter: saturate(1.05) contrast(0.84);
+  filter: none;
+  mix-blend-mode: multiply;
+}
+
+/* Deterministic Galaxy particle palettes.
+   The shader emits neutral moving matter; these filters color only the canvas. */
+.effect-galaxy.galaxy-palette-steel {
+  filter:
+    grayscale(1)
+    sepia(0.34)
+    saturate(3.1)
+    hue-rotate(171deg)
+    brightness(0.82)
+    contrast(1.06);
+}
+
+.effect-galaxy.galaxy-palette-indigo {
+  filter:
+    grayscale(1)
+    sepia(0.50)
+    saturate(4.4)
+    hue-rotate(205deg)
+    brightness(0.78)
+    contrast(1.08);
+}
+
+.effect-galaxy.galaxy-palette-sage {
+  filter:
+    grayscale(1)
+    sepia(0.40)
+    saturate(2.7)
+    hue-rotate(86deg)
+    brightness(0.80)
+    contrast(1.05);
 }
 
 .hero-background-effect {
   inset: 68px 0 0;
-  opacity: 0.72;
+  opacity: 0.82;
 }
 
 @media (hover: none), (pointer: coarse) {
