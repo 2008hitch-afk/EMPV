@@ -27,33 +27,50 @@
 
 
 :root[data-visual-theme="galaxy"] {
+  /* Shared canvas/background: intentionally identical across all three options. */
   --paper: #e3e6ea;
-  --ink: #171a20;
-  --muted: #747b86;
-  --signal: #7187a8;
-  --galaxy-accent: #7187a8;
-  --hairline: rgba(23, 26, 32, 0.145);
-  --text-soft: #4d535d;
-  --text-muted-strong: #59616d;
   --topbar-bg: rgba(227, 230, 234, 0.80);
-  --visual-dark: #1a1e26;
   --visual-paper: rgba(232, 235, 239, 0.92);
-  --glow-core: rgba(113, 135, 168, 0.16);
-  --glow-mid: rgba(126, 147, 178, 0.065);
+
+  /* STEEL */
+  --ink: #18202b;
+  --muted: #687587;
+  --signal: #6483ad;
+  --galaxy-accent: #6483ad;
+  --hairline: rgba(24, 32, 43, 0.15);
+  --text-soft: #465363;
+  --text-muted-strong: #526174;
+  --visual-dark: #17202c;
+  --glow-core: rgba(100, 131, 173, 0.20);
+  --glow-mid: rgba(120, 149, 187, 0.08);
 }
 
 :root[data-visual-theme="galaxy"][data-galaxy-palette="indigo"] {
-  --signal: #786f9d;
-  --galaxy-accent: #786f9d;
-  --glow-core: rgba(120, 111, 157, 0.16);
-  --glow-mid: rgba(136, 128, 173, 0.065);
+  /* Same background, warmer violet-black typography and dusty indigo motion. */
+  --ink: #211f2c;
+  --muted: #756f84;
+  --signal: #766aa7;
+  --galaxy-accent: #766aa7;
+  --hairline: rgba(33, 31, 44, 0.15);
+  --text-soft: #554f64;
+  --text-muted-strong: #625b72;
+  --visual-dark: #201d2b;
+  --glow-core: rgba(118, 106, 167, 0.20);
+  --glow-mid: rgba(139, 128, 184, 0.08);
 }
 
 :root[data-visual-theme="galaxy"][data-galaxy-palette="sage"] {
-  --signal: #6f8d80;
-  --galaxy-accent: #6f8d80;
-  --glow-core: rgba(111, 141, 128, 0.16);
-  --glow-mid: rgba(126, 153, 141, 0.065);
+  /* Same background, mineral green-black typography and sage motion. */
+  --ink: #19251f;
+  --muted: #687a71;
+  --signal: #5f8d79;
+  --galaxy-accent: #5f8d79;
+  --hairline: rgba(25, 37, 31, 0.15);
+  --text-soft: #465a51;
+  --text-muted-strong: #52675e;
+  --visual-dark: #18251f;
+  --glow-core: rgba(95, 141, 121, 0.20);
+  --glow-mid: rgba(117, 157, 140, 0.08);
 }
 
 :root[data-visual-theme="galaxy"] body {
@@ -85,13 +102,13 @@
 :root[data-visual-theme="galaxy"] .project-card:hover::before {
   background: radial-gradient(
     440px circle at var(--spot-x) var(--spot-y),
-    rgba(121, 141, 174, 0.075),
+    color-mix(in srgb, var(--galaxy-accent) 10%, transparent),
     transparent 62%
   );
 }
 
 :root[data-visual-theme="galaxy"] .faq-item[open] .faq-toggle {
-  color: #71829f;
+  color: var(--galaxy-accent);
 }
 
 :root[data-visual-theme="galaxy"] .lab-row:hover,
@@ -1864,4 +1881,14 @@ footer {
 :root[data-visual-theme="galaxy"] .lab-question > span,
 :root[data-visual-theme="galaxy"] .faq-item[open] .faq-toggle {
   color: var(--galaxy-accent);
+}
+
+
+:root[data-visual-theme="galaxy"] .desktop-nav a.is-active::after {
+  background: var(--galaxy-accent);
+}
+
+:root[data-visual-theme="galaxy"] ::selection {
+  background: var(--galaxy-accent);
+  color: var(--paper);
 }
