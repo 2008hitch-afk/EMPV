@@ -17,15 +17,6 @@ function updateLangInUrl(lang: SiteLang) {
 export default function ProjectDetail({ slug, initialLang = "it" }: DetailPageProps) {
   const [lang, setLang] = useState<SiteLang>(initialLang);
 
-  const onPagePointerMove = (event: MouseEvent<HTMLDivElement>) => {
-    event.currentTarget.style.setProperty("--pointer-x", `${event.clientX}px`);
-    event.currentTarget.style.setProperty("--pointer-y", `${event.clientY}px`);
-    event.currentTarget.style.setProperty("--glow-opacity", "1");
-  };
-
-  const onPagePointerLeave = (event: MouseEvent<HTMLDivElement>) => {
-    event.currentTarget.style.setProperty("--glow-opacity", "0");
-  };
   const detail = useMemo(() => getDetail(lang, slug), [lang, slug]);
 
   useEffect(() => {
