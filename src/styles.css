@@ -11,10 +11,81 @@
   --muted: #706f69;
   --signal: #ff4b19;
   --hairline: rgba(17, 17, 15, 0.18);
+  --text-soft: #3f3e3a;
+  --text-muted-strong: #4b4a45;
+  --topbar-bg: rgba(236, 235, 229, 0.82);
+  --visual-dark: #181816;
+  --visual-paper: rgba(236, 235, 229, 0.9);
+  --glow-core: rgba(255, 75, 25, 0.13);
+  --glow-mid: rgba(255, 75, 25, 0.055);
   --mono: "DM Mono", "SFMono-Regular", Consolas, monospace;
   --pointer-x: 50vw;
   --pointer-y: 50vh;
   --glow-opacity: 0;
+}
+
+
+:root[data-visual-theme="galaxy"] {
+  --paper: #e3e6ea;
+  --ink: #171a20;
+  --muted: #747b86;
+  --signal: #8190aa;
+  --hairline: rgba(23, 26, 32, 0.145);
+  --text-soft: #4d535d;
+  --text-muted-strong: #59616d;
+  --topbar-bg: rgba(227, 230, 234, 0.80);
+  --visual-dark: #1a1e26;
+  --visual-paper: rgba(232, 235, 239, 0.92);
+  --glow-core: rgba(121, 141, 174, 0.16);
+  --glow-mid: rgba(137, 156, 187, 0.065);
+}
+
+:root[data-visual-theme="galaxy"] body {
+  background: var(--paper);
+}
+
+:root[data-visual-theme="galaxy"] .topbar {
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+:root[data-visual-theme="galaxy"] .hero {
+  background:
+    radial-gradient(circle at 78% 18%, rgba(255,255,255,0.34), transparent 38%),
+    linear-gradient(180deg, rgba(227,230,234,0.10), rgba(227,230,234,0.46));
+}
+
+:root[data-visual-theme="galaxy"] .manifesto,
+:root[data-visual-theme="galaxy"] .work,
+:root[data-visual-theme="galaxy"] .labs,
+:root[data-visual-theme="galaxy"] .faq,
+:root[data-visual-theme="galaxy"] .people,
+:root[data-visual-theme="galaxy"] footer,
+:root[data-visual-theme="galaxy"] .detail-shell {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.055), transparent 160px),
+    var(--paper);
+}
+
+:root[data-visual-theme="galaxy"] .project-card:hover::before {
+  background: radial-gradient(
+    440px circle at var(--spot-x) var(--spot-y),
+    rgba(121, 141, 174, 0.075),
+    transparent 62%
+  );
+}
+
+:root[data-visual-theme="galaxy"] .faq-item[open] .faq-toggle {
+  color: #71829f;
+}
+
+:root[data-visual-theme="galaxy"] .lab-row:hover,
+:root[data-visual-theme="galaxy"] .faq-item summary:hover {
+  background: rgba(66, 78, 96, 0.028);
+}
+
+:root[data-visual-theme="galaxy"] .portrait::before,
+:root[data-visual-theme="galaxy"] .portrait-b::before {
+  filter: blur(24px) saturate(0.72);
 }
 
 * {
@@ -66,8 +137,8 @@ button {
   opacity: var(--glow-opacity);
   background: radial-gradient(
     520px circle at var(--pointer-x) var(--pointer-y),
-    rgba(255, 75, 25, 0.13),
-    rgba(255, 75, 25, 0.055) 22%,
+    var(--glow-core),
+    var(--glow-mid) 22%,
     transparent 66%
   );
   mix-blend-mode: multiply;
@@ -90,7 +161,7 @@ footer {
   align-items: center;
   padding: 0 28px;
   border-bottom: 1px solid var(--hairline);
-  background: rgba(236, 235, 229, 0.82);
+  background: var(--topbar-bg);
   backdrop-filter: blur(18px);
 }
 
@@ -331,7 +402,7 @@ footer {
   max-width: 520px;
   font-size: 1rem;
   line-height: 1.62;
-  color: #3b3a36;
+  color: var(--text-soft);
 }
 
 .project-list {
@@ -371,7 +442,7 @@ footer {
   position: relative;
   min-height: 350px;
   overflow: hidden;
-  background: #181816;
+  background: var(--visual-dark);
   color: var(--paper);
   border-radius: 2px;
   isolation: isolate;
@@ -425,7 +496,7 @@ footer {
   line-height: 1;
   letter-spacing: -0.1em;
   font-weight: 600;
-  color: rgba(236, 235, 229, 0.9);
+  color: var(--visual-paper);
   mix-blend-mode: screen;
 }
 
@@ -550,7 +621,7 @@ footer {
 .lab-main p {
   margin: 0;
   max-width: 760px;
-  color: #4b4a45;
+  color: var(--text-muted-strong);
   line-height: 1.55;
 }
 
@@ -608,7 +679,7 @@ footer {
   max-width: 500px;
   font-size: 1rem;
   line-height: 1.65;
-  color: #3f3e3a;
+  color: var(--text-soft);
 }
 
 .faq-list {
@@ -687,7 +758,7 @@ footer {
   grid-column: 2;
   margin: 0;
   max-width: 760px;
-  color: #4b4a45;
+  color: var(--text-muted-strong);
   font-size: 0.98rem;
   line-height: 1.72;
 }
@@ -1298,7 +1369,7 @@ footer {
   max-width: 620px;
   font-size: 1rem;
   line-height: 1.68;
-  color: #44433f;
+  color: var(--text-muted-strong);
 }
 
 .detail-transition {
@@ -1342,7 +1413,7 @@ footer {
   max-width: 760px;
   font-size: 1.02rem;
   line-height: 1.72;
-  color: #3f3e3a;
+  color: var(--text-soft);
 }
 
 .detail-block ul {
