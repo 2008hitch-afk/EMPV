@@ -65,5 +65,12 @@ Quick homepage comparisons are also available through:
 - `?bg=waves`
 - `?bg=galaxy`
 - `?bg=orb`
+- `?bg=dither`
+- `?bg=prism`
+- `?bg=scanner`
+- `?bg=light-tunnel`
+- `?bg=side-rays`
+- `?bg=sliced-waves`
+- `?bg=silk`
 
 The production/default homepage remains `?bg=none`.
