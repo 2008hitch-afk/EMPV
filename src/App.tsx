@@ -16,6 +16,9 @@ type Project = {
   description: string;
   meta: string[];
   accent: string;
+  question?: string;
+  state?: string;
+  focus?: string;
 };
 
 const copy = {
@@ -270,9 +273,15 @@ const labs: Record<Lang, Project[]> = {
       index: "A",
       slug: "system-twin",
       name: "System Twin",
-      kind: "Exploration",
+      kind: "Research / systems intelligence",
       description:
-        "Sistemi capaci di ricostruire e spiegare automaticamente come funziona davvero un software complesso a partire dalle evidenze che produce.",
+        "Ricostruire sistemi digitali reali in un modello semantico evidence-backed che colleghi codice, configurazioni, API, runtime, telemetria e documentazione.",
+      question:
+        "Possiamo ricostruire ciò che un sistema fa senza confondere fatti osservati, dichiarazioni, derivazioni e inferenze?",
+      state:
+        "Research / model-definition · schema e stack non ancora congelati",
+      focus:
+        "Cross-source identity · evidence · time · reconciliation · projection",
       meta: ["System understanding", "Evidence", "Architecture"],
       accent: "twin",
     },
@@ -280,9 +289,15 @@ const labs: Record<Lang, Project[]> = {
       index: "B",
       slug: "local-ai",
       name: "Local AI",
-      kind: "Applied R&D",
+      kind: "Applied R&D / local AI",
       description:
-        "Un laboratorio per misurare quali compiti un modello AI locale sa realmente svolgere, con prove riproducibili invece di benchmark generici.",
+        "Un public core per descrivere, validare, eseguire e valutare lavoro AI locale entro confini espliciti.",
+      question:
+        "Come dimostriamo cosa un modello locale sa fare prima di autorizzarlo a svolgere lavoro reale?",
+      state:
+        "Public Core 0.3.1 RC1 · schema 1.0.1",
+      focus:
+        "discover → candidate → TEST → preflight → one-RUN authorization → bounded RUN → evidence → compare",
       meta: ["Local models", "Evaluation", "Evidence"],
       accent: "local",
     },
@@ -290,29 +305,31 @@ const labs: Record<Lang, Project[]> = {
       index: "C",
       slug: "opportunity-engine",
       name: "Opportunity Engine",
-      kind: "Prototype",
+      kind: "MVP / agent orchestration",
       description:
-        "Una macchina di ricerca commerciale che parte dai problemi operativi osservabili e cerca aziende che mostrano quei segnali, invece di partire da liste di prospect.",
-      meta: ["Problem discovery", "Research", "Qualification"],
+        "Un orchestratore evidence-first che parte da problemi operativi osservabili e li trasforma in ricerca, qualificazione e opportunità commerciali controllate.",
+      question:
+        "Partire dai problemi invece che da liste di aziende produce prospect che un revisore umano considera materialmente migliori?",
+      state:
+        "Current milestone: Problem Research → Prospect Research → Qualification",
+      focus:
+        "Evidence ≠ interpretation ≠ hypothesis · human gate for external actions",
+      meta: ["Problem research", "Qualification", "Human gate"],
       accent: "opportunity",
     },
     {
       index: "D",
-      slug: "vertical-operations",
-      name: "Vertical Operations",
-      kind: "Product direction",
-      description:
-        "Sistemi operativi verticali che collegano acquisto del cliente, configurazione del servizio e lavoro quotidiano dello staff nello stesso prodotto.",
-      meta: ["Vertical SaaS", "Operations", "Product"],
-      accent: "vertical",
-    },
-    {
-      index: "E",
       slug: "trustworthy-reasoning",
       name: "Trustworthy Reasoning",
-      kind: "Research",
+      kind: "Research / epistemic AI",
       description:
-        "Ricerca su AI che mantiene evidenze, versioni, contraddizioni e incertezza invece di nasconderle dietro una singola risposta.",
+        "Ricerca di fattibilità su cognitive AI che mantiene evidenza, tempo, versioni e contraddizioni come parte esplicita del ragionamento.",
+      question:
+        "Possiamo costruire un progetto scientifico difendibile su reasoning, abstraction e planning che preservi la storia dell'evidenza?",
+      state:
+        "Phase 0 — Call decomposition and research governance",
+      focus:
+        "No novelty claim validated · evidence graphs · bitemporal knowledge · epistemic branching",
       meta: ["Reasoning", "Evidence", "Trust"],
       accent: "reasoning",
     },
@@ -322,9 +339,15 @@ const labs: Record<Lang, Project[]> = {
       index: "A",
       slug: "system-twin",
       name: "System Twin",
-      kind: "Exploration",
+      kind: "Research / systems intelligence",
       description:
-        "Systems that can reconstruct and explain how complex software actually works from the evidence it produces.",
+        "Reconstructing real digital systems into an evidence-backed semantic model spanning code, configuration, APIs, runtime, telemetry and documentation.",
+      question:
+        "Can we reconstruct what a system does without conflating observed facts, declarations, derivations and inferences?",
+      state:
+        "Research / model-definition · schema and stack not frozen",
+      focus:
+        "Cross-source identity · evidence · time · reconciliation · projection",
       meta: ["System understanding", "Evidence", "Architecture"],
       accent: "twin",
     },
@@ -332,9 +355,15 @@ const labs: Record<Lang, Project[]> = {
       index: "B",
       slug: "local-ai",
       name: "Local AI",
-      kind: "Applied R&D",
+      kind: "Applied R&D / local AI",
       description:
-        "A lab for measuring which tasks a local AI model can actually perform, using reproducible evidence instead of generic benchmarks.",
+        "A public core for describing, validating, executing and evaluating bounded local-AI work.",
+      question:
+        "How do we prove what a local model can do before authorizing it to perform real work?",
+      state:
+        "Public Core 0.3.1 RC1 · schema 1.0.1",
+      focus:
+        "discover → candidate → TEST → preflight → one-RUN authorization → bounded RUN → evidence → compare",
       meta: ["Local models", "Evaluation", "Evidence"],
       accent: "local",
     },
@@ -342,29 +371,31 @@ const labs: Record<Lang, Project[]> = {
       index: "C",
       slug: "opportunity-engine",
       name: "Opportunity Engine",
-      kind: "Prototype",
+      kind: "MVP / agent orchestration",
       description:
-        "A commercial research machine that starts from observable operational problems and looks for companies showing those signals instead of starting from prospect lists.",
-      meta: ["Problem discovery", "Research", "Qualification"],
+        "An evidence-first orchestrator that starts from observable operational problems and turns them into controlled research, qualification and commercial opportunities.",
+      question:
+        "Does starting from problems instead of company lists produce prospects that human reviewers consider materially better?",
+      state:
+        "Current milestone: Problem Research → Prospect Research → Qualification",
+      focus:
+        "Evidence ≠ interpretation ≠ hypothesis · human gate for external actions",
+      meta: ["Problem research", "Qualification", "Human gate"],
       accent: "opportunity",
     },
     {
       index: "D",
-      slug: "vertical-operations",
-      name: "Vertical Operations",
-      kind: "Product direction",
-      description:
-        "Vertical operating systems connecting what customers buy, how the service is configured and the daily work generated for staff.",
-      meta: ["Vertical SaaS", "Operations", "Product"],
-      accent: "vertical",
-    },
-    {
-      index: "E",
       slug: "trustworthy-reasoning",
       name: "Trustworthy Reasoning",
-      kind: "Research",
+      kind: "Research / epistemic AI",
       description:
-        "Research into AI systems that preserve evidence, versions, contradictions and uncertainty instead of hiding them behind a single answer.",
+        "Feasibility research into cognitive AI that keeps evidence, time, versions and contradictions explicit inside the reasoning process.",
+      question:
+        "Can we build a defensible scientific project around reasoning, abstraction and planning that preserves the history of evidence?",
+      state:
+        "Phase 0 — Call decomposition and research governance",
+      focus:
+        "No novelty claim validated · evidence graphs · bitemporal knowledge · epistemic branching",
       meta: ["Reasoning", "Evidence", "Trust"],
       accent: "reasoning",
     },
@@ -425,6 +456,77 @@ function ProjectCard({ project, href }: { project: Project; href: string }) {
         </div>
       </div>
       <ArrowUpRight className="project-arrow" size={26} strokeWidth={1.4} />
+    </motion.a>
+  );
+}
+
+
+function LabRow({
+  project,
+  href,
+  lang,
+}: {
+  project: Project;
+  href: string;
+  lang: Lang;
+}) {
+  const [spot, setSpot] = useState({ x: 50, y: 50 });
+
+  function onMove(event: MouseEvent<HTMLAnchorElement>) {
+    const box = event.currentTarget.getBoundingClientRect();
+    setSpot({
+      x: event.clientX - box.left,
+      y: event.clientY - box.top,
+    });
+  }
+
+  return (
+    <motion.a
+      className="lab-row lab-experiment"
+      href={href}
+      onMouseMove={onMove}
+      style={
+        {
+          "--lab-x": `${spot.x}px`,
+          "--lab-y": `${spot.y}px`,
+        } as CSSProperties
+      }
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-8%" }}
+      transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div className="lab-index">{project.index}</div>
+
+      <div className="lab-main">
+        <span>{project.kind}</span>
+        <h3>{project.name}</h3>
+        <p className="lab-description">{project.description}</p>
+
+        <div className="lab-question">
+          <span>{lang === "it" ? "Cosa stiamo testando" : "What we are testing"}</span>
+          <strong>{project.question}</strong>
+        </div>
+
+        <div className="lab-tags">
+          {project.meta.map((item) => (
+            <span key={item}>{item}</span>
+          ))}
+        </div>
+      </div>
+
+      <div className="lab-evidence">
+        <div className="lab-state">
+          <span>{lang === "it" ? "Stato del repo" : "Repository state"}</span>
+          <p>{project.state}</p>
+        </div>
+        <div className="lab-focus">
+          <span>{lang === "it" ? "Focus corrente" : "Current focus"}</span>
+          <p>{project.focus}</p>
+        </div>
+      </div>
+
+      <ArrowUpRight className="lab-arrow" size={24} strokeWidth={1.3} />
     </motion.a>
   );
 }
@@ -674,28 +776,12 @@ function PortfolioApp() {
 
           <div className="lab-list">
             {labList.map((project) => (
-              <motion.a
-                className="lab-row"
+              <LabRow
                 key={project.name}
+                project={project}
+                lang={lang}
                 href={`?lab=${project.slug}&lang=${lang}${backgroundParam}`}
-                initial={{ opacity: 0, x: -24 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-8%" }}
-                transition={{ duration: 0.65 }}
-              >
-                <div className="lab-index">{project.index}</div>
-                <div className="lab-main">
-                  <span>{project.kind}</span>
-                  <h3>{project.name}</h3>
-                  <p>{project.description}</p>
-                </div>
-                <div className="lab-tags">
-                  {project.meta.map((item) => (
-                    <span key={item}>{item}</span>
-                  ))}
-                </div>
-                <ArrowUpRight className="lab-arrow" size={24} strokeWidth={1.3} />
-              </motion.a>
+              />
             ))}
           </div>
           <p className="labs-note">{c.labsNote}</p>
