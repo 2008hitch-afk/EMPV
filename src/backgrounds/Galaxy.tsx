@@ -14,7 +14,7 @@ void main() {
 }
 `;
 
-const fragmentShader = `
+const fragmentShaderTemplate = `
 precision highp float;
 
 uniform float uTime;
@@ -36,8 +36,7 @@ uniform float uMouseActiveFactor;
 uniform float uAutoCenterRepulsion;
 uniform bool uTransparent;
 uniform float uLightMode;
-uniform vec3 uTint;
-uniform float uTintStrength;
+const vec3 uTint = __EMPV_TINT__;
 
 varying vec2 vUv;
 
@@ -109,7 +108,7 @@ vec3 StarLayer(vec2 uv) {
       float sat = length(base - vec3(dot(base, vec3(0.299, 0.587, 0.114)))) * uSaturation;
       float val = max(max(base.r, base.g), base.b);
       base = hsv2rgb(vec3(hue, sat, val));
-      base = mix(base, uTint, uTintStrength);
+      base = uTint;
 
       vec2 pad = vec2(tris(seed * 34.0 + uTime * uSpeed / 10.0), tris(seed * 38.0 + uTime * uSpeed / 30.0)) - 0.5;
 
@@ -182,6 +181,11 @@ void main() {
 }
 `;
 
+function buildFragmentShader(tint: [number, number, number]) {
+  const literal = `vec3(${tint[0].toFixed(6)}, ${tint[1].toFixed(6)}, ${tint[2].toFixed(6)})`;
+  return fragmentShaderTemplate.replace("__EMPV_TINT__", literal);
+}
+
 interface GalaxyProps {
   focal?: [number, number];
   rotation?: [number, number];
@@ -201,7 +205,6 @@ interface GalaxyProps {
   transparent?: boolean;
   lightMode?: boolean;
   tint?: [number, number, number];
-  tintStrength?: number;
 }
 
 export default function Galaxy({
@@ -223,7 +226,6 @@ export default function Galaxy({
   transparent = true,
   lightMode = false,
   tint = [0.44, 0.53, 0.66],
-  tintStrength = 0.84,
   ...rest
 }: GalaxyProps) {
   const ctnDom = useRef<HTMLDivElement>(null);
@@ -270,7 +272,7 @@ export default function Galaxy({
     const geometry = new Triangle(gl);
     program = new Program(gl, {
       vertex: vertexShader,
-      fragment: fragmentShader,
+      fragment: buildFragmentShader(tint),
       uniforms: {
         uTime: { value: 0 },
         uResolution: {
@@ -294,9 +296,7 @@ export default function Galaxy({
         uMouseActiveFactor: { value: 0.0 },
         uAutoCenterRepulsion: { value: autoCenterRepulsion },
         uTransparent: { value: transparent },
-        uLightMode: { value: lightMode ? 1 : 0 },
-        uTint: { value: new Float32Array(tint) },
-        uTintStrength: { value: tintStrength }
+        uLightMode: { value: lightMode ? 1 : 0 }
       }
     });
 
@@ -390,8 +390,7 @@ export default function Galaxy({
     autoCenterRepulsion,
     transparent,
     lightMode,
-    tint,
-    tintStrength
+    tint
   ]);
 
   return <div ref={ctnDom} className="galaxy-container" {...rest} />;
