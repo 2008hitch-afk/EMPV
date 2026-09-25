@@ -29,7 +29,7 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
       <div className="detail-shell">
         <header className="topbar detail-topbar">
           <a className="wordmark" href="./" aria-label="EMPV home">
-            EMPV<span className="wordmark-dot">•</span>
+            EMPV
           </a>
         </header>
         <main className="detail-not-found">
@@ -70,7 +70,7 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
     <div className="detail-shell">
       <header className="topbar detail-topbar">
         <a className="wordmark" href="./" aria-label="EMPV home">
-          EMPV<span className="wordmark-dot">•</span>
+          EMPV
         </a>
 
         <a className="detail-nav-back" href={backHref}>
