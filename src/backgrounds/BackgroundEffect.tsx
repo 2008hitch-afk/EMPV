@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "react";
+import "./background-effects.css";
 
 export type BackgroundName =
   | "none"
