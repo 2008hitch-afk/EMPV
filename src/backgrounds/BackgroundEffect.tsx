@@ -265,7 +265,8 @@ export default function BackgroundEffect({
 
   return (
     <div
-      className={`background-effect effect-${name} ${name === "galaxy" ? `galaxy-palette-${galaxyPalette}` : ""} ${className}`}
+      key={`${name}-${galaxyPalette}`}
+      className={`background-effect effect-${name} palette-${galaxyPalette} ${name === "galaxy" ? `galaxy-palette-${galaxyPalette}` : ""} ${className}`}
       style={{ opacity: name === "galaxy" ? 0.9 : 0.48 + intensity * 0.42 }}
       aria-hidden="true"
     >
