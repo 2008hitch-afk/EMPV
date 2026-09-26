@@ -2007,3 +2007,295 @@ footer {
     radial-gradient(circle at 64% 38%, color-mix(in srgb, var(--galaxy-accent) 14%, transparent), transparent 48%),
     var(--visual-dark);
 }
+
+
+/* EMPV Visual Studio */
+.visual-studio-toggle {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 82;
+  min-height: 44px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 0 16px;
+  background: var(--topbar-bg);
+  color: var(--ink);
+  backdrop-filter: blur(18px) saturate(1.12);
+  box-shadow: 0 10px 34px rgba(20, 25, 34, 0.10);
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  cursor: pointer;
+  font-family: var(--ui);
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.visual-studio-toggle-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--galaxy-accent, var(--ink));
+  box-shadow: 0 0 0 5px color-mix(in oklch, var(--galaxy-accent, var(--ink)) 12%, transparent);
+}
+
+.visual-studio-panel {
+  position: fixed;
+  right: 20px;
+  bottom: 76px;
+  z-index: 81;
+  width: min(410px, calc(100vw - 40px));
+  max-height: min(760px, calc(100svh - 110px));
+  overflow-y: auto;
+  border: 1px solid var(--hairline);
+  border-radius: 24px;
+  background: color-mix(in oklch, var(--paper) 90%, transparent);
+  color: var(--ink);
+  backdrop-filter: blur(26px) saturate(1.15);
+  box-shadow: 0 22px 70px rgba(20, 25, 34, 0.14);
+  padding: 12px;
+  scrollbar-width: thin;
+}
+
+.visual-studio-head {
+  min-height: 64px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 10px 10px 14px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.visual-studio-head > div { display: grid; gap: 5px; }
+
+.visual-studio-head span,
+.visual-studio-label span,
+.visual-background-list small,
+.visual-motion-controls label > span {
+  font-size: 0.62rem;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.visual-studio-head strong { font-size: 1.18rem; letter-spacing: -0.035em; }
+
+.visual-studio-head > button {
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--hairline);
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.visual-studio-section {
+  padding: 16px 4px 18px;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.visual-studio-section:last-child { border-bottom: 0; padding-bottom: 4px; }
+
+.visual-studio-label {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 0 6px 10px;
+}
+
+.visual-studio-label strong {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.035em;
+}
+
+.visual-background-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.visual-background-list button {
+  min-width: 0;
+  min-height: 54px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: color-mix(in oklch, var(--ink) 2.2%, transparent);
+  color: var(--ink);
+  padding: 9px 10px;
+  display: grid;
+  align-content: center;
+  gap: 4px;
+  text-align: left;
+  cursor: pointer;
+}
+
+.visual-background-list button:hover,
+.visual-background-list button.is-active {
+  border-color: color-mix(in oklch, var(--galaxy-accent, var(--ink)) 28%, var(--hairline));
+  background: color-mix(in oklch, var(--galaxy-accent, var(--ink)) 8%, var(--paper));
+}
+
+.visual-background-list button > span,
+.visual-background-list button small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.visual-background-list button > span { font-size: 0.75rem; font-weight: 650; }
+
+.visual-palette-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+}
+
+.visual-palette-grid button {
+  min-height: 48px;
+  border: 1px solid transparent;
+  border-radius: 14px;
+  background: color-mix(in oklch, var(--ink) 2.2%, transparent);
+  color: var(--muted);
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 5px;
+  cursor: pointer;
+  font-size: 0.62rem;
+  font-weight: 650;
+}
+
+.visual-palette-grid button:hover,
+.visual-palette-grid button.is-active {
+  color: var(--ink);
+  border-color: color-mix(in oklch, var(--galaxy-accent) 28%, var(--hairline));
+  background: color-mix(in oklch, var(--galaxy-accent) 8%, var(--paper));
+}
+
+.visual-palette-grid .palette-dot { width: 11px; height: 11px; }
+
+.visual-motion-controls {
+  display: grid;
+  gap: 14px;
+  padding: 2px 6px 4px;
+}
+
+.visual-motion-controls label { display: grid; gap: 7px; }
+
+.visual-motion-controls label > span {
+  display: flex;
+  justify-content: space-between;
+}
+
+.visual-motion-controls label b { color: var(--ink); font-weight: 600; }
+
+.visual-motion-controls input[type="range"] {
+  width: 100%;
+  accent-color: var(--galaxy-accent, var(--ink));
+}
+
+.visual-pointer-toggle,
+.visual-reset {
+  min-height: 40px;
+  border: 1px solid var(--hairline);
+  border-radius: 12px;
+  background: transparent;
+  color: var(--ink);
+  padding: 0 11px;
+  cursor: pointer;
+  font-size: 0.67rem;
+  text-transform: uppercase;
+  letter-spacing: 0.035em;
+}
+
+.visual-pointer-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.visual-pointer-toggle.is-active {
+  border-color: color-mix(in oklch, var(--galaxy-accent) 30%, var(--hairline));
+  background: color-mix(in oklch, var(--galaxy-accent) 9%, var(--paper));
+}
+
+.visual-reset { display: grid; place-items: center; color: var(--muted); }
+
+:root[data-visual-theme="galaxy"] {
+  --copy-accent-strong: color-mix(in oklch, var(--galaxy-accent) 76%, var(--ink));
+  --copy-accent-mid: color-mix(in oklch, var(--galaxy-accent) 48%, var(--ink));
+  --copy-accent-soft: color-mix(in oklch, var(--galaxy-accent) 18%, var(--ink));
+  --copy-accent-fog: color-mix(in oklch, var(--galaxy-accent) 14%, transparent);
+}
+
+:root[data-visual-theme="galaxy"] .hero h1 > span:first-child,
+:root[data-visual-theme="galaxy"] .section-head h2,
+:root[data-visual-theme="galaxy"] .manifesto p,
+:root[data-visual-theme="galaxy"] .project-copy h3,
+:root[data-visual-theme="galaxy"] .lab-main h3,
+:root[data-visual-theme="galaxy"] .faq-intro h2,
+:root[data-visual-theme="galaxy"] .person-editorial-copy h3,
+:root[data-visual-theme="galaxy"] .footer-mark {
+  color: transparent;
+  background-image: linear-gradient(
+    108deg,
+    var(--ink) 0%,
+    var(--ink) 32%,
+    var(--copy-accent-soft) 45%,
+    var(--copy-accent-strong) 55%,
+    var(--copy-accent-mid) 64%,
+    var(--ink) 78%,
+    var(--ink) 100%
+  );
+  background-size: 230% 100%;
+  background-position: 10% 50%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  animation: empv-copy-accent-flow 10s ease-in-out infinite alternate;
+}
+
+:root[data-visual-theme="galaxy"] .hero h1 .outline {
+  color: transparent;
+  -webkit-text-stroke-color: var(--copy-accent-strong);
+  text-shadow: 0 0 24px var(--copy-accent-fog);
+}
+
+:root[data-visual-theme="galaxy"] .project-arrow,
+:root[data-visual-theme="galaxy"] .lab-arrow,
+:root[data-visual-theme="galaxy"] .scroll-cue svg {
+  color: var(--copy-accent-strong);
+}
+
+@keyframes empv-copy-accent-flow {
+  from { background-position: 6% 50%; }
+  to { background-position: 94% 50%; }
+}
+
+@media (max-width: 700px) {
+  .visual-studio-toggle { right: 12px; bottom: 12px; }
+  .visual-studio-panel {
+    right: 12px;
+    bottom: 66px;
+    width: calc(100vw - 24px);
+    max-height: calc(100svh - 92px);
+    border-radius: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root[data-visual-theme="galaxy"] .hero h1 > span:first-child,
+  :root[data-visual-theme="galaxy"] .section-head h2,
+  :root[data-visual-theme="galaxy"] .manifesto p,
+  :root[data-visual-theme="galaxy"] .project-copy h3,
+  :root[data-visual-theme="galaxy"] .lab-main h3,
+  :root[data-visual-theme="galaxy"] .faq-intro h2,
+  :root[data-visual-theme="galaxy"] .person-editorial-copy h3,
+  :root[data-visual-theme="galaxy"] .footer-mark { animation: none; }
+}

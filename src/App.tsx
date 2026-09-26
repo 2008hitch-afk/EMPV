@@ -4,8 +4,10 @@ import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } fr
 import BackgroundLab from "./BackgroundLab";
 import BackgroundEffect, {
   BACKGROUND_OPTIONS,
+  DEFAULT_TUNING,
   GALAXY_PALETTES,
   type BackgroundName,
+  type BackgroundTuning,
   type GalaxyPalette,
 } from "./backgrounds/BackgroundEffect";
 import ProjectDetail from "./ProjectDetail";
@@ -547,7 +549,7 @@ function readHomepageBackground(): BackgroundName {
   const value = new URLSearchParams(window.location.search).get("bg");
   return BACKGROUND_OPTIONS.some((item) => item.id === value)
     ? (value as BackgroundName)
-    : "none";
+    : "galaxy";
 }
 
 function readGalaxyPalette(): GalaxyPalette {
@@ -563,43 +565,174 @@ function readGalaxyPalette(): GalaxyPalette {
     : "mist";
 }
 
-function GalaxyPaletteSwitcher({
-  value,
-  onChange,
+function VisualStudio({
+  background,
+  onBackgroundChange,
+  palette,
+  onPaletteChange,
+  tuning,
+  onTuningChange,
 }: {
-  value: GalaxyPalette;
-  onChange: (palette: GalaxyPalette) => void;
+  background: BackgroundName;
+  onBackgroundChange: (background: BackgroundName) => void;
+  palette: GalaxyPalette;
+  onPaletteChange: (palette: GalaxyPalette) => void;
+  tuning: BackgroundTuning;
+  onTuningChange: (tuning: BackgroundTuning) => void;
 }) {
+  const [open, setOpen] = useState(false);
+  const currentBackground =
+    BACKGROUND_OPTIONS.find((item) => item.id === background) ?? BACKGROUND_OPTIONS[0];
+
+  const setNumber = (
+    key: keyof Omit<BackgroundTuning, "pointer">,
+    value: number,
+  ) => onTuningChange({ ...tuning, [key]: value });
+
   return (
-    <div className="galaxy-palette-switcher" aria-label="Galaxy color variants">
-      <span>Galaxy</span>
-      {(Object.keys(GALAXY_PALETTES) as GalaxyPalette[]).map((palette) => (
-        <button
-          key={palette}
-          type="button"
-          className={value === palette ? "is-active" : ""}
-          onClick={() => onChange(palette)}
-          aria-pressed={value === palette}
-        >
-          <i className={`palette-dot palette-dot-${palette}`} aria-hidden="true" />
-          {GALAXY_PALETTES[palette].label}
-        </button>
-      ))}
-    </div>
+    <>
+      <button
+        className={`visual-studio-toggle ${open ? "is-open" : ""}`}
+        type="button"
+        aria-expanded={open}
+        aria-controls="visual-studio-panel"
+        onClick={() => setOpen((value) => !value)}
+      >
+        <span className="visual-studio-toggle-dot" aria-hidden="true" />
+        {open ? "Close visual" : "Visual"}
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.aside
+            id="visual-studio-panel"
+            className="visual-studio-panel"
+            initial={{ opacity: 0, y: 16, scale: 0.985 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.99 }}
+            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="visual-studio-head">
+              <div>
+                <span>EMPV / Visual Studio</span>
+                <strong>{currentBackground.label}</strong>
+              </div>
+              <button type="button" onClick={() => setOpen(false)} aria-label="Close visual studio">
+                ×
+              </button>
+            </div>
+
+            <section className="visual-studio-section">
+              <div className="visual-studio-label">
+                <span>01</span>
+                <strong>Grafica</strong>
+              </div>
+              <div className="visual-background-list">
+                {BACKGROUND_OPTIONS.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={item.id === background ? "is-active" : ""}
+                    onClick={() => onBackgroundChange(item.id)}
+                    aria-pressed={item.id === background}
+                  >
+                    <span>{item.label}</span>
+                    <small>{item.source}</small>
+                  </button>
+                ))}
+              </div>
+            </section>
+
+            <section className="visual-studio-section">
+              <div className="visual-studio-label">
+                <span>02</span>
+                <strong>Palette</strong>
+              </div>
+              <div className="visual-palette-grid">
+                {(Object.keys(GALAXY_PALETTES) as GalaxyPalette[]).map((item) => (
+                  <button
+                    key={item}
+                    type="button"
+                    className={item === palette ? "is-active" : ""}
+                    onClick={() => onPaletteChange(item)}
+                    aria-pressed={item === palette}
+                  >
+                    <i className={`palette-dot palette-dot-${item}`} aria-hidden="true" />
+                    <span>{GALAXY_PALETTES[item].label}</span>
+                  </button>
+                ))}
+              </div>
+            </section>
+
+            <section className="visual-studio-section">
+              <div className="visual-studio-label">
+                <span>03</span>
+                <strong>Motion</strong>
+              </div>
+              <div className="visual-motion-controls">
+                {([
+                  ["intensity", "Intensity"],
+                  ["speed", "Speed"],
+                  ["depth", "Depth"],
+                ] as const).map(([key, label]) => (
+                  <label key={key}>
+                    <span>
+                      {label}
+                      <b>{Math.round(tuning[key] * 100)}</b>
+                    </span>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={Math.round(tuning[key] * 100)}
+                      onChange={(event) => setNumber(key, Number(event.target.value) / 100)}
+                    />
+                  </label>
+                ))}
+
+                <button
+                  className={`visual-pointer-toggle ${tuning.pointer ? "is-active" : ""}`}
+                  type="button"
+                  onClick={() => onTuningChange({ ...tuning, pointer: !tuning.pointer })}
+                >
+                  <span>Pointer interaction</span>
+                  <strong>{tuning.pointer ? "ON" : "OFF"}</strong>
+                </button>
+
+                <button
+                  className="visual-reset"
+                  type="button"
+                  onClick={() => onTuningChange(DEFAULT_TUNING)}
+                >
+                  Reset motion
+                </button>
+              </div>
+            </section>
+          </motion.aside>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 
 function PortfolioApp({
+  activeBackground,
+  onBackgroundChange,
+  backgroundTuning,
+  onBackgroundTuningChange,
   galaxyPalette,
   onGalaxyPaletteChange,
 }: {
+  activeBackground: BackgroundName;
+  onBackgroundChange: (background: BackgroundName) => void;
+  backgroundTuning: BackgroundTuning;
+  onBackgroundTuningChange: (tuning: BackgroundTuning) => void;
   galaxyPalette: GalaxyPalette;
   onGalaxyPaletteChange: (palette: GalaxyPalette) => void;
 }) {
   const [lang, setLang] = useState<Lang>("it");
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
-  const activeBackground = useMemo(readHomepageBackground, []);
   const paletteParam = activeBackground === "galaxy" ? `&palette=${galaxyPalette}` : "";
   const backgroundParam =
     activeBackground === "none" ? "" : `&bg=${activeBackground}${paletteParam}`;
@@ -720,15 +853,21 @@ function PortfolioApp({
         )}
       </AnimatePresence>
 
-      {activeBackground === "galaxy" && (
-        <GalaxyPaletteSwitcher value={galaxyPalette} onChange={onGalaxyPaletteChange} />
-      )}
+      <VisualStudio
+        background={activeBackground}
+        onBackgroundChange={onBackgroundChange}
+        palette={galaxyPalette}
+        onPaletteChange={onGalaxyPaletteChange}
+        tuning={backgroundTuning}
+        onTuningChange={onBackgroundTuningChange}
+      />
 
       <main>
         <section className="hero" id="top">
           {activeBackground !== "none" && (
             <BackgroundEffect
               name={activeBackground}
+              tuning={backgroundTuning}
               className="hero-background-effect"
               galaxyPalette={galaxyPalette}
             />
@@ -873,13 +1012,30 @@ function App() {
   const params = new URLSearchParams(window.location.search);
   const detailSlug = params.get("project") ?? params.get("lab");
   const initialLang: SiteLang = params.get("lang") === "en" ? "en" : "it";
-  const visualTheme = params.get("bg") === "galaxy" ? "galaxy" : "default";
+  const [activeBackground, setActiveBackground] = useState<BackgroundName>(readHomepageBackground);
+  const [backgroundTuning, setBackgroundTuning] =
+    useState<BackgroundTuning>(DEFAULT_TUNING);
   const [galaxyPalette, setGalaxyPalette] = useState<GalaxyPalette>(readGalaxyPalette);
+  const visualTheme = activeBackground === "none" ? "default" : "galaxy";
+
+  function updateBackground(next: BackgroundName) {
+    setActiveBackground(next);
+    const url = new URL(window.location.href);
+    if (next === "none") {
+      url.searchParams.delete("bg");
+    } else {
+      url.searchParams.set("bg", next);
+      url.searchParams.set("palette", galaxyPalette);
+    }
+    window.history.replaceState({}, "", url);
+  }
 
   function updateGalaxyPalette(next: GalaxyPalette) {
     setGalaxyPalette(next);
     const url = new URL(window.location.href);
-    url.searchParams.set("bg", "galaxy");
+    if (activeBackground !== "none") {
+      url.searchParams.set("bg", activeBackground);
+    }
     url.searchParams.set("palette", next);
     window.history.replaceState({}, "", url);
   }
@@ -917,6 +1073,10 @@ function App() {
   } else {
     page = (
       <PortfolioApp
+        activeBackground={activeBackground}
+        onBackgroundChange={updateBackground}
+        backgroundTuning={backgroundTuning}
+        onBackgroundTuningChange={setBackgroundTuning}
         galaxyPalette={galaxyPalette}
         onGalaxyPaletteChange={updateGalaxyPalette}
       />
