@@ -18,6 +18,54 @@ export type BackgroundName =
   | "prism"
   | "dither";
 
+export type GalaxyPalette =
+  | "mist"
+  | "zinc"
+  | "mauve"
+  | "olive"
+  | "taupe"
+  | "amber"
+  | "blue"
+  | "indigo";
+
+export const GALAXY_PALETTES: Record<
+  GalaxyPalette,
+  { label: string; tint: [number, number, number] }
+> = {
+  mist: {
+    label: "Mist",
+    tint: [0.4039, 0.4703, 0.4860],
+  },
+  zinc: {
+    label: "Zinc",
+    tint: [0.4430, 0.4429, 0.4838],
+  },
+  mauve: {
+    label: "Mauve",
+    tint: [0.4748, 0.4115, 0.4827],
+  },
+  olive: {
+    label: "Olive",
+    tint: [0.4860, 0.4859, 0.4035],
+  },
+  taupe: {
+    label: "Taupe",
+    tint: [0.4860, 0.4276, 0.4042],
+  },
+  amber: {
+    label: "Amber",
+    tint: [0.8838, 0.4434, 0.0],
+  },
+  blue: {
+    label: "Blue",
+    tint: [0.1693, 0.4980, 1.0],
+  },
+  indigo: {
+    label: "Indigo",
+    tint: [0.3822, 0.3719, 1.0],
+  },
+};
+
 export type BackgroundTuning = {
   intensity: number;
   speed: number;
@@ -146,32 +194,98 @@ function clamp01(value: number) {
   return Math.max(0, Math.min(1, value));
 }
 
+function tintToCss(tint: [number, number, number]) {
+  const toHex = (value: number) =>
+    Math.round(Math.max(0, Math.min(1, value)) * 255)
+      .toString(16)
+      .padStart(2, "0");
+  return `#${toHex(tint[0])}${toHex(tint[1])}${toHex(tint[2])}`;
+}
+
+function tintToRgba(tint: [number, number, number], alpha: number) {
+  return `rgba(${Math.round(tint[0] * 255)}, ${Math.round(tint[1] * 255)}, ${Math.round(tint[2] * 255)}, ${alpha})`;
+}
+
+function scaleTint(
+  tint: [number, number, number],
+  scale: number,
+): [number, number, number] {
+  return tint.map((value) => Math.max(0, Math.min(1, value * scale))) as [
+    number,
+    number,
+    number,
+  ];
+}
+
+function liftTint(
+  tint: [number, number, number],
+  amount: number,
+): [number, number, number] {
+  return tint.map((value) => value + (1 - value) * amount) as [
+    number,
+    number,
+    number,
+  ];
+}
+
+function tintHue([r, g, b]: [number, number, number]) {
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  if (max === min) return 0;
+  const delta = max - min;
+  let hue = 0;
+  if (max === r) hue = ((g - b) / delta) % 6;
+  else if (max === g) hue = (b - r) / delta + 2;
+  else hue = (r - g) / delta + 4;
+  return ((hue * 60) + 360) % 360;
+}
+
 export default function BackgroundEffect({
   name,
   tuning = DEFAULT_TUNING,
   className = "",
+  galaxyPalette = "mist",
 }: {
   name: BackgroundName;
   tuning?: BackgroundTuning;
   className?: string;
+  galaxyPalette?: GalaxyPalette;
 }) {
   const intensity = clamp01(tuning.intensity);
   const speed = clamp01(tuning.speed);
   const depth = clamp01(tuning.depth);
+  const galaxyColors = GALAXY_PALETTES[galaxyPalette];
+  const paletteTint = galaxyColors.tint;
+  const darkTint = scaleTint(paletteTint, 0.42);
+  const midTint = scaleTint(paletteTint, 0.72);
+  const lightTint = liftTint(paletteTint, 0.48);
+  const paletteCss = tintToCss(paletteTint);
+  const darkCss = tintToCss(darkTint);
+  const midCss = tintToCss(midTint);
+  const lightCss = tintToCss(lightTint);
+  const paletteHue = tintHue(paletteTint);
 
   if (name === "none") return null;
 
   return (
     <div
-      className={`background-effect effect-${name} ${className}`}
-      style={{ opacity: 0.48 + intensity * 0.42 }}
+      key={`${name}-${galaxyPalette}`}
+      className={`background-effect effect-${name} palette-${galaxyPalette} ${name === "galaxy" ? `galaxy-palette-${galaxyPalette}` : ""} ${className}`}
+      style={{
+        opacity:
+          name === "galaxy"
+            ? 0.9
+            : name === "scanner"
+              ? 0.94
+              : 0.48 + intensity * 0.42,
+      }}
       aria-hidden="true"
     >
       <Suspense fallback={<div className="background-effect-loading" />}>
         {name === "particles" && (
           <Floating3DParticles
             quantity={Math.round(130 + intensity * 430)}
-            color="#11110f"
+            color={darkCss}
             size={1.1 + intensity * 2.4}
             opacity={0.2 + intensity * 0.38}
             drift={0.04 + speed * 0.32}
@@ -182,8 +296,8 @@ export default function BackgroundEffect({
         {name === "aero" && (
           <AeroShards
             backgroundColor="#ecebe5"
-            shardColor="#161614"
-            accentColor="#8d8b83"
+            shardColor={darkCss}
+            accentColor={paletteCss}
             placement="full"
             flow="stream"
             material="satin"
@@ -216,8 +330,8 @@ export default function BackgroundEffect({
             beamWidth={1.4}
             beamHeight={16}
             beamNumber={Math.round(7 + intensity * 7)}
-            lightColor="#2b2b27"
-            beamColor="#10100e"
+            lightColor={paletteCss}
+            beamColor={darkCss}
             backgroundColor="#ecebe5"
             speed={0.18 + speed * 0.72}
             noiseIntensity={0.65 + intensity * 1.6}
@@ -229,7 +343,7 @@ export default function BackgroundEffect({
 
         {name === "threads" && (
           <Threads
-            color={[0.07, 0.07, 0.065]}
+            color={darkTint}
             amplitude={0.35 + intensity * 0.85}
             distance={-0.25 + depth * 0.5}
             enableMouseInteraction={tuning.pointer}
@@ -238,7 +352,7 @@ export default function BackgroundEffect({
 
         {name === "waves" && (
           <Waves
-            lineColor={`rgba(17,17,15,${0.12 + intensity * 0.22})`}
+            lineColor={tintToRgba(paletteTint, 0.12 + intensity * 0.22)}
             backgroundColor="transparent"
             waveSpeedX={0.002 + speed * 0.012}
             waveSpeedY={0.001 + speed * 0.006}
@@ -255,24 +369,25 @@ export default function BackgroundEffect({
         {name === "galaxy" && (
           <Galaxy
             starSpeed={0.12 + speed * 0.35}
-            density={0.25 + intensity * 0.62}
+            density={0.38 + intensity * 0.82}
             hueShift={0}
             speed={0.15 + speed * 0.55}
             mouseInteraction={tuning.pointer}
-            glowIntensity={0.08 + intensity * 0.22}
+            glowIntensity={0.12 + intensity * 0.30}
             saturation={0}
+            tint={galaxyColors.tint}
             mouseRepulsion={tuning.pointer}
-            twinkleIntensity={0.08 + intensity * 0.18}
+            twinkleIntensity={0.10 + intensity * 0.22}
             rotationSpeed={0.025 + speed * 0.08}
             repulsionStrength={0.5 + intensity}
             transparent
-            lightMode
+            lightMode={false}
           />
         )}
 
         {name === "orb" && (
           <Orb
-            hue={0}
+            hue={paletteHue}
             hoverIntensity={0.08 + intensity * 0.25}
             rotateOnHover={tuning.pointer}
             forceHoverState={false}
@@ -284,8 +399,8 @@ export default function BackgroundEffect({
           <Silk
             speed={0.7 + speed * 2.6}
             scale={0.75 + depth * 0.7}
-            color="#c9c8c1"
-            noiseIntensity={0.45 + intensity * 1.25}
+            color={paletteCss}
+            noiseIntensity={0.38 + intensity * 1.05}
             rotation={-0.12}
             lightMode
           />
@@ -293,9 +408,9 @@ export default function BackgroundEffect({
 
         {name === "sliced-waves" && (
           <SlicedWaves
-            color1="#11110f"
-            color2="#464640"
-            color3="#8c8b84"
+            color1={darkCss}
+            color2={midCss}
+            color3={lightCss}
             columns={12}
             rows={7}
             barThickness={0.08 + intensity * 0.08}
@@ -322,8 +437,8 @@ export default function BackgroundEffect({
         {name === "side-rays" && (
           <SideRays
             speed={0.25 + speed * 1.1}
-            rayColor1="#ffffff"
-            rayColor2="#d7d7d2"
+            rayColor1={lightCss}
+            rayColor2={paletteCss}
             intensity={2.8 + intensity * 3.2}
             spread={1.6 + depth * 1.5}
             origin="top-right"
@@ -337,9 +452,9 @@ export default function BackgroundEffect({
 
         {name === "light-tunnel" && (
           <LightTunnel
-            cableColor="#20201d"
-            pulseColor="#8f8e87"
-            tunnelColor="#d8d7d1"
+            cableColor={darkCss}
+            pulseColor={paletteCss}
+            tunnelColor={lightCss}
             tunnelOpacity={0.1 + intensity * 0.12}
             speed={0.03 + speed * 0.16}
             flowDirection="outward"
@@ -369,9 +484,9 @@ export default function BackgroundEffect({
 
         {name === "scanner" && (
           <Scanner
-            color1="#1a1a18"
-            color2="#77766f"
-            color3="#d8d7d1"
+            color1={darkCss}
+            color2={paletteCss}
+            color3={lightCss}
             speed={0.12 + speed * 0.48}
             sweepSpeed={0.08 + speed * 0.34}
             sweepWidth={1.35}
@@ -381,17 +496,17 @@ export default function BackgroundEffect({
             ripple={0.08 + intensity * 0.16}
             bandDensity={9}
             lineSharpness={5.5}
-            glow={0.06 + intensity * 0.16}
+            glow={0.16 + intensity * 0.3}
             scanDirection="vertical"
-            colorSpread={0.25}
-            brightness={0.7 + intensity * 0.32}
-            contrast={1.1}
-            softness={1.7}
-            vignette={0.2}
+            colorSpread={0.34}
+            brightness={0.95 + intensity * 0.5}
+            contrast={0.94}
+            softness={1.28}
+            vignette={0.08}
             scanline
             grain
-            grainIntensity={0.018}
-            opacity={0.5 + intensity * 0.38}
+            grainIntensity={0.012}
+            opacity={0.82 + intensity * 0.18}
             mouseInteraction={tuning.pointer}
             mouseRadius={0.35}
             mouseStrength={0.18 + intensity * 0.22}
@@ -408,7 +523,7 @@ export default function BackgroundEffect({
             noise={0.5}
             transparent={false}
             scale={3.6}
-            hueShift={0}
+            hueShift={paletteHue}
             colorFrequency={1}
             hoverStrength={2}
             inertia={0.05}
@@ -424,7 +539,7 @@ export default function BackgroundEffect({
             waveSpeed={0.01 + speed * 0.06}
             waveFrequency={1.8 + depth * 1.7}
             waveAmplitude={0.15 + intensity * 0.3}
-            waveColor={[0.12, 0.12, 0.105]}
+            waveColor={darkTint}
             backgroundColor={[0.92, 0.915, 0.89]}
             colorNum={4}
             pixelSize={2}

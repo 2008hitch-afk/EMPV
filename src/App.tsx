@@ -1,84 +1,111 @@
 import { useEffect, useMemo, useState, type CSSProperties, type MouseEvent } from "react";
 import { ArrowDownRight, ArrowUpRight, Languages } from "lucide-react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import BackgroundLab from "./BackgroundLab";
-import BackgroundEffect, { BACKGROUND_OPTIONS, type BackgroundName } from "./backgrounds/BackgroundEffect";
+import BackgroundEffect, {
+  BACKGROUND_OPTIONS,
+  DEFAULT_TUNING,
+  GALAXY_PALETTES,
+  type BackgroundName,
+  type BackgroundTuning,
+  type GalaxyPalette,
+} from "./backgrounds/BackgroundEffect";
+import ProjectDetail from "./ProjectDetail";
+import type { SiteLang } from "./detailContent";
 
-type Lang = "it" | "en";
+type Lang = SiteLang;
 
 type Project = {
+  slug: string;
   index: string;
   name: string;
   kind: string;
   description: string;
   meta: string[];
   accent: string;
+  question?: string;
+  state?: string;
+  focus?: string;
 };
 
 const copy = {
   it: {
-    nav: { work: "Lavori", labs: "Labs / R&D", people: "Chi siamo" },
-    heroEyebrow: "Portfolio indipendente · Bergamo, IT",
-    heroTitleA: "Sistemi, prodotti",
-    heroTitleB: "e ricerca applicata.",
+    nav: { work: "Progetti", labs: "AI Lab", faq: "FAQ", people: "Enrico + Michele" },
+    heroEyebrow: "Enrico Peruffo × Michele Valleri · Bergamo",
+    heroTitleA: "Progettiamo sistemi",
+    heroTitleB: "intorno al lavoro reale.",
     heroBody:
-      "EMPV è il portfolio di Enrico Peruffo e Michele Valleri. Progettiamo e costruiamo software, automazioni e sistemi AI partendo dal problema, non dalla tecnologia.",
-    scroll: "Scorri per esplorare",
+      "Entriamo nei processi, capiamo dove si perdono tempo e informazioni e costruiamo il sistema digitale necessario: software, automazioni e AI solo quando servono davvero.",
+    scroll: "Esplora i progetti",
     manifesto:
-      "Ci interessa ciò che succede tra un problema reale e un sistema che funziona. Analizziamo il lavoro, scegliamo gli strumenti giusti e costruiamo solo ciò che serve.",
-    selectedLabel: "01 / Selected work",
-    selectedTitle: "Lavori selezionati",
+      "Non partiamo da una tecnologia da utilizzare. Partiamo da come viene svolto il lavoro: chi fa cosa, dove si ripetono le informazioni, cosa rallenta il processo e quali decisioni devono restare alle persone. Da lì decidiamo cosa costruire.",
+    selectedLabel: "01 / Progetti",
+    selectedTitle: "Progetti realizzati",
     selectedIntro:
-      "Progetti costruiti attorno a flussi reali, persone reali e vincoli operativi reali.",
-    labsLabel: "02 / Labs & R&D",
-    labsTitle: "Costruiamo anche ciò che ancora non esiste.",
+      "Ogni progetto parte da un processo esistente. Il risultato non è uno stack tecnologico: è un modo diverso di lavorare.",
+    labsLabel: "02 / AI Lab",
+    labsTitle: "Un laboratorio per trasformare ipotesi AI in sistemi verificabili.",
     labsIntro:
-      "Prodotti proprietari, infrastruttura AI locale e ricerca sperimentale: il laboratorio dove testiamo idee prima che diventino sistemi.",
-    peopleLabel: "03 / People",
-    peopleTitle: "Due prospettive. Un unico modo di costruire.",
-    enricoRole: "AI & Systems Engineer",
+      "Qui sviluppiamo e testiamo progetti AI che non nascono da un brief cliente: infrastrutture, prodotti e linee di ricerca costruiti per capire se un'idea può diventare un sistema reale.",
+    labsNote:
+      "Prototipi, esperimenti e progetti AI in evoluzione · rendiamo pubblica la direzione, non i dettagli che costituiscono il vantaggio tecnico.",
+    faqLabel: "03 / FAQ",
+    faqTitle: "Domande che vale la pena chiarire.",
+    faqIntro:
+      "Il punto non è applicare più tecnologia. È capire quale cambiamento serve davvero, cosa conviene costruire e quali limiti mantenere espliciti.",
+    peopleLabel: "04 / People",
+    peopleTitle: "Scopri il team",
+    peopleIntro:
+      "I progetti nascono nel punto in cui progettazione del processo e costruzione tecnica si incontrano.",
+    enricoRole: "AI & Systems Engineering",
     enricoText:
-      "Architetture software, AI locale, orchestrazione, infrastruttura e sistemi tecnici. Trasforma idee complesse in ambienti eseguibili e verificabili.",
-    micheleRole: "Product, Process & AI Specialist",
+      "Architetture software, infrastruttura, AI locale, orchestrazione e implementazione tecnica. Porta sistemi complessi da ipotesi a ambienti eseguibili e verificabili.",
+    micheleRole: "Product & Process Design",
     micheleText:
-      "Analisi dei processi, product architecture, workflow e applicazione dell’AI al lavoro reale. Trasforma problemi poco definiti in sistemi costruibili.",
+      "Analisi dei processi, progettazione del prodotto e trasformazione dei problemi operativi in sistemi costruibili.",
     portraitNote: "Ritratto in arrivo",
     footerTop: "EMPV / Enrico + Michele",
-    footerBottom: "Software · Systems · AI · Product · Research",
+    footerBottom: "Systems · Products · AI · Research",
     language: "EN",
-    projectKind: "Progetto",
   },
   en: {
-    nav: { work: "Work", labs: "Labs / R&D", people: "People" },
-    heroEyebrow: "Independent portfolio · Bergamo, IT",
-    heroTitleA: "Systems, products",
-    heroTitleB: "and applied research.",
+    nav: { work: "Projects", labs: "AI Lab", faq: "FAQ", people: "Enrico + Michele" },
+    heroEyebrow: "Enrico Peruffo × Michele Valleri · Bergamo",
+    heroTitleA: "We design systems",
+    heroTitleB: "around real work.",
     heroBody:
-      "EMPV is the portfolio of Enrico Peruffo and Michele Valleri. We design and build software, automation and AI systems starting from the problem — not the technology.",
-    scroll: "Scroll to explore",
+      "We step into processes, understand where time and information are lost, then build the digital system that is actually needed — software, automation and AI only when they add real value.",
+    scroll: "Explore projects",
     manifesto:
-      "We care about what happens between a real problem and a system that works. We study the work, choose the right tools and build only what is needed.",
-    selectedLabel: "01 / Selected work",
-    selectedTitle: "Selected work",
+      "We do not start with a technology to deploy. We start with how work is actually done: who does what, where information is repeated, what slows the process down and which decisions should remain human. From there, we decide what to build.",
+    selectedLabel: "01 / Projects",
+    selectedTitle: "Projects delivered",
     selectedIntro:
-      "Projects shaped around real workflows, real people and real operational constraints.",
-    labsLabel: "02 / Labs & R&D",
-    labsTitle: "We also build what does not exist yet.",
+      "Every project starts from an existing process. The outcome is not a technology stack: it is a different way of working.",
+    labsLabel: "02 / AI Lab",
+    labsTitle: "A lab for turning AI hypotheses into verifiable systems.",
     labsIntro:
-      "Proprietary products, local AI infrastructure and experimental research: the lab where ideas are tested before they become systems.",
-    peopleLabel: "03 / People",
-    peopleTitle: "Two perspectives. One way of building.",
-    enricoRole: "AI & Systems Engineer",
+      "Here we develop and test AI projects that do not start from a client brief: infrastructure, products and research directions built to find out whether an idea can become a real system.",
+    labsNote:
+      "Evolving AI prototypes, experiments and projects · we make the direction public, not the details that form the technical advantage.",
+    faqLabel: "03 / FAQ",
+    faqTitle: "Questions worth clarifying.",
+    faqIntro:
+      "The point is not to apply more technology. It is to understand what change is actually needed, what is worth building and which boundaries should remain explicit.",
+    peopleLabel: "04 / People",
+    peopleTitle: "Meet the team",
+    peopleIntro:
+      "Projects take shape where process design and technical execution meet.",
+    enricoRole: "AI & Systems Engineering",
     enricoText:
-      "Software architecture, local AI, orchestration, infrastructure and technical systems. Turns complex ideas into executable, verifiable environments.",
-    micheleRole: "Product, Process & AI Specialist",
+      "Software architecture, infrastructure, local AI, orchestration and technical implementation. Turns complex hypotheses into executable and verifiable systems.",
+    micheleRole: "Product & Process Design",
     micheleText:
-      "Process analysis, product architecture, workflows and applied AI. Turns loosely defined problems into systems that can actually be built.",
+      "Process analysis, product design and the transformation of operational problems into systems that can actually be built.",
     portraitNote: "Portrait coming soon",
     footerTop: "EMPV / Enrico + Michele",
-    footerBottom: "Software · Systems · AI · Product · Research",
+    footerBottom: "Systems · Products · AI · Research",
     language: "IT",
-    projectKind: "Project",
   },
 } as const;
 
@@ -86,59 +113,163 @@ const selected: Record<Lang, Project[]> = {
   it: [
     {
       index: "01",
-      name: "Cloeshouse Pet Resort",
-      kind: "Client work",
+      slug: "infisso",
+      name: "L'Infisso",
+      kind: "Progetto cliente",
       description:
-        "Sistema digitale end-to-end per prenotazioni, area cliente, operatività giornaliera, grooming, documenti e flussi di pagamento.",
-      meta: ["Product system", "Laravel", "Booking", "Operations"],
-      accent: "kennel",
+        "Da informazioni distribuite tra cartelle, ufficio, officina e sopralluoghi a un unico sistema che accompagna la commessa dal rilievo alla posa.",
+      meta: ["Commesse", "Campo → officina", "Dati condivisi", "Automazioni"],
+      accent: "infisso",
     },
     {
       index: "02",
+      slug: "centro-change",
       name: "Centro Change",
-      kind: "Client work",
+      kind: "Progetto cliente",
       description:
-        "Piattaforma operativa per un centro di psicologia: ruoli, prenotazioni, sedute, pagamenti, indisponibilità e conteggi mensili.",
-      meta: ["Workflow", "Frappe", "Roles", "Operations"],
+        "Un unico sistema per coordinare pazienti, professionisti, appuntamenti, sedute e amministrazione, rispettando ruoli e responsabilità differenti.",
+      meta: ["Operations", "Scheduling", "Ruoli", "Amministrazione"],
       accent: "change",
     },
     {
       index: "03",
-      name: "Cube Audio Service",
-      kind: "Client work",
+      slug: "cloeshouse",
+      name: "Cloeshouse Pet Resort",
+      kind: "Progetto cliente",
       description:
-        "Presenza digitale e sistema di richiesta strutturato per un service audio, con architettura pronta al deploy e gestione lead senza database.",
-      meta: ["Website", "Laravel", "Lead flow", "Deployment"],
+        "Prenotazione cliente e lavoro quotidiano dello staff nello stesso sistema: soggiorni, disponibilità, attività, grooming, documenti e pagamenti.",
+      meta: ["Hospitality ops", "Booking", "Area cliente", "Daily operations"],
+      accent: "kennel",
+    },
+    {
+      index: "04",
+      slug: "cube",
+      name: "Cube Audio Service",
+      kind: "Progetto cliente",
+      description:
+        "Da richieste libere e difficili da valutare a un percorso guidato che raccoglie le informazioni necessarie prima che Cube prepari il preventivo.",
+      meta: ["Lead flow", "Richiesta guidata", "Website", "Human review"],
       accent: "cube",
     },
   ],
   en: [
     {
       index: "01",
-      name: "Cloeshouse Pet Resort",
-      kind: "Client work",
+      slug: "infisso",
+      name: "L'Infisso",
+      kind: "Client project",
       description:
-        "An end-to-end digital system for booking, customer area, daily operations, grooming, documents and payment flows.",
-      meta: ["Product system", "Laravel", "Booking", "Operations"],
-      accent: "kennel",
+        "From information split across folders, office, workshop and site surveys to one system that follows each job from measurement to installation.",
+      meta: ["Jobs", "Field → workshop", "Shared data", "Automation"],
+      accent: "infisso",
     },
     {
       index: "02",
+      slug: "centro-change",
       name: "Centro Change",
-      kind: "Client work",
+      kind: "Client project",
       description:
-        "An operating platform for a psychology center: roles, appointments, sessions, payments, availability and monthly reconciliation.",
-      meta: ["Workflow", "Frappe", "Roles", "Operations"],
+        "One operating system for patients, professionals, appointments, sessions and administration, while preserving distinct roles and responsibilities.",
+      meta: ["Operations", "Scheduling", "Roles", "Administration"],
       accent: "change",
     },
     {
       index: "03",
-      name: "Cube Audio Service",
-      kind: "Client work",
+      slug: "cloeshouse",
+      name: "Cloeshouse Pet Resort",
+      kind: "Client project",
       description:
-        "Digital presence and structured request system for an audio service company, with deploy-ready architecture and database-free lead handling.",
-      meta: ["Website", "Laravel", "Lead flow", "Deployment"],
+        "Customer booking and staff operations in the same system: stays, availability, tasks, grooming, documents and payments.",
+      meta: ["Hospitality ops", "Booking", "Customer area", "Daily operations"],
+      accent: "kennel",
+    },
+    {
+      index: "04",
+      slug: "cube",
+      name: "Cube Audio Service",
+      kind: "Client project",
+      description:
+        "From unstructured requests that were hard to evaluate to a guided flow that collects the information Cube needs before preparing a quote.",
+      meta: ["Lead flow", "Guided request", "Website", "Human review"],
       accent: "cube",
+    },
+  ],
+};
+
+
+const faqs: Record<Lang, { question: string; answer: string }[]> = {
+  it: [
+    {
+      question: "Che tipo di problemi affrontate?",
+      answer:
+        "Situazioni in cui il lavoro dipende da passaggi manuali, informazioni disperse, strumenti che non comunicano o decisioni che richiedono troppo contesto ricostruito ogni volta. Prima di proporre una soluzione cerchiamo di capire dove nasce davvero l'attrito operativo.",
+    },
+    {
+      question: "Partite sempre dall'AI?",
+      answer:
+        "No. L'AI è una possibilità, non il punto di partenza. Se un problema si risolve meglio con software tradizionale, integrazioni o automazioni deterministiche, preferiamo la soluzione più semplice. Usiamo AI quando cambia realmente ciò che il sistema può fare.",
+    },
+    {
+      question: "Costruite tutto da zero?",
+      answer:
+        "Quasi mai per principio. Valutiamo prima ciò che esiste già, preserviamo gli strumenti specialistici che funzionano e costruiamo il layer mancante. Il valore non è riscrivere tutto: è far funzionare meglio il sistema complessivo.",
+    },
+    {
+      question: "Potete lavorare con dati che devono restare in azienda?",
+      answer:
+        "Sì. Quando privacy, proprietà del dato, latenza o controllo lo richiedono, progettiamo anche architetture locali o on-premise e flussi in cui i dati non devono uscire dall'organizzazione. Il cloud resta uno strumento, non un requisito.",
+    },
+    {
+      question: "Come inizia un progetto?",
+      answer:
+        "Ricostruiamo il processo reale: persone, passaggi, strumenti, dati, vincoli e decisioni. Poi individuiamo il cambiamento più piccolo capace di eliminare un attrito importante, lo rendiamo verificabile e solo dopo estendiamo il sistema.",
+    },
+    {
+      question: "I progetti dell'AI Lab possono diventare startup?",
+      answer:
+        "Alcuni sì. Il Lab serve proprio a separare un'idea interessante da una tesi che regge tecnicamente e come prodotto. Quando una direzione dimostra abbastanza valore può evolvere in prodotto autonomo, spin-off o nuova iniziativa.",
+    },
+    {
+      question: "Siete aperti a partnership o investimenti?",
+      answer:
+        "Su alcune direzioni selezionate sì, soprattutto quando la controparte porta capitale, distribuzione, dati, competenza di dominio o capacità di validazione scientifica e industriale. Nel sito mostriamo la tesi e il problema; i dettagli che costituiscono vantaggio operativo restano non pubblici.",
+    },
+  ],
+  en: [
+    {
+      question: "What kind of problems do you work on?",
+      answer:
+        "Situations where work depends on manual handoffs, scattered information, disconnected tools or decisions that require people to reconstruct context over and over. Before proposing a solution, we identify where the operational friction actually starts.",
+    },
+    {
+      question: "Do you always start with AI?",
+      answer:
+        "No. AI is an option, not the starting point. If traditional software, integrations or deterministic automation solve the problem better, we prefer the simpler system. We use AI when it materially changes what the product can do.",
+    },
+    {
+      question: "Do you build everything from scratch?",
+      answer:
+        "Almost never by principle. We first assess what already works, preserve mature specialist tools and build the missing layer around them. The value is not rewriting everything; it is making the overall system work better.",
+    },
+    {
+      question: "Can you work with data that needs to stay inside the company?",
+      answer:
+        "Yes. When privacy, data ownership, latency or control justify it, we design local or on-premise architectures and workflows where data does not need to leave the organization. Cloud remains a tool, not a requirement.",
+    },
+    {
+      question: "How does a project start?",
+      answer:
+        "We reconstruct the real process: people, handoffs, tools, data, constraints and decisions. Then we identify the smallest change capable of removing a meaningful friction, make it verifiable and only then expand the system.",
+    },
+    {
+      question: "Can AI Lab projects become startups?",
+      answer:
+        "Some can. The Lab exists to separate an interesting idea from a technical and product thesis that actually holds. When a direction demonstrates enough value, it can evolve into a standalone product, spin-off or new venture.",
+    },
+    {
+      question: "Are you open to partnerships or investment?",
+      answer:
+        "For selected directions, yes — especially when the counterpart brings capital, distribution, data, domain expertise or scientific and industrial validation. The site shows the thesis and the problem; details that form part of the operational advantage remain private.",
     },
   ],
 };
@@ -147,59 +278,133 @@ const labs: Record<Lang, Project[]> = {
   it: [
     {
       index: "A",
-      name: "Pet Operations SaaS",
-      kind: "Product",
+      slug: "system-twin",
+      name: "System Twin",
+      kind: "Research / systems intelligence",
       description:
-        "Gestionale multi-tenant per strutture pet: booking engine, area cliente, task, soggiorni, configurazione commerciale e reporting operativo.",
-      meta: ["SaaS", "Multi-tenant", "Operations", "Product"],
-      accent: "saas",
+        "Ricostruire sistemi digitali reali in un modello semantico evidence-backed che colleghi codice, configurazioni, API, runtime, telemetria e documentazione.",
+      question:
+        "Possiamo ricostruire ciò che un sistema fa senza confondere fatti osservati, dichiarazioni, derivazioni e inferenze?",
+      state:
+        "Research / model-definition · schema e stack non ancora congelati",
+      focus:
+        "Cross-source identity · evidence · time · reconciliation · projection",
+      meta: ["System understanding", "Evidence", "Architecture"],
+      accent: "twin",
     },
     {
       index: "B",
-      name: "Local AI Capability Lab",
-      kind: "Open R&D",
+      slug: "local-ai",
+      name: "Local AI",
+      kind: "Applied R&D / local AI",
       description:
-        "Framework per descrivere, testare e validare workload AI locali con evidenze riproducibili, confini operativi espliciti e qualificazione verificabile.",
-      meta: ["Local AI", "Evaluation", "Evidence", "Open source"],
+        "Un public core per descrivere, validare, eseguire e valutare lavoro AI locale entro confini espliciti.",
+      question:
+        "Come dimostriamo cosa un modello locale sa fare prima di autorizzarlo a svolgere lavoro reale?",
+      state:
+        "Public Core 0.3.1 RC1 · schema 1.0.1",
+      focus:
+        "discover → candidate → TEST → preflight → one-RUN authorization → bounded RUN → evidence → compare",
+      meta: ["Local models", "Evaluation", "Evidence"],
       accent: "local",
     },
     {
       index: "C",
-      name: "DeepRAP / Epistemic AI",
-      kind: "Research",
+      slug: "opportunity-engine",
+      name: "Opportunity Engine",
+      kind: "MVP / agent orchestration",
       description:
-        "Ricerca su evidence graphs, branching epistemico, contraddizioni temporali, belief revision e planning verificabile per sistemi cognitive AI.",
-      meta: ["Research", "Knowledge graphs", "Reasoning", "Trust"],
-      accent: "deep",
+        "Un orchestratore evidence-first che parte da problemi operativi osservabili e li trasforma in ricerca, qualificazione e opportunità commerciali controllate.",
+      question:
+        "Partire dai problemi invece che da liste di aziende produce prospect che un revisore umano considera materialmente migliori?",
+      state:
+        "Current milestone: Problem Research → Prospect Research → Qualification",
+      focus:
+        "Evidence ≠ interpretation ≠ hypothesis · human gate for external actions",
+      meta: ["Problem research", "Qualification", "Human gate"],
+      accent: "opportunity",
+    },
+    {
+      index: "D",
+      slug: "trustworthy-reasoning",
+      name: "Trustworthy Reasoning",
+      kind: "Research / epistemic AI",
+      description:
+        "Ricerca di fattibilità su cognitive AI che mantiene evidenza, tempo, versioni e contraddizioni come parte esplicita del ragionamento.",
+      question:
+        "Possiamo costruire un progetto scientifico difendibile su reasoning, abstraction e planning che preservi la storia dell'evidenza?",
+      state:
+        "Phase 0 — Call decomposition and research governance",
+      focus:
+        "No novelty claim validated · evidence graphs · bitemporal knowledge · epistemic branching",
+      meta: ["Reasoning", "Evidence", "Trust"],
+      accent: "reasoning",
     },
   ],
   en: [
     {
       index: "A",
-      name: "Pet Operations SaaS",
-      kind: "Product",
+      slug: "system-twin",
+      name: "System Twin",
+      kind: "Research / systems intelligence",
       description:
-        "A multi-tenant operating platform for pet facilities: booking engine, customer area, tasks, stays, commercial configuration and operational reporting.",
-      meta: ["SaaS", "Multi-tenant", "Operations", "Product"],
-      accent: "saas",
+        "Reconstructing real digital systems into an evidence-backed semantic model spanning code, configuration, APIs, runtime, telemetry and documentation.",
+      question:
+        "Can we reconstruct what a system does without conflating observed facts, declarations, derivations and inferences?",
+      state:
+        "Research / model-definition · schema and stack not frozen",
+      focus:
+        "Cross-source identity · evidence · time · reconciliation · projection",
+      meta: ["System understanding", "Evidence", "Architecture"],
+      accent: "twin",
     },
     {
       index: "B",
-      name: "Local AI Capability Lab",
-      kind: "Open R&D",
+      slug: "local-ai",
+      name: "Local AI",
+      kind: "Applied R&D / local AI",
       description:
-        "A framework to describe, test and validate local-AI workloads through reproducible evidence, explicit operational boundaries and verifiable qualification.",
-      meta: ["Local AI", "Evaluation", "Evidence", "Open source"],
+        "A public core for describing, validating, executing and evaluating bounded local-AI work.",
+      question:
+        "How do we prove what a local model can do before authorizing it to perform real work?",
+      state:
+        "Public Core 0.3.1 RC1 · schema 1.0.1",
+      focus:
+        "discover → candidate → TEST → preflight → one-RUN authorization → bounded RUN → evidence → compare",
+      meta: ["Local models", "Evaluation", "Evidence"],
       accent: "local",
     },
     {
       index: "C",
-      name: "DeepRAP / Epistemic AI",
-      kind: "Research",
+      slug: "opportunity-engine",
+      name: "Opportunity Engine",
+      kind: "MVP / agent orchestration",
       description:
-        "Research into evidence graphs, epistemic branching, temporal contradiction, belief revision and verifiable planning for cognitive AI systems.",
-      meta: ["Research", "Knowledge graphs", "Reasoning", "Trust"],
-      accent: "deep",
+        "An evidence-first orchestrator that starts from observable operational problems and turns them into controlled research, qualification and commercial opportunities.",
+      question:
+        "Does starting from problems instead of company lists produce prospects that human reviewers consider materially better?",
+      state:
+        "Current milestone: Problem Research → Prospect Research → Qualification",
+      focus:
+        "Evidence ≠ interpretation ≠ hypothesis · human gate for external actions",
+      meta: ["Problem research", "Qualification", "Human gate"],
+      accent: "opportunity",
+    },
+    {
+      index: "D",
+      slug: "trustworthy-reasoning",
+      name: "Trustworthy Reasoning",
+      kind: "Research / epistemic AI",
+      description:
+        "Feasibility research into cognitive AI that keeps evidence, time, versions and contradictions explicit inside the reasoning process.",
+      question:
+        "Can we build a defensible scientific project around reasoning, abstraction and planning that preserves the history of evidence?",
+      state:
+        "Phase 0 — Call decomposition and research governance",
+      focus:
+        "No novelty claim validated · evidence graphs · bitemporal knowledge · epistemic branching",
+      meta: ["Reasoning", "Evidence", "Trust"],
+      accent: "reasoning",
     },
   ],
 };
@@ -216,10 +421,10 @@ function ProjectVisual({ accent, index }: { accent: string; index: string }) {
   );
 }
 
-function ProjectCard({ project }: { project: Project }) {
+function ProjectCard({ project, href }: { project: Project; href: string }) {
   const [spot, setSpot] = useState({ x: 50, y: 50 });
 
-  function onMove(event: MouseEvent<HTMLElement>) {
+  function onMove(event: MouseEvent<HTMLAnchorElement>) {
     const box = event.currentTarget.getBoundingClientRect();
     setSpot({
       x: ((event.clientX - box.left) / box.width) * 100,
@@ -228,8 +433,9 @@ function ProjectCard({ project }: { project: Project }) {
   }
 
   return (
-    <motion.article
+    <motion.a
       className="project-card"
+      href={href}
       onMouseMove={onMove}
       style={
         {
@@ -257,45 +463,83 @@ function ProjectCard({ project }: { project: Project }) {
         </div>
       </div>
       <ArrowUpRight className="project-arrow" size={26} strokeWidth={1.4} />
-    </motion.article>
+    </motion.a>
   );
 }
 
-function PortraitPlaceholder({
-  initials,
+
+function LabRow({
+  project,
+  href,
+  lang,
+}: {
+  project: Project;
+  href: string;
+  lang: Lang;
+}) {
+  return (
+    <motion.a
+      className="lab-row lab-register-row"
+      href={href}
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-8%" }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div className="lab-index">{project.index}</div>
+
+      <div className="lab-identity">
+        <span className="lab-kind">{project.kind}</span>
+        <h3>{project.name}</h3>
+      </div>
+
+      <div className="lab-content">
+        <div className="lab-question">
+          <span>{lang === "it" ? "Cosa stiamo testando" : "What we are testing"}</span>
+          <strong>{project.question}</strong>
+        </div>
+
+        <div className="lab-evidence">
+        <div className="lab-state">
+          <span>{lang === "it" ? "Stato del repo" : "Repository state"}</span>
+          <p>{project.state}</p>
+        </div>
+        <div className="lab-focus">
+          <span>{lang === "it" ? "Focus corrente" : "Current focus"}</span>
+          <p>{project.focus}</p>
+        </div>
+        </div>
+      </div>
+
+      <ArrowUpRight className="lab-arrow" size={22} strokeWidth={1.25} />
+    </motion.a>
+  );
+}
+
+function PersonProfile({
   name,
   role,
   text,
-  note,
   variant,
 }: {
-  initials: string;
   name: string;
   role: string;
   text: string;
-  note: string;
   variant: "a" | "b";
 }) {
   return (
     <motion.article
-      className="person"
-      initial={{ opacity: 0, y: 32 }}
+      className="person person-editorial"
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-10%" }}
-      transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className={`portrait portrait-${variant}`}>
-        <div className="portrait-noise" />
-        <div className="portrait-ring ring-1" />
-        <div className="portrait-ring ring-2" />
-        <div className="portrait-initials">{initials}</div>
-        <span>{note}</span>
-      </div>
-      <div className="person-copy">
-        <div className="person-index">{variant === "a" ? "E / 01" : "M / 02"}</div>
-        <h3>{name}</h3>
+      <div className="person-index">{variant === "a" ? "01" : "02"}</div>
+      <div className="person-editorial-copy">
         <p className="role">{role}</p>
-        <p>{text}</p>
+        <h3>{name}</h3>
+        <p className="person-description">{text}</p>
       </div>
     </motion.article>
   );
@@ -308,9 +552,190 @@ function readHomepageBackground(): BackgroundName {
     : "galaxy";
 }
 
-function PortfolioApp() {
+function readGalaxyPalette(): GalaxyPalette {
+  const value = new URLSearchParams(window.location.search).get("palette");
+  const aliases: Record<string, GalaxyPalette> = {
+    steel: "mist",
+    sage: "olive",
+  };
+  if (value && value in aliases) return aliases[value];
+  return (["mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"] as const)
+    .includes(value as GalaxyPalette)
+    ? (value as GalaxyPalette)
+    : "mist";
+}
+
+function VisualStudio({
+  background,
+  onBackgroundChange,
+  palette,
+  onPaletteChange,
+  tuning,
+  onTuningChange,
+}: {
+  background: BackgroundName;
+  onBackgroundChange: (background: BackgroundName) => void;
+  palette: GalaxyPalette;
+  onPaletteChange: (palette: GalaxyPalette) => void;
+  tuning: BackgroundTuning;
+  onTuningChange: (tuning: BackgroundTuning) => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const currentBackground =
+    BACKGROUND_OPTIONS.find((item) => item.id === background) ?? BACKGROUND_OPTIONS[0];
+
+  const setNumber = (
+    key: keyof Omit<BackgroundTuning, "pointer">,
+    value: number,
+  ) => onTuningChange({ ...tuning, [key]: value });
+
+  return (
+    <>
+      <button
+        className={`visual-studio-toggle ${open ? "is-open" : ""}`}
+        type="button"
+        aria-expanded={open}
+        aria-controls="visual-studio-panel"
+        onClick={() => setOpen((value) => !value)}
+      >
+        <span className="visual-studio-toggle-dot" aria-hidden="true" />
+        {open ? "Close visual" : "Visual"}
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.aside
+            id="visual-studio-panel"
+            className="visual-studio-panel"
+            initial={{ opacity: 0, y: 16, scale: 0.985 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.99 }}
+            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="visual-studio-head">
+              <div>
+                <span>EMPV / Visual Studio</span>
+                <strong>{currentBackground.label}</strong>
+              </div>
+              <button type="button" onClick={() => setOpen(false)} aria-label="Close visual studio">
+                ×
+              </button>
+            </div>
+
+            <section className="visual-studio-section">
+              <div className="visual-studio-label">
+                <span>01</span>
+                <strong>Grafica</strong>
+              </div>
+              <div className="visual-background-list">
+                {BACKGROUND_OPTIONS.map((item) => (
+                  <button
+                    key={item.id}
+                    type="button"
+                    className={item.id === background ? "is-active" : ""}
+                    onClick={() => onBackgroundChange(item.id)}
+                    aria-pressed={item.id === background}
+                  >
+                    <span>{item.label}</span>
+                    <small>{item.source}</small>
+                  </button>
+                ))}
+              </div>
+            </section>
+
+            <section className="visual-studio-section">
+              <div className="visual-studio-label">
+                <span>02</span>
+                <strong>Palette</strong>
+              </div>
+              <div className="visual-palette-grid">
+                {(Object.keys(GALAXY_PALETTES) as GalaxyPalette[]).map((item) => (
+                  <button
+                    key={item}
+                    type="button"
+                    className={item === palette ? "is-active" : ""}
+                    onClick={() => onPaletteChange(item)}
+                    aria-pressed={item === palette}
+                  >
+                    <i className={`palette-dot palette-dot-${item}`} aria-hidden="true" />
+                    <span>{GALAXY_PALETTES[item].label}</span>
+                  </button>
+                ))}
+              </div>
+            </section>
+
+            <section className="visual-studio-section">
+              <div className="visual-studio-label">
+                <span>03</span>
+                <strong>Motion</strong>
+              </div>
+              <div className="visual-motion-controls">
+                {([
+                  ["intensity", "Intensity"],
+                  ["speed", "Speed"],
+                  ["depth", "Depth"],
+                ] as const).map(([key, label]) => (
+                  <label key={key}>
+                    <span>
+                      {label}
+                      <b>{Math.round(tuning[key] * 100)}</b>
+                    </span>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={Math.round(tuning[key] * 100)}
+                      onChange={(event) => setNumber(key, Number(event.target.value) / 100)}
+                    />
+                  </label>
+                ))}
+
+                <button
+                  className={`visual-pointer-toggle ${tuning.pointer ? "is-active" : ""}`}
+                  type="button"
+                  onClick={() => onTuningChange({ ...tuning, pointer: !tuning.pointer })}
+                >
+                  <span>Pointer interaction</span>
+                  <strong>{tuning.pointer ? "ON" : "OFF"}</strong>
+                </button>
+
+                <button
+                  className="visual-reset"
+                  type="button"
+                  onClick={() => onTuningChange(DEFAULT_TUNING)}
+                >
+                  Reset motion
+                </button>
+              </div>
+            </section>
+          </motion.aside>
+        )}
+      </AnimatePresence>
+    </>
+  );
+}
+
+function PortfolioApp({
+  activeBackground,
+  onBackgroundChange,
+  backgroundTuning,
+  onBackgroundTuningChange,
+  galaxyPalette,
+  onGalaxyPaletteChange,
+}: {
+  activeBackground: BackgroundName;
+  onBackgroundChange: (background: BackgroundName) => void;
+  backgroundTuning: BackgroundTuning;
+  onBackgroundTuningChange: (tuning: BackgroundTuning) => void;
+  galaxyPalette: GalaxyPalette;
+  onGalaxyPaletteChange: (palette: GalaxyPalette) => void;
+}) {
   const [lang, setLang] = useState<Lang>("it");
-  const activeBackground = useMemo(readHomepageBackground, []);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
+  const paletteParam = activeBackground === "galaxy" ? `&palette=${galaxyPalette}` : "";
+  const backgroundParam =
+    activeBackground === "none" ? "" : `&bg=${activeBackground}${paletteParam}`;
   const reduceMotion = useReducedMotion();
   const c = copy[lang];
   const projectList = useMemo(() => selected[lang], [lang]);
@@ -323,52 +748,129 @@ function PortfolioApp() {
     document.documentElement.lang = lang;
   }, [lang]);
 
+  useEffect(() => {
+    const sections = ["work", "labs", "faq", "people"]
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+        if (visible?.target.id) setActiveSection(visible.target.id);
+      },
+      { rootMargin: "-28% 0px -58% 0px", threshold: [0, 0.08, 0.2] },
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
   const toggleLang = () => setLang((current) => (current === "it" ? "en" : "it"));
 
-  const onPagePointerMove = (event: MouseEvent<HTMLDivElement>) => {
-    event.currentTarget.style.setProperty("--pointer-x", `${event.clientX}px`);
-    event.currentTarget.style.setProperty("--pointer-y", `${event.clientY}px`);
-    event.currentTarget.style.setProperty("--glow-opacity", "1");
-  };
-
-  const onPagePointerLeave = (event: MouseEvent<HTMLDivElement>) => {
-    event.currentTarget.style.setProperty("--glow-opacity", "0");
-  };
-
   return (
-    <div
-      className="site-shell"
-      onMouseMove={onPagePointerMove}
-      onMouseLeave={onPagePointerLeave}
-    >
-      <div className="global-pointer-glow" aria-hidden="true" />
-      <header className="topbar">
-        <a className="wordmark" href="#top" aria-label="EMPV home">
-          EMPV<span className="wordmark-dot">•</span>
+    <div className="site-shell">
+      <header className="topbar topbar-home">
+        <a className="wordmark wordmark-pill" href="#top" aria-label="EMPV home">
+          EMPV
         </a>
-        <nav aria-label="Primary navigation">
-          <a href="#work">{c.nav.work}</a>
-          <a href="#labs">{c.nav.labs}</a>
-          <a href="#people">{c.nav.people}</a>
+
+        <nav className="desktop-nav" aria-label="Primary navigation">
+          <a className={activeSection === "work" ? "is-active" : ""} href="#work">
+            <span>{c.nav.work}</span>
+          </a>
+          <a className={activeSection === "labs" ? "is-active" : ""} href="#labs">
+            <span>{c.nav.labs}</span>
+          </a>
+          <a className={activeSection === "faq" ? "is-active" : ""} href="#faq">
+            <span>{c.nav.faq}</span>
+          </a>
+          <a className={activeSection === "people" ? "is-active" : ""} href="#people">
+            <span>{c.nav.people}</span>
+          </a>
         </nav>
-        <button className="lang-switch" type="button" onClick={toggleLang}>
-          <Languages size={15} strokeWidth={1.6} />
-          {c.language}
-        </button>
+
+        <div className="topbar-actions">
+          <button className="lang-switch desktop-lang" type="button" onClick={toggleLang}>
+            <Languages size={15} strokeWidth={1.6} />
+            {c.language}
+          </button>
+          <button
+            className={`mobile-menu-toggle ${menuOpen ? "is-open" : ""}`}
+            type="button"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <span />
+            <span />
+          </button>
+        </div>
       </header>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.nav
+            className="mobile-nav-panel"
+            aria-label="Mobile navigation"
+            initial={{ opacity: 0, y: -12, scale: 0.985 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.99 }}
+            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {[
+              ["01", "work", c.nav.work],
+              ["02", "labs", c.nav.labs],
+              ["03", "faq", c.nav.faq],
+              ["04", "people", c.nav.people],
+            ].map(([index, id, label]) => (
+              <a
+                key={id}
+                className={activeSection === id ? "is-active" : ""}
+                href={`#${id}`}
+                onClick={() => setMenuOpen(false)}
+              >
+                <span className="mobile-nav-index">{index}</span>
+                <strong>{label}</strong>
+                <ArrowUpRight size={20} strokeWidth={1.35} />
+              </a>
+            ))}
+            <button
+              className="mobile-nav-language"
+              type="button"
+              onClick={() => {
+                toggleLang();
+                setMenuOpen(false);
+              }}
+            >
+              <Languages size={17} strokeWidth={1.5} />
+              <span>{lang === "it" ? "English" : "Italiano"}</span>
+              <span>{c.language}</span>
+            </button>
+          </motion.nav>
+        )}
+      </AnimatePresence>
+
+      <VisualStudio
+        background={activeBackground}
+        onBackgroundChange={onBackgroundChange}
+        palette={galaxyPalette}
+        onPaletteChange={onGalaxyPaletteChange}
+        tuning={backgroundTuning}
+        onTuningChange={onBackgroundTuningChange}
+      />
 
       <main>
         <section className="hero" id="top">
-          {activeBackground === "none" ? (
-            <div className="tech-field" aria-hidden="true">
-              <div className="scan scan-a" />
-              <div className="scan scan-b" />
-              <div className="signal-dot dot-a" />
-              <div className="signal-dot dot-b" />
-              <div className="signal-dot dot-c" />
-            </div>
-          ) : (
-            <BackgroundEffect name={activeBackground} className="hero-background-effect" />
+          {activeBackground !== "none" && (
+            <BackgroundEffect
+              name={activeBackground}
+              tuning={backgroundTuning}
+              className="hero-background-effect"
+              galaxyPalette={galaxyPalette}
+            />
           )}
 
           <motion.div className="hero-inner" style={{ y: heroY, opacity: heroOpacity }}>
@@ -386,11 +888,6 @@ function PortfolioApp() {
             </div>
           </motion.div>
 
-          <div className="hero-code" aria-hidden="true">
-            <span>45.6983° N</span>
-            <span>09.6773° E</span>
-            <span>SYS / PROD / AI</span>
-          </div>
         </section>
 
         <section className="manifesto section-pad">
@@ -415,42 +912,59 @@ function PortfolioApp() {
           </div>
           <div className="project-list">
             {projectList.map((project) => (
-              <ProjectCard key={project.name} project={project} />
+              <ProjectCard
+                key={project.name}
+                project={project}
+                href={`?project=${project.slug}&lang=${lang}${backgroundParam}`}
+              />
             ))}
           </div>
         </section>
 
         <section className="labs section-pad" id="labs">
-          <div className="labs-intro">
-            <div className="eyebrow">{c.labsLabel}</div>
-            <h2>{c.labsTitle}</h2>
+          <div className="section-head labs-head">
+            <div>
+              <div className="eyebrow">{c.labsLabel}</div>
+              <h2>{c.labsTitle}</h2>
+            </div>
             <p>{c.labsIntro}</p>
           </div>
 
           <div className="lab-list">
             {labList.map((project) => (
-              <motion.article
-                className="lab-row"
+              <LabRow
                 key={project.name}
-                initial={{ opacity: 0, x: -24 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-8%" }}
-                transition={{ duration: 0.65 }}
-              >
-                <div className="lab-index">{project.index}</div>
-                <div className="lab-main">
-                  <span>{project.kind}</span>
-                  <h3>{project.name}</h3>
-                  <p>{project.description}</p>
-                </div>
-                <div className="lab-tags">
-                  {project.meta.map((item) => (
-                    <span key={item}>{item}</span>
-                  ))}
-                </div>
-                <ArrowUpRight className="lab-arrow" size={24} strokeWidth={1.3} />
-              </motion.article>
+                project={project}
+                lang={lang}
+                href={`?lab=${project.slug}&lang=${lang}${backgroundParam}`}
+              />
             ))}
+          </div>
+          <p className="labs-note">{c.labsNote}</p>
+        </section>
+
+        <section className="faq section-pad" id="faq">
+          <div className="faq-layout">
+            <div className="faq-intro">
+              <div className="eyebrow">{c.faqLabel}</div>
+              <h2>{c.faqTitle}</h2>
+              <p>{c.faqIntro}</p>
+            </div>
+
+            <div className="faq-list">
+              {faqs[lang].map((item, index) => (
+                <details className="faq-item" key={item.question}>
+                  <summary>
+                    <span className="faq-index">{String(index + 1).padStart(2, "0")}</span>
+                    <span className="faq-question">{item.question}</span>
+                    <span className="faq-toggle" aria-hidden="true">+</span>
+                  </summary>
+                  <div className="faq-answer">
+                    <p>{item.answer}</p>
+                  </div>
+                </details>
+              ))}
+            </div>
           </div>
         </section>
 
@@ -460,23 +974,20 @@ function PortfolioApp() {
               <div className="eyebrow">{c.peopleLabel}</div>
               <h2>{c.peopleTitle}</h2>
             </div>
+            <p>{c.peopleIntro}</p>
           </div>
 
           <div className="people-grid">
-            <PortraitPlaceholder
-              initials="EP"
+            <PersonProfile
               name="Enrico Peruffo"
               role={c.enricoRole}
               text={c.enricoText}
-              note={c.portraitNote}
               variant="a"
             />
-            <PortraitPlaceholder
-              initials="MV"
+            <PersonProfile
               name="Michele Valleri"
               role={c.micheleRole}
               text={c.micheleText}
-              note={c.portraitNote}
               variant="b"
             />
           </div>
@@ -498,8 +1009,86 @@ function PortfolioApp() {
 function App() {
   const normalizedPath = window.location.pathname.replace(/\/$/, "");
   const isBackgroundLab = normalizedPath.endsWith("/background-lab");
+  const params = new URLSearchParams(window.location.search);
+  const detailSlug = params.get("project") ?? params.get("lab");
+  const initialLang: SiteLang = params.get("lang") === "en" ? "en" : "it";
+  const [activeBackground, setActiveBackground] = useState<BackgroundName>(readHomepageBackground);
+  const [backgroundTuning, setBackgroundTuning] =
+    useState<BackgroundTuning>(DEFAULT_TUNING);
+  const [galaxyPalette, setGalaxyPalette] = useState<GalaxyPalette>(readGalaxyPalette);
+  const visualTheme = activeBackground === "none" ? "default" : "galaxy";
 
-  return isBackgroundLab ? <BackgroundLab /> : <PortfolioApp />;
+  function updateBackground(next: BackgroundName) {
+    setActiveBackground(next);
+    const url = new URL(window.location.href);
+    if (next === "none") {
+      url.searchParams.delete("bg");
+    } else {
+      url.searchParams.set("bg", next);
+      url.searchParams.set("palette", galaxyPalette);
+    }
+    window.history.replaceState({}, "", url);
+  }
+
+  function updateGalaxyPalette(next: GalaxyPalette) {
+    setGalaxyPalette(next);
+    const url = new URL(window.location.href);
+    if (activeBackground !== "none") {
+      url.searchParams.set("bg", activeBackground);
+    }
+    url.searchParams.set("palette", next);
+    window.history.replaceState({}, "", url);
+  }
+
+  useEffect(() => {
+    const root = document.documentElement;
+    root.dataset.visualTheme = visualTheme;
+    root.dataset.galaxyPalette = galaxyPalette;
+
+    const onPointerMove = (event: PointerEvent) => {
+      root.style.setProperty("--pointer-x", `${event.clientX}px`);
+      root.style.setProperty("--pointer-y", `${event.clientY}px`);
+      root.style.setProperty("--glow-opacity", "1");
+    };
+
+    const onPointerLeave = () => {
+      root.style.setProperty("--glow-opacity", "0");
+    };
+
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    document.documentElement.addEventListener("mouseleave", onPointerLeave);
+
+    return () => {
+      window.removeEventListener("pointermove", onPointerMove);
+      document.documentElement.removeEventListener("mouseleave", onPointerLeave);
+      root.style.setProperty("--glow-opacity", "0");
+    };
+  }, [visualTheme, galaxyPalette]);
+
+  let page;
+  if (isBackgroundLab) {
+    page = <BackgroundLab />;
+  } else if (detailSlug) {
+    page = <ProjectDetail slug={detailSlug} initialLang={initialLang} />;
+  } else {
+    page = (
+      <PortfolioApp
+        activeBackground={activeBackground}
+        onBackgroundChange={updateBackground}
+        backgroundTuning={backgroundTuning}
+        onBackgroundTuningChange={setBackgroundTuning}
+        galaxyPalette={galaxyPalette}
+        onGalaxyPaletteChange={updateGalaxyPalette}
+      />
+    );
+  }
+
+  return (
+    <>
+      <div className="global-pointer-glow" aria-hidden="true" />
+      {page}
+    </>
+  );
 }
 
 export default App;

@@ -31,14 +31,20 @@
   pointer-events: auto;
 }
 
-.effect-orb,
-.effect-galaxy {
+.effect-orb {
   filter: grayscale(1) contrast(0.82);
 }
 
+.effect-galaxy {
+  filter: none;
+  mix-blend-mode: normal;
+}
+
+/* Galaxy hue is supplied by the selected repo-derived theme tint in the shader. */
+
 .hero-background-effect {
   inset: 68px 0 0;
-  opacity: 0.72;
+  opacity: 0.82;
 }
 
 @media (hover: none), (pointer: coarse) {
