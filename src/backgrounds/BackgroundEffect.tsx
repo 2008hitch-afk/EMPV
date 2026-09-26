@@ -195,7 +195,11 @@ function clamp01(value: number) {
 }
 
 function tintToCss(tint: [number, number, number]) {
-  return `rgb(${Math.round(tint[0] * 255)} ${Math.round(tint[1] * 255)} ${Math.round(tint[2] * 255)})`;
+  const toHex = (value: number) =>
+    Math.round(Math.max(0, Math.min(1, value)) * 255)
+      .toString(16)
+      .padStart(2, "0");
+  return `#${toHex(tint[0])}${toHex(tint[1])}${toHex(tint[2])}`;
 }
 
 function tintToRgba(tint: [number, number, number], alpha: number) {
@@ -267,7 +271,14 @@ export default function BackgroundEffect({
     <div
       key={`${name}-${galaxyPalette}`}
       className={`background-effect effect-${name} palette-${galaxyPalette} ${name === "galaxy" ? `galaxy-palette-${galaxyPalette}` : ""} ${className}`}
-      style={{ opacity: name === "galaxy" ? 0.9 : 0.48 + intensity * 0.42 }}
+      style={{
+        opacity:
+          name === "galaxy"
+            ? 0.9
+            : name === "scanner"
+              ? 0.94
+              : 0.48 + intensity * 0.42,
+      }}
       aria-hidden="true"
     >
       <Suspense fallback={<div className="background-effect-loading" />}>
@@ -388,8 +399,8 @@ export default function BackgroundEffect({
           <Silk
             speed={0.7 + speed * 2.6}
             scale={0.75 + depth * 0.7}
-            color={lightCss}
-            noiseIntensity={0.45 + intensity * 1.25}
+            color={paletteCss}
+            noiseIntensity={0.38 + intensity * 1.05}
             rotation={-0.12}
             lightMode
           />
@@ -485,17 +496,17 @@ export default function BackgroundEffect({
             ripple={0.08 + intensity * 0.16}
             bandDensity={9}
             lineSharpness={5.5}
-            glow={0.06 + intensity * 0.16}
+            glow={0.16 + intensity * 0.3}
             scanDirection="vertical"
-            colorSpread={0.25}
-            brightness={0.7 + intensity * 0.32}
-            contrast={1.1}
-            softness={1.7}
-            vignette={0.2}
+            colorSpread={0.34}
+            brightness={0.95 + intensity * 0.5}
+            contrast={0.94}
+            softness={1.28}
+            vignette={0.08}
             scanline
             grain
-            grainIntensity={0.018}
-            opacity={0.5 + intensity * 0.38}
+            grainIntensity={0.012}
+            opacity={0.82 + intensity * 0.18}
             mouseInteraction={tuning.pointer}
             mouseRadius={0.35}
             mouseStrength={0.18 + intensity * 0.22}
