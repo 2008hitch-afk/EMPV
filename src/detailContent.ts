@@ -34,11 +34,11 @@ export type DetailContent = {
 };
 
 const it: Record<string, DetailContent> = {
-  infisso: {
-    slug: "infisso",
+  "commesse-posa": {
+    slug: "commesse-posa",
     type: "project",
     index: "01",
-    title: "L'Infisso",
+    title: "Sistema operativo per commesse e posa",
     kicker: "Sistema operativo per commesse",
     problemTitle: "Le informazioni della commessa non seguivano la commessa.",
     solutionTitle: "Abbiamo trasformato la commessa nella fonte comune del lavoro.",
@@ -91,11 +91,11 @@ const it: Record<string, DetailContent> = {
     ],
   },
 
-  "centro-change": {
-    slug: "centro-change",
+  "psicologia-operations": {
+    slug: "psicologia-operations",
     type: "project",
     index: "02",
-    title: "Centro Change",
+    title: "Gestione operativa per uno studio psicologico",
     kicker: "Piattaforma operativa per un centro di psicologia",
     problemTitle: "Il problema non erano le prenotazioni. Era tutto ciò che succedeva tra una prenotazione e l'altra.",
     solutionTitle: "Abbiamo portato quei passaggi dentro un unico flusso operativo.",
@@ -142,11 +142,11 @@ const it: Record<string, DetailContent> = {
     ],
   },
 
-  cloeshouse: {
-    slug: "cloeshouse",
+  "pet-resort-operations": {
+    slug: "pet-resort-operations",
     type: "project",
     index: "03",
-    title: "Cloeshouse Pet Resort",
+    title: "Piattaforma operativa per una struttura pet",
     kicker: "Booking e operatività sulla stessa piattaforma",
     problemTitle: "Una prenotazione non è semplicemente una data su un calendario.",
     solutionTitle: "Abbiamo progettato booking e operatività come un unico sistema.",
@@ -193,16 +193,16 @@ const it: Record<string, DetailContent> = {
     ],
   },
 
-  cube: {
-    slug: "cube",
+  "richieste-preventivi": {
+    slug: "richieste-preventivi",
     type: "project",
     index: "04",
-    title: "Cube Audio Service",
+    title: "Sistema di qualificazione richieste e preventivi",
     kicker: "Richieste più strutturate, decisione ancora umana",
-    problemTitle: "Cube riceveva richieste, ma prima di valutarle doveva ricostruire cosa il cliente stesse realmente chiedendo.",
+    problemTitle: "Le richieste arrivavano, ma prima di valutarle bisognava ricostruire cosa il cliente stesse realmente chiedendo.",
     solutionTitle: "Non abbiamo automatizzato il preventivo. Abbiamo automatizzato la raccolta delle informazioni necessarie per farlo bene.",
     lead:
-      "Tipo di evento, partecipanti, location, accessibilità, attrezzatura, trasporto, montaggio e assistenza potevano emergere in momenti diversi della conversazione. Prima ancora di quotare il lavoro, Cube doveva ricostruire il contesto.",
+      "Tipo di evento, partecipanti, location, accessibilità, attrezzatura, trasporto, montaggio e assistenza potevano emergere in momenti diversi della conversazione. Prima ancora di quotare il lavoro, bisognava ricostruire il contesto.",
     tags: ["Lead flow", "Richiesta guidata", "Website", "Human review"],
     statusLabel: "Scelta",
     status: "Guidare la richiesta senza fingere di poter automatizzare il preventivo.",
@@ -214,12 +214,12 @@ const it: Record<string, DetailContent> = {
       rightLabel: "Sistema",
       rightTitle: "Un percorso che prepara la valutazione",
       rightBody:
-        "Il flusso raccoglie un set compatto di informazioni e adatta alcune domande al tipo di evento. Nessun prezzo pubblico e nessuna quotazione automatica: la decisione finale resta a Cube.",
+        "Il flusso raccoglie un set compatto di informazioni e adatta alcune domande al tipo di evento. Nessun prezzo pubblico e nessuna quotazione automatica: la decisione finale resta al team.",
     },
     blocks: [
       {
         label: "01 / Perché era un problema",
-        title: "Ogni richiesta incompleta spostava lavoro di raccolta informazioni sul team Cube.",
+        title: "Ogni richiesta incompleta spostava lavoro di raccolta informazioni sul team.",
         body:
           "Conferenze, matrimoni, DJ set e feste private non richiedono lo stesso tipo di informazione. Un form generico produce lead, ma non necessariamente richieste valutabili.",
       },
@@ -237,9 +237,9 @@ const it: Record<string, DetailContent> = {
       },
       {
         label: "04 / Come funziona adesso",
-        title: "Il sito raccoglie il contesto; Cube parte da una richiesta già leggibile.",
+        title: "Il sito raccoglie il contesto; Il team parte da una richiesta già leggibile.",
         body:
-          "Il sito e il percorso guidato diventano un unico ingresso commerciale: la persona racconta l'evento, il sistema struttura i dati e Cube riceve un contesto più consistente su cui lavorare.",
+          "Il sito e il percorso guidato diventano un unico ingresso commerciale: la persona racconta l'evento, il sistema struttura i dati e il team riceve un contesto più consistente su cui lavorare.",
       },
     ],
   },
@@ -471,8 +471,9 @@ const it: Record<string, DetailContent> = {
 };
 
 const en: Record<string, DetailContent> = {
-  infisso: {
-    ...it.infisso,
+  "commesse-posa": {
+    ...it["commesse-posa"],
+    title: "Job and installation operating system",
     kicker: "Operating system for job workflows",
     problemTitle: "The information did not move with the job.",
     solutionTitle: "We turned the job itself into the shared source of work.",
@@ -497,8 +498,9 @@ const en: Record<string, DetailContent> = {
       { label: "04 / What matters to us", title: "Reduce how often information has to be recreated.", body: "This is what we mean by designing around real work: reconstruct the flow first, then decide what to centralize, what to integrate and what should remain a human decision." },
     ],
   },
-  "centro-change": {
-    ...it["centro-change"],
+  "psicologia-operations": {
+    ...it["psicologia-operations"],
+    title: "Operations platform for a psychology practice",
     kicker: "Operating platform for a psychology center",
     problemTitle: "The problem was not booking. It was everything happening between one appointment and the next.",
     solutionTitle: "We brought those handoffs into one operating flow.",
@@ -516,8 +518,9 @@ const en: Record<string, DetailContent> = {
       { label: "04 / Architecture", title: "Reuse mature foundations, build only the delta.", body: "The technical direction starts from Frappe / ERPNext and Marley Healthcare, extending them with a dedicated layer where business rules, security or workflows cannot be represented correctly using native capabilities alone." }
     ]
   },
-  cloeshouse: {
-    ...it.cloeshouse,
+  "pet-resort-operations": {
+    ...it["pet-resort-operations"],
+    title: "Operations platform for a pet facility",
     kicker: "Booking and operations on one platform",
     problemTitle: "A booking is not simply a date on a calendar.",
     solutionTitle: "We designed booking and operations as one system.",
@@ -535,23 +538,24 @@ const en: Record<string, DetailContent> = {
       { label: "04 / Architecture", title: "Web product with domain rules enforced server-side.", body: "Laravel, dedicated platform components, an admin surface and myPOS integration form the technical core. Exposed APIs remain limited to flows the product actually needs." }
     ]
   },
-  cube: {
-    ...it.cube,
+  "richieste-preventivi": {
+    ...it["richieste-preventivi"],
+    title: "Request qualification and quoting system",
     kicker: "More structured requests, human decision retained",
-    problemTitle: "Cube received requests, but had to reconstruct what the customer was actually asking for before evaluating them.",
+    problemTitle: "Requests arrived, but the team had to reconstruct what the customer was actually asking for before evaluating them.",
     solutionTitle: "We did not automate the quote. We automated the information collection needed to prepare it well.",
-    lead: "Event type, audience size, venue, access constraints, equipment, transport, setup and technical support could emerge at different moments in the conversation. Before quoting, Cube first had to rebuild the context.",
+    lead: "Event type, audience size, venue, access constraints, equipment, transport, setup and technical support could emerge at different moments in the conversation. Before quoting, the team first had to rebuild the context.",
     statusLabel: "Choice",
     status: "Guide the request without pretending the quote can be automated.",
     comparison: {
       leftLabel: "Before", leftTitle: "Requests were hard to compare", leftBody: "When information arrives in free form, the team must first reconstruct category, venue, participants, services, access constraints, logistics and contacts.",
-      rightLabel: "System", rightTitle: "A flow that prepares human evaluation", rightBody: "The flow collects a compact set of information and adapts some questions to event type. No public pricing and no automatic quotation: the final decision stays with Cube."
+      rightLabel: "System", rightTitle: "A flow that prepares human evaluation", rightBody: "The flow collects a compact set of information and adapts some questions to event type. No public pricing and no automatic quotation: the final decision stays with the team."
     },
     blocks: [
       { label: "01 / The problem", title: "Before quoting, the event has to be understood.", body: "Conferences, weddings, DJ sets and private parties do not need the same information. A generic form can create leads without creating requests that are actually easy to evaluate." },
       { label: "02 / The decision", title: "Structure the request without turning it into an endless configurator.", body: "The V1 keeps a small number of main paths and gathers event type, date, location, participants, services, power, access, logistics and contact details." },
-      { label: "03 / The boundary", title: "Technology prepares; Cube decides.", body: "The summary is indicative, prices are not public and every request is evaluated directly by the team. That is a product choice, not missing automation." },
-      { label: "04 / The outcome", title: "A digital presence that produces more usable requests.", body: "The website and guided flow become one commercial entry point: the customer describes the event, the system structures the data and Cube receives a more consistent context to work from." }
+      { label: "03 / The boundary", title: "Technology prepares; the team decides.", body: "The summary is indicative, prices are not public and every request is evaluated directly by the team. That is a product choice, not missing automation." },
+      { label: "04 / The outcome", title: "A digital presence that produces more usable requests.", body: "The website and guided flow become one commercial entry point: the customer describes the event, the system structures the data and the team receives a more consistent context to work from." }
     ]
   },
   "system-twin": {
