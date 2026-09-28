@@ -546,19 +546,60 @@ function PersonProfile({
 }
 
 const FINAL_SITE_BACKGROUND: BackgroundName = "threads";
+const FINAL_SITE_PALETTE: GalaxyPalette = "mist";
 const FINAL_SITE_TUNING: BackgroundTuning = {
   intensity: 1,
   speed: 0.5,
   depth: 1,
   pointer: true,
 };
-const PALETTE_STORAGE_KEY = "empv-palette";
+const VISUAL_STORAGE_KEY = "empv-visual-preferences";
+
+type StoredVisualPreferences = {
+  background?: BackgroundName;
+  palette?: GalaxyPalette;
+  tuning?: Partial<BackgroundTuning>;
+};
+
+const GALAXY_PALETTE_NAMES = [
+  "mist",
+  "zinc",
+  "mauve",
+  "olive",
+  "taupe",
+  "amber",
+  "blue",
+  "indigo",
+] as const;
+
+function readStoredVisualPreferences(): StoredVisualPreferences {
+  try {
+    const raw = window.localStorage.getItem(VISUAL_STORAGE_KEY);
+    if (!raw) return {};
+    const parsed = JSON.parse(raw) as StoredVisualPreferences;
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function isBackgroundName(value: unknown): value is BackgroundName {
+  return typeof value === "string" && BACKGROUND_OPTIONS.some((item) => item.id === value);
+}
+
+function isGalaxyPalette(value: unknown): value is GalaxyPalette {
+  return (
+    typeof value === "string" &&
+    GALAXY_PALETTE_NAMES.includes(value as GalaxyPalette)
+  );
+}
 
 function readHomepageBackground(): BackgroundName {
   const value = new URLSearchParams(window.location.search).get("bg");
-  return BACKGROUND_OPTIONS.some((item) => item.id === value)
-    ? (value as BackgroundName)
-    : FINAL_SITE_BACKGROUND;
+  if (isBackgroundName(value)) return value;
+
+  const stored = readStoredVisualPreferences().background;
+  return isBackgroundName(stored) ? stored : FINAL_SITE_BACKGROUND;
 }
 
 function readGalaxyPalette(): GalaxyPalette {
@@ -568,82 +609,45 @@ function readGalaxyPalette(): GalaxyPalette {
     steel: "mist",
     sage: "olive",
   };
-  const palettes = ["mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"] as const;
 
   if (value && value in aliases) return aliases[value];
-  if (palettes.includes(value as GalaxyPalette)) return value as GalaxyPalette;
+  if (isGalaxyPalette(value)) return value;
 
-  try {
-    const stored = window.localStorage.getItem(PALETTE_STORAGE_KEY);
-    if (palettes.includes(stored as GalaxyPalette)) return stored as GalaxyPalette;
-  } catch {
-    // Storage can be unavailable in privacy-restricted contexts.
-  }
-
-  return "mist";
+  const stored = readStoredVisualPreferences().palette;
+  return isGalaxyPalette(stored) ? stored : FINAL_SITE_PALETTE;
 }
 
-function PublicPalettePicker({
-  value,
-  onChange,
-}: {
-  value: GalaxyPalette;
-  onChange: (palette: GalaxyPalette) => void;
-}) {
-  const [open, setOpen] = useState(false);
+function readBackgroundTuning(): BackgroundTuning {
+  const stored = readStoredVisualPreferences().tuning;
+  const clamp = (value: unknown, fallback: number) =>
+    typeof value === "number" && Number.isFinite(value)
+      ? Math.max(0, Math.min(1, value))
+      : fallback;
 
-  return (
-    <div className={`public-palette-picker ${open ? "is-open" : ""}`}>
-      <button
-        className="public-palette-toggle"
-        type="button"
-        aria-expanded={open}
-        aria-controls="public-palette-panel"
-        onClick={() => setOpen((current) => !current)}
-      >
-        <i className={`palette-dot palette-dot-${value}`} aria-hidden="true" />
-        <span>Color</span>
-      </button>
+  return {
+    intensity: clamp(stored?.intensity, FINAL_SITE_TUNING.intensity),
+    speed: clamp(stored?.speed, FINAL_SITE_TUNING.speed),
+    depth: clamp(stored?.depth, FINAL_SITE_TUNING.depth),
+    pointer:
+      typeof stored?.pointer === "boolean"
+        ? stored.pointer
+        : FINAL_SITE_TUNING.pointer,
+  };
+}
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            id="public-palette-panel"
-            className="public-palette-panel"
-            initial={{ opacity: 0, y: 10, scale: 0.985 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 8, scale: 0.99 }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-          >
-            <div className="public-palette-head">
-              <span>Choose your color</span>
-              <button type="button" onClick={() => setOpen(false)} aria-label="Close color selector">
-                ×
-              </button>
-            </div>
-            <div className="public-palette-options">
-              {(Object.keys(GALAXY_PALETTES) as GalaxyPalette[]).map((palette) => (
-                <button
-                  key={palette}
-                  type="button"
-                  className={palette === value ? "is-active" : ""}
-                  onClick={() => {
-                    onChange(palette);
-                    setOpen(false);
-                  }}
-                  aria-pressed={palette === value}
-                  title={GALAXY_PALETTES[palette].label}
-                >
-                  <i className={`palette-dot palette-dot-${palette}`} aria-hidden="true" />
-                  <span>{GALAXY_PALETTES[palette].label}</span>
-                </button>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
+function persistVisualPreferences(
+  background: BackgroundName,
+  palette: GalaxyPalette,
+  tuning: BackgroundTuning,
+) {
+  try {
+    window.localStorage.setItem(
+      VISUAL_STORAGE_KEY,
+      JSON.stringify({ background, palette, tuning }),
+    );
+  } catch {
+    // The customizer still works when storage is unavailable.
+  }
 }
 
 function VisualStudio({
@@ -653,6 +657,7 @@ function VisualStudio({
   onPaletteChange,
   tuning,
   onTuningChange,
+  onReset,
 }: {
   background: BackgroundName;
   onBackgroundChange: (background: BackgroundName) => void;
@@ -660,6 +665,7 @@ function VisualStudio({
   onPaletteChange: (palette: GalaxyPalette) => void;
   tuning: BackgroundTuning;
   onTuningChange: (tuning: BackgroundTuning) => void;
+  onReset: () => void;
 }) {
   const [open, setOpen] = useState(false);
   const currentBackground =
@@ -680,7 +686,7 @@ function VisualStudio({
         onClick={() => setOpen((value) => !value)}
       >
         <span className="visual-studio-toggle-dot" aria-hidden="true" />
-        {open ? "Close visual" : "Visual"}
+        {open ? "Close" : "Customize"}
       </button>
 
       <AnimatePresence>
@@ -695,10 +701,11 @@ function VisualStudio({
           >
             <div className="visual-studio-head">
               <div>
-                <span>EMPV / Visual Studio</span>
-                <strong>{currentBackground.label}</strong>
+                <span>Shape this site</span>
+                <strong>Customize</strong>
+                <p>Change the graphic, color and movement. The system adapts to your choices.</p>
               </div>
-              <button type="button" onClick={() => setOpen(false)} aria-label="Close visual studio">
+              <button type="button" onClick={() => setOpen(false)} aria-label="Close customizer">
                 ×
               </button>
             </div>
@@ -706,7 +713,7 @@ function VisualStudio({
             <section className="visual-studio-section">
               <div className="visual-studio-label">
                 <span>01</span>
-                <strong>Grafica</strong>
+                <strong>Graphic</strong>
               </div>
               <div className="visual-background-list">
                 {BACKGROUND_OPTIONS.map((item) => (
@@ -752,8 +759,8 @@ function VisualStudio({
               </div>
               <div className="visual-motion-controls">
                 {([
-                  ["intensity", "Intensity"],
-                  ["speed", "Speed"],
+                  ["intensity", "Presence"],
+                  ["speed", "Motion"],
                   ["depth", "Depth"],
                 ] as const).map(([key, label]) => (
                   <label key={key}>
@@ -776,16 +783,16 @@ function VisualStudio({
                   type="button"
                   onClick={() => onTuningChange({ ...tuning, pointer: !tuning.pointer })}
                 >
-                  <span>Pointer interaction</span>
+                  <span>Follow cursor</span>
                   <strong>{tuning.pointer ? "ON" : "OFF"}</strong>
                 </button>
 
                 <button
                   className="visual-reset"
                   type="button"
-                  onClick={() => onTuningChange(DEFAULT_TUNING)}
+                  onClick={onReset}
                 >
-                  Reset motion
+                  Reset to EMPV
                 </button>
               </div>
             </section>
@@ -803,7 +810,7 @@ function PortfolioApp({
   onBackgroundTuningChange,
   galaxyPalette,
   onGalaxyPaletteChange,
-  studioMode,
+  onResetVisuals,
 }: {
   activeBackground: BackgroundName;
   onBackgroundChange: (background: BackgroundName) => void;
@@ -811,7 +818,7 @@ function PortfolioApp({
   onBackgroundTuningChange: (tuning: BackgroundTuning) => void;
   galaxyPalette: GalaxyPalette;
   onGalaxyPaletteChange: (palette: GalaxyPalette) => void;
-  studioMode: boolean;
+  onResetVisuals: () => void;
 }) {
   const [lang, setLang] = useState<Lang>("it");
   const [menuOpen, setMenuOpen] = useState(false);
@@ -937,18 +944,15 @@ function PortfolioApp({
         )}
       </AnimatePresence>
 
-      {studioMode ? (
-        <VisualStudio
-          background={activeBackground}
-          onBackgroundChange={onBackgroundChange}
-          palette={galaxyPalette}
-          onPaletteChange={onGalaxyPaletteChange}
-          tuning={backgroundTuning}
-          onTuningChange={onBackgroundTuningChange}
-        />
-      ) : (
-        <PublicPalettePicker value={galaxyPalette} onChange={onGalaxyPaletteChange} />
-      )}
+      <VisualStudio
+        background={activeBackground}
+        onBackgroundChange={onBackgroundChange}
+        palette={galaxyPalette}
+        onPaletteChange={onGalaxyPaletteChange}
+        tuning={backgroundTuning}
+        onTuningChange={onBackgroundTuningChange}
+        onReset={onResetVisuals}
+      />
 
       <main>
         <section className="hero" id="top">
@@ -1100,47 +1104,54 @@ function App() {
   const params = new URLSearchParams(window.location.search);
   const detailSlug = params.get("project") ?? params.get("lab");
   const initialLang: SiteLang = params.get("lang") === "en" ? "en" : "it";
-  const studioMode = params.get("studio") === "1";
-  const [activeBackground, setActiveBackground] = useState<BackgroundName>(() =>
-    studioMode ? readHomepageBackground() : FINAL_SITE_BACKGROUND,
-  );
-  const [backgroundTuning, setBackgroundTuning] = useState<BackgroundTuning>(() =>
-    studioMode ? DEFAULT_TUNING : FINAL_SITE_TUNING,
-  );
-  const [galaxyPalette, setGalaxyPalette] = useState<GalaxyPalette>(readGalaxyPalette);
+  const [activeBackground, setActiveBackground] =
+    useState<BackgroundName>(readHomepageBackground);
+  const [backgroundTuning, setBackgroundTuning] =
+    useState<BackgroundTuning>(readBackgroundTuning);
+  const [galaxyPalette, setGalaxyPalette] =
+    useState<GalaxyPalette>(readGalaxyPalette);
   const visualTheme = activeBackground === "none" ? "default" : "galaxy";
 
   function updateBackground(next: BackgroundName) {
-    if (!studioMode) return;
     setActiveBackground(next);
+    persistVisualPreferences(next, galaxyPalette, backgroundTuning);
+
     const url = new URL(window.location.href);
-    if (next === "none") {
-      url.searchParams.delete("bg");
-    } else {
-      url.searchParams.set("bg", next);
-      url.searchParams.set("palette", galaxyPalette);
-    }
+    if (next === "none") url.searchParams.delete("bg");
+    else url.searchParams.set("bg", next);
+    url.searchParams.set("palette", galaxyPalette);
     window.history.replaceState({}, "", url);
   }
 
   function updateGalaxyPalette(next: GalaxyPalette) {
     setGalaxyPalette(next);
-
-    try {
-      window.localStorage.setItem(PALETTE_STORAGE_KEY, next);
-    } catch {
-      // Keep the selector functional even when storage is unavailable.
-    }
+    persistVisualPreferences(activeBackground, next, backgroundTuning);
 
     const url = new URL(window.location.href);
-    if (studioMode) {
-      if (activeBackground !== "none") {
-        url.searchParams.set("bg", activeBackground);
-      }
-    } else {
-      url.searchParams.delete("bg");
-    }
+    if (activeBackground === "none") url.searchParams.delete("bg");
+    else url.searchParams.set("bg", activeBackground);
     url.searchParams.set("palette", next);
+    window.history.replaceState({}, "", url);
+  }
+
+  function updateBackgroundTuning(next: BackgroundTuning) {
+    setBackgroundTuning(next);
+    persistVisualPreferences(activeBackground, galaxyPalette, next);
+  }
+
+  function resetVisuals() {
+    setActiveBackground(FINAL_SITE_BACKGROUND);
+    setGalaxyPalette(FINAL_SITE_PALETTE);
+    setBackgroundTuning(FINAL_SITE_TUNING);
+    persistVisualPreferences(
+      FINAL_SITE_BACKGROUND,
+      FINAL_SITE_PALETTE,
+      FINAL_SITE_TUNING,
+    );
+
+    const url = new URL(window.location.href);
+    url.searchParams.delete("bg");
+    url.searchParams.delete("palette");
     window.history.replaceState({}, "", url);
   }
 
@@ -1180,10 +1191,10 @@ function App() {
         activeBackground={activeBackground}
         onBackgroundChange={updateBackground}
         backgroundTuning={backgroundTuning}
-        onBackgroundTuningChange={setBackgroundTuning}
+        onBackgroundTuningChange={updateBackgroundTuning}
         galaxyPalette={galaxyPalette}
         onGalaxyPaletteChange={updateGalaxyPalette}
-        studioMode={studioMode}
+        onResetVisuals={resetVisuals}
       />
     );
   }
