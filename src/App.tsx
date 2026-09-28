@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState, type CSSProperties, type MouseEvent } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArrowDownRight, ArrowUpRight, Languages } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import BackgroundLab from "./BackgroundLab";
@@ -407,64 +407,38 @@ const labs: Record<Lang, Project[]> = {
   ],
 };
 
-function ProjectVisual({ accent, index }: { accent: string; index: string }) {
-  return (
-    <div className={`project-visual visual-${accent}`} aria-hidden="true">
-      <div className="visual-grid" />
-      <div className="visual-orbit orbit-a" />
-      <div className="visual-orbit orbit-b" />
-      <div className="visual-core">{index}</div>
-      <div className="visual-coordinate">EMPV / {accent.toUpperCase()} / 26</div>
-    </div>
-  );
-}
-
-function ProjectCard({ project, href }: { project: Project; href: string }) {
-  const [spot, setSpot] = useState({ x: 50, y: 50 });
-
-  function onMove(event: MouseEvent<HTMLAnchorElement>) {
-    const box = event.currentTarget.getBoundingClientRect();
-    setSpot({
-      x: ((event.clientX - box.left) / box.width) * 100,
-      y: ((event.clientY - box.top) / box.height) * 100,
-    });
-  }
-
+function ProjectRow({ project, href, lang }: { project: Project; href: string; lang: Lang }) {
   return (
     <motion.a
-      className="project-card"
+      className="project-row"
       href={href}
-      onMouseMove={onMove}
-      style={
-        {
-          "--spot-x": `${spot.x}%`,
-          "--spot-y": `${spot.y}%`,
-        } as CSSProperties
-      }
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 18 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-8%" }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
     >
-      <ProjectVisual accent={project.accent} index={project.index} />
-      <div className="project-copy">
-        <div className="project-topline">
-          <span>{project.index}</span>
-          <span>{project.kind}</span>
-        </div>
+      <div className="project-row-identity">
+        <span className="project-row-kind">{project.kind}</span>
         <h3>{project.name}</h3>
-        <p>{project.description}</p>
-        <div className="tags">
+      </div>
+
+      <div className="project-row-content">
+        <div className="project-row-description">
+          <span>{lang === "it" ? "Cosa abbiamo costruito" : "What we built"}</span>
+          <p>{project.description}</p>
+        </div>
+
+        <div className="project-row-tags">
           {project.meta.map((item) => (
             <span key={item}>{item}</span>
           ))}
         </div>
       </div>
-      <ArrowUpRight className="project-arrow" size={26} strokeWidth={1.4} />
+
+      <ArrowUpRight className="project-row-arrow" size={22} strokeWidth={1.25} />
     </motion.a>
   );
 }
-
 
 function LabRow({
   project,
@@ -1021,9 +995,10 @@ function PortfolioApp({
           </div>
           <div className="project-list">
             {projectList.map((project) => (
-              <ProjectCard
+              <ProjectRow
                 key={project.name}
                 project={project}
+                lang={lang}
                 href={`?project=${project.slug}&lang=${lang}${backgroundParam}`}
               />
             ))}
