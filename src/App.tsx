@@ -545,24 +545,105 @@ function PersonProfile({
   );
 }
 
+const FINAL_SITE_BACKGROUND: BackgroundName = "threads";
+const FINAL_SITE_TUNING: BackgroundTuning = {
+  intensity: 1,
+  speed: 0.5,
+  depth: 1,
+  pointer: true,
+};
+const PALETTE_STORAGE_KEY = "empv-palette";
+
 function readHomepageBackground(): BackgroundName {
   const value = new URLSearchParams(window.location.search).get("bg");
   return BACKGROUND_OPTIONS.some((item) => item.id === value)
     ? (value as BackgroundName)
-    : "galaxy";
+    : FINAL_SITE_BACKGROUND;
 }
 
 function readGalaxyPalette(): GalaxyPalette {
-  const value = new URLSearchParams(window.location.search).get("palette");
+  const params = new URLSearchParams(window.location.search);
+  const value = params.get("palette");
   const aliases: Record<string, GalaxyPalette> = {
     steel: "mist",
     sage: "olive",
   };
+  const palettes = ["mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"] as const;
+
   if (value && value in aliases) return aliases[value];
-  return (["mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"] as const)
-    .includes(value as GalaxyPalette)
-    ? (value as GalaxyPalette)
-    : "mist";
+  if (palettes.includes(value as GalaxyPalette)) return value as GalaxyPalette;
+
+  try {
+    const stored = window.localStorage.getItem(PALETTE_STORAGE_KEY);
+    if (palettes.includes(stored as GalaxyPalette)) return stored as GalaxyPalette;
+  } catch {
+    // Storage can be unavailable in privacy-restricted contexts.
+  }
+
+  return "mist";
+}
+
+function PublicPalettePicker({
+  value,
+  onChange,
+}: {
+  value: GalaxyPalette;
+  onChange: (palette: GalaxyPalette) => void;
+}) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className={`public-palette-picker ${open ? "is-open" : ""}`}>
+      <button
+        className="public-palette-toggle"
+        type="button"
+        aria-expanded={open}
+        aria-controls="public-palette-panel"
+        onClick={() => setOpen((current) => !current)}
+      >
+        <i className={`palette-dot palette-dot-${value}`} aria-hidden="true" />
+        <span>Color</span>
+      </button>
+
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            id="public-palette-panel"
+            className="public-palette-panel"
+            initial={{ opacity: 0, y: 10, scale: 0.985 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 8, scale: 0.99 }}
+            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="public-palette-head">
+              <span>Choose your color</span>
+              <button type="button" onClick={() => setOpen(false)} aria-label="Close color selector">
+                ×
+              </button>
+            </div>
+            <div className="public-palette-options">
+              {(Object.keys(GALAXY_PALETTES) as GalaxyPalette[]).map((palette) => (
+                <button
+                  key={palette}
+                  type="button"
+                  className={palette === value ? "is-active" : ""}
+                  onClick={() => {
+                    onChange(palette);
+                    setOpen(false);
+                  }}
+                  aria-pressed={palette === value}
+                  title={GALAXY_PALETTES[palette].label}
+                >
+                  <i className={`palette-dot palette-dot-${palette}`} aria-hidden="true" />
+                  <span>{GALAXY_PALETTES[palette].label}</span>
+                </button>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
 }
 
 function VisualStudio({
@@ -722,6 +803,7 @@ function PortfolioApp({
   onBackgroundTuningChange,
   galaxyPalette,
   onGalaxyPaletteChange,
+  studioMode,
 }: {
   activeBackground: BackgroundName;
   onBackgroundChange: (background: BackgroundName) => void;
@@ -729,13 +811,15 @@ function PortfolioApp({
   onBackgroundTuningChange: (tuning: BackgroundTuning) => void;
   galaxyPalette: GalaxyPalette;
   onGalaxyPaletteChange: (palette: GalaxyPalette) => void;
+  studioMode: boolean;
 }) {
   const [lang, setLang] = useState<Lang>("it");
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
-  const paletteParam = activeBackground === "galaxy" ? `&palette=${galaxyPalette}` : "";
   const backgroundParam =
-    activeBackground === "none" ? "" : `&bg=${activeBackground}${paletteParam}`;
+    activeBackground === "none"
+      ? `&palette=${galaxyPalette}`
+      : `&bg=${activeBackground}&palette=${galaxyPalette}`;
   const reduceMotion = useReducedMotion();
   const c = copy[lang];
   const projectList = useMemo(() => selected[lang], [lang]);
@@ -853,14 +937,18 @@ function PortfolioApp({
         )}
       </AnimatePresence>
 
-      <VisualStudio
-        background={activeBackground}
-        onBackgroundChange={onBackgroundChange}
-        palette={galaxyPalette}
-        onPaletteChange={onGalaxyPaletteChange}
-        tuning={backgroundTuning}
-        onTuningChange={onBackgroundTuningChange}
-      />
+      {studioMode ? (
+        <VisualStudio
+          background={activeBackground}
+          onBackgroundChange={onBackgroundChange}
+          palette={galaxyPalette}
+          onPaletteChange={onGalaxyPaletteChange}
+          tuning={backgroundTuning}
+          onTuningChange={onBackgroundTuningChange}
+        />
+      ) : (
+        <PublicPalettePicker value={galaxyPalette} onChange={onGalaxyPaletteChange} />
+      )}
 
       <main>
         <section className="hero" id="top">
@@ -1012,13 +1100,18 @@ function App() {
   const params = new URLSearchParams(window.location.search);
   const detailSlug = params.get("project") ?? params.get("lab");
   const initialLang: SiteLang = params.get("lang") === "en" ? "en" : "it";
-  const [activeBackground, setActiveBackground] = useState<BackgroundName>(readHomepageBackground);
-  const [backgroundTuning, setBackgroundTuning] =
-    useState<BackgroundTuning>(DEFAULT_TUNING);
+  const studioMode = params.get("studio") === "1";
+  const [activeBackground, setActiveBackground] = useState<BackgroundName>(() =>
+    studioMode ? readHomepageBackground() : FINAL_SITE_BACKGROUND,
+  );
+  const [backgroundTuning, setBackgroundTuning] = useState<BackgroundTuning>(() =>
+    studioMode ? DEFAULT_TUNING : FINAL_SITE_TUNING,
+  );
   const [galaxyPalette, setGalaxyPalette] = useState<GalaxyPalette>(readGalaxyPalette);
   const visualTheme = activeBackground === "none" ? "default" : "galaxy";
 
   function updateBackground(next: BackgroundName) {
+    if (!studioMode) return;
     setActiveBackground(next);
     const url = new URL(window.location.href);
     if (next === "none") {
@@ -1032,9 +1125,20 @@ function App() {
 
   function updateGalaxyPalette(next: GalaxyPalette) {
     setGalaxyPalette(next);
+
+    try {
+      window.localStorage.setItem(PALETTE_STORAGE_KEY, next);
+    } catch {
+      // Keep the selector functional even when storage is unavailable.
+    }
+
     const url = new URL(window.location.href);
-    if (activeBackground !== "none") {
-      url.searchParams.set("bg", activeBackground);
+    if (studioMode) {
+      if (activeBackground !== "none") {
+        url.searchParams.set("bg", activeBackground);
+      }
+    } else {
+      url.searchParams.delete("bg");
     }
     url.searchParams.set("palette", next);
     window.history.replaceState({}, "", url);
@@ -1079,6 +1183,7 @@ function App() {
         onBackgroundTuningChange={setBackgroundTuning}
         galaxyPalette={galaxyPalette}
         onGalaxyPaletteChange={updateGalaxyPalette}
+        studioMode={studioMode}
       />
     );
   }
