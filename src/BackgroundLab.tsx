@@ -17,6 +17,7 @@ function readInitialEffect(): BackgroundName {
 
 export default function BackgroundLab() {
   const [effect, setEffect] = useState<BackgroundName>(readInitialEffect);
+
   const [tuning, setTuning] = useState<BackgroundTuning>(DEFAULT_TUNING);
 
   const current = useMemo(

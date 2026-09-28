@@ -14,7 +14,7 @@ void main() {
 }
 `;
 
-const fragmentShader = `
+const fragmentShaderTemplate = `
 precision highp float;
 
 uniform float uTime;
@@ -36,6 +36,7 @@ uniform float uMouseActiveFactor;
 uniform float uAutoCenterRepulsion;
 uniform bool uTransparent;
 uniform float uLightMode;
+const vec3 uTint = __EMPV_TINT__;
 
 varying vec2 vUv;
 
@@ -107,6 +108,7 @@ vec3 StarLayer(vec2 uv) {
       float sat = length(base - vec3(dot(base, vec3(0.299, 0.587, 0.114)))) * uSaturation;
       float val = max(max(base.r, base.g), base.b);
       base = hsv2rgb(vec3(hue, sat, val));
+      base = uTint;
 
       vec2 pad = vec2(tris(seed * 34.0 + uTime * uSpeed / 10.0), tris(seed * 38.0 + uTime * uSpeed / 30.0)) - 0.5;
 
@@ -166,15 +168,23 @@ void main() {
     vec3 ink = clamp(col * 0.48, 0.0, 0.82);
     gl_FragColor = vec4(mix(vec3(1.0), ink, coverage), 1.0);
   } else if (uTransparent) {
-    float alpha = length(col);
-    alpha = smoothstep(0.0, 0.3, alpha);
-    alpha = min(alpha, 1.0);
-    gl_FragColor = vec4(col, alpha);
+    float energy = max(max(col.r, col.g), col.b);
+    float alpha = smoothstep(0.008, 0.27, energy);
+    alpha = min(alpha * 1.08, 0.98);
+
+    // Geometry stays neutral; the selected theme tint colors only the moving matter.
+    vec3 movingInk = mix(uTint, uTint * 0.62, clamp(energy, 0.0, 1.0));
+    gl_FragColor = vec4(movingInk, alpha);
   } else {
     gl_FragColor = vec4(col, 1.0);
   }
 }
 `;
+
+function buildFragmentShader(tint: [number, number, number]) {
+  const literal = `vec3(${tint[0].toFixed(6)}, ${tint[1].toFixed(6)}, ${tint[2].toFixed(6)})`;
+  return fragmentShaderTemplate.replace("__EMPV_TINT__", literal);
+}
 
 interface GalaxyProps {
   focal?: [number, number];
@@ -194,6 +204,7 @@ interface GalaxyProps {
   autoCenterRepulsion?: number;
   transparent?: boolean;
   lightMode?: boolean;
+  tint?: [number, number, number];
 }
 
 export default function Galaxy({
@@ -214,6 +225,7 @@ export default function Galaxy({
   autoCenterRepulsion = 0,
   transparent = true,
   lightMode = false,
+  tint = [0.44, 0.53, 0.66],
   ...rest
 }: GalaxyProps) {
   const ctnDom = useRef<HTMLDivElement>(null);
@@ -260,7 +272,7 @@ export default function Galaxy({
     const geometry = new Triangle(gl);
     program = new Program(gl, {
       vertex: vertexShader,
-      fragment: fragmentShader,
+      fragment: buildFragmentShader(tint),
       uniforms: {
         uTime: { value: 0 },
         uResolution: {
@@ -298,11 +310,15 @@ export default function Galaxy({
         program.uniforms.uStarSpeed.value = (t * 0.001 * starSpeed) / 10.0;
       }
 
-      const lerpFactor = 0.05;
-      smoothMousePos.current.x += (targetMousePos.current.x - smoothMousePos.current.x) * lerpFactor;
-      smoothMousePos.current.y += (targetMousePos.current.y - smoothMousePos.current.y) * lerpFactor;
+      const positionLerp = 0.22;
+      const activeLerp = 0.16;
+      smoothMousePos.current.x +=
+        (targetMousePos.current.x - smoothMousePos.current.x) * positionLerp;
+      smoothMousePos.current.y +=
+        (targetMousePos.current.y - smoothMousePos.current.y) * positionLerp;
 
-      smoothMouseActive.current += (targetMouseActive.current - smoothMouseActive.current) * lerpFactor;
+      smoothMouseActive.current +=
+        (targetMouseActive.current - smoothMouseActive.current) * activeLerp;
 
       program.uniforms.uMouse.value[0] = smoothMousePos.current.x;
       program.uniforms.uMouse.value[1] = smoothMousePos.current.y;
@@ -313,29 +329,45 @@ export default function Galaxy({
     animateId = requestAnimationFrame(update);
     ctn.appendChild(gl.canvas);
 
-    function handleMouseMove(e: MouseEvent) {
+    function handlePointerMove(e: PointerEvent) {
+      if (e.pointerType === 'touch') return;
+
       const rect = ctn.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = 1.0 - (e.clientY - rect.top) / rect.height;
+      const isInside =
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom;
+
+      if (!isInside || rect.width === 0 || rect.height === 0) {
+        targetMouseActive.current = 0.0;
+        return;
+      }
+
+      const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      const y = Math.max(0, Math.min(1, 1.0 - (e.clientY - rect.top) / rect.height));
+
       targetMousePos.current = { x, y };
       targetMouseActive.current = 1.0;
     }
 
-    function handleMouseLeave() {
+    function handlePointerLeave() {
       targetMouseActive.current = 0.0;
     }
 
     if (mouseInteraction) {
-      ctn.addEventListener('mousemove', handleMouseMove);
-      ctn.addEventListener('mouseleave', handleMouseLeave);
+      window.addEventListener('pointermove', handlePointerMove, { passive: true });
+      document.documentElement.addEventListener('mouseleave', handlePointerLeave);
+      window.addEventListener('blur', handlePointerLeave);
     }
 
     return () => {
       cancelAnimationFrame(animateId);
       window.removeEventListener('resize', resize);
       if (mouseInteraction) {
-        ctn.removeEventListener('mousemove', handleMouseMove);
-        ctn.removeEventListener('mouseleave', handleMouseLeave);
+        window.removeEventListener('pointermove', handlePointerMove);
+        document.documentElement.removeEventListener('mouseleave', handlePointerLeave);
+        window.removeEventListener('blur', handlePointerLeave);
       }
       ctn.removeChild(gl.canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
@@ -357,7 +389,8 @@ export default function Galaxy({
     repulsionStrength,
     autoCenterRepulsion,
     transparent,
-    lightMode
+    lightMode,
+    tint
   ]);
 
   return <div ref={ctnDom} className="galaxy-container" {...rest} />;

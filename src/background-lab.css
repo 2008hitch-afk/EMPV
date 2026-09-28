@@ -267,11 +267,11 @@
   pointer-events: auto;
 }
 
-.effect-orb {
+.background-lab .effect-orb {
   filter: grayscale(1) contrast(0.82);
 }
 
-.effect-galaxy {
+.background-lab .effect-galaxy {
   filter: grayscale(1) contrast(0.82);
 }
 
