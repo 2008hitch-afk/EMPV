@@ -1,5 +1,6 @@
 import { Mail, MessageCircle } from "lucide-react";
 import type { SiteLang } from "./detailContent";
+import "./legal.css";
 
 export default function SiteFooter({ lang }: { lang: SiteLang }) {
   const isIt = lang === "it";
