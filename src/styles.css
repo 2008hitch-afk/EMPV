@@ -2386,3 +2386,63 @@ footer {
     background-color 220ms ease,
     box-shadow 220ms ease;
 }
+
+
+/* EMPV headline glyph safety */
+/*
+  Large display glyphs can overhang their nominal line box.
+  Several EMPV headings use background-clip:text, so that overhang needs
+  a small painted safety area or letters such as P/G can look cropped.
+*/
+.hero h1 > span,
+.section-head h2,
+.project-copy h3,
+.lab-identity h3,
+.faq-intro h2,
+.person-editorial-copy h3,
+.detail-title-wrap h1,
+.detail-comparison h2,
+.detail-block h2,
+.detail-boundary p,
+.detail-end a,
+.footer-mark {
+  overflow: visible;
+  padding-inline: 0.045em;
+  padding-block: 0.07em 0.11em;
+  margin-inline: -0.045em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.hero h1 {
+  line-height: 0.89;
+}
+
+.section-head h2,
+.project-copy h3,
+.detail-title-project h1 {
+  line-height: 0.96;
+}
+
+.lab-identity h3,
+.faq-intro h2 {
+  line-height: 0.98;
+}
+
+.person-editorial-copy h3 {
+  line-height: 0.94;
+}
+
+.detail-title-wrap h1 {
+  line-height: 0.90;
+}
+
+.footer-mark {
+  line-height: 0.78;
+}
+
+@media (max-width: 560px) {
+  .detail-title-project h1 {
+    line-height: 1;
+  }
+}
