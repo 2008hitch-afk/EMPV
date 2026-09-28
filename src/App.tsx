@@ -53,10 +53,10 @@ const copy = {
     faqTitle: "Domande che vale la pena chiarire.",
     faqIntro:
       "Il punto non è applicare più tecnologia. È capire quale cambiamento serve davvero, cosa conviene costruire e quali limiti mantenere espliciti.",
-    peopleLabel: "04 / People",
-    peopleTitle: "Scopri il team",
+    peopleLabel: "00 / Chi siamo",
+    peopleTitle: "Enrico + Michele",
     peopleIntro:
-      "I progetti nascono nel punto in cui progettazione del processo e costruzione tecnica si incontrano.",
+      "EMPV nasce dall'incontro tra due competenze complementari: Enrico costruisce l'infrastruttura tecnica e i sistemi AI; Michele parte dai processi, dai prodotti e dal modo in cui le persone lavorano. Il punto d'incontro è ciò che costruiamo insieme.",
     enricoRole: "AI & Systems Engineering",
     enricoText:
       "Architetture software, infrastruttura, AI locale, orchestrazione e implementazione tecnica. Porta sistemi complessi da ipotesi a ambienti eseguibili e verificabili.",
@@ -92,10 +92,10 @@ const copy = {
     faqTitle: "Questions worth clarifying.",
     faqIntro:
       "The point is not to apply more technology. It is to understand what change is actually needed, what is worth building and which boundaries should remain explicit.",
-    peopleLabel: "04 / People",
-    peopleTitle: "Meet the team",
+    peopleLabel: "00 / Who we are",
+    peopleTitle: "Enrico + Michele",
     peopleIntro:
-      "Projects take shape where process design and technical execution meet.",
+      "EMPV brings together two complementary perspectives: Enrico builds the technical infrastructure and AI systems; Michele starts from processes, products and the way people actually work. What we build sits at the intersection.",
     enricoRole: "AI & Systems Engineering",
     enricoText:
       "Software architecture, infrastructure, local AI, orchestration and technical implementation. Turns complex hypotheses into executable and verifiable systems.",
@@ -840,7 +840,7 @@ function PortfolioApp({
   }, [lang]);
 
   useEffect(() => {
-    const sections = ["work", "labs", "faq", "people"]
+    const sections = ["people", "work", "labs", "faq"]
       .map((id) => document.getElementById(id))
       .filter((section): section is HTMLElement => Boolean(section));
 
@@ -869,6 +869,9 @@ function PortfolioApp({
         </a>
 
         <nav className="desktop-nav" aria-label="Primary navigation">
+          <a className={activeSection === "people" ? "is-active" : ""} href="#people">
+            <span>{c.nav.people}</span>
+          </a>
           <a className={activeSection === "work" ? "is-active" : ""} href="#work">
             <span>{c.nav.work}</span>
           </a>
@@ -877,9 +880,6 @@ function PortfolioApp({
           </a>
           <a className={activeSection === "faq" ? "is-active" : ""} href="#faq">
             <span>{c.nav.faq}</span>
-          </a>
-          <a className={activeSection === "people" ? "is-active" : ""} href="#people">
-            <span>{c.nav.people}</span>
           </a>
         </nav>
 
@@ -912,10 +912,10 @@ function PortfolioApp({
             transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
           >
             {[
+              ["00", "people", c.nav.people],
               ["01", "work", c.nav.work],
               ["02", "labs", c.nav.labs],
               ["03", "faq", c.nav.faq],
-              ["04", "people", c.nav.people],
             ].map(([index, id, label]) => (
               <a
                 key={id}
@@ -982,16 +982,29 @@ function PortfolioApp({
 
         </section>
 
-        <section className="manifesto section-pad">
-          <div className="section-code">EMPV / 00</div>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-15%" }}
-            transition={{ duration: 0.8 }}
-          >
-            {c.manifesto}
-          </motion.p>
+        <section className="people section-pad" id="people">
+          <div className="section-head people-head">
+            <div>
+              <div className="eyebrow">{c.peopleLabel}</div>
+              <h2>{c.peopleTitle}</h2>
+            </div>
+            <p>{c.peopleIntro}</p>
+          </div>
+
+          <div className="people-grid">
+            <PersonProfile
+              name="Enrico Peruffo"
+              role={c.enricoRole}
+              text={c.enricoText}
+              variant="a"
+            />
+            <PersonProfile
+              name="Michele Valleri"
+              role={c.micheleRole}
+              text={c.micheleText}
+              variant="b"
+            />
+          </div>
         </section>
 
         <section className="work section-pad" id="work">
@@ -1060,30 +1073,7 @@ function PortfolioApp({
           </div>
         </section>
 
-        <section className="people section-pad" id="people">
-          <div className="section-head people-head">
-            <div>
-              <div className="eyebrow">{c.peopleLabel}</div>
-              <h2>{c.peopleTitle}</h2>
-            </div>
-            <p>{c.peopleIntro}</p>
-          </div>
-
-          <div className="people-grid">
-            <PersonProfile
-              name="Enrico Peruffo"
-              role={c.enricoRole}
-              text={c.enricoText}
-              variant="a"
-            />
-            <PersonProfile
-              name="Michele Valleri"
-              role={c.micheleRole}
-              text={c.micheleText}
-              variant="b"
-            />
-          </div>
-        </section>
+        
       </main>
 
       <footer>
