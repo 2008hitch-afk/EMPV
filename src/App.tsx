@@ -11,6 +11,8 @@ import BackgroundEffect, {
   type GalaxyPalette,
 } from "./backgrounds/BackgroundEffect";
 import ProjectDetail from "./ProjectDetail";
+import LegalPage from "./LegalPage";
+import SiteFooter from "./SiteFooter";
 import type { SiteLang } from "./detailContent";
 
 type Lang = SiteLang;
@@ -1055,14 +1057,7 @@ function PortfolioApp({
         
       </main>
 
-      <footer>
-        <div className="footer-mark">EMPV</div>
-        <div className="footer-meta">
-          <div>{c.footerTop}</div>
-          <div>{c.footerBottom}</div>
-          <div>© 2026</div>
-        </div>
-      </footer>
+      <SiteFooter lang={lang} />
     </div>
   );
 }
@@ -1072,6 +1067,7 @@ function App() {
   const isBackgroundLab = normalizedPath.endsWith("/background-lab");
   const params = new URLSearchParams(window.location.search);
   const detailSlug = params.get("project") ?? params.get("lab");
+  const legalSlug = params.get("legal");
   const initialLang: SiteLang = params.get("lang") === "en" ? "en" : "it";
   const [activeBackground, setActiveBackground] =
     useState<BackgroundName>(readHomepageBackground);
@@ -1152,6 +1148,12 @@ function App() {
   let page;
   if (isBackgroundLab) {
     page = <BackgroundLab />;
+  } else if (
+    legalSlug === "privacy" ||
+    legalSlug === "cookies" ||
+    legalSlug === "legal"
+  ) {
+    page = <LegalPage slug={legalSlug} initialLang={initialLang} />;
   } else if (detailSlug) {
     page = <ProjectDetail slug={detailSlug} initialLang={initialLang} />;
   } else {
