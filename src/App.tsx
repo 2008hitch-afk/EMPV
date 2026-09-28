@@ -30,7 +30,7 @@ type Project = {
 
 const copy = {
   it: {
-    nav: { work: "Progetti", labs: "AI Lab", faq: "FAQ", people: "Enrico + Michele" },
+    nav: { work: "Progetti", labs: "AI Lab", faq: "FAQ", people: "Chi siamo" },
     heroEyebrow: "Enrico Peruffo × Michele Valleri · Bergamo",
     heroTitleA: "Progettiamo sistemi",
     heroTitleB: "intorno al lavoro reale.",
@@ -54,9 +54,8 @@ const copy = {
     faqIntro:
       "Il punto non è applicare più tecnologia. È capire quale cambiamento serve davvero, cosa conviene costruire e quali limiti mantenere espliciti.",
     peopleLabel: "00 / Chi siamo",
-    peopleTitle: "Enrico + Michele",
-    peopleIntro:
-      "EMPV nasce dall'incontro tra due competenze complementari: Enrico costruisce l'infrastruttura tecnica e i sistemi AI; Michele parte dai processi, dai prodotti e dal modo in cui le persone lavorano. Il punto d'incontro è ciò che costruiamo insieme.",
+    peopleTitle: "Scopri il team",
+    peopleIntro: "",
     enricoRole: "AI & Systems Engineering",
     enricoText:
       "Architetture software, infrastruttura, AI locale, orchestrazione e implementazione tecnica. Porta sistemi complessi da ipotesi a ambienti eseguibili e verificabili.",
@@ -69,7 +68,7 @@ const copy = {
     language: "EN",
   },
   en: {
-    nav: { work: "Projects", labs: "AI Lab", faq: "FAQ", people: "Enrico + Michele" },
+    nav: { work: "Projects", labs: "AI Lab", faq: "FAQ", people: "Who we are" },
     heroEyebrow: "Enrico Peruffo × Michele Valleri · Bergamo",
     heroTitleA: "We design systems",
     heroTitleB: "around real work.",
@@ -93,9 +92,8 @@ const copy = {
     faqIntro:
       "The point is not to apply more technology. It is to understand what change is actually needed, what is worth building and which boundaries should remain explicit.",
     peopleLabel: "00 / Who we are",
-    peopleTitle: "Enrico + Michele",
-    peopleIntro:
-      "EMPV brings together two complementary perspectives: Enrico builds the technical infrastructure and AI systems; Michele starts from processes, products and the way people actually work. What we build sits at the intersection.",
+    peopleTitle: "Meet the team",
+    peopleIntro: "",
     enricoRole: "AI & Systems Engineering",
     enricoText:
       "Software architecture, infrastructure, local AI, orchestration and technical implementation. Turns complex hypotheses into executable and verifiable systems.",
@@ -521,11 +519,13 @@ function PersonProfile({
   role,
   text,
   variant,
+  portraitNote,
 }: {
   name: string;
   role: string;
   text: string;
   variant: "a" | "b";
+  portraitNote: string;
 }) {
   return (
     <motion.article
@@ -535,6 +535,9 @@ function PersonProfile({
       viewport={{ once: true, margin: "-10%" }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
+      <div className="person-photo" aria-label={portraitNote}>
+        <span>{portraitNote}</span>
+      </div>
       <div className="person-index">{variant === "a" ? "01" : "02"}</div>
       <div className="person-editorial-copy">
         <p className="role">{role}</p>
@@ -988,7 +991,6 @@ function PortfolioApp({
               <div className="eyebrow">{c.peopleLabel}</div>
               <h2>{c.peopleTitle}</h2>
             </div>
-            <p>{c.peopleIntro}</p>
           </div>
 
           <div className="people-grid">
@@ -997,12 +999,14 @@ function PortfolioApp({
               role={c.enricoRole}
               text={c.enricoText}
               variant="a"
+              portraitNote={c.portraitNote}
             />
             <PersonProfile
               name="Michele Valleri"
               role={c.micheleRole}
               text={c.micheleText}
               variant="b"
+              portraitNote={c.portraitNote}
             />
           </div>
         </section>
