@@ -2251,26 +2251,16 @@ footer {
 :root[data-visual-theme="galaxy"] .section-head h2,
 :root[data-visual-theme="galaxy"] .manifesto p,
 :root[data-visual-theme="galaxy"] .project-row-identity h3,
-:root[data-visual-theme="galaxy"] .lab-main h3,
+:root[data-visual-theme="galaxy"] .lab-identity h3,
 :root[data-visual-theme="galaxy"] .faq-intro h2,
 :root[data-visual-theme="galaxy"] .person-editorial-copy h3,
 :root[data-visual-theme="galaxy"] .footer-mark {
-  color: transparent;
-  background-image: linear-gradient(
-    108deg,
-    var(--ink) 0%,
-    var(--ink) 32%,
-    var(--copy-accent-soft) 45%,
-    var(--copy-accent-strong) 55%,
-    var(--copy-accent-mid) 64%,
-    var(--ink) 78%,
-    var(--ink) 100%
-  );
-  background-size: 230% 100%;
-  background-position: 10% 50%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  animation: empv-copy-accent-flow 10s ease-in-out infinite alternate;
+  color: color-mix(in oklch, var(--ink) 94%, var(--galaxy-accent) 6%);
+  background: none;
+  -webkit-background-clip: border-box;
+  background-clip: border-box;
+  text-shadow: 0 0 22px color-mix(in oklch, var(--galaxy-accent) 7%, transparent);
+  animation: none;
 }
 
 :root[data-visual-theme="galaxy"] .hero h1 .outline {
@@ -2299,17 +2289,6 @@ footer {
     max-height: calc(100svh - 92px);
     border-radius: 20px;
   }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  :root[data-visual-theme="galaxy"] .hero h1 > span:first-child,
-  :root[data-visual-theme="galaxy"] .section-head h2,
-  :root[data-visual-theme="galaxy"] .manifesto p,
-  :root[data-visual-theme="galaxy"] .project-row-identity h3,
-  :root[data-visual-theme="galaxy"] .lab-main h3,
-  :root[data-visual-theme="galaxy"] .faq-intro h2,
-  :root[data-visual-theme="galaxy"] .person-editorial-copy h3,
-  :root[data-visual-theme="galaxy"] .footer-mark { animation: none; }
 }
 
 
@@ -2384,4 +2363,45 @@ footer {
   .detail-title-project h1 {
     line-height: 1;
   }
+}
+
+
+/* EMPV definitive display glyph fix */
+.section-head h2,
+.project-row-identity h3,
+.lab-identity h3,
+.faq-intro h2,
+.person-editorial-copy h3,
+.detail-title-project h1,
+.detail-comparison h2,
+.detail-block h2,
+.detail-boundary p,
+.detail-end a {
+  line-height: 1.02;
+}
+
+.hero h1 {
+  line-height: 0.94;
+}
+
+.detail-title-wrap h1 {
+  line-height: 0.96;
+}
+
+.footer-mark {
+  line-height: 0.84;
+}
+
+.section-head,
+.project-row,
+.project-row-identity,
+.lab-row,
+.lab-identity,
+.people-grid,
+.person,
+.person-editorial-copy,
+.faq-layout,
+.faq-intro,
+.detail-title-wrap {
+  overflow: visible;
 }
