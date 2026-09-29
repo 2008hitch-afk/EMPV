@@ -4,11 +4,11 @@
   "home": {
     "it": {
       "title": "EMPV — Sistemi digitali, automazioni e AI su misura",
-      "description": "EMPV progetta software, automazioni, sistemi AI e strumenti interni partendo dai processi reali di aziende e team."
+      "description": "EMPV progetta software, automazioni, sistemi AI e strumenti interni partendo da processi, strumenti e flussi di lavoro di aziende e team."
     },
     "en": {
       "title": "EMPV — Custom digital systems, automation and AI",
-      "description": "EMPV designs software, automation, AI systems and internal tools around the real processes of companies and teams."
+      "description": "EMPV designs software, automation, AI systems and internal tools around business workflows, tools and operating constraints."
     }
   },
   "details": {
@@ -71,11 +71,11 @@
       "type": "lab",
       "it": {
         "title": "Local AI Capability Lab | EMPV",
-        "description": "Un laboratorio per verificare cosa può fare davvero un modello AI locale su workload specifici, con test riproducibili ed evidenze."
+        "description": "Un laboratorio per misurare cosa può fare un modello AI locale su workload specifici, con test riproducibili ed evidenze."
       },
       "en": {
         "title": "Local AI Capability Lab | EMPV",
-        "description": "A lab for testing what local AI models can actually do on specific workloads using reproducible tests and explicit evidence."
+        "description": "A lab for measuring what local AI models can do on specific workloads using reproducible tests and explicit evidence."
       }
     },
     "opportunity-engine": {
@@ -148,22 +148,22 @@
     "index": {
       "it": {
         "title": "Research Notes — Sistemi, AI e automazione | EMPV",
-        "description": "Note tecniche EMPV su sistemi digitali, automazione, AI locale, integrazioni e lavoro operativo reale."
+        "description": "Note tecniche EMPV su sistemi digitali, automazione, AI locale, integrazioni e operazioni aziendali."
       },
       "en": {
         "title": "Research Notes — Systems, AI and automation | EMPV",
-        "description": "EMPV technical notes on digital systems, automation, local AI, integrations and real operational work."
+        "description": "EMPV technical notes on digital systems, automation, local AI, integrations and business operations."
       }
     },
     "notes": {
       "local-llm-evaluation": {
         "it": {
           "title": "Come valutare un LLM locale prima della produzione | EMPV",
-          "description": "Un metodo pratico per valutare modello, runtime, workload, failure mode ed evidenze prima di autorizzare un LLM locale a svolgere lavoro reale."
+          "description": "Un metodo pratico per valutare modello, runtime, workload, failure mode ed evidenze prima di affidare attività operative a un LLM locale."
         },
         "en": {
           "title": "How to evaluate a local LLM before production | EMPV",
-          "description": "A practical method for evaluating model, runtime, workload, failure modes and evidence before authorizing a local LLM to perform real work."
+          "description": "A practical method for evaluating model, runtime, workload, failure modes and evidence before assigning production tasks to a local LLM."
         }
       },
       "on-premise-vs-cloud": {
