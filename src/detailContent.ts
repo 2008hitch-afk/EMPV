@@ -370,7 +370,7 @@ const it: Record<string, DetailContent> = {
       },
       {
         label: "03 / Perché è interessante",
-        title: "Un motore commerciale che accumula metodo, non soltanto contatti.",
+        title: "Un motore commerciale che conserva fonti, ipotesi e decisioni insieme ai contatti.",
         body:
           "Evidenze, interpretazioni e ipotesi restano separate; i modelli sono risorse sostituibili dell'orchestratore e le azioni esterne restano dietro un gate umano.",
       },
@@ -417,7 +417,7 @@ const it: Record<string, DetailContent> = {
         label: "03 / Cosa stiamo cercando",
         title: "Capire quanto del modello sia riutilizzabile.",
         body:
-          "La parte interessante non è soltanto il mercato pet: è verificare quali primitive operative possono diventare una base per altri verticali di servizio senza trasformarsi in un gestionale generico.",
+          "Il test successivo è capire quali primitive operative possono essere riutilizzate in altri verticali di servizio senza trasformare il prodotto in un gestionale generico.",
       },
     ],
     boundary:
@@ -605,7 +605,7 @@ const en: Record<string, DetailContent> = {
     blocks: [
       { label: "01 / The workflow", title: "Research, qualification and human control.", body: "The full design moves from Problem Research to Prospect Research, Qualification, Contact Discovery, Outreach Draft, Human Gate and Feedback/Learning. The orchestrator owns state, limits and routing." },
       { label: "02 / What we are testing", title: "Whether problem-first produces better-qualified opportunities.", body: "The current milestone is not autonomous sales. It is proving that Problem Research → Prospect Research → Qualification can produce a small set of prospects that humans can qualify with stronger evidence than a generic list." },
-      { label: "03 / Why it is interesting", title: "A commercial engine that accumulates method, not just contacts.", body: "Evidence, interpretation and hypotheses stay separate; models are replaceable execution resources and external actions remain behind a human gate." }
+      { label: "03 / Why it is interesting", title: "A commercial engine that keeps sources, hypotheses and decisions alongside contacts.", body: "Evidence, interpretation and hypotheses stay separate; models are replaceable execution resources and external actions remain behind a human gate." }
     ],
     boundary: "Research logic, providers and architecture are still evolving quickly. We do not publish details that would constitute the system's operational advantage."
   },
@@ -622,7 +622,7 @@ const en: Record<string, DetailContent> = {
     blocks: [
       { label: "01 / The thesis", title: "The product should model work, not merely record it.", body: "When a customer buys a service, that fact should automatically generate occupied capacity, tasks, ownership and operational state for the team." },
       { label: "02 / First vertical", title: "Pet resort as a proving ground.", body: "The multi-tenant V1 includes booking engine, customer area, team/roles, facilities and accommodation, tasks, stays, grooming, documents, base payments and operational reporting." },
-      { label: "03 / What we are looking for", title: "How much of the operating model is reusable.", body: "The interesting question is not only the pet market: it is which operational primitives can become a foundation for other service verticals without turning into generic management software." }
+      { label: "03 / What we are looking for", title: "How much of the operating model is reusable.", body: "The next test is which operational primitives can be reused across other service verticals without turning the product into generic management software." }
     ],
     boundary: "The first product is functionally complete at V1 level, while production readiness and expansion into other verticals remain separate phases."
   },
