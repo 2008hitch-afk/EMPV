@@ -2,17 +2,13 @@ import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowUpRight, Languages } from "lucide-react";
 import { motion } from "motion/react";
 import { getDetail, type SiteLang } from "./detailContent";
+import SiteFooter from "./SiteFooter";
+import { siteHref } from "./seo";
 
 type DetailPageProps = {
   slug: string;
   initialLang?: SiteLang;
 };
-
-function updateLangInUrl(lang: SiteLang) {
-  const url = new URL(window.location.href);
-  url.searchParams.set("lang", lang);
-  window.history.replaceState({}, "", url);
-}
 
 export default function ProjectDetail({ slug, initialLang = "it" }: DetailPageProps) {
   const [lang, setLang] = useState<SiteLang>(initialLang);
@@ -24,26 +20,18 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
     window.scrollTo({ top: 0, behavior: "auto" });
   }, [lang, slug]);
 
-  const currentParams = new URLSearchParams(window.location.search);
-  const activeBg = currentParams.get("bg");
-  const activePalette = currentParams.get("palette");
-  const backParams = new URLSearchParams();
-  if (activeBg) backParams.set("bg", activeBg);
-  if (activePalette) backParams.set("palette", activePalette);
-  const bgParam = backParams.toString() ? `?${backParams.toString()}` : "";
-
   if (!detail) {
     return (
       <div className="detail-shell">
         <header className="topbar detail-topbar">
-          <a className="wordmark" href={`./${bgParam}`} aria-label="EMPV home">
+          <a className="wordmark" href={siteHref({ kind: "home", lang })} aria-label="EMPV home">
             EMPV
           </a>
         </header>
         <main className="detail-not-found">
           <div className="eyebrow">EMPV / 404</div>
           <h1>{lang === "it" ? "Progetto non trovato." : "Project not found."}</h1>
-          <a className="detail-back-link" href={`./${bgParam}`}>
+          <a className="detail-back-link" href={siteHref({ kind: "home", lang })}>
             <ArrowLeft size={18} strokeWidth={1.4} />
             {lang === "it" ? "Torna alla home" : "Back home"}
           </a>
@@ -61,21 +49,23 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
 
   const backHref =
     detail.type === "project"
-      ? `./${bgParam}#work`
-      : `./${bgParam}#labs`;
+      ? `${siteHref({ kind: "home", lang })}#work`
+      : `${siteHref({ kind: "home", lang })}#labs`;
 
   function toggleLang() {
-    setLang((current) => {
-      const next = current === "it" ? "en" : "it";
-      updateLangInUrl(next);
-      return next;
+    const next = lang === "it" ? "en" : "it";
+    window.location.href = siteHref({
+      kind: "detail",
+      lang: next,
+      detailKind: detail.type,
+      slug: detail.slug,
     });
   }
 
   return (
     <div className="detail-shell">
       <header className="topbar detail-topbar">
-        <a className="wordmark" href={`./${bgParam}`} aria-label="EMPV home">
+        <a className="wordmark" href={siteHref({ kind: "home", lang })} aria-label="EMPV home">
           EMPV
         </a>
 
@@ -203,14 +193,7 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
         </section>
       </main>
 
-      <footer className="detail-footer">
-        <div className="footer-mark">EMPV</div>
-        <div className="footer-meta">
-          <div>Enrico + Michele</div>
-          <div>Systems · Products · AI · Research</div>
-          <div>© 2026</div>
-        </div>
-      </footer>
+      <SiteFooter lang={lang} />
     </div>
   );
 }
