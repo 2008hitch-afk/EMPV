@@ -209,8 +209,8 @@ function notesIndexMarkup(lang) {
     ? "Appunti tecnici e operativi su ciò che costruiamo, testiamo e impariamo: architetture, automazioni, AI locale, integrazioni e decisioni di prodotto."
     : "Technical and operational notes on what we build, test and learn: architectures, automation, local AI, integrations and product decisions.";
   const title = lang === "it"
-    ? "Note su sistemi, AI e lavoro reale."
-    : "Notes on systems, AI and real operations.";
+    ? "Note su sistemi, AI e operazioni."
+    : "Notes on systems, AI and operations.";
 
   const rows = researchNotes.map(note =>
     '<article><div class="eyebrow">NOTE / ' + esc(note.index) + ' · ' + esc(note.category[lang]) +
@@ -533,9 +533,9 @@ await writeFile(
 const llmsLines = [
   "# EMPV",
   "",
-  "> EMPV is the bilingual portfolio of Enrico Peruffo and Michele Valleri in Bergamo, Italy. It documents systems, products, automation, AI and applied research built around real operational processes.",
+  "> EMPV is the bilingual portfolio of Enrico Peruffo and Michele Valleri in Bergamo, Italy. It documents systems, products, automation, AI and applied research built around business workflows and operating constraints.",
   "",
-  "EMPV starts from how work is actually performed: people, handoffs, tools, data, constraints and decisions. The public site separates delivered projects from AI Lab research and keeps claims evidence-led.",
+  "EMPV starts from people, handoffs, tools, data, constraints and decisions inside a workflow. The public site separates delivered projects from AI Lab research and keeps claims evidence-led.",
   "",
   "## Primary",
   "",
