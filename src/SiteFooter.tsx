@@ -1,4 +1,4 @@
-import { Linkedin, Mail, MessageCircle } from "lucide-react";
+import { Mail, MessageCircle } from "lucide-react";
 import type { SiteLang } from "./detailContent";
 import { siteHref, type LegalSlug } from "./seo";
 import "./legal.css";
@@ -54,7 +54,7 @@ export default function SiteFooter({ lang }: { lang: SiteLang }) {
             target="_blank"
             rel="noreferrer"
           >
-            <Linkedin size={15} strokeWidth={1.5} />
+            <span className="footer-linkedin-icon" aria-hidden="true">in</span>
             <span>LinkedIn</span>
           </a>
         </div>

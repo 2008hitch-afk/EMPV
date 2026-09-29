@@ -50,6 +50,21 @@
   flex: 0 0 auto;
 }
 
+.footer-linkedin-icon {
+  width: 15px;
+  height: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  font-size: 0.55rem;
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
 @media (max-width: 900px) {
   .footer-meta {
     grid-template-columns: 1fr 1fr;
