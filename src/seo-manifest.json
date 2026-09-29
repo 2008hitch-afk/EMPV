@@ -1,0 +1,147 @@
+{
+  "siteOrigin": "https://2008hitch-afk.github.io",
+  "basePath": "/EMPV",
+  "home": {
+    "it": {
+      "title": "EMPV — Sistemi digitali, automazioni e AI su misura",
+      "description": "EMPV progetta software, automazioni, sistemi AI e strumenti interni partendo dai processi reali di aziende e team."
+    },
+    "en": {
+      "title": "EMPV — Custom digital systems, automation and AI",
+      "description": "EMPV designs software, automation, AI systems and internal tools around the real processes of companies and teams."
+    }
+  },
+  "details": {
+    "commesse-posa": {
+      "type": "project",
+      "it": {
+        "title": "Sistema operativo per commesse e posa | EMPV",
+        "description": "Un sistema operativo condiviso per collegare sopralluogo, ufficio, officina e posa, riducendo reinserimenti e perdita di contesto."
+      },
+      "en": {
+        "title": "Job and installation operating system | EMPV",
+        "description": "A shared operating system connecting field surveys, office, workshop and installation while reducing re-entry and lost context."
+      }
+    },
+    "psicologia-operations": {
+      "type": "project",
+      "it": {
+        "title": "Gestione operativa per uno studio psicologico | EMPV",
+        "description": "Una piattaforma per unificare appuntamenti, professionisti, pagamenti e attività amministrative mantenendo ruoli e permessi separati."
+      },
+      "en": {
+        "title": "Operations platform for a psychology practice | EMPV",
+        "description": "A platform unifying appointments, professionals, payments and administration while preserving roles, permissions and responsibility."
+      }
+    },
+    "pet-resort-operations": {
+      "type": "project",
+      "it": {
+        "title": "Piattaforma operativa per una struttura pet | EMPV",
+        "description": "Booking, area cliente e operatività quotidiana nello stesso sistema, dalla disponibilità fino ad arrivi, partenze e servizi."
+      },
+      "en": {
+        "title": "Operations platform for a pet facility | EMPV",
+        "description": "Booking, customer area and daily operations in one system, from availability through arrivals, departures and services."
+      }
+    },
+    "richieste-preventivi": {
+      "type": "project",
+      "it": {
+        "title": "Sistema di qualificazione richieste e preventivi | EMPV",
+        "description": "Un percorso digitale che struttura le richieste prima della valutazione, automatizzando la raccolta dati senza automatizzare la decisione."
+      },
+      "en": {
+        "title": "Request qualification and quoting system | EMPV",
+        "description": "A digital flow that structures requests before evaluation, automating information collection while keeping the final decision human."
+      }
+    },
+    "system-twin": {
+      "type": "lab",
+      "it": {
+        "title": "System Twin — AI Lab | EMPV",
+        "description": "Ricerca su una rappresentazione interrogabile dei sistemi digitali che colleghi codice, runtime, configurazioni, API, documentazione ed evidenze."
+      },
+      "en": {
+        "title": "System Twin — AI Lab | EMPV",
+        "description": "Research into an interrogable representation of digital systems connecting code, runtime, configuration, APIs, documentation and evidence."
+      }
+    },
+    "local-ai": {
+      "type": "lab",
+      "it": {
+        "title": "Local AI Capability Lab | EMPV",
+        "description": "Un laboratorio per verificare cosa può fare davvero un modello AI locale su workload specifici, con test riproducibili ed evidenze."
+      },
+      "en": {
+        "title": "Local AI Capability Lab | EMPV",
+        "description": "A lab for testing what local AI models can actually do on specific workloads using reproducible tests and explicit evidence."
+      }
+    },
+    "opportunity-engine": {
+      "type": "lab",
+      "it": {
+        "title": "Opportunity Engine — AI Lab | EMPV",
+        "description": "Un prototipo di ricerca commerciale che parte da problemi operativi osservabili per trovare e qualificare opportunità con fonti tracciabili."
+      },
+      "en": {
+        "title": "Opportunity Engine — AI Lab | EMPV",
+        "description": "A commercial research prototype that starts from observable operational problems to find and qualify opportunities with traceable sources."
+      }
+    },
+    "vertical-operations": {
+      "type": "lab",
+      "it": {
+        "title": "Vertical Operations — AI Lab | EMPV",
+        "description": "Ricerca su sistemi operativi verticali in cui prenotazioni, capacità, servizi e attività del team appartengono allo stesso dominio."
+      },
+      "en": {
+        "title": "Vertical Operations — AI Lab | EMPV",
+        "description": "Research into vertical operating systems where bookings, capacity, services and team activities belong to the same domain."
+      }
+    },
+    "trustworthy-reasoning": {
+      "type": "lab",
+      "it": {
+        "title": "Trustworthy Reasoning — AI Lab | EMPV",
+        "description": "Ricerca su sistemi AI che mantengono evidenze, tempo, contraddizioni e versioni invece di comprimerle automaticamente in una sola risposta."
+      },
+      "en": {
+        "title": "Trustworthy Reasoning — AI Lab | EMPV",
+        "description": "Research into AI systems that preserve evidence, time, contradictions and versions instead of collapsing them into one answer."
+      }
+    }
+  },
+  "legal": {
+    "privacy": {
+      "it": {
+        "title": "Privacy Policy | EMPV",
+        "description": "Informazioni sul trattamento dei dati personali durante la navigazione e i contatti con EMPV."
+      },
+      "en": {
+        "title": "Privacy Policy | EMPV",
+        "description": "Information about personal data processing when browsing the EMPV website or contacting EMPV."
+      }
+    },
+    "cookies": {
+      "it": {
+        "title": "Cookie & Storage | EMPV",
+        "description": "Informazioni su localStorage, preferenze visuali e tecnologie di archiviazione utilizzate dal sito EMPV."
+      },
+      "en": {
+        "title": "Cookie & Storage | EMPV",
+        "description": "Information about localStorage, visual preferences and browser storage technologies used by the EMPV website."
+      }
+    },
+    "legal": {
+      "it": {
+        "title": "Note legali | EMPV",
+        "description": "Informazioni sul gestore del sito EMPV, sui contenuti pubblicati e sui collegamenti esterni."
+      },
+      "en": {
+        "title": "Legal notice | EMPV",
+        "description": "Information about the EMPV website operator, published content and external links."
+      }
+    }
+  }
+}
