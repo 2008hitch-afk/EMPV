@@ -24,6 +24,7 @@ interface SilkUniforms {
   uNoiseIntensity: UniformValue<number>;
   uColor: UniformValue<Color>;
   uRotation: UniformValue<number>;
+  uAspect: UniformValue<number>;
   uLightMode: UniformValue<number>;
   uTime: UniformValue<number>;
   [uniform: string]: IUniform;
@@ -49,6 +50,7 @@ uniform vec3  uColor;
 uniform float uSpeed;
 uniform float uScale;
 uniform float uRotation;
+uniform float uAspect;
 uniform float uNoiseIntensity;
 uniform float uLightMode;
 
@@ -69,7 +71,11 @@ vec2 rotateUvs(vec2 uv, float angle) {
 
 void main() {
   float rnd        = noise(gl_FragCoord.xy);
-  vec2  uv         = rotateUvs(vUv * uScale, uRotation);
+  const float REF_ASPECT = 12.0 / 7.0;
+  float xScale = max(uAspect, 0.001) / REF_ASPECT;
+  vec2 patternUv = vUv;
+  patternUv.x = (patternUv.x - 0.5) * xScale + 0.5;
+  vec2  uv         = rotateUvs(patternUv * uScale, uRotation);
   vec2  tex        = uv * uScale;
   float tOffset    = uSpeed * uTime;
 
@@ -111,7 +117,8 @@ const SilkPlane = forwardRef<Mesh, SilkPlaneProps>(function SilkPlane({ uniforms
     if (mesh.current) {
       mesh.current.scale.set(viewport.width, viewport.height, 1);
     }
-  }, [ref, viewport]);
+    uniforms.uAspect.value = viewport.width / Math.max(viewport.height, 0.0001);
+  }, [ref, viewport, uniforms]);
 
   useFrame((_state: RootState, delta: number) => {
     const mesh = ref as React.MutableRefObject<Mesh | null>;
@@ -158,6 +165,7 @@ const Silk: React.FC<SilkProps> = ({
       uNoiseIntensity: { value: noiseIntensity },
       uColor: { value: new Color(...hexToNormalizedRGB(color)) },
       uRotation: { value: rotation },
+      uAspect: { value: 12 / 7 },
       uLightMode: { value: lightMode ? 1 : 0 },
       uTime: { value: 0 }
     }),

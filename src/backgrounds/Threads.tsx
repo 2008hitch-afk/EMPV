@@ -62,6 +62,12 @@ float pixel(float count, vec2 resolution) {
 }
 
 float lineFn(vec2 st, float width, float perc, float offset, vec2 mouse, float time, float amplitude, float distance) {
+    const float REF_ASPECT = 12.0 / 7.0;
+    float aspect = iResolution.x / max(iResolution.y, 1.0);
+    float xScale = aspect / REF_ASPECT;
+    vec2 metricSt = vec2((st.x - 0.5) * xScale + 0.5, st.y);
+    vec2 metricMouse = vec2((mouse.x - 0.5) * xScale + 0.5, mouse.y);
+
     float split_offset = (perc * 0.4);
     float split_point = 0.1 + split_offset;
 
@@ -70,19 +76,19 @@ float lineFn(vec2 st, float width, float perc, float offset, vec2 mouse, float t
     float finalAmplitude = amplitude_normal * amplitude_strength
                            * amplitude * (1.0 + (mouse.y - 0.5) * 0.2);
 
-    float cursorDistance = length(st - mouse);
+    float cursorDistance = length(metricSt - metricMouse);
     float cursorInfluence = 1.0 - smoothstep(0.08, 0.48, cursorDistance);
     float time_scaled = time / 10.0 + (mouse.x - 0.5) * 1.8;
     float blur = smoothstep(split_point, split_point + 0.05, st.x) * perc;
 
     float xnoise = mix(
-        Perlin2D(vec2(time_scaled, st.x + perc) * 2.5),
-        Perlin2D(vec2(time_scaled, st.x + time_scaled) * 3.5) / 1.5,
+        Perlin2D(vec2(time_scaled, metricSt.x + perc) * 2.5),
+        Perlin2D(vec2(time_scaled, metricSt.x + time_scaled) * 3.5) / 1.5,
         st.x * 0.3
     );
 
     float cursorPush = (mouse.y - 0.5) * 0.34 * cursorInfluence;
-    float cursorRipple = sin((st.x - mouse.x) * 12.0 + time * 1.15)
+    float cursorRipple = sin((metricSt.x - metricMouse.x) * 12.0 + time * 1.15)
                        * 0.10 * cursorInfluence * amplitude;
     float y = 0.5
             + (perc - 0.5) * distance
