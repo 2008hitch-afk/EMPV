@@ -1,12 +1,13 @@
 import { Mail, MessageCircle } from "lucide-react";
 import type { SiteLang } from "./detailContent";
+import { siteHref, type LegalSlug } from "./seo";
 import "./legal.css";
 
 export default function SiteFooter({ lang }: { lang: SiteLang }) {
   const isIt = lang === "it";
-  const legalLinks = [
-    { slug: "privacy", label: isIt ? "Privacy Policy" : "Privacy Policy" },
-    { slug: "cookies", label: isIt ? "Cookie & Storage" : "Cookie & Storage" },
+  const legalLinks: Array<{ slug: LegalSlug; label: string }> = [
+    { slug: "privacy", label: "Privacy Policy" },
+    { slug: "cookies", label: "Cookie & Storage" },
     { slug: "legal", label: isIt ? "Note legali" : "Legal notice" },
   ];
 
@@ -24,7 +25,7 @@ export default function SiteFooter({ lang }: { lang: SiteLang }) {
         <div className="footer-column">
           <span className="footer-column-label">{isIt ? "Legale" : "Legal"}</span>
           {legalLinks.map((item) => (
-            <a key={item.slug} href={`?legal=${item.slug}&lang=${lang}`}>
+            <a key={item.slug} href={siteHref({ kind: "legal", lang, slug: item.slug })}>
               {item.label}
             </a>
           ))}
