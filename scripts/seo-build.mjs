@@ -102,6 +102,13 @@ function homeMarkup(lang) {
 
   return [
     '<div class="site-shell" data-prerendered="true">',
+    '<header class="topbar topbar-home"><a class="wordmark wordmark-pill" href="#top" aria-label="EMPV home">EMPV</a><nav class="desktop-nav" aria-label="Primary navigation">',
+    '<a href="#people"><span>', esc(c.nav.people), '</span></a>',
+    '<a href="#work"><span>', esc(c.nav.work), '</span></a>',
+    '<a href="#labs"><span>', esc(c.nav.labs), '</span></a>',
+    '<a href="#faq"><span>', esc(c.nav.faq), '</span></a>',
+    '<a href="', esc(hrefFor({ kind: "notesIndex", lang })), '"><span>', esc(c.nav.notes), '</span></a>',
+    '</nav></header>',
     '<main>',
     '<section class="hero" id="top"><div class="hero-inner">',
     '<div class="eyebrow">', esc(c.heroEyebrow), '</div>',
@@ -543,6 +550,12 @@ for (const lab of labs.it) {
 }
 for (const lab of labs.en) {
   llmsLines.push("- [" + lab.name + " — EN](" + siteUrl + "/en/lab/" + lab.slug + "/): " + lab.description);
+}
+
+llmsLines.push("", "## Research Notes", "");
+for (const note of researchNotes) {
+  llmsLines.push("- [" + note.title.it + " — IT](" + siteUrl + routePath({ kind: "note", lang: "it", noteId: note.id }) + "): " + note.dek.it);
+  llmsLines.push("- [" + note.title.en + " — EN](" + siteUrl + routePath({ kind: "note", lang: "en", noteId: note.id }) + "): " + note.dek.en);
 }
 
 llmsLines.push(
