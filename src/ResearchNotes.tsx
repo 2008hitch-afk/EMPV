@@ -80,8 +80,8 @@ function ResearchNotesIndex({ lang }: { lang: SiteLang }) {
             <div className="eyebrow">EMPV / RESEARCH NOTES</div>
             <h1>
               {lang === "it"
-                ? "Note su sistemi, AI e lavoro reale."
-                : "Notes on systems, AI and real operations."}
+                ? "Note su sistemi, AI e operazioni."
+                : "Notes on systems, AI and operations."}
             </h1>
             <p>
               {lang === "it"
