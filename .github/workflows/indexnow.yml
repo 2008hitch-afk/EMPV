@@ -1,0 +1,91 @@
+name: Submit IndexNow
+
+on:
+  workflow_run:
+    workflows: ["Deploy GitHub Pages"]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: empv-indexnow
+  cancel-in-progress: true
+
+jobs:
+  submit:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Submit published sitemap URLs to IndexNow
+        env:
+          INDEXNOW_KEY: "a63245e78ed06560bbeec2cddd627b84"
+          SITE_ORIGIN: "https://empv.it"
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          import time
+          import urllib.request
+          import xml.etree.ElementTree as ET
+
+          key = os.environ["INDEXNOW_KEY"]
+          origin = os.environ["SITE_ORIGIN"].rstrip("/")
+          key_url = f"{origin}/{key}.txt"
+          sitemap_url = f"{origin}/sitemap.xml"
+
+          def fetch(url, attempts=8, delay=10):
+              last_error = None
+              for attempt in range(1, attempts + 1):
+                  try:
+                      with urllib.request.urlopen(url, timeout=20) as response:
+                          return response.read()
+                  except Exception as exc:
+                      last_error = exc
+                      if attempt < attempts:
+                          time.sleep(delay)
+              raise RuntimeError(f"Could not fetch {url}: {last_error}")
+
+          key_body = fetch(key_url).decode("utf-8").strip()
+          if key_body != key:
+              raise RuntimeError(f"IndexNow key file mismatch at {key_url}")
+
+          sitemap = fetch(sitemap_url)
+          root = ET.fromstring(sitemap)
+          ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+          urls = [node.text.strip() for node in root.findall("sm:url/sm:loc", ns) if node.text]
+
+          if not urls:
+              raise RuntimeError("No URLs found in sitemap.xml")
+
+          payload = {
+              "host": "empv.it",
+              "key": key,
+              "keyLocation": key_url,
+              "urlList": urls,
+          }
+
+          request = urllib.request.Request(
+              "https://api.indexnow.org/indexnow",
+              data=json.dumps(payload).encode("utf-8"),
+              headers={"Content-Type": "application/json; charset=utf-8"},
+              method="POST",
+          )
+
+          try:
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  status = response.status
+                  body = response.read().decode("utf-8", errors="replace")
+          except urllib.error.HTTPError as exc:
+              status = exc.code
+              body = exc.read().decode("utf-8", errors="replace")
+
+          print(f"Submitted {len(urls)} URLs to IndexNow")
+          print(f"HTTP status: {status}")
+          if body:
+              print(body)
+
+          if status not in (200, 202):
+              raise SystemExit(f"IndexNow submission failed with HTTP {status}")
+          PY
