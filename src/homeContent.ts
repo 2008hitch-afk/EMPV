@@ -63,7 +63,7 @@ export const copy = {
       "We map the process, find where time and information get lost, then build what is missing — software, automation or AI, each with a defined job.",
     scroll: "Explore projects",
     manifesto:
-      "We do not start with a technology to deploy. We start with how work is actually done: who does what, where information is repeated, what slows the process down and which decisions should remain human. From there, we decide what to build.",
+      "We do not start with a technology to deploy. We start with the workflow: who does what, where information is repeated, what slows the process down and which decisions should remain human. From there, we decide what to build.",
     selectedLabel: "01 / Projects",
     selectedTitle: "Projects delivered",
     selectedIntro:
@@ -86,7 +86,7 @@ export const copy = {
       "Software architecture, infrastructure, local AI, orchestration and technical implementation. Turns complex hypotheses into executable and verifiable systems.",
     micheleRole: "Product & Process Design",
     micheleText:
-      "Process analysis, product design and the transformation of operational problems into systems that can actually be built.",
+      "Process analysis, product design and turning operational problems into systems that can be built.",
     portraitNote: "Portrait coming soon",
     footerTop: "EMPV / Enrico + Michele",
     footerBottom: "Systems · Products · AI · Research",
@@ -187,12 +187,12 @@ export const faqs: Record<Lang, { question: string; answer: string }[]> = {
     {
       question: "Che tipo di problemi affrontate?",
       answer:
-        "Situazioni in cui il lavoro dipende da passaggi manuali, informazioni disperse, strumenti che non comunicano o decisioni che richiedono troppo contesto ricostruito ogni volta. Prima di proporre una soluzione cerchiamo di capire dove nasce davvero l'attrito operativo.",
+        "Situazioni in cui il lavoro dipende da passaggi manuali, informazioni disperse, strumenti che non comunicano o decisioni che richiedono troppo contesto ricostruito ogni volta. Prima di proporre una soluzione individuiamo dove nasce l'attrito operativo.",
     },
     {
       question: "Partite sempre dall'AI?",
       answer:
-        "No. L'AI è una possibilità, non il punto di partenza. Se un problema si risolve meglio con software tradizionale, integrazioni o automazioni deterministiche, preferiamo la soluzione più semplice. Usiamo AI quando cambia realmente ciò che il sistema può fare.",
+        "No. L'AI è una possibilità, non il punto di partenza. Se un problema si risolve meglio con software tradizionale, integrazioni o automazioni deterministiche, preferiamo la soluzione più semplice. Usiamo AI solo quando abilita qualcosa che software e regole deterministiche gestiscono male.",
     },
     {
       question: "Costruite tutto da zero?",
@@ -212,7 +212,7 @@ export const faqs: Record<Lang, { question: string; answer: string }[]> = {
     {
       question: "I progetti dell'AI Lab possono diventare startup?",
       answer:
-        "Alcuni sì. Il Lab serve proprio a separare un'idea interessante da una tesi che regge tecnicamente e come prodotto. Quando una direzione dimostra abbastanza valore può evolvere in prodotto autonomo, spin-off o nuova iniziativa.",
+        "Alcuni sì. Il Lab serve a separare un'idea interessante da una tesi che regge tecnicamente e come prodotto. Quando una direzione supera i test tecnici e di prodotto può evolvere in prodotto autonomo, spin-off o nuova iniziativa.",
     },
     {
       question: "Siete aperti a partnership o investimenti?",
@@ -224,12 +224,12 @@ export const faqs: Record<Lang, { question: string; answer: string }[]> = {
     {
       question: "What kind of problems do you work on?",
       answer:
-        "Situations where work depends on manual handoffs, scattered information, disconnected tools or decisions that require people to reconstruct context over and over. Before proposing a solution, we identify where the operational friction actually starts.",
+        "Situations where work depends on manual handoffs, scattered information, disconnected tools or decisions that require people to reconstruct context over and over. Before proposing a solution, we identify where the operational friction starts.",
     },
     {
       question: "Do you always start with AI?",
       answer:
-        "No. AI is an option, not the starting point. If traditional software, integrations or deterministic automation solve the problem better, we prefer the simpler system. We use AI when it materially changes what the product can do.",
+        "No. AI is an option, not the starting point. If traditional software, integrations or deterministic automation solve the problem better, we prefer the simpler system. We use AI only where it enables something deterministic software handles poorly.",
     },
     {
       question: "Do you build everything from scratch?",
@@ -249,7 +249,7 @@ export const faqs: Record<Lang, { question: string; answer: string }[]> = {
     {
       question: "Can AI Lab projects become startups?",
       answer:
-        "Some can. The Lab exists to separate an interesting idea from a technical and product thesis that actually holds. When a direction demonstrates enough value, it can evolve into a standalone product, spin-off or new venture.",
+        "Some can. The Lab separates an interesting idea from a technical and product thesis that holds up under testing. Once a direction passes technical and product tests, it can evolve into a standalone product, spin-off or new venture.",
     },
     {
       question: "Are you open to partnerships or investment?",
@@ -367,7 +367,7 @@ export const labs: Record<Lang, Project[]> = {
       description:
         "An evidence-first orchestrator that starts from observable operational problems and turns them into controlled research, qualification and commercial opportunities.",
       question:
-        "Does starting from problems instead of company lists produce prospects that human reviewers consider materially better?",
+        "Does starting from problems instead of company lists produce prospects that human reviewers can qualify with stronger evidence?",
       state:
         "Current milestone: Problem Research → Prospect Research → Qualification",
       focus:
