@@ -286,6 +286,7 @@ function inject(html, route) {
     '    <link rel="alternate" hreflang="it" href="' + it + '" />',
     '    <link rel="alternate" hreflang="en" href="' + en + '" />',
     '    <link rel="alternate" hreflang="x-default" href="' + it + '" />',
+    '    <link rel="describedby" href="' + siteUrl + '/llms.txt" type="text/markdown" />',
     '    <meta property="og:title" content="' + esc(pageCopy.title) + '" />',
     '    <meta property="og:description" content="' + esc(pageCopy.description) + '" />',
     '    <meta property="og:type" content="' + (route.kind === "detail" ? "article" : "website") + '" />',
@@ -343,8 +344,78 @@ await writeFile(
 
 await writeFile(
   new URL("../dist/robots.txt", import.meta.url),
-  'User-agent: *\nAllow: /\n\nSitemap: ' + siteUrl + '/sitemap.xml\n',
+  [
+    "User-agent: OAI-SearchBot",
+    "Allow: /",
+    "",
+    "User-agent: Claude-SearchBot",
+    "Allow: /",
+    "",
+    "User-agent: PerplexityBot",
+    "Allow: /",
+    "",
+    "User-agent: *",
+    "Allow: /",
+    "",
+    "Sitemap: " + siteUrl + "/sitemap.xml",
+    ""
+  ].join("\n"),
   "utf8"
 );
 
-console.log("SEO/GEO build: generated " + routes.length + " localized routes with static HTML and JSON-LD");
+const llmsLines = [
+  "# EMPV",
+  "",
+  "> EMPV is the bilingual portfolio of Enrico Peruffo and Michele Valleri in Bergamo, Italy. It documents systems, products, automation, AI and applied research built around real operational processes.",
+  "",
+  "EMPV starts from how work is actually performed: people, handoffs, tools, data, constraints and decisions. The public site separates delivered projects from AI Lab research and keeps claims evidence-led.",
+  "",
+  "## Primary",
+  "",
+  "- [EMPV — Italiano](" + siteUrl + "/it/): Progetti, team, AI Lab e FAQ in italiano.",
+  "- [EMPV — English](" + siteUrl + "/en/): Projects, team, AI Lab and FAQ in English.",
+  "",
+  "## Projects"
+];
+
+for (const project of selected.it) {
+  llmsLines.push("- [" + project.name + "](" + siteUrl + "/it/progetti/" + project.slug + "/): " + project.description);
+}
+for (const project of selected.en) {
+  llmsLines.push("- [" + project.name + "](" + siteUrl + "/en/projects/" + project.slug + "/): " + project.description);
+}
+
+llmsLines.push("", "## AI Lab", "");
+for (const lab of labs.it) {
+  llmsLines.push("- [" + lab.name + " — IT](" + siteUrl + "/it/lab/" + lab.slug + "/): " + lab.description);
+}
+for (const lab of labs.en) {
+  llmsLines.push("- [" + lab.name + " — EN](" + siteUrl + "/en/lab/" + lab.slug + "/): " + lab.description);
+}
+
+llmsLines.push(
+  "",
+  "## People",
+  "",
+  "- Enrico Peruffo — AI & Systems Engineering.",
+  "- Michele Valleri — Product & Process Design.",
+  "",
+  "## Contact",
+  "",
+  "- [LinkedIn](https://www.linkedin.com/company/emp26/): EMPV company profile.",
+  "- Email: hello@empv.it",
+  "",
+  "## Discovery",
+  "",
+  "- [Sitemap](" + siteUrl + "/sitemap.xml): Indexable localized pages.",
+  "- [Robots](" + siteUrl + "/robots.txt): Crawler access rules.",
+  ""
+);
+
+await writeFile(
+  new URL("../dist/llms.txt", import.meta.url),
+  llmsLines.join("\n"),
+  "utf8"
+);
+
+console.log("SEO/GEO build: generated " + routes.length + " localized routes with static HTML, JSON-LD and llms.txt");
