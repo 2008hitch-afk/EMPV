@@ -23,17 +23,26 @@ async function loadTypeScriptModule(relativePath) {
 
 const homeContent = await loadTypeScriptModule("../src/homeContent.ts");
 const detailContent = await loadTypeScriptModule("../src/detailContent.ts");
+const researchContent = await loadTypeScriptModule("../src/researchNotesContent.ts");
 const copy = homeContent.copy;
 const selected = homeContent.selected;
 const faqs = homeContent.faqs;
 const labs = homeContent.labs;
 const getDetail = detailContent.getDetail;
+const researchNotes = researchContent.researchNotes;
+const getResearchNoteById = researchContent.getResearchNoteById;
 
 function routePath(route) {
   if (route.kind === "home") return "/" + route.lang + "/";
   if (route.kind === "detail") {
     const segment = route.detailKind === "project" ? (route.lang === "it" ? "progetti" : "projects") : "lab";
     return "/" + route.lang + "/" + segment + "/" + route.slug + "/";
+  }
+  if (route.kind === "notesIndex") return "/" + route.lang + "/research-notes/";
+  if (route.kind === "note") {
+    const note = getResearchNoteById(route.noteId);
+    const slug = note ? note.slugs[route.lang] : route.noteId;
+    return "/" + route.lang + "/research-notes/" + slug + "/";
   }
   if (route.slug === "privacy") return "/" + route.lang + "/privacy/";
   if (route.slug === "cookies") return "/" + route.lang + "/cookie-storage/";
@@ -45,7 +54,11 @@ const copyFor = route => route.kind === "home"
   ? manifest.home[route.lang]
   : route.kind === "detail"
     ? manifest.details[route.slug][route.lang]
-    : manifest.legal[route.slug][route.lang];
+    : route.kind === "notesIndex"
+      ? manifest.researchNotes.index[route.lang]
+      : route.kind === "note"
+        ? manifest.researchNotes.notes[route.noteId][route.lang]
+        : manifest.legal[route.slug][route.lang];
 
 const esc = value => String(value ?? "")
   .replaceAll("&", "&amp;")
@@ -183,6 +196,72 @@ function detailMarkup(route) {
   ].join("");
 }
 
+
+function notesIndexMarkup(lang) {
+  const intro = lang === "it"
+    ? "Appunti tecnici e operativi su ciò che costruiamo, testiamo e impariamo: architetture, automazioni, AI locale, integrazioni e decisioni di prodotto."
+    : "Technical and operational notes on what we build, test and learn: architectures, automation, local AI, integrations and product decisions.";
+  const title = lang === "it"
+    ? "Note su sistemi, AI e lavoro reale."
+    : "Notes on systems, AI and real operations.";
+
+  const rows = researchNotes.map(note =>
+    '<article><div class="eyebrow">NOTE / ' + esc(note.index) + ' · ' + esc(note.category[lang]) +
+    '</div><h2><a href="' + hrefFor({ kind: "note", lang, noteId: note.id }) + '">' +
+    esc(note.title[lang]) + '</a></h2><p>' + esc(note.dek[lang]) + '</p><p>' +
+    esc(note.tags[lang].join(" · ")) + '</p></article>'
+  ).join("");
+
+  return [
+    '<div class="detail-shell notes-shell" data-prerendered="true">',
+    '<header class="topbar detail-topbar">',
+    '<a class="wordmark" href="', esc(hrefFor({ kind: "home", lang })), '" aria-label="EMPV home">EMPV</a>',
+    '<a class="detail-nav-back" href="', esc(hrefFor({ kind: "home", lang })), '">',
+    lang === "it" ? "Torna alla home" : "Back home",
+    '</a></header><main>',
+    '<section class="notes-index-hero"><div class="notes-index-hero-inner">',
+    '<div class="eyebrow">EMPV / RESEARCH NOTES</div><h1>', esc(title), '</h1><p>', esc(intro), '</p>',
+    '</div></section><section class="notes-index-list section-pad"><div class="research-note-list">',
+    rows,
+    '</div></section></main></div>'
+  ].join("");
+}
+
+function noteMarkup(route) {
+  const note = getResearchNoteById(route.noteId);
+  if (!note) return "";
+  const lang = route.lang;
+  const alternateLang = lang === "it" ? "en" : "it";
+  const blocks = note.sections[lang].map(section =>
+    '<article class="detail-block research-note-block"><div class="eyebrow">' + esc(section.label) +
+    '</div><div class="detail-block-main"><h2>' + esc(section.title) + '</h2><div class="research-note-copy">' +
+    section.paragraphs.map(paragraph => '<p>' + esc(paragraph) + '</p>').join("") + '</div>' +
+    (section.bullets ? '<ul>' + section.bullets.map(item => '<li>' + esc(item) + '</li>').join("") + '</ul>' : "") +
+    '</div></article>'
+  ).join("");
+
+  return [
+    '<div class="detail-shell notes-shell" data-prerendered="true">',
+    '<header class="topbar detail-topbar">',
+    '<a class="wordmark" href="', esc(hrefFor({ kind: "home", lang })), '" aria-label="EMPV home">EMPV</a>',
+    '<a class="detail-nav-back" href="', esc(hrefFor({ kind: "notesIndex", lang })), '">Research Notes</a>',
+    '<a class="lang-switch" href="', esc(hrefFor({ kind: "note", lang: alternateLang, noteId: note.id })), '" hreflang="', alternateLang, '">', alternateLang.toUpperCase(), '</a>',
+    '</header><main>',
+    '<section class="detail-hero research-note-hero"><div class="detail-hero-inner">',
+    '<div class="detail-kicker-row"><span class="eyebrow">EMPV / RESEARCH NOTES</span><span class="detail-index">NOTE / ', esc(note.index), '</span></div>',
+    '<div class="detail-title-wrap detail-title-project research-note-title"><p class="detail-kicker">', esc(note.category[lang]), '</p><h1>', esc(note.title[lang]), '</h1></div>',
+    '<div class="detail-hero-bottom"><p class="detail-lead">', esc(note.dek[lang]), '</p><div class="detail-status"><span>',
+    lang === "it" ? "Pubblicata" : "Published",
+    '</span><strong>', esc(note.published), ' · ', esc(note.readingTime[lang]), '</strong></div></div>',
+    '<div class="tags detail-tags">', note.tags[lang].map(tag => '<span>' + esc(tag) + '</span>').join(""), '</div>',
+    '</div></section>',
+    '<section class="detail-blocks section-pad research-note-blocks">', blocks, '</section>',
+    '<section class="detail-boundary section-pad research-note-takeaway"><div class="section-code">EMPV / TAKEAWAY</div><p>', esc(note.takeaway[lang]), '</p></section>',
+    '<section class="detail-end section-pad"><a href="', esc(hrefFor({ kind: "notesIndex", lang })), '"><span>Research Notes</span></a></section>',
+    '</main></div>'
+  ].join("");
+}
+
 function legalMarkup(route) {
   const pageCopy = copyFor(route);
   return '<div class="detail-shell" data-prerendered="true"><main class="detail-not-found"><div class="eyebrow">EMPV</div><h1>' +
@@ -193,6 +272,8 @@ function legalMarkup(route) {
 function staticMarkup(route) {
   if (route.kind === "home") return homeMarkup(route.lang);
   if (route.kind === "detail") return detailMarkup(route);
+  if (route.kind === "notesIndex") return notesIndexMarkup(route.lang);
+  if (route.kind === "note") return noteMarkup(route);
   return legalMarkup(route);
 }
 
@@ -288,6 +369,43 @@ function structuredData(route) {
     }
   }
 
+  if (route.kind === "notesIndex") {
+    graph.push({
+      "@type": "CollectionPage",
+      "@id": url + "#collection",
+      name: pageCopy.title,
+      description: pageCopy.description,
+      url,
+      inLanguage: route.lang,
+      isPartOf: { "@id": websiteId },
+      hasPart: researchNotes.map(note => ({
+        "@type": "Article",
+        "@id": canonical({ kind: "note", lang: route.lang, noteId: note.id }) + "#article",
+        name: note.title[route.lang],
+        url: canonical({ kind: "note", lang: route.lang, noteId: note.id })
+      }))
+    });
+  }
+
+  if (route.kind === "note") {
+    const note = getResearchNoteById(route.noteId);
+    if (note) {
+      graph.push({
+        "@type": "Article",
+        "@id": url + "#article",
+        headline: note.title[route.lang],
+        description: note.dek[route.lang],
+        datePublished: note.published,
+        dateModified: note.updated || note.published,
+        inLanguage: route.lang,
+        keywords: note.tags[route.lang],
+        mainEntityOfPage: { "@id": url + "#webpage" },
+        author: [{ "@id": enricoId }, { "@id": micheleId }],
+        publisher: { "@id": orgId }
+      });
+    }
+  }
+
   return { "@context": "https://schema.org", "@graph": graph };
 }
 
@@ -319,7 +437,7 @@ function inject(html, route) {
     '    <link rel="describedby" href="' + siteUrl + '/llms.txt" type="text/markdown" />',
     '    <meta property="og:title" content="' + esc(pageCopy.title) + '" />',
     '    <meta property="og:description" content="' + esc(pageCopy.description) + '" />',
-    '    <meta property="og:type" content="' + (route.kind === "detail" ? "article" : "website") + '" />',
+    '    <meta property="og:type" content="' + (route.kind === "detail" || route.kind === "note" ? "article" : "website") + '" />',
     '    <meta property="og:url" content="' + url + '" />',
     '    <meta property="og:site_name" content="EMPV" />',
     '    <meta property="og:locale" content="' + (route.lang === "it" ? "it_IT" : "en_GB") + '" />',
@@ -336,6 +454,10 @@ function inject(html, route) {
 }
 
 const routes = [{ kind: "home", lang: "it" }, { kind: "home", lang: "en" }];
+for (const lang of ["it", "en"]) routes.push({ kind: "notesIndex", lang });
+for (const note of researchNotes) {
+  for (const lang of ["it", "en"]) routes.push({ kind: "note", lang, noteId: note.id });
+}
 for (const [slug, item] of Object.entries(manifest.details)) {
   for (const lang of ["it", "en"]) routes.push({ kind: "detail", lang, detailKind: item.type, slug });
 }
