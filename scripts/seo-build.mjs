@@ -118,6 +118,18 @@ function detailMarkup(route) {
   const detail = getDetail(route.lang, route.slug);
   if (!detail) return "";
   const isIt = route.lang === "it";
+  const homeHref = hrefFor({ kind: "home", lang: route.lang });
+  const backHref = homeHref + (detail.type === "project" ? "#work" : "#labs");
+  const backLabel = detail.type === "project"
+    ? (isIt ? "Torna ai progetti" : "Back to projects")
+    : "AI Lab";
+  const alternateLang = isIt ? "en" : "it";
+  const alternateHref = hrefFor({
+    kind: "detail",
+    lang: alternateLang,
+    detailKind: detail.type,
+    slug: route.slug
+  });
   const mainTitle = detail.type === "project" ? (detail.problemTitle || detail.title) : detail.title;
   const statusLabel = detail.type === "project"
     ? (isIt ? "Cosa abbiamo cambiato" : "What we changed")
@@ -144,7 +156,13 @@ function detailMarkup(route) {
   ).join("");
 
   return [
-    '<div class="detail-shell" data-prerendered="true"><main>',
+    '<div class="detail-shell" data-prerendered="true">',
+    '<header class="topbar detail-topbar">',
+    '<a class="wordmark" href="', esc(homeHref), '" aria-label="EMPV home">EMPV</a>',
+    '<a class="detail-nav-back" href="', esc(backHref), '">', esc(backLabel), '</a>',
+    '<a class="lang-switch" href="', esc(alternateHref), '" hreflang="', alternateLang, '">', alternateLang.toUpperCase(), '</a>',
+    '</header>',
+    '<main>',
     '<section class="detail-hero"><div class="detail-hero-inner">',
     '<div class="detail-kicker-row"><span class="eyebrow">EMPV / ',
     detail.type === "project" ? (isIt ? "Progetto" : "Project") : "AI Lab",
@@ -160,6 +178,7 @@ function detailMarkup(route) {
     comparison,
     '<section class="detail-blocks section-pad">', blocks, '</section>',
     detail.boundary ? '<section class="detail-boundary section-pad"><div class="section-code">EMPV / NOTE</div><p>' + esc(detail.boundary) + '</p></section>' : "",
+    '<section class="detail-end section-pad"><a href="', esc(backHref), '"><span>', esc(backLabel), '</span></a></section>',
     '</main></div>'
   ].join("");
 }
@@ -193,6 +212,15 @@ function structuredData(route) {
       url: siteUrl,
       email: "hello@empv.it",
       telephone: "+39 379 243 8705",
+      logo: {
+        "@type": "ImageObject",
+        "@id": siteUrl + "/#logo",
+        url: siteUrl + "/favicon-96x96.png",
+        contentUrl: siteUrl + "/favicon-96x96.png",
+        width: 96,
+        height: 96
+      },
+      image: { "@id": siteUrl + "/#logo" },
       sameAs: ["https://www.linkedin.com/company/emp26/"],
       address: { "@type": "PostalAddress", addressLocality: "Bergamo", addressCountry: "IT" },
       member: [{ "@id": enricoId }, { "@id": micheleId }]
