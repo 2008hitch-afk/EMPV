@@ -35,7 +35,7 @@ jobs:
         run: |
           npx tsc -b
           npx vite build --base=./
-          cp dist/index.html dist/404.html
+          node scripts/seo-build.mjs
 
       - name: Publish preview build branch
         run: |
