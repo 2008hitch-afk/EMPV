@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://2008hitch-afk.github.io/EMPV/sitemap.xml
