@@ -77,7 +77,21 @@ out vec4 fragColor;
 
 void main() {
   vec2 uv = gl_FragCoord.xy / iResolution.xy;
-  vec2 grid = vec2(max(uColumns, 1.0), max(uRows, 1.0));
+
+  float aspect = iResolution.x / max(iResolution.y, 1.0);
+  float baseCols = max(uColumns, 1.0);
+  float baseRows = max(uRows, 1.0);
+  float referenceAspect = baseCols / baseRows;
+  vec2 grid = vec2(baseCols, baseRows);
+
+  // Keep cells close to their desktop proportions instead of stretching the
+  // same fixed grid across very tall or very wide viewports.
+  if (aspect < referenceAspect) {
+    grid.y *= referenceAspect / max(aspect, 0.001);
+  } else {
+    grid.x *= aspect / referenceAspect;
+  }
+
   vec2 p = uv * grid;
   vec2 gv = fract(p) - 0.5;
   vec2 id = floor(p);
