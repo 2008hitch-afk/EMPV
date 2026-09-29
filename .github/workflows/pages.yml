@@ -49,6 +49,8 @@ jobs:
           grep -q 'data-prerendered="true"' dist/it/index.html
           grep -q 'application/ld+json' dist/it/index.html
           test -f dist/llms.txt
+          test -f dist/favicon-96x96.png
+          grep -q 'href="/favicon-96x96.png"' dist/it/index.html
           grep -q "^# EMPV" dist/llms.txt
           grep -q 'rel="describedby" href="https://empv.it/llms.txt"' dist/it/index.html
           ! grep -R "2008hitch-afk.github.io/EMPV" dist --exclude='*.map'

@@ -7,6 +7,7 @@ const template = await readFile(new URL("../dist/index.html", import.meta.url), 
 const siteOrigin = process.env.VITE_SITE_ORIGIN ?? manifest.siteOrigin;
 const basePath = process.env.VITE_SITE_BASE_PATH ?? manifest.basePath;
 const siteUrl = siteOrigin + basePath;
+const faviconPngBase64 = "iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAIAAABt+uBvAAAEQklEQVR42u3cUUxTVxgH8AOFtiEZFB/I6M06FtkynBEFkukWsEMCKFZcOsgYCHvYssTnLWzZjK6JTN1MXCLbEk1MKAJZbC+3EKG1kwizgIjERcRgItimzCE8CJSWEnf3cOjttVTTyyw22/9LH04/Tu/p/d3v3HPapMSlpqYSxNMjHgQAAhCAAAQgAAEIQAgAAQhAAAIQgAAEIASAAAQgAAEIQAACEAJAAAIQgAAEIAABCEAIAAEIQAACEIAABCAEgCKPBEm974z9IZM9y3Rf+QdjY3fCdj714+nGxl9C+h89+m1lhV546nS6dhXtfvZwPt/S7Ozs6OhtztJps9lp8syZn7Q7C2i74bsT5841rX5vNdVVhw9/TdsOR3/dx5/GVgV9VFWZkPDE9UhJSd6n2yv1OEqlgmHUxcVFjadPnT37s1KpIISwLCd02F+uC/vC8vLgWGZR/2gBlZTqXn9jc8hDKJ/VkZaWVlJcJM5UVOjp6UU+3Fubc+rqPnnw4C+a3FmQ/2X9F4QQu71nbm6eJjdtysrM3Bjyco3mla1bs2l7cXFRKL3YugcdqK0ODhwfX1P9odQj+P1+R//AsWPfCxm9/n2lUuH3+y9e7ApbLIFMsKy6uqxery+GgHy+pYWFBUJIbs62rKw3abKwUMswDCHk4cMZqQccvjEinnEajSZk1uj2lsXFxT1xc9SVrWF+rRPQ8vKyydRO27UHVoqoNlBNrW2/Sj1gyMnzPE8IGRm5OTE5STMMo87LyxU6ZGdvych4lbbdbvfQ0HDMLfPG5hZ6GjrdHpVKlZm5ccf2twkhXq/vwgWz1KPl5mwTl6fL5aLtdtYSdpaJ2yxroe8k6kDW7o6747fEj7Y249M637/vvNLbRwhRKBSVlXqhjjjO8ujRXOSDyuXyd3Zsr6//XMiYTKzPt7QCxHUIJ7+7tEQulxNCZDJZ2Z7g1oFtt0RxH/SvisjYQrcqNdVVKlVKoLJaI78eq5O9vb8fP/GD8HRq6s+BwWu0NpOTX9JqC2w2e37+uxs2rPwu9/rwDafTtU5AJaW6e/cmIu/f13d1YnLytYyM9PSXaWZg4Nr4+N2kpCSpC9nMzOyt0dsWS6fVeinkr6yZo0B05bLZ7OL1izVzUk9z/SqI5/lmY+uhQ18Jmaam88/9enRbLx058g1Ff09boFanF+0qFO5WXd3WmP4sZjK3ezyewGoydbmn57kP4fV6uwNllZiYePLkcWEvarf/Nj+/ENNAHo9H2IOcb2l7/PjvaIwi/tiRl5uztu3PC5hiNAyGBoOhIapDDA4Oud1TDKMWJ6enpx2O/nUFCrusGAwNxuaWF/sFBc/zHNdx8OBn4iTHda6tYP+b3wetnk1Stz/BXTv+d8f/sYIABCAAAQhAAEIACEAAAhCAAAQgAAEIASAAAQhAAAIQgACEABCAAAQgAAEIQABCAAhAAIp6/ANIhnv9mJEtPAAAAABJRU5ErkJggg==";
 
 async function loadTypeScriptModule(relativePath) {
   const source = await readFile(new URL(relativePath, import.meta.url), "utf8");
@@ -410,6 +411,11 @@ llmsLines.push(
   "- [Sitemap](" + siteUrl + "/sitemap.xml): Indexable localized pages.",
   "- [Robots](" + siteUrl + "/robots.txt): Crawler access rules.",
   ""
+);
+
+await writeFile(
+  new URL("../dist/favicon-96x96.png", import.meta.url),
+  Buffer.from(faviconPngBase64, "base64")
 );
 
 await writeFile(
