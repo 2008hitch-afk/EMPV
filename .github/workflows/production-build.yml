@@ -46,6 +46,9 @@ jobs:
           test -f dist/index.html
           test -f dist/robots.txt
           test -f dist/sitemap.xml
+          test -f dist/llms.txt
+          grep -q "^# EMPV" dist/llms.txt
+          grep -q 'rel="describedby" href="https://empv.it/llms.txt"' dist/it/index.html
           test -f dist/CNAME
           test ! -e dist/src
           test ! -e dist/node_modules
