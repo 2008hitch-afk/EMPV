@@ -13,6 +13,7 @@ import BackgroundEffect, {
 import ProjectDetail from "./ProjectDetail";
 import LegalPage from "./LegalPage";
 import SiteFooter from "./SiteFooter";
+import { SeoHead, parseCurrentRoute, siteHref, type SiteRoute } from "./seo";
 import type { SiteLang } from "./detailContent";
 
 type Lang = SiteLang;
@@ -790,6 +791,7 @@ function PortfolioApp({
   galaxyPalette,
   onGalaxyPaletteChange,
   onResetVisuals,
+  initialLang,
 }: {
   activeBackground: BackgroundName;
   onBackgroundChange: (background: BackgroundName) => void;
@@ -798,14 +800,11 @@ function PortfolioApp({
   galaxyPalette: GalaxyPalette;
   onGalaxyPaletteChange: (palette: GalaxyPalette) => void;
   onResetVisuals: () => void;
+  initialLang: SiteLang;
 }) {
-  const [lang, setLang] = useState<Lang>("it");
+  const [lang] = useState<Lang>(initialLang);
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
-  const backgroundParam =
-    activeBackground === "none"
-      ? `&palette=${galaxyPalette}`
-      : `&bg=${activeBackground}&palette=${galaxyPalette}`;
   const reduceMotion = useReducedMotion();
   const c = copy[lang];
   const projectList = useMemo(() => selected[lang], [lang]);
@@ -838,7 +837,10 @@ function PortfolioApp({
     return () => observer.disconnect();
   }, []);
 
-  const toggleLang = () => setLang((current) => (current === "it" ? "en" : "it"));
+  const toggleLang = () => {
+    const next = lang === "it" ? "en" : "it";
+    window.location.href = siteHref({ kind: "home", lang: next });
+  };
 
   return (
     <div className="site-shell">
@@ -1001,7 +1003,7 @@ function PortfolioApp({
                 key={project.name}
                 project={project}
                 lang={lang}
-                href={`?project=${project.slug}&lang=${lang}${backgroundParam}`}
+                href={siteHref({ kind: "detail", lang, detailKind: "project", slug: project.slug })}
               />
             ))}
           </div>
@@ -1022,7 +1024,7 @@ function PortfolioApp({
                 key={project.name}
                 project={project}
                 lang={lang}
-                href={`?lab=${project.slug}&lang=${lang}${backgroundParam}`}
+                href={siteHref({ kind: "detail", lang, detailKind: "lab", slug: project.slug })}
               />
             ))}
           </div>
@@ -1065,10 +1067,8 @@ function PortfolioApp({
 function App() {
   const normalizedPath = window.location.pathname.replace(/\/$/, "");
   const isBackgroundLab = normalizedPath.endsWith("/background-lab");
-  const params = new URLSearchParams(window.location.search);
-  const detailSlug = params.get("project") ?? params.get("lab");
-  const legalSlug = params.get("legal");
-  const initialLang: SiteLang = params.get("lang") === "en" ? "en" : "it";
+  const route = parseCurrentRoute();
+  const initialLang: SiteLang = route.lang;
   const [activeBackground, setActiveBackground] =
     useState<BackgroundName>(readHomepageBackground);
   const [backgroundTuning, setBackgroundTuning] =
@@ -1148,14 +1148,10 @@ function App() {
   let page;
   if (isBackgroundLab) {
     page = <BackgroundLab />;
-  } else if (
-    legalSlug === "privacy" ||
-    legalSlug === "cookies" ||
-    legalSlug === "legal"
-  ) {
-    page = <LegalPage slug={legalSlug} initialLang={initialLang} />;
-  } else if (detailSlug) {
-    page = <ProjectDetail slug={detailSlug} initialLang={initialLang} />;
+  } else if (route.kind === "legal") {
+    page = <LegalPage slug={route.slug} initialLang={initialLang} />;
+  } else if (route.kind === "detail") {
+    page = <ProjectDetail slug={route.slug} initialLang={initialLang} />;
   } else {
     page = (
       <PortfolioApp
@@ -1166,12 +1162,14 @@ function App() {
         galaxyPalette={galaxyPalette}
         onGalaxyPaletteChange={updateGalaxyPalette}
         onResetVisuals={resetVisuals}
+        initialLang={initialLang}
       />
     );
   }
 
   return (
     <>
+      {!isBackgroundLab && <SeoHead route={route as SiteRoute} />}
       <div className="global-pointer-glow" aria-hidden="true" />
       {page}
     </>
