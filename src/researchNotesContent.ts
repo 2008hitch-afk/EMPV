@@ -113,7 +113,7 @@ export const researchNotes: ResearchNote[] = [
           bullets: [
             "define the workload before choosing the model",
             "separate output quality from tool-use capability",
-            "measure failure modes, not only successful cases",
+            "record failure modes alongside successful cases",
             "keep reproducible evidence of every test"
           ],
         },
@@ -239,7 +239,7 @@ export const researchNotes: ResearchNote[] = [
           title: "Cloud offers elasticity and fast access to larger models.",
           paragraphs: [
             "If workloads are irregular, change frequently or need very large models, cloud can be more efficient. It is also useful during discovery, when we do not yet know which workload deserves dedicated infrastructure.",
-            "The important part is not to turn architecture into an identity: a system can also be hybrid."
+            "The architecture can also be hybrid; it does not need to fit one category permanently."
           ],
         },
         {
@@ -347,7 +347,7 @@ export const researchNotes: ResearchNote[] = [
           label: "03 / Integration",
           title: "Writing into the ERP is the last part, not the first.",
           paragraphs: [
-            "If a reliable API exists, direct integration is possible. If the ERP exposes structured imports, the required format can be generated. If neither path is available, it is worth understanding how much of the work can still be prepared without forcing a fragile automation.",
+            "If a reliable API exists, direct integration is possible. If the ERP exposes structured imports, the required format can be generated. If neither path is available, quantify how much of the work can still be prepared without forcing a fragile automation.",
             "The goal is to reduce re-entry and errors while preserving the system that already governs accounting, inventory or production."
           ],
         },
@@ -488,7 +488,7 @@ export const researchNotes: ResearchNote[] = [
     },
     dek: {
       it: "Un software vecchio o scomodo può comunque contenere regole, dati e dipendenze essenziali. Prima di riscrivere tutto, conviene capire quale parte del lavoro richiede un nuovo layer.",
-      en: "An old or awkward system can still contain essential rules, data and dependencies. Before rewriting everything, it is worth identifying which part of the work needs a new layer.",
+      en: "An old or awkward system can still contain essential rules, data and dependencies. Before rewriting everything, identify which part of the work needs a new layer.",
     },
     category: { it: "SYSTEMS NOTE / INTEGRATION", en: "SYSTEMS NOTE / INTEGRATION" },
     tags: {
