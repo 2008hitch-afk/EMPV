@@ -17,7 +17,7 @@ export type Project = {
 
 export const copy = {
   it: {
-    nav: { work: "Progetti", labs: "AI Lab", faq: "FAQ", people: "Chi siamo" },
+    nav: { work: "Progetti", labs: "AI Lab", faq: "FAQ", people: "Chi siamo", notes: "Research Notes" },
     heroEyebrow: "Enrico Peruffo × Michele Valleri · Bergamo",
     heroTitleA: "Progettiamo sistemi",
     heroTitleB: "intorno al lavoro reale.",
@@ -55,7 +55,7 @@ export const copy = {
     language: "EN",
   },
   en: {
-    nav: { work: "Projects", labs: "AI Lab", faq: "FAQ", people: "Who we are" },
+    nav: { work: "Projects", labs: "AI Lab", faq: "FAQ", people: "Who we are", notes: "Research Notes" },
     heroEyebrow: "Enrico Peruffo × Michele Valleri · Bergamo",
     heroTitleA: "We design systems",
     heroTitleB: "around real work.",

@@ -143,5 +143,69 @@
         "description": "Information about the EMPV website operator, published content and external links."
       }
     }
+  },
+  "researchNotes": {
+    "index": {
+      "it": {
+        "title": "Research Notes — Sistemi, AI e automazione | EMPV",
+        "description": "Note tecniche EMPV su sistemi digitali, automazione, AI locale, integrazioni e lavoro operativo reale."
+      },
+      "en": {
+        "title": "Research Notes — Systems, AI and automation | EMPV",
+        "description": "EMPV technical notes on digital systems, automation, local AI, integrations and real operational work."
+      }
+    },
+    "notes": {
+      "local-llm-evaluation": {
+        "it": {
+          "title": "Come valutare un LLM locale prima della produzione | EMPV",
+          "description": "Un metodo pratico per valutare modello, runtime, workload, failure mode ed evidenze prima di autorizzare un LLM locale a svolgere lavoro reale."
+        },
+        "en": {
+          "title": "How to evaluate a local LLM before production | EMPV",
+          "description": "A practical method for evaluating model, runtime, workload, failure modes and evidence before authorizing a local LLM to perform real work."
+        }
+      },
+      "on-premise-vs-cloud": {
+        "it": {
+          "title": "AI on-premise vs cloud: quando conviene | EMPV",
+          "description": "Come scegliere tra AI locale, on-premise e cloud partendo da dati, controllo, latenza, workload e dipendenze operative."
+        },
+        "en": {
+          "title": "On-premise vs cloud AI: when each makes sense | EMPV",
+          "description": "How to choose between local, on-premise and cloud AI based on data, control, latency, workload and operational dependencies."
+        }
+      },
+      "email-to-order": {
+        "it": {
+          "title": "Da email a ordine senza rifare il gestionale | EMPV",
+          "description": "Come automatizzare estrazione, validazione e preparazione degli ordini mantenendo il gestionale esistente come sistema autorevole."
+        },
+        "en": {
+          "title": "From email to order without replacing the ERP | EMPV",
+          "description": "How to automate order extraction, validation and preparation while keeping the existing ERP as the authoritative system."
+        }
+      },
+      "quote-intake": {
+        "it": {
+          "title": "Automatizzare richieste di preventivo senza automatizzare la decisione | EMPV",
+          "description": "Come strutturare e qualificare richieste di preventivo riducendo lavoro manuale senza nascondere la decisione commerciale dentro un'automazione."
+        },
+        "en": {
+          "title": "Automating quote requests without automating the decision | EMPV",
+          "description": "How to structure and qualify quote requests while reducing manual work and keeping the commercial decision explicit."
+        }
+      },
+      "integrate-not-replace": {
+        "it": {
+          "title": "Integrare un gestionale invece di sostituirlo | EMPV",
+          "description": "Quando conviene costruire un layer operativo intorno a ERP e gestionali esistenti invece di riscrivere software, dati e dipendenze."
+        },
+        "en": {
+          "title": "When to integrate an ERP instead of replacing it | EMPV",
+          "description": "When to build an operating layer around an existing ERP instead of rewriting software, data and dependencies."
+        }
+      }
+    }
   }
 }

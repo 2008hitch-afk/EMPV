@@ -12,6 +12,7 @@ import BackgroundEffect, {
 } from "./backgrounds/BackgroundEffect";
 import ProjectDetail from "./ProjectDetail";
 import LegalPage from "./LegalPage";
+import ResearchNotes from "./ResearchNotes";
 import SiteFooter from "./SiteFooter";
 import { SeoHead, parseCurrentRoute, siteAssetHref, siteHref, type SiteRoute } from "./seo";
 import type { SiteLang } from "./detailContent";
@@ -474,6 +475,9 @@ function PortfolioApp({
           <a className={activeSection === "faq" ? "is-active" : ""} href="#faq">
             <span>{c.nav.faq}</span>
           </a>
+          <a href={siteHref({ kind: "notesIndex", lang })}>
+            <span>{c.nav.notes}</span>
+          </a>
         </nav>
 
         <div className="topbar-actions">
@@ -521,6 +525,14 @@ function PortfolioApp({
                 <ArrowUpRight size={20} strokeWidth={1.35} />
               </a>
             ))}
+            <a
+              href={siteHref({ kind: "notesIndex", lang })}
+              onClick={() => setMenuOpen(false)}
+            >
+              <span className="mobile-nav-index">04</span>
+              <strong>{c.nav.notes}</strong>
+              <ArrowUpRight size={20} strokeWidth={1.35} />
+            </a>
             <button
               className="mobile-nav-language"
               type="button"
@@ -766,6 +778,10 @@ function App() {
     page = <LegalPage slug={route.slug} initialLang={initialLang} />;
   } else if (route.kind === "detail") {
     page = <ProjectDetail slug={route.slug} initialLang={initialLang} />;
+  } else if (route.kind === "notesIndex") {
+    page = <ResearchNotes initialLang={initialLang} />;
+  } else if (route.kind === "note") {
+    page = <ResearchNotes initialLang={initialLang} noteId={route.noteId} />;
   } else {
     page = (
       <PortfolioApp
