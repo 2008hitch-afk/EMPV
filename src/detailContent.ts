@@ -74,7 +74,7 @@ const it: Record<string, DetailContent> = {
         label: "02 / Come abbiamo ragionato",
         title: "Non sostituire tutto. Creare uno strato operativo condiviso intorno alla commessa.",
         body:
-          "Il nuovo sistema diventa lo strato operativo condiviso. Gli strumenti specialistici restano dove hanno senso e vengono collegati solo quando la fattibilità tecnica e il beneficio sono reali.",
+          "Il nuovo sistema diventa lo strato operativo condiviso. Gli strumenti specialistici restano dove hanno senso e vengono collegati solo quando fattibilità tecnica e beneficio sono stati verificati.",
       },
       {
         label: "03 / Cosa abbiamo cambiato",
@@ -86,7 +86,7 @@ const it: Record<string, DetailContent> = {
         label: "04 / Come funziona adesso",
         title: "Il dato viene raccolto una volta e riutilizzato nelle fasi successive.",
         body:
-          "È un esempio di ciò che intendiamo per sistema costruito intorno al lavoro reale: prima si ricostruisce il flusso, poi si decide dove centralizzare, dove integrare e dove mantenere una decisione umana.",
+          "Il metodo è questo: prima si ricostruisce il flusso, poi si decide dove centralizzare, dove integrare e dove mantenere una decisione umana.",
       },
     ],
   },
@@ -151,7 +151,7 @@ const it: Record<string, DetailContent> = {
     problemTitle: "Una prenotazione non è semplicemente una data su un calendario.",
     solutionTitle: "Abbiamo progettato booking e operatività come un unico sistema.",
     lead:
-      "Ogni prenotazione occupa capacità reale e porta con sé cliente, animale, documenti, caparra, servizi aggiuntivi e attività durante il soggiorno. Se queste informazioni vengono trattate come moduli separati, lo staff deve continuamente riallinearle.",
+      "Ogni prenotazione occupa disponibilità e porta con sé cliente, animale, documenti, caparra, servizi aggiuntivi e attività durante il soggiorno. Se queste informazioni vengono trattate come moduli separati, lo staff deve continuamente riallinearle.",
     tags: ["Hospitality ops", "Booking", "Area cliente", "Daily operations"],
     statusLabel: "Principio",
     status: "Quello che il cliente prenota deve diventare automaticamente lavoro operativo.",
@@ -159,7 +159,7 @@ const it: Record<string, DetailContent> = {
       leftLabel: "Problema",
       leftTitle: "Booking e operazioni non possono vivere separati",
       leftBody:
-        "Una pensione per animali deve coordinare capacità reale, dati del cliente e del cane, arrivi, partenze, servizi aggiuntivi, documenti e stato della caparra. Un semplice form di prenotazione non basta.",
+        "Una pensione per animali deve coordinare disponibilità degli alloggi, dati del cliente e del cane, arrivi, partenze, servizi aggiuntivi, documenti e stato della caparra. Un semplice form di prenotazione non basta.",
       rightLabel: "Sistema",
       rightTitle: "Un dominio unico dalla richiesta al soggiorno",
       rightBody:
@@ -188,7 +188,7 @@ const it: Record<string, DetailContent> = {
         label: "04 / Come funziona adesso",
         title: "Disponibilità, arrivi, partenze, servizi, documenti e caparra restano nello stesso flusso.",
         body:
-          "Laravel, componenti di piattaforma dedicati, area amministrativa e integrazione myPOS costituiscono il nucleo tecnico. Le API esposte restano limitate ai flussi che servono davvero al prodotto.",
+          "Laravel, componenti di piattaforma dedicati, area amministrativa e integrazione myPOS costituiscono il nucleo tecnico. Le API esposte restano limitate ai flussi necessari al prodotto.",
       },
     ],
   },
@@ -199,7 +199,7 @@ const it: Record<string, DetailContent> = {
     index: "04",
     title: "Sistema di qualificazione richieste e preventivi",
     kicker: "Richieste più strutturate, decisione ancora umana",
-    problemTitle: "Le richieste arrivavano, ma prima di valutarle bisognava ricostruire cosa il cliente stesse realmente chiedendo.",
+    problemTitle: "Le richieste arrivavano, ma prima di valutarle bisognava ricostruire quali servizi il cliente stesse chiedendo e in quali condizioni.",
     solutionTitle: "Non abbiamo automatizzato il preventivo. Abbiamo automatizzato la raccolta delle informazioni necessarie per farlo bene.",
     lead:
       "Tipo di evento, partecipanti, location, accessibilità, attrezzatura, trasporto, montaggio e assistenza potevano emergere in momenti diversi della conversazione. Prima ancora di quotare il lavoro, bisognava ricostruire il contesto.",
@@ -225,7 +225,7 @@ const it: Record<string, DetailContent> = {
       },
       {
         label: "02 / Come abbiamo ragionato",
-        title: "Chiedere prima solo ciò che serve davvero per poter valutare l'evento.",
+        title: "Chiedere prima solo ciò che serve per valutare l'evento.",
         body:
           "La V1 mantiene poche diramazioni principali e raccoglie ciò che serve per una prima valutazione: tipo di evento, data, luogo, partecipanti, servizi, alimentazione, accessi, logistica e contatti.",
       },
@@ -251,7 +251,7 @@ const it: Record<string, DetailContent> = {
     title: "System Twin",
     kicker: "Exploration / systems intelligence",
     lead:
-      "Un esperimento su come ricostruire automaticamente un sistema digitale reale in una rappresentazione interrogabile, mantenendo insieme codice, runtime, configurazioni, API, documentazione ed evidenze.",
+      "Un esperimento su come ricostruire automaticamente un sistema digitale in esercizio in una rappresentazione interrogabile, mantenendo insieme codice, runtime, configurazioni, API, documentazione ed evidenze.",
     tags: ["System understanding", "Evidence", "Architecture"],
     statusLabel: "Stato repo",
     status: "Research / model-definition. Nessuno schema canonico o stack implementativo è ancora congelato.",
@@ -259,7 +259,7 @@ const it: Record<string, DetailContent> = {
       leftLabel: "Oggi",
       leftTitle: "La conoscenza del sistema è frammentata",
       leftBody:
-        "Repository, deploy, telemetria, documenti e API descrivono parti diverse della stessa realtà e spesso non coincidono temporalmente.",
+        "Repository, deploy, telemetria, documenti e API descrivono parti diverse dello stesso sistema e spesso si riferiscono a momenti diversi.",
       rightLabel: "Direzione",
       rightTitle: "Un modello semantico con evidenza e tempo",
       rightBody:
@@ -296,7 +296,7 @@ const it: Record<string, DetailContent> = {
     title: "Local AI",
     kicker: "Applied R&D / capability evaluation",
     lead:
-      "Un laboratorio per capire cosa un modello eseguito localmente sa davvero fare su un workload specifico, usando prove riproducibili e confini operativi espliciti.",
+      "Un laboratorio per misurare cosa un modello eseguito localmente sa fare su un workload specifico, usando prove riproducibili e confini operativi espliciti.",
     tags: ["Local models", "Evaluation", "Evidence"],
     statusLabel: "Stato repo",
     status: "Public Core 0.3.1 RC1 · hitch-local-ai==0.3.1 · schema 1.0.1.",
@@ -304,7 +304,7 @@ const it: Record<string, DetailContent> = {
       leftLabel: "Problema",
       leftTitle: "Il nome del modello non è una garanzia",
       leftBody:
-        "Due modelli con punteggi simili possono comportarsi in modo molto diverso su strumenti, vincoli, output strutturati e sequenze operative concrete.",
+        "Due modelli con punteggi simili possono comportarsi in modo molto diverso su strumenti, vincoli, output strutturati e sequenze operative specifiche.",
       rightLabel: "Direzione",
       rightTitle: "Testare il workload prima del deployment",
       rightBody:
@@ -321,13 +321,13 @@ const it: Record<string, DetailContent> = {
         label: "02 / Cosa stiamo cercando",
         title: "Una misura utile per decidere, non una classifica di modelli.",
         body:
-          "La domanda non è quale modello sia 'migliore' in assoluto, ma quale combinazione modello + runtime + workload soddisfi un contratto concreto con evidenza sufficiente.",
+          "La domanda è quale combinazione modello + runtime + workload soddisfi un contratto operativo con criteri misurabili ed evidenza sufficiente.",
       },
       {
         label: "03 / Potenziale",
         title: "Qualification layer per AI privata e on-prem.",
         body:
-          "Se la tesi regge su domini diversi, il valore potrebbe essere uno strato indipendente tra modelli locali e workload aziendali: testare prima, qualificare separatamente, operare solo entro confini dimostrati.",
+          "Se la tesi regge su domini diversi, potrebbe emergere uno strato indipendente tra modelli locali e workload aziendali: testare prima, qualificare separatamente, operare solo entro confini dimostrati.",
       },
     ],
     boundary:
@@ -364,7 +364,7 @@ const it: Record<string, DetailContent> = {
       },
       {
         label: "02 / Cosa stiamo verificando",
-        title: "Se problem-first produce opportunità materialmente migliori.",
+        title: "Se problem-first produce prospect meglio qualificati.",
         body:
           "Il milestone corrente non è automatizzare le vendite. È dimostrare che Problem Research → Prospect Research → Qualification può produrre pochi prospect migliori di una lista generica.",
       },
@@ -448,7 +448,7 @@ const it: Record<string, DetailContent> = {
     blocks: [
       {
         label: "01 / La domanda",
-        title: "Come dovrebbe ragionare un sistema quando la realtà non è coerente?",
+        title: "Come dovrebbe ragionare un sistema quando le fonti non concordano?",
         body:
           "L'obiettivo è trattare divergenze e aggiornamenti come parte del problema, non come rumore da eliminare prima del ragionamento.",
       },
@@ -493,9 +493,9 @@ const en: Record<string, DetailContent> = {
     },
     blocks: [
       { label: "01 / The problem", title: "The same job existed in several places at once.", body: "The challenge was not to replace every tool. It was to reduce re-entry, informal handoffs and loss of context as the same job moved from field work to office, workshop and installation.", bullets: ["distributed data and documents", "different roles using different slices of the same job", "specialist software to preserve and understand", "machine integrations to verify before promising"] },
-      { label: "02 / The decision", title: "Build around the process, not around the existing software.", body: "The new platform becomes the shared operational layer. Specialist tools stay where they are useful and are connected only when both technical feasibility and operational value are real." },
-      { label: "03 / The system", title: "Field, office and workshop read the same reality.", body: "The core covers customers and jobs, guided measurements, role-specific views, progress and priorities, material status, reminders, checklists and assisted preparation of communications and orders." },
-      { label: "04 / What matters to us", title: "Reduce how often information has to be recreated.", body: "This is what we mean by designing around real work: reconstruct the flow first, then decide what to centralize, what to integrate and what should remain a human decision." },
+      { label: "02 / The decision", title: "Build around the process, not around the existing software.", body: "The new platform becomes the shared operational layer. Specialist tools stay where they are useful and are connected only after technical feasibility and operational benefit have been verified." },
+      { label: "03 / The system", title: "Field, office and workshop read the same job state.", body: "The core covers customers and jobs, guided measurements, role-specific views, progress and priorities, material status, reminders, checklists and assisted preparation of communications and orders." },
+      { label: "04 / What matters to us", title: "Reduce how often information has to be recreated.", body: "The method is straightforward: reconstruct the flow first, then decide what to centralize, what to integrate and what should remain a human decision." },
     ],
   },
   "psicologia-operations": {
@@ -524,25 +524,25 @@ const en: Record<string, DetailContent> = {
     kicker: "Booking and operations on one platform",
     problemTitle: "A booking is not simply a date on a calendar.",
     solutionTitle: "We designed booking and operations as one system.",
-    lead: "Every booking consumes real capacity and carries customer, animal, document, deposit, add-on service and stay-related work. If those facts live in separate modules, staff must continuously reconcile them.",
+    lead: "Every booking consumes available capacity and carries customer, animal, document, deposit, add-on service and stay-related work. If those facts live in separate modules, staff must continuously reconcile them.",
     statusLabel: "Principle",
     status: "What the customer books should automatically become operational work.",
     comparison: {
-      leftLabel: "Problem", leftTitle: "Booking and operations cannot live separately", leftBody: "A pet resort must coordinate real capacity, customer and dog data, arrivals, departures, add-on services, documents and deposit state. A booking form alone is not enough.",
+      leftLabel: "Problem", leftTitle: "Booking and operations cannot live separately", leftBody: "A pet resort must coordinate accommodation availability, customer and dog data, arrivals, departures, add-on services, documents and deposit state. A booking form alone is not enough.",
       rightLabel: "System", rightTitle: "One domain from request to stay", rightBody: "Booking, customer area and back office share the same data. Staff see current guests, arrivals, departures and tasks; customers access their profile and bookings without duplicate identities."
     },
     blocks: [
       { label: "01 / The core", title: "Booking is the beginning, not the end.", body: "Accommodation availability, booking lifecycle, dog data, grooming, agreements, payments and daily operations are treated as parts of the same product." },
       { label: "02 / The customer", title: "One identity even when staff created the record first.", body: "If staff already created the customer, dog and bookings, online activation recovers that identity instead of creating a duplicate. The account remains connected to existing history." },
-      { label: "03 / Operations", title: "Staff work from what is actually present and expected.", body: "The system separates accommodation availability from the daily operations view and handles arrivals, departures, grooming, documents and confirmation state tied to the deposit." },
-      { label: "04 / Architecture", title: "Web product with domain rules enforced server-side.", body: "Laravel, dedicated platform components, an admin surface and myPOS integration form the technical core. Exposed APIs remain limited to flows the product actually needs." }
+      { label: "03 / Operations", title: "Staff work from current stays and expected arrivals.", body: "The system separates accommodation availability from the daily operations view and handles arrivals, departures, grooming, documents and confirmation state tied to the deposit." },
+      { label: "04 / Architecture", title: "Web product with domain rules enforced server-side.", body: "Laravel, dedicated platform components, an admin surface and myPOS integration form the technical core. Exposed APIs remain limited to flows required by the product." }
     ]
   },
   "richieste-preventivi": {
     ...it["richieste-preventivi"],
     title: "Request qualification and quoting system",
     kicker: "More structured requests, human decision retained",
-    problemTitle: "Requests arrived, but the team had to reconstruct what the customer was actually asking for before evaluating them.",
+    problemTitle: "Requests arrived, but the team had to reconstruct which services the customer needed and under what conditions before evaluating them.",
     solutionTitle: "We did not automate the quote. We automated the information collection needed to prepare it well.",
     lead: "Event type, audience size, venue, access constraints, equipment, transport, setup and technical support could emerge at different moments in the conversation. Before quoting, the team first had to rebuild the context.",
     statusLabel: "Choice",
@@ -552,7 +552,7 @@ const en: Record<string, DetailContent> = {
       rightLabel: "System", rightTitle: "A flow that prepares human evaluation", rightBody: "The flow collects a compact set of information and adapts some questions to event type. No public pricing and no automatic quotation: the final decision stays with the team."
     },
     blocks: [
-      { label: "01 / The problem", title: "Before quoting, the event has to be understood.", body: "Conferences, weddings, DJ sets and private parties do not need the same information. A generic form can create leads without creating requests that are actually easy to evaluate." },
+      { label: "01 / The problem", title: "Before quoting, the event has to be understood.", body: "Conferences, weddings, DJ sets and private parties do not need the same information. A generic form can create leads that still require the team to reconstruct the request before evaluating it." },
       { label: "02 / The decision", title: "Structure the request without turning it into an endless configurator.", body: "The V1 keeps a small number of main paths and gathers event type, date, location, participants, services, power, access, logistics and contact details." },
       { label: "03 / The boundary", title: "Technology prepares; the team decides.", body: "The summary is indicative, prices are not public and every request is evaluated directly by the team. That is a product choice, not missing automation." },
       { label: "04 / The outcome", title: "A digital presence that produces more usable requests.", body: "The website and guided flow become one commercial entry point: the customer describes the event, the system structures the data and the team receives a more consistent context to work from." }
@@ -561,11 +561,11 @@ const en: Record<string, DetailContent> = {
   "system-twin": {
     ...it["system-twin"],
     kicker: "Exploration / systems intelligence",
-    lead: "An experiment in reconstructing a real digital system into an interrogable representation while keeping code, runtime, configuration, APIs, documentation and evidence connected.",
+    lead: "An experiment in reconstructing a digital system in operation into an interrogable representation while keeping code, runtime, configuration, APIs, documentation and evidence connected.",
     statusLabel: "Repository state",
     status: "Research / model-definition. No canonical schema or implementation stack is frozen yet.",
     comparison: {
-      leftLabel: "Today", leftTitle: "System knowledge is fragmented", leftBody: "Repositories, deployments, telemetry, documentation and APIs describe different parts of the same reality and often refer to different moments in time.",
+      leftLabel: "Today", leftTitle: "System knowledge is fragmented", leftBody: "Repositories, deployments, telemetry, documentation and APIs describe different parts of the same system and often refer to different moments in time.",
       rightLabel: "Direction", rightTitle: "A semantic model with evidence and time", rightBody: "The research tries to connect those sources in a shared model that distinguishes what is observed, declared, derived or inferred."
     },
     blocks: [
@@ -578,17 +578,17 @@ const en: Record<string, DetailContent> = {
   "local-ai": {
     ...it["local-ai"],
     kicker: "Applied R&D / capability evaluation",
-    lead: "A lab for understanding what a locally executed model can actually do on a specific workload, using reproducible evidence and explicit operating boundaries.",
+    lead: "A lab for measuring what a locally executed model can do on a specific workload, using reproducible evidence and explicit operating boundaries.",
     statusLabel: "Repository state",
     status: "Public Core 0.3.1 RC1 · hitch-local-ai==0.3.1 · schema 1.0.1.",
     comparison: {
-      leftLabel: "Problem", leftTitle: "The model name is not a guarantee", leftBody: "Two models with similar benchmark scores can behave very differently when tools, constraints, structured outputs and real operational sequences are involved.",
+      leftLabel: "Problem", leftTitle: "The model name is not a guarantee", leftBody: "Two models with similar benchmark scores can behave very differently when tools, constraints, structured outputs and specific operational sequences are involved.",
       rightLabel: "Direction", rightTitle: "Test the workload before deployment", rightBody: "The path separates discovery, observed candidate, test, preflight, bounded run, evidence and comparison without turning one successful test into operational authorization."
     },
     blocks: [
       { label: "01 / What exists", title: "A versioned and verifiable public core.", body: "The project exposes a Python package, CLI, schemas, job/test packs and output contracts for describing and verifying local-AI work reproducibly." },
-      { label: "02 / What we are looking for", title: "A useful decision measure, not a model leaderboard.", body: "The question is not which model is best in general, but which model + runtime + workload combination satisfies a concrete contract with enough evidence." },
-      { label: "03 / Potential", title: "A qualification layer for private and on-prem AI.", body: "If the thesis holds across domains, the value could be an independent layer between local models and enterprise workloads: test first, qualify separately, operate only within demonstrated boundaries." }
+      { label: "02 / What we are looking for", title: "A useful decision measure, not a model leaderboard.", body: "The question is which model + runtime + workload combination satisfies an operational contract with measurable criteria and enough evidence." },
+      { label: "03 / Potential", title: "A qualification layer for private and on-prem AI.", body: "If the thesis holds across domains, it could become an independent layer between local models and enterprise workloads: test first, qualify separately, operate only within demonstrated boundaries." }
     ],
     boundary: "The public surface is intentionally separated from private R&D state, host inventories and operational recipes."
   },
@@ -604,7 +604,7 @@ const en: Record<string, DetailContent> = {
     },
     blocks: [
       { label: "01 / The workflow", title: "Research, qualification and human control.", body: "The full design moves from Problem Research to Prospect Research, Qualification, Contact Discovery, Outreach Draft, Human Gate and Feedback/Learning. The orchestrator owns state, limits and routing." },
-      { label: "02 / What we are testing", title: "Whether problem-first produces materially better opportunities.", body: "The current milestone is not autonomous sales. It is proving that Problem Research → Prospect Research → Qualification can produce a small set of prospects that humans judge better than a generic list." },
+      { label: "02 / What we are testing", title: "Whether problem-first produces better-qualified opportunities.", body: "The current milestone is not autonomous sales. It is proving that Problem Research → Prospect Research → Qualification can produce a small set of prospects that humans can qualify with stronger evidence than a generic list." },
       { label: "03 / Why it is interesting", title: "A commercial engine that accumulates method, not just contacts.", body: "Evidence, interpretation and hypotheses stay separate; models are replaceable execution resources and external actions remain behind a human gate." }
     ],
     boundary: "Research logic, providers and architecture are still evolving quickly. We do not publish details that would constitute the system's operational advantage."
@@ -637,7 +637,7 @@ const en: Record<string, DetailContent> = {
       rightLabel: "Direction", rightTitle: "Reasoning that carries its evidence", rightBody: "The research explores versioned graphs, epistemic branching, temporal contradiction, belief revision and planning that seeks new evidence when what is available is insufficient."
     },
     blocks: [
-      { label: "01 / The question", title: "How should a system reason when reality is not consistent?", body: "The aim is to treat disagreement and change as part of the problem, rather than noise to be removed before reasoning starts." },
+      { label: "01 / The question", title: "How should a system reason when sources disagree?", body: "The aim is to treat disagreement and change as part of the problem, rather than noise to be removed before reasoning starts." },
       { label: "02 / The research", title: "Evidence graphs, time and belief revision.", body: "The work combines versioned knowledge, temporality, contextual contradictions, proof-carrying merge, abstraction and evidence-seeking planning." },
       { label: "03 / Why it stays in the Lab", title: "This is a scientific direction, not a feature to sell.", body: "Before product claims come novelty, benchmarks and falsification. Psychology and education are possible validation domains, not automatic proof of the project." }
     ],
