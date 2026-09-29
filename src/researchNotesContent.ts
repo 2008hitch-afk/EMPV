@@ -35,8 +35,8 @@ export const researchNotes: ResearchNote[] = [
       en: "How to evaluate a local LLM before using it in production",
     },
     dek: {
-      it: "Il nome del modello e il benchmark non bastano. Per autorizzare un modello locale a svolgere lavoro reale bisogna testare il workload, il runtime, i vincoli e gli errori che contano davvero.",
-      en: "A model name and a benchmark score are not enough. Before a local model is allowed to perform real work, the workload, runtime, constraints and meaningful failure modes need to be tested together.",
+      it: "Il nome del modello e il benchmark non bastano. Prima di affidare a un modello locale attività operative bisogna testare workload, runtime, vincoli e failure mode.",
+      en: "A model name and a benchmark score are not enough. Before a local model receives production tasks, workload, runtime, constraints and failure modes need to be tested together.",
     },
     category: { it: "TECH NOTE / LOCAL AI", en: "TECH NOTE / LOCAL AI" },
     tags: {
@@ -51,7 +51,7 @@ export const researchNotes: ResearchNote[] = [
           label: "01 / Il problema",
           title: "Un benchmark misura una capacità astratta. Un'azienda compra un risultato operativo.",
           paragraphs: [
-            "Un modello può ottenere buoni risultati su benchmark pubblici e fallire comunque nel lavoro che gli vogliamo affidare. Un task reale contiene formati, strumenti, dati sporchi, vincoli di latenza, output strutturati e conseguenze operative che il benchmark non rappresenta.",
+            "Un modello può ottenere buoni risultati su benchmark pubblici e fallire comunque nel lavoro che gli vogliamo affidare. Un workload aziendale contiene formati, strumenti, dati sporchi, vincoli di latenza, output strutturati e conseguenze operative che il benchmark non rappresenta.",
             "Per questo la domanda utile non è «qual è il modello migliore?», ma «questa combinazione di modello, runtime e workload rispetta il contratto che ci serve?»."
           ],
         },
@@ -73,7 +73,7 @@ export const researchNotes: ResearchNote[] = [
           label: "03 / Il test",
           title: "Modello e runtime vanno valutati insieme.",
           paragraphs: [
-            "Quantizzazione, context window, prompt format, tool calling, memoria disponibile e librerie del runtime possono cambiare materialmente il comportamento. Lo stesso modello può quindi produrre risultati diversi in ambienti diversi.",
+            "Quantizzazione, context window, prompt format, tool calling, memoria disponibile e librerie del runtime possono cambiare il comportamento del modello. Lo stesso modello può quindi produrre risultati diversi in ambienti diversi.",
             "Un test utile registra configurazione, versione, input, output, tempi e condizioni. In questo modo il risultato può essere ripetuto e confrontato."
           ],
         },
@@ -99,7 +99,7 @@ export const researchNotes: ResearchNote[] = [
           label: "01 / The problem",
           title: "A benchmark measures an abstract capability. A company needs an operational outcome.",
           paragraphs: [
-            "A model can perform well on public benchmarks and still fail at the work we want it to perform. Real tasks include formats, tools, messy data, latency constraints, structured outputs and operational consequences that a benchmark does not represent.",
+            "A model can perform well on public benchmarks and still fail at the work we want it to perform. Production workloads include formats, tools, messy data, latency constraints, structured outputs and operational consequences that a benchmark does not represent.",
             "The useful question is therefore not “which model is best?”, but “does this model + runtime + workload combination satisfy the contract we need?”"
           ],
         },
@@ -113,7 +113,7 @@ export const researchNotes: ResearchNote[] = [
           bullets: [
             "define the workload before choosing the model",
             "separate output quality from tool-use capability",
-            "measure failure modes, not only successful cases",
+            "record failure modes alongside successful cases",
             "keep reproducible evidence of every test"
           ],
         },
@@ -121,7 +121,7 @@ export const researchNotes: ResearchNote[] = [
           label: "03 / The test",
           title: "Model and runtime need to be evaluated together.",
           paragraphs: [
-            "Quantization, context window, prompt format, tool calling, available memory and runtime libraries can materially change behaviour. The same model can therefore produce different outcomes in different environments.",
+            "Quantization, context window, prompt format, tool calling, available memory and runtime libraries can change model behaviour. The same model can therefore produce different outcomes in different environments.",
             "A useful test records configuration, version, input, output, timing and conditions so the result can be repeated and compared."
           ],
         },
@@ -156,8 +156,8 @@ export const researchNotes: ResearchNote[] = [
       en: "ai-on-premise-vs-cloud-when-it-makes-sense",
     },
     title: {
-      it: "AI on-premise vs cloud: quando conviene davvero",
-      en: "On-premise vs cloud AI: when each approach actually makes sense",
+      it: "AI on-premise vs cloud: come scegliere",
+      en: "On-premise vs cloud AI: how to choose",
     },
     dek: {
       it: "Tenere un modello in azienda non è automaticamente più sicuro, economico o utile. La scelta ha senso quando controllo, latenza, proprietà del dato e workload giustificano l'infrastruttura.",
@@ -182,7 +182,7 @@ export const researchNotes: ResearchNote[] = [
         },
         {
           label: "02 / Quando il locale ha senso",
-          title: "Il valore emerge quando esiste un vincolo concreto.",
+          title: "Il locale ha senso quando esiste un vincolo preciso.",
           paragraphs: [
             "Un deployment locale è interessante quando dati o documenti non devono lasciare un perimetro definito, quando la latenza deve essere prevedibile, quando serve operare offline o quando il workload è abbastanza stabile da giustificare un'infrastruttura dedicata."
           ],
@@ -196,10 +196,10 @@ export const researchNotes: ResearchNote[] = [
         },
         {
           label: "03 / Quando il cloud è migliore",
-          title: "Elasticità e accesso rapido a capacità avanzate sono vantaggi reali.",
+          title: "Il cloud offre elasticità e accesso rapido a modelli più capaci.",
           paragraphs: [
             "Se i carichi sono irregolari, cambiano spesso o richiedono modelli molto grandi, il cloud può essere la scelta più efficiente. È anche utile durante la fase di scoperta, quando non sappiamo ancora quale workload meriti una infrastruttura dedicata.",
-            "Il punto è evitare di trasformare l'architettura in un'identità: il sistema può anche essere ibrido."
+            "L'architettura può anche essere ibrida: non serve scegliere una categoria una volta per tutte."
           ],
         },
         {
@@ -222,7 +222,7 @@ export const researchNotes: ResearchNote[] = [
         },
         {
           label: "02 / When local makes sense",
-          title: "The value appears when there is a concrete constraint.",
+          title: "Local deployment makes sense when there is a specific constraint.",
           paragraphs: [
             "A local deployment becomes interesting when data or documents must stay inside a defined boundary, latency needs to be predictable, offline operation matters or the workload is stable enough to justify dedicated infrastructure."
           ],
@@ -236,10 +236,10 @@ export const researchNotes: ResearchNote[] = [
         },
         {
           label: "03 / When cloud is better",
-          title: "Elasticity and fast access to advanced capability are real advantages.",
+          title: "Cloud offers elasticity and fast access to larger models.",
           paragraphs: [
             "If workloads are irregular, change frequently or need very large models, cloud can be more efficient. It is also useful during discovery, when we do not yet know which workload deserves dedicated infrastructure.",
-            "The important part is not to turn architecture into an identity: a system can also be hybrid."
+            "The architecture can also be hybrid; it does not need to fit one category permanently."
           ],
         },
         {
@@ -253,8 +253,8 @@ export const researchNotes: ResearchNote[] = [
       ],
     },
     takeaway: {
-      it: "On-premise non è l'obiettivo. È una conseguenza di requisiti reali.",
-      en: "On-premise is not the objective. It is a consequence of real requirements.",
+      it: "On-premise è una scelta architetturale dettata da requisiti di controllo, latenza o dipendenza.",
+      en: "On-premise is an architectural choice driven by control, latency or dependency requirements.",
     },
   },
   {
@@ -269,8 +269,8 @@ export const researchNotes: ResearchNote[] = [
       en: "From email to order without replacing the ERP",
     },
     dek: {
-      it: "Molte automazioni falliscono perché provano a sostituire il sistema centrale. Spesso il valore è costruire un layer che legge, struttura, valida e prepara il dato prima che entri nel gestionale.",
-      en: "Many automation projects fail because they try to replace the core system. Often the value is a layer that reads, structures, validates and prepares data before it enters the ERP.",
+      it: "Molte automazioni falliscono perché provano a sostituire il sistema centrale. Spesso basta un layer che legge, struttura, valida e prepara il dato prima che entri nel gestionale.",
+      en: "Many automation projects fail because they try to replace the core system. Often a layer that reads, structures, validates and prepares data before it enters the ERP is enough.",
     },
     category: { it: "FIELD NOTE / OPERATIONS", en: "FIELD NOTE / OPERATIONS" },
     tags: {
@@ -307,7 +307,7 @@ export const researchNotes: ResearchNote[] = [
           label: "03 / L'integrazione",
           title: "La scrittura nel gestionale è l'ultima parte, non la prima.",
           paragraphs: [
-            "Se esiste una API affidabile si può integrare direttamente. Se il gestionale espone import strutturati, si può generare il formato richiesto. Se nessuna delle due strade è disponibile, conviene capire quanto valore resta ottenibile preparando il lavoro senza forzare automazioni fragili.",
+            "Se esiste una API affidabile si può integrare direttamente. Se il gestionale espone import strutturati, si può generare il formato richiesto. Se nessuna delle due strade è disponibile, conviene capire quanta parte del lavoro si può comunque preparare senza forzare automazioni fragili.",
             "L'obiettivo è ridurre re-entry e errori, preservando il sistema che già governa contabilità, magazzino o produzione."
           ],
         },
@@ -347,7 +347,7 @@ export const researchNotes: ResearchNote[] = [
           label: "03 / Integration",
           title: "Writing into the ERP is the last part, not the first.",
           paragraphs: [
-            "If a reliable API exists, direct integration is possible. If the ERP exposes structured imports, the required format can be generated. If neither path is available, it is worth understanding how much value can still be captured by preparing the work without forcing a fragile automation.",
+            "If a reliable API exists, direct integration is possible. If the ERP exposes structured imports, the required format can be generated. If neither path is available, quantify how much of the work can still be prepared without forcing a fragile automation.",
             "The goal is to reduce re-entry and errors while preserving the system that already governs accounting, inventory or production."
           ],
         },
@@ -400,7 +400,7 @@ export const researchNotes: ResearchNote[] = [
         },
         {
           label: "02 / La raccolta",
-          title: "Chiedere soltanto le informazioni che cambiano davvero la valutazione.",
+          title: "Chiedere soltanto le informazioni che cambiano la valutazione.",
           paragraphs: [
             "Un buon flusso non è un form infinito. Parte dalle poche variabili che determinano il percorso successivo e adatta le domande in base al tipo di richiesta.",
             "Il risultato è un contesto coerente, non una decisione automatica."
@@ -440,7 +440,7 @@ export const researchNotes: ResearchNote[] = [
         },
         {
           label: "02 / Collection",
-          title: "Ask only for information that actually changes the evaluation.",
+          title: "Ask only for information that changes the evaluation.",
           paragraphs: [
             "A good flow is not an endless form. It starts from the few variables that determine the next path and adapts questions to the type of request.",
             "The output is consistent context, not an automatic decision."
@@ -464,7 +464,7 @@ export const researchNotes: ResearchNote[] = [
           label: "04 / The outcome",
           title: "The team starts from context, not reconstruction.",
           paragraphs: [
-            "Operational value appears when the commercial or technical team opens a request and already has the elements needed for an initial evaluation. Fewer clarification messages, less re-entry and fewer forgotten details.",
+            "The commercial or technical team should be able to open a request and already have the elements needed for an initial evaluation. That means fewer clarification messages, less re-entry and fewer forgotten details.",
             "Automation prepares the decision. It does not necessarily need to make it."
           ],
         },
@@ -487,8 +487,8 @@ export const researchNotes: ResearchNote[] = [
       en: "When to integrate an ERP instead of replacing it",
     },
     dek: {
-      it: "Un software vecchio o scomodo può comunque contenere regole, dati e dipendenze essenziali. Prima di riscrivere tutto, conviene capire quale parte del lavoro ha davvero bisogno di un nuovo layer.",
-      en: "An old or awkward system can still contain essential rules, data and dependencies. Before rewriting everything, it is worth identifying which part of the work actually needs a new layer.",
+      it: "Un software vecchio o scomodo può comunque contenere regole, dati e dipendenze essenziali. Prima di riscrivere tutto, conviene capire quale parte del lavoro richiede un nuovo layer.",
+      en: "An old or awkward system can still contain essential rules, data and dependencies. Before rewriting everything, identify which part of the work needs a new layer.",
     },
     category: { it: "SYSTEMS NOTE / INTEGRATION", en: "SYSTEMS NOTE / INTEGRATION" },
     tags: {
@@ -517,7 +517,7 @@ export const researchNotes: ResearchNote[] = [
         },
         {
           label: "03 / Cosa verificare",
-          title: "L'integrazione va progettata partendo dalle capacità reali del software esistente.",
+          title: "L'integrazione va progettata partendo da interfacce e vincoli del software esistente.",
           paragraphs: [
             "Prima di promettere una integrazione bisogna verificare API, formati di import/export, database, webhook, permessi e limiti di licenza. Dove non esiste un punto di integrazione affidabile, bisogna dirlo.",
             "Una automazione fragile che simula click può essere accettabile per un prototipo, ma non dovrebbe diventare invisibilmente infrastruttura critica."
@@ -532,10 +532,10 @@ export const researchNotes: ResearchNote[] = [
         },
         {
           label: "04 / La decisione",
-          title: "Sostituire soltanto quando il costo dell'integrazione supera il valore di ciò che si conserva.",
+          title: "Sostituire solo quando integrare costa più di ciò che si conserva.",
           paragraphs: [
             "Ci sono casi in cui una riscrittura è corretta: tecnologia non più supportata, impossibilità di integrare, vincoli di sicurezza o costi operativi diventati insostenibili.",
-            "Ma la decisione dovrebbe arrivare dopo aver mappato il sistema reale, non prima. Il principio è semplice: conservare ciò che funziona, costruire ciò che manca."
+            "La decisione dovrebbe arrivare dopo aver mappato il sistema esistente. Il principio resta semplice: conservare ciò che funziona, costruire ciò che manca."
           ],
         },
       ],
@@ -576,7 +576,7 @@ export const researchNotes: ResearchNote[] = [
           title: "Replace only when integration costs more than preserving the useful parts.",
           paragraphs: [
             "There are cases where a rewrite is correct: unsupported technology, no viable integration path, security constraints or unsustainable operating costs.",
-            "But that decision should come after mapping the real system, not before. The principle is simple: preserve what works, build what is missing."
+            "That decision should come after mapping the existing system. The principle stays simple: preserve what works, build what is missing."
           ],
         },
       ],

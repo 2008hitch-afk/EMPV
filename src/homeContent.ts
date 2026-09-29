@@ -20,9 +20,9 @@ export const copy = {
     nav: { work: "Progetti", labs: "AI Lab", faq: "FAQ", people: "Chi siamo", notes: "Research Notes" },
     heroEyebrow: "Enrico Peruffo × Michele Valleri · Bergamo",
     heroTitleA: "Progettiamo sistemi",
-    heroTitleB: "intorno al lavoro reale.",
+    heroTitleB: "intorno a come si lavora.",
     heroBody:
-      "Entriamo nei processi, capiamo dove si perdono tempo e informazioni e costruiamo il sistema digitale necessario: software, automazioni e AI solo quando servono davvero.",
+      "Entriamo nei processi, individuiamo dove si perdono tempo e informazioni e costruiamo ciò che manca: software, automazioni o AI, ognuno con un compito preciso.",
     scroll: "Esplora i progetti",
     manifesto:
       "Non partiamo da una tecnologia da utilizzare. Partiamo da come viene svolto il lavoro: chi fa cosa, dove si ripetono le informazioni, cosa rallenta il processo e quali decisioni devono restare alle persone. Da lì decidiamo cosa costruire.",
@@ -33,13 +33,13 @@ export const copy = {
     labsLabel: "02 / AI Lab",
     labsTitle: "Un laboratorio per trasformare ipotesi AI in sistemi verificabili.",
     labsIntro:
-      "Qui sviluppiamo e testiamo progetti AI che non nascono da un brief cliente: infrastrutture, prodotti e linee di ricerca costruiti per capire se un'idea può diventare un sistema reale.",
+      "Qui sviluppiamo e testiamo progetti AI che non nascono da un brief cliente: infrastrutture, prodotti e linee di ricerca usati per capire se un'idea regge come prodotto o sistema.",
     labsNote:
       "Prototipi, esperimenti e progetti AI in evoluzione · rendiamo pubblica la direzione, non i dettagli che costituiscono il vantaggio tecnico.",
     faqLabel: "03 / FAQ",
-    faqTitle: "Domande che vale la pena chiarire.",
+    faqTitle: "Domande prima di iniziare.",
     faqIntro:
-      "Il punto non è applicare più tecnologia. È capire quale cambiamento serve davvero, cosa conviene costruire e quali limiti mantenere espliciti.",
+      "Prima di aggiungere tecnologia, definiamo quale cambiamento serve, cosa conviene costruire e quali limiti devono restare espliciti.",
     peopleLabel: "00 / Chi siamo",
     peopleTitle: "Scopri il team",
     peopleIntro: "",
@@ -58,12 +58,12 @@ export const copy = {
     nav: { work: "Projects", labs: "AI Lab", faq: "FAQ", people: "Who we are", notes: "Research Notes" },
     heroEyebrow: "Enrico Peruffo × Michele Valleri · Bergamo",
     heroTitleA: "We design systems",
-    heroTitleB: "around real work.",
+    heroTitleB: "around how work gets done.",
     heroBody:
-      "We step into processes, understand where time and information are lost, then build the digital system that is actually needed — software, automation and AI only when they add real value.",
+      "We map the process, find where time and information get lost, then build what is missing — software, automation or AI, each with a defined job.",
     scroll: "Explore projects",
     manifesto:
-      "We do not start with a technology to deploy. We start with how work is actually done: who does what, where information is repeated, what slows the process down and which decisions should remain human. From there, we decide what to build.",
+      "We do not start with a technology to deploy. We start with the workflow: who does what, where information is repeated, what slows the process down and which decisions should remain human. From there, we decide what to build.",
     selectedLabel: "01 / Projects",
     selectedTitle: "Projects delivered",
     selectedIntro:
@@ -71,13 +71,13 @@ export const copy = {
     labsLabel: "02 / AI Lab",
     labsTitle: "A lab for turning AI hypotheses into verifiable systems.",
     labsIntro:
-      "Here we develop and test AI projects that do not start from a client brief: infrastructure, products and research directions built to find out whether an idea can become a real system.",
+      "Here we develop and test AI projects that do not start from a client brief: infrastructure, products and research directions used to find out whether an idea holds up as a product or system.",
     labsNote:
       "Evolving AI prototypes, experiments and projects · we make the direction public, not the details that form the technical advantage.",
     faqLabel: "03 / FAQ",
-    faqTitle: "Questions worth clarifying.",
+    faqTitle: "Questions before we start.",
     faqIntro:
-      "The point is not to apply more technology. It is to understand what change is actually needed, what is worth building and which boundaries should remain explicit.",
+      "Before adding technology, we define the change that is needed, what should be built and which boundaries should remain explicit.",
     peopleLabel: "00 / Who we are",
     peopleTitle: "Meet the team",
     peopleIntro: "",
@@ -86,7 +86,7 @@ export const copy = {
       "Software architecture, infrastructure, local AI, orchestration and technical implementation. Turns complex hypotheses into executable and verifiable systems.",
     micheleRole: "Product & Process Design",
     micheleText:
-      "Process analysis, product design and the transformation of operational problems into systems that can actually be built.",
+      "Process analysis, product design and turning operational problems into systems that can be built.",
     portraitNote: "Portrait coming soon",
     footerTop: "EMPV / Enrico + Michele",
     footerBottom: "Systems · Products · AI · Research",
@@ -100,7 +100,7 @@ export const selected: Record<Lang, Project[]> = {
       index: "01",
       slug: "commesse-posa",
       name: "Sistema operativo per commesse e posa",
-      kind: "Caso reale / Serramenti",
+      kind: "Progetto / Serramenti",
       description:
         "Da informazioni distribuite tra cartelle, ufficio, officina e sopralluoghi a un unico sistema che accompagna la commessa dal rilievo alla posa.",
       meta: ["Commesse", "Campo → officina", "Dati condivisi", "Automazioni"],
@@ -110,7 +110,7 @@ export const selected: Record<Lang, Project[]> = {
       index: "02",
       slug: "psicologia-operations",
       name: "Gestione operativa per uno studio psicologico",
-      kind: "Caso reale / Psicologia",
+      kind: "Progetto / Psicologia",
       description:
         "Un unico sistema per coordinare pazienti, professionisti, appuntamenti, sedute e amministrazione, rispettando ruoli e responsabilità differenti.",
       meta: ["Operations", "Scheduling", "Ruoli", "Amministrazione"],
@@ -120,7 +120,7 @@ export const selected: Record<Lang, Project[]> = {
       index: "03",
       slug: "pet-resort-operations",
       name: "Piattaforma operativa per una struttura pet",
-      kind: "Caso reale / Pet hospitality",
+      kind: "Progetto / Pet hospitality",
       description:
         "Prenotazione cliente e lavoro quotidiano dello staff nello stesso sistema: soggiorni, disponibilità, attività, grooming, documenti e pagamenti.",
       meta: ["Hospitality ops", "Booking", "Area cliente", "Daily operations"],
@@ -130,7 +130,7 @@ export const selected: Record<Lang, Project[]> = {
       index: "04",
       slug: "richieste-preventivi",
       name: "Sistema di qualificazione richieste e preventivi",
-      kind: "Caso reale / Audio & eventi",
+      kind: "Progetto / Audio & eventi",
       description:
         "Da richieste libere e difficili da valutare a un percorso guidato che raccoglie le informazioni necessarie prima della preparazione del preventivo.",
       meta: ["Lead flow", "Richiesta guidata", "Website", "Human review"],
@@ -142,7 +142,7 @@ export const selected: Record<Lang, Project[]> = {
       index: "01",
       slug: "commesse-posa",
       name: "Job and installation operating system",
-      kind: "Real case / Windows & doors",
+      kind: "Project / Windows & doors",
       description:
         "From information split across folders, office, workshop and site surveys to one system that follows each job from measurement to installation.",
       meta: ["Jobs", "Field → workshop", "Shared data", "Automation"],
@@ -152,7 +152,7 @@ export const selected: Record<Lang, Project[]> = {
       index: "02",
       slug: "psicologia-operations",
       name: "Operations platform for a psychology practice",
-      kind: "Real case / Psychology",
+      kind: "Project / Psychology",
       description:
         "One operating system for patients, professionals, appointments, sessions and administration, while preserving distinct roles and responsibilities.",
       meta: ["Operations", "Scheduling", "Roles", "Administration"],
@@ -162,7 +162,7 @@ export const selected: Record<Lang, Project[]> = {
       index: "03",
       slug: "pet-resort-operations",
       name: "Operations platform for a pet facility",
-      kind: "Real case / Pet hospitality",
+      kind: "Project / Pet hospitality",
       description:
         "Customer booking and staff operations in the same system: stays, availability, tasks, grooming, documents and payments.",
       meta: ["Hospitality ops", "Booking", "Customer area", "Daily operations"],
@@ -172,7 +172,7 @@ export const selected: Record<Lang, Project[]> = {
       index: "04",
       slug: "richieste-preventivi",
       name: "Request qualification and quoting system",
-      kind: "Real case / Audio & events",
+      kind: "Project / Audio & events",
       description:
         "From unstructured requests that were hard to evaluate to a guided flow that collects the information needed before preparing a quote.",
       meta: ["Lead flow", "Guided request", "Website", "Human review"],
@@ -187,17 +187,17 @@ export const faqs: Record<Lang, { question: string; answer: string }[]> = {
     {
       question: "Che tipo di problemi affrontate?",
       answer:
-        "Situazioni in cui il lavoro dipende da passaggi manuali, informazioni disperse, strumenti che non comunicano o decisioni che richiedono troppo contesto ricostruito ogni volta. Prima di proporre una soluzione cerchiamo di capire dove nasce davvero l'attrito operativo.",
+        "Situazioni in cui il lavoro dipende da passaggi manuali, informazioni disperse, strumenti che non comunicano o decisioni che richiedono troppo contesto ricostruito ogni volta. Prima di proporre una soluzione individuiamo dove nasce l'attrito operativo.",
     },
     {
       question: "Partite sempre dall'AI?",
       answer:
-        "No. L'AI è una possibilità, non il punto di partenza. Se un problema si risolve meglio con software tradizionale, integrazioni o automazioni deterministiche, preferiamo la soluzione più semplice. Usiamo AI quando cambia realmente ciò che il sistema può fare.",
+        "No. L'AI è una possibilità, non il punto di partenza. Se un problema si risolve meglio con software tradizionale, integrazioni o automazioni deterministiche, preferiamo la soluzione più semplice. Usiamo AI solo quando abilita qualcosa che software e regole deterministiche gestiscono male.",
     },
     {
       question: "Costruite tutto da zero?",
       answer:
-        "Quasi mai per principio. Valutiamo prima ciò che esiste già, preserviamo gli strumenti specialistici che funzionano e costruiamo il layer mancante. Il valore non è riscrivere tutto: è far funzionare meglio il sistema complessivo.",
+        "Quasi mai per principio. Valutiamo prima ciò che esiste già, preserviamo gli strumenti specialistici che funzionano e costruiamo il layer mancante. Riscriviamo solo ciò che impedisce al sistema complessivo di funzionare bene.",
     },
     {
       question: "Potete lavorare con dati che devono restare in azienda?",
@@ -207,12 +207,12 @@ export const faqs: Record<Lang, { question: string; answer: string }[]> = {
     {
       question: "Come inizia un progetto?",
       answer:
-        "Ricostruiamo il processo reale: persone, passaggi, strumenti, dati, vincoli e decisioni. Poi individuiamo il cambiamento più piccolo capace di eliminare un attrito importante, lo rendiamo verificabile e solo dopo estendiamo il sistema.",
+        "Mappiamo il processo: persone, passaggi, strumenti, dati, vincoli e decisioni. Poi interveniamo su uno dei passaggi più ripetitivi o costosi, misuriamo il risultato e solo dopo estendiamo il sistema.",
     },
     {
       question: "I progetti dell'AI Lab possono diventare startup?",
       answer:
-        "Alcuni sì. Il Lab serve proprio a separare un'idea interessante da una tesi che regge tecnicamente e come prodotto. Quando una direzione dimostra abbastanza valore può evolvere in prodotto autonomo, spin-off o nuova iniziativa.",
+        "Alcuni sì. Il Lab serve a separare un'idea interessante da una tesi che regge tecnicamente e come prodotto. Quando una direzione supera i test tecnici e di prodotto può evolvere in prodotto autonomo, spin-off o nuova iniziativa.",
     },
     {
       question: "Siete aperti a partnership o investimenti?",
@@ -224,17 +224,17 @@ export const faqs: Record<Lang, { question: string; answer: string }[]> = {
     {
       question: "What kind of problems do you work on?",
       answer:
-        "Situations where work depends on manual handoffs, scattered information, disconnected tools or decisions that require people to reconstruct context over and over. Before proposing a solution, we identify where the operational friction actually starts.",
+        "Situations where work depends on manual handoffs, scattered information, disconnected tools or decisions that require people to reconstruct context over and over. Before proposing a solution, we identify where the operational friction starts.",
     },
     {
       question: "Do you always start with AI?",
       answer:
-        "No. AI is an option, not the starting point. If traditional software, integrations or deterministic automation solve the problem better, we prefer the simpler system. We use AI when it materially changes what the product can do.",
+        "No. AI is an option, not the starting point. If traditional software, integrations or deterministic automation solve the problem better, we prefer the simpler system. We use AI only where it enables something deterministic software handles poorly.",
     },
     {
       question: "Do you build everything from scratch?",
       answer:
-        "Almost never by principle. We first assess what already works, preserve mature specialist tools and build the missing layer around them. The value is not rewriting everything; it is making the overall system work better.",
+        "Almost never by principle. We first assess what already works, preserve mature specialist tools and build the missing layer around them. We rewrite only what prevents the overall system from working well.",
     },
     {
       question: "Can you work with data that needs to stay inside the company?",
@@ -244,12 +244,12 @@ export const faqs: Record<Lang, { question: string; answer: string }[]> = {
     {
       question: "How does a project start?",
       answer:
-        "We reconstruct the real process: people, handoffs, tools, data, constraints and decisions. Then we identify the smallest change capable of removing a meaningful friction, make it verifiable and only then expand the system.",
+        "We map the process: people, handoffs, tools, data, constraints and decisions. Then we change one of the most repetitive or costly handoffs, measure the result and only then expand the system.",
     },
     {
       question: "Can AI Lab projects become startups?",
       answer:
-        "Some can. The Lab exists to separate an interesting idea from a technical and product thesis that actually holds. When a direction demonstrates enough value, it can evolve into a standalone product, spin-off or new venture.",
+        "Some can. The Lab separates an interesting idea from a technical and product thesis that holds up under testing. Once a direction passes technical and product tests, it can evolve into a standalone product, spin-off or new venture.",
     },
     {
       question: "Are you open to partnerships or investment?",
@@ -267,7 +267,7 @@ export const labs: Record<Lang, Project[]> = {
       name: "System Twin",
       kind: "Research / systems intelligence",
       description:
-        "Ricostruire sistemi digitali reali in un modello semantico evidence-backed che colleghi codice, configurazioni, API, runtime, telemetria e documentazione.",
+        "Ricostruire sistemi digitali in esercizio in un modello semantico evidence-backed che colleghi codice, configurazioni, API, runtime, telemetria e documentazione.",
       question:
         "Possiamo ricostruire ciò che un sistema fa senza confondere fatti osservati, dichiarazioni, derivazioni e inferenze?",
       state:
@@ -285,7 +285,7 @@ export const labs: Record<Lang, Project[]> = {
       description:
         "Un public core per descrivere, validare, eseguire e valutare lavoro AI locale entro confini espliciti.",
       question:
-        "Come dimostriamo cosa un modello locale sa fare prima di autorizzarlo a svolgere lavoro reale?",
+        "Come dimostriamo cosa un modello locale sa fare prima di affidargli attività operative?",
       state:
         "Public Core 0.3.1 RC1 · schema 1.0.1",
       focus:
@@ -333,7 +333,7 @@ export const labs: Record<Lang, Project[]> = {
       name: "System Twin",
       kind: "Research / systems intelligence",
       description:
-        "Reconstructing real digital systems into an evidence-backed semantic model spanning code, configuration, APIs, runtime, telemetry and documentation.",
+        "Reconstructing digital systems in operation into an evidence-backed semantic model spanning code, configuration, APIs, runtime, telemetry and documentation.",
       question:
         "Can we reconstruct what a system does without conflating observed facts, declarations, derivations and inferences?",
       state:
@@ -351,7 +351,7 @@ export const labs: Record<Lang, Project[]> = {
       description:
         "A public core for describing, validating, executing and evaluating bounded local-AI work.",
       question:
-        "How do we prove what a local model can do before authorizing it to perform real work?",
+        "How do we prove what a local model can do before assigning it production tasks?",
       state:
         "Public Core 0.3.1 RC1 · schema 1.0.1",
       focus:
@@ -367,7 +367,7 @@ export const labs: Record<Lang, Project[]> = {
       description:
         "An evidence-first orchestrator that starts from observable operational problems and turns them into controlled research, qualification and commercial opportunities.",
       question:
-        "Does starting from problems instead of company lists produce prospects that human reviewers consider materially better?",
+        "Does starting from problems instead of company lists produce prospects that human reviewers can qualify with stronger evidence?",
       state:
         "Current milestone: Problem Research → Prospect Research → Qualification",
       focus:
