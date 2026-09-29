@@ -385,12 +385,19 @@ function structuredData(route) {
       url,
       inLanguage: route.lang,
       isPartOf: { "@id": websiteId },
-      hasPart: researchNotes.map(note => ({
-        "@type": "Article",
-        "@id": canonical({ kind: "note", lang: route.lang, noteId: note.id }) + "#article",
-        name: note.title[route.lang],
-        url: canonical({ kind: "note", lang: route.lang, noteId: note.id })
-      }))
+      mainEntity: {
+        "@type": "ItemList",
+        itemListElement: researchNotes.map((note, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "WebPage",
+            "@id": canonical({ kind: "note", lang: route.lang, noteId: note.id }) + "#webpage",
+            name: note.title[route.lang],
+            url: canonical({ kind: "note", lang: route.lang, noteId: note.id })
+          }
+        }))
+      }
     });
   }
 
@@ -406,6 +413,7 @@ function structuredData(route) {
         dateModified: note.updated || note.published,
         inLanguage: route.lang,
         keywords: note.tags[route.lang],
+        image: { "@id": siteUrl + "/#logo" },
         mainEntityOfPage: { "@id": url + "#webpage" },
         author: [{ "@id": enricoId }, { "@id": micheleId }],
         publisher: { "@id": orgId }
