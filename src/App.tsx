@@ -13,7 +13,7 @@ import BackgroundEffect, {
 import ProjectDetail from "./ProjectDetail";
 import LegalPage from "./LegalPage";
 import SiteFooter from "./SiteFooter";
-import { SeoHead, parseCurrentRoute, siteHref, type SiteRoute } from "./seo";
+import { SeoHead, parseCurrentRoute, siteAssetHref, siteHref, type SiteRoute } from "./seo";
 import type { SiteLang } from "./detailContent";
 
 type Lang = SiteLang;
@@ -496,13 +496,13 @@ function PersonProfile({
   role,
   text,
   variant,
-  portraitNote,
+  photoSrc,
 }: {
   name: string;
   role: string;
   text: string;
   variant: "a" | "b";
-  portraitNote: string;
+  photoSrc: string;
 }) {
   return (
     <motion.article
@@ -512,8 +512,13 @@ function PersonProfile({
       viewport={{ once: true, margin: "-10%" }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="person-photo" aria-label={portraitNote}>
-        <span>{portraitNote}</span>
+      <div className={`person-photo person-photo--${variant} has-photo`}>
+        <img
+          src={photoSrc}
+          alt={name}
+          loading="lazy"
+          decoding="async"
+        />
       </div>
       <div className="person-index">{variant === "a" ? "01" : "02"}</div>
       <div className="person-editorial-copy">
@@ -977,14 +982,14 @@ function PortfolioApp({
               role={c.enricoRole}
               text={c.enricoText}
               variant="a"
-              portraitNote={c.portraitNote}
+              photoSrc={siteAssetHref("team/enrico-peruffo.webp")}
             />
             <PersonProfile
               name="Michele Valleri"
               role={c.micheleRole}
               text={c.micheleText}
               variant="b"
-              portraitNote={c.portraitNote}
+              photoSrc={siteAssetHref("team/michele-valleri.webp")}
             />
           </div>
         </section>

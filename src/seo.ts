@@ -40,6 +40,11 @@ export function siteHref(route: SiteRoute): string {
   return `${prefix}${routePath(route)}`.replace(/\/+/g, "/");
 }
 
+export function siteAssetHref(path: string): string {
+  const prefix = runtimeBasePrefix().replace(/\/$/, "");
+  return `${prefix}/${path.replace(/^\/+/, "")}`.replace(/\/+/g, "/");
+}
+
 export function canonicalUrl(route: SiteRoute): string {
   return `${SITE_URL}${routePath(route)}`;
 }
