@@ -70,7 +70,9 @@ float lineFn(vec2 st, float width, float perc, float offset, vec2 mouse, float t
     float finalAmplitude = amplitude_normal * amplitude_strength
                            * amplitude * (1.0 + (mouse.y - 0.5) * 0.2);
 
-    float time_scaled = time / 10.0 + (mouse.x - 0.5) * 1.0;
+    float cursorDistance = length(st - mouse);
+    float cursorInfluence = 1.0 - smoothstep(0.08, 0.48, cursorDistance);
+    float time_scaled = time / 10.0 + (mouse.x - 0.5) * 1.8;
     float blur = smoothstep(split_point, split_point + 0.05, st.x) * perc;
 
     float xnoise = mix(
@@ -79,7 +81,14 @@ float lineFn(vec2 st, float width, float perc, float offset, vec2 mouse, float t
         st.x * 0.3
     );
 
-    float y = 0.5 + (perc - 0.5) * distance + xnoise / 2.0 * finalAmplitude;
+    float cursorPush = (mouse.y - 0.5) * 0.34 * cursorInfluence;
+    float cursorRipple = sin((st.x - mouse.x) * 12.0 + time * 1.15)
+                       * 0.10 * cursorInfluence * amplitude;
+    float y = 0.5
+            + (perc - 0.5) * distance
+            + xnoise / 2.0 * finalAmplitude
+            + cursorPush
+            + cursorRipple;
 
     float line_start = smoothstep(
         y + (width / 2.0) + (u_line_blur * pixel(1.0, iResolution.xy) * blur),
@@ -196,17 +205,30 @@ const Threads: React.FC<ThreadsProps> = ({
     const currentMouse = [0.5, 0.5];
     let targetMouse = [0.5, 0.5];
 
-    function handleMouseMove(e: MouseEvent) {
+    function handlePointerMove(e: PointerEvent) {
+      if (!propsRef.current.enableMouseInteraction) {
+        targetMouse = [0.5, 0.5];
+        return;
+      }
+
       const rect = container.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = 1.0 - (e.clientY - rect.top) / rect.height;
+      const inside =
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom;
+
+      if (!inside || rect.width <= 0 || rect.height <= 0) {
+        targetMouse = [0.5, 0.5];
+        return;
+      }
+
+      const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      const y = Math.max(0, Math.min(1, 1.0 - (e.clientY - rect.top) / rect.height));
       targetMouse = [x, y];
     }
-    function handleMouseLeave() {
-      targetMouse = [0.5, 0.5];
-    }
-    container.addEventListener('mousemove', handleMouseMove);
-    container.addEventListener('mouseleave', handleMouseLeave);
+
+    window.addEventListener('pointermove', handlePointerMove, { passive: true });
 
     // Only animate while the canvas is on screen and the tab is visible, so the
     // shader never burns GPU/CPU for something the user can't see.
@@ -230,7 +252,7 @@ const Threads: React.FC<ThreadsProps> = ({
       program.uniforms.uDistance.value = distance;
 
       if (enableMouseInteraction) {
-        const smoothing = 0.05;
+        const smoothing = 0.12;
         currentMouse[0] += smoothing * (targetMouse[0] - currentMouse[0]);
         currentMouse[1] += smoothing * (targetMouse[1] - currentMouse[1]);
         program.uniforms.uMouse.value[0] = currentMouse[0];
@@ -250,8 +272,7 @@ const Threads: React.FC<ThreadsProps> = ({
       resizeObserver.disconnect();
       intersectionObserver.disconnect();
       window.removeEventListener('resize', resize);
-      container.removeEventListener('mousemove', handleMouseMove);
-      container.removeEventListener('mouseleave', handleMouseLeave);
+      window.removeEventListener('pointermove', handlePointerMove);
       if (container.contains(gl.canvas)) container.removeChild(gl.canvas);
       gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
