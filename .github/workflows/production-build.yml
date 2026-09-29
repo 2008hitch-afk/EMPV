@@ -53,6 +53,9 @@ jobs:
           grep -q "^# EMPV" dist/llms.txt
           grep -q 'rel="describedby" href="https://empv.it/llms.txt"' dist/it/index.html
           grep -q "https://wa.me/393792438705" dist/it/index.html
+          grep -q '"logo":{"@type":"ImageObject"' dist/it/index.html
+          grep -q 'class="detail-nav-back"' dist/it/progetti/commesse-posa/index.html
+          grep -q 'hreflang="en"' dist/it/progetti/commesse-posa/index.html
           test -f dist/CNAME
           test ! -e dist/src
           test ! -e dist/node_modules
