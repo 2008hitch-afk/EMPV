@@ -109,7 +109,7 @@ function homeMarkup(lang) {
     '</main>',
     '<footer><div class="footer-mark">EMPV</div><div class="footer-meta"><div class="footer-column footer-identity"><strong>EMPV</strong><span>Systems · Products · AI · Research</span><span>',
     lang === "it" ? "Bergamo, Italia" : "Bergamo, Italy",
-    '</span><span>© 2026 EMPV</span></div><div class="footer-column"><a href="mailto:hello@empv.it">hello@empv.it</a><a href="https://www.linkedin.com/company/emp26/">LinkedIn</a></div></div></footer>',
+    '</span><span>© 2026 EMPV</span></div><div class="footer-column"><a href="mailto:hello@empv.it">hello@empv.it</a><a href="https://wa.me/393792438705">WhatsApp</a><a href="https://www.linkedin.com/company/emp26/">LinkedIn</a></div></div></footer>',
     '</div>'
   ].join("");
 }
@@ -192,6 +192,7 @@ function structuredData(route) {
       name: "EMPV",
       url: siteUrl,
       email: "hello@empv.it",
+      telephone: "+39 379 243 8705",
       sameAs: ["https://www.linkedin.com/company/emp26/"],
       address: { "@type": "PostalAddress", addressLocality: "Bergamo", addressCountry: "IT" },
       member: [{ "@id": enricoId }, { "@id": micheleId }]
@@ -405,6 +406,7 @@ llmsLines.push(
   "",
   "- [LinkedIn](https://www.linkedin.com/company/emp26/): EMPV company profile.",
   "- Email: hello@empv.it",
+  "- WhatsApp: +39 379 243 8705",
   "",
   "## Discovery",
   "",
