@@ -32,6 +32,14 @@ function inject(html, route) {
   const it = canonical({ ...route, lang:"it" });
   const en = canonical({ ...route, lang:"en" });
   const robots = route.kind === "legal" ? "noindex,follow" : "index,follow,max-image-preview:large";
+
+  html = html
+    .replace(/\s*<meta name="robots"[^>]*>/g, "")
+    .replace(/\s*<link rel="canonical"[^>]*>/g, "")
+    .replace(/\s*<link rel="alternate"[^>]*>/g, "")
+    .replace(/\s*<meta property="og:[^>]*>/g, "")
+    .replace(/\s*<meta name="twitter:[^>]*>/g, "");
+
   html = html.replace(/<html lang="[^"]*">/, `<html lang="${route.lang}">`);
   html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(copy.title)}</title>`);
   html = html.replace(/<meta name="description"[^>]*>/, `<meta name="description" content="${esc(copy.description)}" />`);
