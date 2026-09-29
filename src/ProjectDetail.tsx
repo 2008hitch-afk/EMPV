@@ -47,8 +47,10 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
         : "Back to projects"
       : "AI Lab";
 
+  const detailType = detail.type;
+  const detailSlug = detail.slug;
   const backHref =
-    detail.type === "project"
+    detailType === "project"
       ? `${siteHref({ kind: "home", lang })}#work`
       : `${siteHref({ kind: "home", lang })}#labs`;
 
@@ -57,8 +59,8 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
     window.location.href = siteHref({
       kind: "detail",
       lang: next,
-      detailKind: detail.type,
-      slug: detail.slug,
+      detailKind: detailType,
+      slug: detailSlug,
     });
   }
 
