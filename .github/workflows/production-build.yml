@@ -52,6 +52,7 @@ jobs:
           grep -q 'name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg"' dist/index.html
           grep -q "^# EMPV" dist/llms.txt
           grep -q 'rel="describedby" href="https://empv.it/llms.txt"' dist/it/index.html
+          grep -q "https://wa.me/393792438705" dist/it/index.html
           test -f dist/CNAME
           test ! -e dist/src
           test ! -e dist/node_modules
