@@ -41,7 +41,7 @@ export default function SiteFooter({ lang }: { lang: SiteLang }) {
           </a>
           <a
             className="footer-contact-link"
-            href="https://wa.me/393472438705"
+            href="https://wa.me/393792438705"
             target="_blank"
             rel="noreferrer"
           >
