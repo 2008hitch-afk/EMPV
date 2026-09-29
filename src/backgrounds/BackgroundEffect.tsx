@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useRef } from "react";
 import "./background-effects.css";
 
 export type BackgroundName =
@@ -264,6 +264,82 @@ export default function BackgroundEffect({
   const midCss = tintToCss(midTint);
   const lightCss = tintToCss(lightTint);
   const paletteHue = tintHue(paletteTint);
+  const motionLayerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const layer = motionLayerRef.current;
+    if (!layer) return;
+
+    if (!tuning.pointer) {
+      layer.style.setProperty("--pointer-shift-x", "0px");
+      layer.style.setProperty("--pointer-shift-y", "0px");
+      layer.style.setProperty("--pointer-rotate-x", "0deg");
+      layer.style.setProperty("--pointer-rotate-y", "0deg");
+      return;
+    }
+
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
+    let raf = 0;
+
+    const updateTarget = (event: PointerEvent) => {
+      const root = layer.parentElement;
+      if (!root) return;
+      const rect = root.getBoundingClientRect();
+      if (rect.width <= 0 || rect.height <= 0) return;
+
+      const inside =
+        event.clientX >= rect.left &&
+        event.clientX <= rect.right &&
+        event.clientY >= rect.top &&
+        event.clientY <= rect.bottom;
+
+      if (!inside) {
+        targetX = 0;
+        targetY = 0;
+        return;
+      }
+
+      targetX = Math.max(-1, Math.min(1, ((event.clientX - rect.left) / rect.width - 0.5) * 2));
+      targetY = Math.max(-1, Math.min(1, ((event.clientY - rect.top) / rect.height - 0.5) * 2));
+    };
+
+    const resetTarget = () => {
+      targetX = 0;
+      targetY = 0;
+    };
+
+    const tick = () => {
+      currentX += (targetX - currentX) * 0.085;
+      currentY += (targetY - currentY) * 0.085;
+
+      const shiftX = currentX * (5 + depth * 10);
+      const shiftY = currentY * (4 + depth * 8);
+      const rotateX = -currentY * (0.18 + depth * 0.42);
+      const rotateY = currentX * (0.22 + depth * 0.52);
+
+      layer.style.setProperty("--pointer-shift-x", `${shiftX.toFixed(2)}px`);
+      layer.style.setProperty("--pointer-shift-y", `${shiftY.toFixed(2)}px`);
+      layer.style.setProperty("--pointer-rotate-x", `${rotateX.toFixed(3)}deg`);
+      layer.style.setProperty("--pointer-rotate-y", `${rotateY.toFixed(3)}deg`);
+
+      raf = requestAnimationFrame(tick);
+    };
+
+    window.addEventListener("pointermove", updateTarget, { passive: true });
+    window.addEventListener("blur", resetTarget);
+    document.documentElement.addEventListener("mouseleave", resetTarget);
+    raf = requestAnimationFrame(tick);
+
+    return () => {
+      window.removeEventListener("pointermove", updateTarget);
+      window.removeEventListener("blur", resetTarget);
+      document.documentElement.removeEventListener("mouseleave", resetTarget);
+      cancelAnimationFrame(raf);
+    };
+  }, [tuning.pointer, depth, name]);
 
   if (name === "none") return null;
 
@@ -281,7 +357,11 @@ export default function BackgroundEffect({
       }}
       aria-hidden="true"
     >
-      <Suspense fallback={<div className="background-effect-loading" />}>
+      <div
+        ref={motionLayerRef}
+        className={`background-effect-motion-layer ${tuning.pointer ? "is-pointer-enabled" : ""}`}
+      >
+        <Suspense fallback={<div className="background-effect-loading" />}>
         {name === "particles" && (
           <Floating3DParticles
             quantity={Math.round(130 + intensity * 430)}
@@ -548,7 +628,8 @@ export default function BackgroundEffect({
             mouseRadius={0.35 + depth * 0.45}
           />
         )}
-      </Suspense>
+        </Suspense>
+      </div>
     </div>
   );
 }

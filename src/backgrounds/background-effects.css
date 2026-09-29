@@ -84,3 +84,37 @@
   filter: none;
   background: #11110f;
 }
+
+
+/* Shared pointer parallax for every visual effect */
+.background-effect-motion-layer {
+  --pointer-shift-x: 0px;
+  --pointer-shift-y: 0px;
+  --pointer-rotate-x: 0deg;
+  --pointer-rotate-y: 0deg;
+  width: 100%;
+  height: 100%;
+  transform:
+    translate3d(var(--pointer-shift-x), var(--pointer-shift-y), 0)
+    rotateX(var(--pointer-rotate-x))
+    rotateY(var(--pointer-rotate-y))
+    scale(1.035);
+  transform-origin: 50% 50%;
+  will-change: transform;
+}
+
+.background-effect-motion-layer > * {
+  width: 100%;
+  height: 100%;
+}
+
+.background-effect-motion-layer:not(.is-pointer-enabled) {
+  transform: scale(1.035);
+}
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .background-effect-motion-layer,
+  .background-effect-motion-layer:not(.is-pointer-enabled) {
+    transform: scale(1.035);
+  }
+}
