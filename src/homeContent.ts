@@ -37,7 +37,7 @@ export const copy = {
     labsNote:
       "Prototipi, esperimenti e progetti AI in evoluzione · rendiamo pubblica la direzione, non i dettagli che costituiscono il vantaggio tecnico.",
     faqLabel: "03 / FAQ",
-    faqTitle: "Domande che vale la pena chiarire.",
+    faqTitle: "Domande prima di iniziare.",
     faqIntro:
       "Prima di aggiungere tecnologia, definiamo quale cambiamento serve, cosa conviene costruire e quali limiti devono restare espliciti.",
     peopleLabel: "00 / Chi siamo",
@@ -75,9 +75,9 @@ export const copy = {
     labsNote:
       "Evolving AI prototypes, experiments and projects · we make the direction public, not the details that form the technical advantage.",
     faqLabel: "03 / FAQ",
-    faqTitle: "Questions worth clarifying.",
+    faqTitle: "Questions before we start.",
     faqIntro:
-      "Before adding technology, we define the change that is needed, what is worth building and which boundaries should remain explicit.",
+      "Before adding technology, we define the change that is needed, what should be built and which boundaries should remain explicit.",
     peopleLabel: "00 / Who we are",
     peopleTitle: "Meet the team",
     peopleIntro: "",
@@ -207,7 +207,7 @@ export const faqs: Record<Lang, { question: string; answer: string }[]> = {
     {
       question: "Come inizia un progetto?",
       answer:
-        "Mappiamo il processo: persone, passaggi, strumenti, dati, vincoli e decisioni. Poi individuiamo il cambiamento più piccolo capace di eliminare un attrito importante, lo rendiamo verificabile e solo dopo estendiamo il sistema.",
+        "Mappiamo il processo: persone, passaggi, strumenti, dati, vincoli e decisioni. Poi interveniamo su uno dei passaggi più ripetitivi o costosi, misuriamo il risultato e solo dopo estendiamo il sistema.",
     },
     {
       question: "I progetti dell'AI Lab possono diventare startup?",
@@ -244,7 +244,7 @@ export const faqs: Record<Lang, { question: string; answer: string }[]> = {
     {
       question: "How does a project start?",
       answer:
-        "We map the process: people, handoffs, tools, data, constraints and decisions. Then we identify the smallest change capable of removing a meaningful friction, make it verifiable and only then expand the system.",
+        "We map the process: people, handoffs, tools, data, constraints and decisions. Then we change one of the most repetitive or costly handoffs, measure the result and only then expand the system.",
     },
     {
       question: "Can AI Lab projects become startups?",
