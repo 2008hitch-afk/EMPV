@@ -36,7 +36,7 @@ function PrivacySections({ lang }: { lang: SiteLang }): LegalSection[] {
               Sant&apos;Alessandro (BG), Italy.
             </p>
             <p>
-              Contact: <a href="mailto:empv2626@gmail.com">empv2626@gmail.com</a> ·
+              Contact: <a href="mailto:hello@empv.it">hello@empv.it</a> ·
               {" "}<a href="https://wa.me/393472438705" target="_blank" rel="noreferrer">
                 +39 347 243 8705
               </a>.
@@ -90,7 +90,7 @@ function PrivacySections({ lang }: { lang: SiteLang }): LegalSection[] {
               where relevant, take pre-contractual steps requested by you.
             </p>
             <p>
-              Email is currently managed through Gmail. WhatsApp is an external service:
+              Email is managed through the provider associated with the official EMPV mailbox. WhatsApp is an external service:
               no WhatsApp widget is loaded on this site and the connection to WhatsApp is
               initiated only when the visitor clicks the relevant link.
             </p>
@@ -125,7 +125,7 @@ function PrivacySections({ lang }: { lang: SiteLang }): LegalSection[] {
         body: (
           <p>
             Technical or communication data may be processed by service providers used
-            for hosting and communications, including GitHub, Google/Gmail and, only
+            for hosting and communications, including GitHub, the email service provider and, only
             after a click on the external link, WhatsApp/Meta. Some providers may process
             data outside the European Economic Area under the safeguards described in
             their applicable privacy documentation.
@@ -154,7 +154,7 @@ function PrivacySections({ lang }: { lang: SiteLang }): LegalSection[] {
               consent when processing is based on consent.
             </p>
             <p>
-              Requests can be sent to <a href="mailto:empv2626@gmail.com">empv2626@gmail.com</a>.
+              Requests can be sent to <a href="mailto:hello@empv.it">hello@empv.it</a>.
               You also have the right to lodge a complaint with the Italian Data
               Protection Authority.
             </p>
@@ -179,7 +179,7 @@ function PrivacySections({ lang }: { lang: SiteLang }): LegalSection[] {
             Albano Sant&apos;Alessandro (BG), Italia.
           </p>
           <p>
-            Contatti: <a href="mailto:empv2626@gmail.com">empv2626@gmail.com</a> ·
+            Contatti: <a href="mailto:hello@empv.it">hello@empv.it</a> ·
             {" "}<a href="https://wa.me/393472438705" target="_blank" rel="noreferrer">
               +39 347 243 8705
             </a>.
@@ -234,7 +234,7 @@ function PrivacySections({ lang }: { lang: SiteLang }): LegalSection[] {
             dall&apos;interessato.
           </p>
           <p>
-            La posta elettronica è attualmente gestita tramite Gmail. WhatsApp è un
+            La posta elettronica è gestita tramite il fornitore associato alla casella ufficiale EMPV. WhatsApp è un
             servizio esterno: il sito non carica widget WhatsApp e la connessione al
             servizio avviene solo dopo il click volontario sul relativo collegamento.
           </p>
@@ -269,7 +269,7 @@ function PrivacySections({ lang }: { lang: SiteLang }): LegalSection[] {
       body: (
         <p>
           Dati tecnici o di comunicazione possono essere trattati dai fornitori utilizzati
-          per hosting e comunicazioni, tra cui GitHub, Google/Gmail e, solo dopo il click
+          per hosting e comunicazioni, tra cui GitHub, il fornitore del servizio email e, solo dopo il click
           sul collegamento esterno, WhatsApp/Meta. Alcuni fornitori possono trattare dati
           fuori dallo Spazio Economico Europeo secondo le garanzie indicate nelle
           rispettive informative applicabili.
@@ -299,7 +299,7 @@ function PrivacySections({ lang }: { lang: SiteLang }): LegalSection[] {
           </p>
           <p>
             Le richieste possono essere inviate a
-            {" "}<a href="mailto:empv2626@gmail.com">empv2626@gmail.com</a>. Resta inoltre
+            {" "}<a href="mailto:hello@empv.it">hello@empv.it</a>. Resta inoltre
             il diritto di proporre reclamo al Garante per la protezione dei dati personali.
           </p>
         </>
@@ -451,7 +451,7 @@ function LegalNoticeSections({ lang }: { lang: SiteLang }): LegalSection[] {
               Activity: computer programming.
             </p>
             <p>
-              Email: <a href="mailto:empv2626@gmail.com">empv2626@gmail.com</a> ·
+              Email: <a href="mailto:hello@empv.it">hello@empv.it</a> ·
               WhatsApp/phone: <a href="https://wa.me/393472438705" target="_blank" rel="noreferrer">
                 +39 347 243 8705
               </a>.
@@ -530,7 +530,7 @@ function LegalNoticeSections({ lang }: { lang: SiteLang }): LegalSection[] {
             Italia. Attività: programmazione informatica.
           </p>
           <p>
-            Email: <a href="mailto:empv2626@gmail.com">empv2626@gmail.com</a> ·
+            Email: <a href="mailto:hello@empv.it">hello@empv.it</a> ·
             WhatsApp/telefono: <a href="https://wa.me/393472438705" target="_blank" rel="noreferrer">
               +39 347 243 8705
             </a>.

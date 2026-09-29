@@ -1,4 +1,4 @@
-import { Mail, MessageCircle } from "lucide-react";
+import { Linkedin, Mail, MessageCircle } from "lucide-react";
 import type { SiteLang } from "./detailContent";
 import { siteHref, type LegalSlug } from "./seo";
 import "./legal.css";
@@ -16,10 +16,12 @@ export default function SiteFooter({ lang }: { lang: SiteLang }) {
       <div className="footer-mark">EMPV</div>
 
       <div className="footer-meta">
-        <div className="footer-column">
+        <div className="footer-column footer-identity">
           <strong>EMPV</strong>
           <span>Systems · Products · AI · Research</span>
           <span>{isIt ? "Bergamo, Italia" : "Bergamo, Italy"}</span>
+          <span className="footer-identity-tax">P.IVA 04942220163</span>
+          <span>© 2026 EMPV</span>
         </div>
 
         <div className="footer-column">
@@ -33,9 +35,9 @@ export default function SiteFooter({ lang }: { lang: SiteLang }) {
 
         <div className="footer-column">
           <span className="footer-column-label">{isIt ? "Contatti" : "Contact"}</span>
-          <a className="footer-contact-link" href="mailto:empv2626@gmail.com">
+          <a className="footer-contact-link" href="mailto:hello@empv.it">
             <Mail size={15} strokeWidth={1.5} />
-            <span>empv2626@gmail.com</span>
+            <span>hello@empv.it</span>
           </a>
           <a
             className="footer-contact-link"
@@ -46,11 +48,15 @@ export default function SiteFooter({ lang }: { lang: SiteLang }) {
             <MessageCircle size={15} strokeWidth={1.5} />
             <span>WhatsApp</span>
           </a>
-        </div>
-
-        <div className="footer-tax">
-          <strong>P.IVA 04942220163</strong>
-          <span>© 2026 EMPV</span>
+          <a
+            className="footer-contact-link"
+            href="https://www.linkedin.com/company/emp26/posts/?viewAsMember=true"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <Linkedin size={15} strokeWidth={1.5} />
+            <span>LinkedIn</span>
+          </a>
         </div>
       </div>
     </footer>
