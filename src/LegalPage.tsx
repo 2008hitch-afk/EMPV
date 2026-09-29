@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import SiteFooter from "./SiteFooter";
+import { siteHref } from "./seo";
 import type { SiteLang } from "./detailContent";
 
 export type LegalPageSlug = "privacy" | "cookies" | "legal";
@@ -656,10 +657,7 @@ export default function LegalPage({
 
   const toggleLang = () => {
     const next = lang === "it" ? "en" : "it";
-    setLang(next);
-    const url = new URL(window.location.href);
-    url.searchParams.set("lang", next);
-    window.history.replaceState({}, "", url);
+    window.location.href = siteHref({ kind: "legal", lang: next, slug });
   };
 
   const legalLinks: Array<{ slug: LegalPageSlug; it: string; en: string }> = [
@@ -671,7 +669,7 @@ export default function LegalPage({
   return (
     <div className="legal-shell">
       <header className="legal-topbar">
-        <a className="legal-home" href={`?lang=${lang}`} aria-label={labels.back}>
+        <a className="legal-home" href={siteHref({ kind: "home", lang })} aria-label={labels.back}>
           EMPV
         </a>
         <div className="legal-topbar-title">{meta.eyebrow}</div>
@@ -699,7 +697,7 @@ export default function LegalPage({
           {legalLinks
             .filter((item) => item.slug !== slug)
             .map((item) => (
-              <a key={item.slug} href={`?legal=${item.slug}&lang=${lang}`}>
+              <a key={item.slug} href={siteHref({ kind: "legal", lang, slug: item.slug })}>
                 {item[lang]}
               </a>
             ))}
