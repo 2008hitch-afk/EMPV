@@ -32,6 +32,8 @@ jobs:
         run: npm install --no-audit --no-fund
 
       - name: Typecheck and build portable preview
+        env:
+          VITE_ENABLE_BACKGROUND_LAB: "true"
         run: |
           npx tsc -b
           npx vite build --base=./
@@ -44,6 +46,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout --orphan preview-built
           git rm -rf . || true
+          git clean -fdx
           cp -R /tmp/empv-preview-dist/. .
           touch .nojekyll
           git add -A

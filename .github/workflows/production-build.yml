@@ -1,0 +1,67 @@
+name: Build clean production
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: empv-production
+  cancel-in-progress: true
+
+jobs:
+  build-production:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Build clean empv.it release
+        env:
+          VITE_SITE_ORIGIN: "https://empv.it"
+          VITE_SITE_BASE_PATH: ""
+          VITE_ENABLE_BACKGROUND_LAB: "false"
+        run: |
+          npx tsc -b
+          npx vite build --base=/
+          node scripts/seo-build.mjs
+          printf "empv.it\n" > dist/CNAME
+          touch dist/.nojekyll
+
+      - name: Assert production package is clean
+        run: |
+          test -f dist/index.html
+          test -f dist/robots.txt
+          test -f dist/sitemap.xml
+          test -f dist/CNAME
+          test ! -e dist/src
+          test ! -e dist/node_modules
+          test ! -e dist/.github
+          ! grep -R "2008hitch-afk.github.io/EMPV" dist --exclude='*.map'
+          ! grep -R "background-lab" dist/*.html dist/it dist/en 2>/dev/null
+
+      - name: Publish clean production branch
+        run: |
+          cp -R dist /tmp/empv-production-dist
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan production
+          git rm -rf . || true
+          git clean -fdx
+          cp -R /tmp/empv-production-dist/. .
+          git add -A
+          git commit -m "Production release ${GITHUB_SHA}"
+          git push --force origin HEAD:production

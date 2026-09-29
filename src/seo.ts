@@ -13,7 +13,9 @@ export type SiteRoute =
 const projectSlugs = new Set(Object.entries(manifest.details).filter(([, v]) => v.type === "project").map(([slug]) => slug));
 const labSlugs = new Set(Object.entries(manifest.details).filter(([, v]) => v.type === "lab").map(([slug]) => slug));
 
-export const SITE_URL = `${manifest.siteOrigin}${manifest.basePath}`;
+const runtimeSiteOrigin = import.meta.env.VITE_SITE_ORIGIN ?? manifest.siteOrigin;
+const runtimeBasePath = import.meta.env.VITE_SITE_BASE_PATH ?? manifest.basePath;
+export const SITE_URL = `${runtimeSiteOrigin}${runtimeBasePath}`;
 
 export function routePath(route: SiteRoute): string {
   if (route.kind === "home") return `/${route.lang}/`;

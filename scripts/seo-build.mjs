@@ -3,7 +3,9 @@ import { join } from "node:path";
 
 const manifest = JSON.parse(await readFile(new URL("../src/seo-manifest.json", import.meta.url), "utf8"));
 const template = await readFile(new URL("../dist/index.html", import.meta.url), "utf8");
-const siteUrl = `${manifest.siteOrigin}${manifest.basePath}`;
+const siteOrigin = process.env.VITE_SITE_ORIGIN ?? manifest.siteOrigin;
+const basePath = process.env.VITE_SITE_BASE_PATH ?? manifest.basePath;
+const siteUrl = `${siteOrigin}${basePath}`;
 
 function routePath(route) {
   if (route.kind === "home") return `/${route.lang}/`;

@@ -1071,7 +1071,9 @@ function PortfolioApp({
 
 function App() {
   const normalizedPath = window.location.pathname.replace(/\/$/, "");
-  const isBackgroundLab = normalizedPath.endsWith("/background-lab");
+  const backgroundLabEnabled = import.meta.env.VITE_ENABLE_BACKGROUND_LAB === "true";
+  const isBackgroundLab =
+    backgroundLabEnabled && normalizedPath.endsWith("/background-lab");
   const route = parseCurrentRoute();
   const initialLang: SiteLang = route.lang;
   const [activeBackground, setActiveBackground] =
