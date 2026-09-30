@@ -16,7 +16,8 @@ import {
 import "./business-card.css";
 
 function assetHref(path: string) {
-  return `${import.meta.env.BASE_URL}${path.replace(/^\\/+/, "")}`.replace(/\\/+/g, "/");
+  const cleanPath = path.startsWith("/") ? path.slice(1) : path;
+  return `${import.meta.env.BASE_URL}${cleanPath}`;
 }
 
 export default function BusinessCard({ person }: { person: BusinessPerson }) {
