@@ -571,12 +571,17 @@ footer {
   gap: 40px;
 }
 
-.hero-bottom > p {
+.hero-narrative {
+  display: grid;
+  gap: 10px;
+  max-width: 760px;
+}
+
+.hero-narrative p {
   margin: 0;
-  max-width: 670px;
-  font-size: clamp(1.05rem, 1.65vw, 1.5rem);
-  line-height: 1.45;
-  letter-spacing: -0.025em;
+  font-size: clamp(0.98rem, 1.18vw, 1.14rem);
+  line-height: 1.5;
+  letter-spacing: -0.022em;
   text-wrap: pretty;
 }
 
@@ -1469,8 +1474,8 @@ footer {
     -webkit-text-stroke-width: 1px;
   }
 
-  .hero-bottom > p {
-    font-size: 1rem;
+  .hero-narrative p {
+    font-size: 0.98rem;
   }
 
   .manifesto p {
