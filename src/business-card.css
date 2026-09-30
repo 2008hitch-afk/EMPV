@@ -217,6 +217,19 @@
   background: #ff6238;
 }
 
+.business-card-linkedin-icon {
+  width: 19px;
+  height: 19px;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  font-size: 0.67rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
 .business-card-action svg:last-child {
   justify-self: end;
   opacity: 0.58;
