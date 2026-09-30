@@ -74,10 +74,12 @@ uniform float uGrain;
 uniform float uGrainIntensity;
 uniform float uDirection;
 uniform vec2 uMouse;
+uniform vec2 uMouseVelocity;
 uniform float uMouseEnabled;
 uniform float uMouseRadius;
 uniform float uMouseStrength;
 uniform float uMouseActive;
+uniform float uClickPulse;
 uniform vec3 uColor1;
 uniform vec3 uColor2;
 uniform vec3 uColor3;
@@ -116,8 +118,21 @@ void main() {
   if (uMouseEnabled > 0.5) {
     vec2 mUv = vec2((uMouse.x * 2.0 - 1.0) * aspect, uMouse.y * 2.0 - 1.0);
     vec2 md = uv0 - mUv;
+    float dist = max(length(md), 0.0001);
     float r = max(uMouseRadius, 0.001);
-    mouseBoost = exp(-dot(md, md) / (r * r)) * uMouseStrength * uMouseActive;
+    float local = exp(-dot(md, md) / (r * r));
+    vec2 dir = md / dist;
+    vec2 velocity = vec2(uMouseVelocity.x * aspect, uMouseVelocity.y);
+    float velocityAmount = clamp(length(velocity) * 26.0, 0.0, 1.0);
+
+    // The pointer bends the signal field instead of drawing a cursor halo.
+    vec2 dragWarp = velocity * (0.9 + velocityAmount * 1.8);
+    vec2 radialWarp = -dir * (0.035 + velocityAmount * 0.085);
+    float clickWave = sin(dist * 32.0 - iTime * 16.0) * uClickPulse * 0.055;
+    vec2 clickWarp = dir * clickWave;
+
+    p += (dragWarp + radialWarp + clickWarp) * local * uMouseStrength * uMouseActive;
+    mouseBoost = local * uMouseStrength * uMouseActive * (0.35 + velocityAmount * 0.65);
   }
 
   float axis;
@@ -253,10 +268,12 @@ const Scanner: React.FC<ScannerProps> = ({
         uGrainIntensity: { value: 0.05 },
         uDirection: { value: 0.0 },
         uMouse: { value: new Float32Array([0.5, 0.5]) },
+        uMouseVelocity: { value: new Float32Array([0, 0]) },
         uMouseEnabled: { value: 1.0 },
         uMouseRadius: { value: 0.5 },
         uMouseStrength: { value: 0.5 },
         uMouseActive: { value: 0.0 },
+        uClickPulse: { value: 0.0 },
         uColor1: { value: new Float32Array([1, 1, 1]) },
         uColor2: { value: new Float32Array([1, 1, 1]) },
         uColor3: { value: new Float32Array([1, 1, 1]) }
@@ -283,19 +300,58 @@ const Scanner: React.FC<ScannerProps> = ({
 
     let currentMouse: [number, number] = [0.5, 0.5];
     let targetMouse: [number, number] = [0.5, 0.5];
+    let previousTargetMouse: [number, number] = [0.5, 0.5];
+    let currentVelocity: [number, number] = [0, 0];
+    let targetVelocity: [number, number] = [0, 0];
     let mouseActive = 0;
     let targetMouseActive = 0;
+    let clickPulse = 0;
 
-    const onMouseMove = (e: MouseEvent) => {
+    const onPointerMove = (e: PointerEvent) => {
       const rect = canvas.getBoundingClientRect();
-      targetMouse = [(e.clientX - rect.left) / rect.width, 1.0 - (e.clientY - rect.top) / rect.height];
+      const inside =
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom;
+
+      if (!inside) {
+        targetMouseActive = 0;
+        return;
+      }
+
+      const nextMouse: [number, number] = [
+        (e.clientX - rect.left) / rect.width,
+        1.0 - (e.clientY - rect.top) / rect.height
+      ];
+
+      targetVelocity = [
+        nextMouse[0] - previousTargetMouse[0],
+        nextMouse[1] - previousTargetMouse[1]
+      ];
+      previousTargetMouse = nextMouse;
+      targetMouse = nextMouse;
       targetMouseActive = 1;
     };
-    const onMouseLeave = () => {
-      targetMouseActive = 0;
+
+    const onPointerDown = (e: PointerEvent) => {
+      const rect = canvas.getBoundingClientRect();
+      const inside =
+        e.clientX >= rect.left &&
+        e.clientX <= rect.right &&
+        e.clientY >= rect.top &&
+        e.clientY <= rect.bottom;
+      if (inside) clickPulse = 1;
     };
-    canvas.addEventListener('mousemove', onMouseMove);
-    canvas.addEventListener('mouseleave', onMouseLeave);
+
+    const onPointerLeave = () => {
+      targetMouseActive = 0;
+      targetVelocity = [0, 0];
+    };
+
+    window.addEventListener('pointermove', onPointerMove, { passive: true });
+    window.addEventListener('pointerdown', onPointerDown, { passive: true });
+    document.documentElement.addEventListener('mouseleave', onPointerLeave);
 
     let raf = 0;
     let isVisible = true;
@@ -308,13 +364,25 @@ const Scanner: React.FC<ScannerProps> = ({
       if (!mouseEnabledRef.current) {
         targetMouseActive = 0;
       }
-      currentMouse[0] += 0.05 * (targetMouse[0] - currentMouse[0]);
-      currentMouse[1] += 0.05 * (targetMouse[1] - currentMouse[1]);
+      currentMouse[0] += 0.11 * (targetMouse[0] - currentMouse[0]);
+      currentMouse[1] += 0.11 * (targetMouse[1] - currentMouse[1]);
+      currentVelocity[0] += 0.16 * (targetVelocity[0] - currentVelocity[0]);
+      currentVelocity[1] += 0.16 * (targetVelocity[1] - currentVelocity[1]);
+      targetVelocity[0] *= 0.76;
+      targetVelocity[1] *= 0.76;
+
       const m = (program.uniforms.uMouse as { value: Float32Array }).value;
       m[0] = currentMouse[0];
       m[1] = currentMouse[1];
-      mouseActive += 0.05 * (targetMouseActive - mouseActive);
+
+      const v = (program.uniforms.uMouseVelocity as { value: Float32Array }).value;
+      v[0] = currentVelocity[0];
+      v[1] = currentVelocity[1];
+
+      mouseActive += 0.09 * (targetMouseActive - mouseActive);
+      clickPulse *= 0.91;
       (program.uniforms.uMouseActive as { value: number }).value = mouseActive;
+      (program.uniforms.uClickPulse as { value: number }).value = clickPulse;
 
       renderer.render({ scene: mesh });
       raf = requestAnimationFrame(loop);
@@ -352,8 +420,9 @@ const Scanner: React.FC<ScannerProps> = ({
       ro.disconnect();
       io.disconnect();
       document.removeEventListener('visibilitychange', onVisibility);
-      canvas.removeEventListener('mousemove', onMouseMove);
-      canvas.removeEventListener('mouseleave', onMouseLeave);
+      window.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointerdown', onPointerDown);
+      document.documentElement.removeEventListener('mouseleave', onPointerLeave);
       ctxMap.delete(container);
       try {
         container.removeChild(canvas);
