@@ -263,7 +263,7 @@ button {
   transition: opacity 220ms ease;
 }
 
-/* EMPV cursor — spring-following scanner probe */
+/* EMPV cursor — minimal signal probe */
 .empv-custom-cursor-enabled,
 .empv-custom-cursor-enabled body,
 .empv-custom-cursor-enabled a,
@@ -279,130 +279,36 @@ button {
   cursor: auto !important;
 }
 
-.empv-cursor {
+.empv-signal-probe {
   position: fixed;
-  inset: 0;
+  left: var(--pointer-x);
+  top: var(--pointer-y);
   z-index: 120;
+  width: 4px;
+  height: 4px;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 150ms ease;
-}
-
-.empv-cursor.is-visible {
-  opacity: 1;
-}
-
-.empv-cursor-ring-track,
-.empv-cursor-dot-track {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  will-change: transform;
-}
-
-.empv-cursor-ring,
-.empv-cursor-dot {
-  position: absolute;
-  top: 0;
-  left: 0;
   transform: translate(-50%, -50%);
-}
-
-.empv-cursor-ring {
-  width: 28px;
-  height: 28px;
-  border: 1px solid color-mix(
-    in oklch,
-    var(--galaxy-accent, var(--signal)) 72%,
-    transparent
-  );
-  border-radius: 50%;
-  background: color-mix(
-    in oklch,
-    var(--galaxy-accent, var(--signal)) 0%,
-    transparent
-  );
-  box-shadow:
-    0 0 0 1px color-mix(in oklch, var(--paper) 36%, transparent),
-    0 0 18px color-mix(in oklch, var(--galaxy-accent, var(--signal)) 8%, transparent);
-  display: grid;
-  place-items: center;
-  transition:
-    width 220ms cubic-bezier(.22,1,.36,1),
-    height 220ms cubic-bezier(.22,1,.36,1),
-    background 180ms ease,
-    border-color 180ms ease,
-    box-shadow 180ms ease,
-    transform 120ms ease;
-}
-
-.empv-cursor-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
   background: var(--galaxy-accent, var(--signal));
-  box-shadow: 0 0 12px color-mix(in oklch, var(--galaxy-accent, var(--signal)) 22%, transparent);
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--paper) 66%, transparent),
+    0 0 9px color-mix(in oklch, var(--galaxy-accent, var(--signal)) 24%, transparent);
   transition:
+    opacity 120ms ease,
     width 180ms cubic-bezier(.22,1,.36,1),
     height 180ms cubic-bezier(.22,1,.36,1),
-    opacity 160ms ease,
     transform 120ms ease;
 }
 
-.empv-cursor-arrow {
-  opacity: 0;
-  color: var(--galaxy-accent, var(--signal));
-  transform: scale(0.72) rotate(-8deg);
-  transition:
-    opacity 150ms ease,
-    transform 220ms cubic-bezier(.22,1,.36,1);
+.empv-signal-probe.is-visible {
+  opacity: 0.9;
 }
 
-.empv-cursor.is-interactive .empv-cursor-ring {
-  width: 36px;
-  height: 36px;
-  background: color-mix(
-    in oklch,
-    var(--galaxy-accent, var(--signal)) 5%,
-    transparent
-  );
-  border-color: color-mix(
-    in oklch,
-    var(--galaxy-accent, var(--signal)) 88%,
-    transparent
-  );
-  box-shadow:
-    0 0 0 1px color-mix(in oklch, var(--paper) 42%, transparent),
-    0 0 22px color-mix(in oklch, var(--galaxy-accent, var(--signal)) 12%, transparent);
-}
-
-.empv-cursor.is-interactive .empv-cursor-dot {
-  width: 3px;
-  height: 3px;
-  opacity: 0.78;
-}
-
-.empv-cursor.is-link .empv-cursor-ring {
-  width: 42px;
-  height: 42px;
-}
-
-.empv-cursor.is-link .empv-cursor-dot {
-  opacity: 0;
-}
-
-.empv-cursor.is-link .empv-cursor-arrow {
+.empv-signal-probe.is-interactive {
+  width: 10px;
+  height: 2px;
   opacity: 1;
-  transform: scale(1) rotate(0deg);
 }
-
-.empv-cursor.is-pressed .empv-cursor-ring,
-.empv-cursor.is-pressed .empv-cursor-dot {
-  transform: translate(-50%, -50%) scale(0.88);
-}
-
 
 main,
 footer {
@@ -1684,7 +1590,7 @@ footer {
 
 @media (hover: none), (pointer: coarse) {
   .global-pointer-glow,
-  .empv-cursor {
+  .empv-signal-probe {
     display: none;
   }
 }
@@ -1694,7 +1600,7 @@ footer {
     scroll-behavior: auto;
   }
 
-  .empv-cursor {
+  .empv-signal-probe {
     display: none;
   }
 
