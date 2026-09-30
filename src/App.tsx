@@ -1,6 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { ArrowDownRight, ArrowUpRight, Languages } from "lucide-react";
-import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValue,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "motion/react";
 import BackgroundLab from "./BackgroundLab";
 import BusinessCard from "./BusinessCard";
 import BackgroundEffect, {
@@ -18,6 +26,101 @@ import SiteFooter from "./SiteFooter";
 import { SeoHead, parseCurrentRoute, siteAssetHref, siteHref, type SiteRoute } from "./seo";
 import type { SiteLang } from "./detailContent";
 import { copy, faqs, labs, selected, type Lang, type Project } from "./homeContent";
+
+function GlobalCursor() {
+  const reduceMotion = useReducedMotion();
+  const x = useMotionValue(-120);
+  const y = useMotionValue(-120);
+  const ringX = useSpring(x, { stiffness: 520, damping: 36, mass: 0.22 });
+  const ringY = useSpring(y, { stiffness: 520, damping: 36, mass: 0.22 });
+  const [enabled, setEnabled] = useState(false);
+  const [visible, setVisible] = useState(false);
+  const [interactive, setInteractive] = useState(false);
+  const [linkTarget, setLinkTarget] = useState(false);
+  const [pressed, setPressed] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const update = () => setEnabled(media.matches && !reduceMotion);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, [reduceMotion]);
+
+  useEffect(() => {
+    const root = document.documentElement;
+
+    if (!enabled) {
+      root.classList.remove("empv-custom-cursor-enabled");
+      setVisible(false);
+      return;
+    }
+
+    root.classList.add("empv-custom-cursor-enabled");
+
+    const onPointerMove = (event: PointerEvent) => {
+      const target = event.target instanceof Element ? event.target : null;
+      const formControl = target?.closest("input, textarea, select");
+      if (formControl) {
+        setVisible(false);
+        setInteractive(false);
+        setLinkTarget(false);
+        return;
+      }
+
+      x.set(event.clientX);
+      y.set(event.clientY);
+      setVisible(true);
+
+      const clickable = target?.closest("a, button, summary, [role='button']");
+      setInteractive(Boolean(clickable));
+      setLinkTarget(Boolean(clickable?.closest("a")));
+    };
+
+    const onPointerLeave = () => setVisible(false);
+    const onPointerDown = () => setPressed(true);
+    const onPointerUp = () => setPressed(false);
+
+    window.addEventListener("pointermove", onPointerMove, { passive: true });
+    document.documentElement.addEventListener("mouseleave", onPointerLeave);
+    window.addEventListener("pointerdown", onPointerDown, { passive: true });
+    window.addEventListener("pointerup", onPointerUp, { passive: true });
+
+    return () => {
+      root.classList.remove("empv-custom-cursor-enabled");
+      window.removeEventListener("pointermove", onPointerMove);
+      document.documentElement.removeEventListener("mouseleave", onPointerLeave);
+      window.removeEventListener("pointerdown", onPointerDown);
+      window.removeEventListener("pointerup", onPointerUp);
+    };
+  }, [enabled, x, y]);
+
+  if (!enabled) return null;
+
+  const stateClass = [
+    "empv-cursor",
+    visible ? "is-visible" : "",
+    interactive ? "is-interactive" : "",
+    linkTarget ? "is-link" : "",
+    pressed ? "is-pressed" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
+  return (
+    <div className={stateClass} aria-hidden="true">
+      <motion.div className="empv-cursor-ring-track" style={{ x: ringX, y: ringY }}>
+        <div className="empv-cursor-ring">
+          <ArrowUpRight className="empv-cursor-arrow" size={13} strokeWidth={1.7} />
+        </div>
+      </motion.div>
+      <motion.div className="empv-cursor-dot-track" style={{ x, y }}>
+        <span className="empv-cursor-dot" />
+      </motion.div>
+    </div>
+  );
+}
+
 
 function ProjectRow({ project, href, lang }: { project: Project; href: string; lang: Lang }) {
   return (
@@ -806,6 +909,7 @@ function App() {
     <>
       {!isBackgroundLab && <SeoHead route={route as SiteRoute} />}
       <div className="global-pointer-glow" aria-hidden="true" />
+      {!isBackgroundLab && <GlobalCursor />}
       {page}
     </>
   );
