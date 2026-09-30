@@ -301,7 +301,7 @@ export const labs: Record<Lang, Project[]> = {
       description:
         "Un orchestratore evidence-first che parte da problemi operativi osservabili e li trasforma in ricerca, qualificazione e opportunità commerciali controllate.",
       question:
-        "Partire dai problemi invece che da liste di aziende produce prospect che un revisore umano considera materialmente migliori?",
+        "Partire dai problemi invece che da liste di aziende produce prospect che un revisore umano può qualificare con evidenze più solide?",
       state:
         "Current milestone: Problem Research → Prospect Research → Qualification",
       focus:
