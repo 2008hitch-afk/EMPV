@@ -548,7 +548,7 @@ footer {
 .hero h1 {
   max-width: 1480px;
   margin: 4vh 0 auto;
-  font-size: clamp(4rem, 10.5vw, 10rem);
+  font-size: clamp(3.6rem, 8.2vw, 8.4rem);
   line-height: 0.84;
   letter-spacing: -0.07em;
   font-weight: 600;
@@ -569,19 +569,20 @@ footer {
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: end;
   gap: 40px;
+  padding-top: clamp(42px, 5vh, 72px);
 }
 
 .hero-narrative {
   display: grid;
-  gap: 10px;
-  max-width: 760px;
+  gap: 15px;
+  max-width: 980px;
 }
 
 .hero-narrative p {
   margin: 0;
-  font-size: clamp(0.98rem, 1.18vw, 1.14rem);
-  line-height: 1.5;
-  letter-spacing: -0.022em;
+  font-size: clamp(0.94rem, 1vw, 1.04rem);
+  line-height: 1.52;
+  letter-spacing: -0.018em;
   text-wrap: pretty;
 }
 
