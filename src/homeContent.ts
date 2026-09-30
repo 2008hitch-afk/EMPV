@@ -22,9 +22,8 @@ export const copy = {
     heroTitleA: "La tua azienda.",
     heroTitleB: "Prima mappata. Poi evoluta.",
     heroBody: [
-      "Costruiamo una mappa viva dell’azienda: persone, processi, strumenti, responsabilità e dipendenze connessi in un unico modello.",
-      "L’AI la esplora, la aggiorna e mette in relazione ciò che normalmente rimane separato, facendo emergere inefficienze, rischi, colli di bottiglia e opportunità.",
-      "Da lì, seguendo priorità e direttive della proprietà, progettiamo e realizziamo le soluzioni più adatte, attingendo al nostro R&D di agenti AI, automazioni e sistemi operativi.",
+      "Mappiamo come funziona davvero l’azienda: persone, processi, strumenti, responsabilità e dipendenze in un unico modello.",
+      "L’AI collega ciò che normalmente rimane separato e fa emergere inefficienze, rischi e opportunità. Da lì, seguendo le priorità della proprietà, progettiamo e realizziamo ciò che serve.",
     ],
     scroll: "Esplora i progetti",
     manifesto:
@@ -63,9 +62,8 @@ export const copy = {
     heroTitleA: "Your company.",
     heroTitleB: "First mapped. Then evolved.",
     heroBody: [
-      "We build a living map of the company: people, processes, tools, responsibilities and dependencies connected in a single model.",
-      "AI explores it, updates it and connects what would normally remain separate, surfacing inefficiencies, risks, bottlenecks and opportunities.",
-      "From there, following leadership priorities and direction, we design and build the most suitable solutions, drawing directly from our R&D in AI agents, automation and operating systems.",
+      "We map how the company really works: people, processes, tools, responsibilities and dependencies in a single model.",
+      "AI connects what would normally remain separate and surfaces inefficiencies, risks and opportunities. From there, guided by leadership priorities and direction, we design and build what is needed.",
     ],
     scroll: "Explore projects",
     manifesto:
