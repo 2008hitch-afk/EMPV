@@ -279,7 +279,7 @@ function noteMarkup(route) {
 
 function businessCardMarkup(route) {
   const card = businessCards[route.person];
-  const asset = path => withBase("/" + path.replace(/^\\/+/, ""));
+  const asset = path => withBase("/" + (path.startsWith("/") ? path.slice(1) : path));
   return [
     '<div class="business-card-shell business-card-shell--', esc(route.person), '" data-prerendered="true">',
     '<header class="business-card-topbar"><a class="business-card-brand" href="', esc(withBase("/it/")), '">EMPV</a><span>Digital business card</span></header>',
@@ -485,7 +485,8 @@ function inject(html, route) {
   const en = canonical({ ...route, lang: "en" });
   const robots = route.kind === "legal" ? "noindex,follow" : "index,follow,max-image-preview:large";
   const card = route.kind === "businessCard" ? businessCards[route.person] : null;
-  const shareImage = card ? (siteUrl + "/" + card.photo).replace(/([^:]\\/)\\/+/g, "$1") : null;
+  const shareBase = siteUrl.endsWith("/") ? siteUrl.slice(0, -1) : siteUrl;
+  const shareImage = card ? shareBase + "/" + card.photo : null;
 
   html = html
     .replace(/\s*<meta name="robots"[^>]*>/g, "")
