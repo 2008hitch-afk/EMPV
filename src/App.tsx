@@ -578,7 +578,11 @@ function PortfolioApp({
               <span className="outline">{c.heroTitleB}</span>
             </h1>
             <div className="hero-bottom">
-              <p>{c.heroBody}</p>
+              <div className="hero-narrative">
+                {c.heroBody.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
               <a href="#work" className="scroll-cue">
                 {c.scroll}
                 <ArrowDownRight size={20} strokeWidth={1.3} />
