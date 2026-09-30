@@ -139,8 +139,8 @@ function PersonProfile({
   );
 }
 
-const FINAL_SITE_BACKGROUND: BackgroundName = "threads";
-const FINAL_SITE_PALETTE: GalaxyPalette = "mist";
+const FINAL_SITE_BACKGROUND: BackgroundName = "scanner";
+const FINAL_SITE_PALETTE: GalaxyPalette = "blue";
 const FINAL_SITE_TUNING: BackgroundTuning = {
   intensity: 1,
   speed: 0.5,
