@@ -1388,6 +1388,7 @@ footer {
   overflow: visible;
   background: transparent;
   isolation: isolate;
+  transform: translateY(-24px);
 }
 
 .person-photo::before {
@@ -2806,6 +2807,7 @@ footer {
     width: min(100%, 390px);
     height: 400px;
     min-height: 0;
+    transform: translateY(-16px);
   }
 
   .person-editorial-copy h3 {
@@ -2870,6 +2872,7 @@ footer {
     width: min(80vw, 320px);
     height: min(94vw, 390px);
     margin-top: -2px;
+    transform: translateY(-8px);
   }
 }
 
