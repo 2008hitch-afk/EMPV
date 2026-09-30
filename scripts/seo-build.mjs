@@ -137,7 +137,7 @@ function homeMarkup(lang) {
     '</main>',
     '<footer><div class="footer-mark">EMPV</div><div class="footer-meta"><div class="footer-column footer-identity"><strong>EMPV</strong><span>Systems · Products · AI · Research</span><span>',
     lang === "it" ? "Bergamo, Italia" : "Bergamo, Italy",
-    '</span><span>© 2026 EMPV</span></div><div class="footer-column"><a href="mailto:hello@empv.it">hello@empv.it</a><a href="https://wa.me/393792438705">WhatsApp</a><a href="https://www.linkedin.com/company/emp26/">LinkedIn</a></div></div></footer>',
+    '</span><span>© 2026 EMPV</span></div><div class="footer-column"><a href="mailto:hello@empv.it">hello@empv.it</a><a href="https://wa.me/393792438705">WhatsApp</a><a href="https://www.linkedin.com/company/emp26/">LinkedIn</a><a href="https://x.com/EMPV26">X / @EMPV26</a></div></div></footer>',
     '</div>'
   ].join("");
 }
@@ -291,6 +291,7 @@ function businessCardMarkup(route) {
     '<a class="business-card-action" href="', esc(card.whatsapp), '"><span>WhatsApp</span></a>',
     '<a class="business-card-action" href="mailto:', esc(card.email), '"><span>', esc(card.email), '</span></a>',
     '<a class="business-card-action" href="', esc(card.linkedin), '"><span>LinkedIn</span></a>',
+    '<a class="business-card-action" href="', esc(card.x), '"><span>X / @EMPV26</span></a>',
     '<a class="business-card-action" href="', esc(card.website), '"><span>Visita EMPV</span></a>',
     '</div>',
     '<div class="business-card-footer"><div><span>EMPV</span><strong>Systems · Products · AI · Research</strong></div><a href="', esc(card.website), '">empv.it</a></div>',
@@ -340,7 +341,7 @@ function structuredData(route) {
         height: 96
       },
       image: { "@id": siteUrl + "/#logo" },
-      sameAs: ["https://www.linkedin.com/company/emp26/"],
+      sameAs: ["https://www.linkedin.com/company/emp26/", "https://x.com/EMPV26"],
       address: { "@type": "PostalAddress", addressLocality: "Bergamo", addressCountry: "IT" },
       member: [{ "@id": enricoId }, { "@id": micheleId }]
     },
@@ -659,6 +660,7 @@ llmsLines.push(
   "## Contact",
   "",
   "- [LinkedIn](https://www.linkedin.com/company/emp26/): EMPV company profile.",
+  "- [X](https://x.com/EMPV26): EMPV profile on X.",
   "- Email: hello@empv.it",
   "- WhatsApp: +39 379 243 8705",
   "",

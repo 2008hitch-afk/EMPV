@@ -12,6 +12,7 @@ export type BusinessCardProfile = {
   phone: string;
   whatsapp: string;
   linkedin: string;
+  x: string;
   website: string;
   url: string;
 };
@@ -29,6 +30,7 @@ export const businessCards: Record<BusinessPerson, BusinessCardProfile> = {
     phone: "+39 379 243 8705",
     whatsapp: "https://wa.me/393792438705",
     linkedin: "https://www.linkedin.com/company/emp26/posts/?viewAsMember=true",
+    x: "https://x.com/EMPV26",
     website: "https://empv.it",
     url: "https://empv.it/enrico/",
   },
@@ -44,6 +46,7 @@ export const businessCards: Record<BusinessPerson, BusinessCardProfile> = {
     phone: "+39 379 243 8705",
     whatsapp: "https://wa.me/393792438705",
     linkedin: "https://www.linkedin.com/company/emp26/posts/?viewAsMember=true",
+    x: "https://x.com/EMPV26",
     website: "https://empv.it",
     url: "https://empv.it/michele/",
   },
