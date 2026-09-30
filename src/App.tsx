@@ -70,7 +70,6 @@ function GlobalCursor() {
     document.documentElement.addEventListener("mouseleave", onPointerLeave);
 
     return () => {
-      root.classList.remove("empv-custom-cursor-enabled");
       window.removeEventListener("pointermove", onPointerMove);
       document.documentElement.removeEventListener("mouseleave", onPointerLeave);
     };
