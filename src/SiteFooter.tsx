@@ -57,6 +57,15 @@ export default function SiteFooter({ lang }: { lang: SiteLang }) {
             <span className="footer-linkedin-icon" aria-hidden="true">in</span>
             <span>LinkedIn</span>
           </a>
+          <a
+            className="footer-contact-link"
+            href="https://x.com/EMPV26"
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span className="footer-x-icon" aria-hidden="true">X</span>
+            <span>X / @EMPV26</span>
+          </a>
         </div>
       </div>
     </footer>
