@@ -1215,7 +1215,9 @@ footer {
 .person-photo {
   grid-area: photo;
   position: relative;
-  width: 100%;
+  width: 50%;
+  max-width: 360px;
+  justify-self: center;
   aspect-ratio: 1 / 1;
   overflow: hidden;
   border: 1px solid var(--hairline);
