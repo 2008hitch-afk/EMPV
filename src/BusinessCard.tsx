@@ -100,7 +100,7 @@ export default function BusinessCard({ person }: { person: BusinessPerson }) {
 
             <a className="business-card-action" href={`mailto:${card.email}`}>
               <Mail size={19} strokeWidth={1.55} />
-              <span>Email</span>
+              <span>{card.email}</span>
               <ArrowUpRight size={17} strokeWidth={1.45} />
             </a>
 
