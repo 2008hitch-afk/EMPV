@@ -19,10 +19,13 @@ export const copy = {
   it: {
     nav: { work: "Progetti", labs: "AI Lab", faq: "FAQ", people: "Chi siamo", notes: "Research Notes" },
     heroEyebrow: "Enrico Peruffo × Michele Valleri · Bergamo",
-    heroTitleA: "Progettiamo sistemi",
-    heroTitleB: "intorno a come si lavora.",
-    heroBody:
-      "Entriamo nei processi, individuiamo dove si perdono tempo e informazioni e costruiamo ciò che manca: software, automazioni o AI, ognuno con un compito preciso.",
+    heroTitleA: "La tua azienda.",
+    heroTitleB: "Prima mappata. Poi evoluta.",
+    heroBody: [
+      "Costruiamo una mappa viva dell’azienda: persone, processi, strumenti, responsabilità e dipendenze connessi in un unico modello.",
+      "L’AI la esplora, la aggiorna e mette in relazione ciò che normalmente rimane separato, facendo emergere inefficienze, rischi, colli di bottiglia e opportunità.",
+      "Da lì, seguendo priorità e direttive della proprietà, progettiamo e realizziamo le soluzioni più adatte, attingendo al nostro R&D di agenti AI, automazioni e sistemi operativi.",
+    ],
     scroll: "Esplora i progetti",
     manifesto:
       "Non partiamo da una tecnologia da utilizzare. Partiamo da come viene svolto il lavoro: chi fa cosa, dove si ripetono le informazioni, cosa rallenta il processo e quali decisioni devono restare alle persone. Da lì decidiamo cosa costruire.",
@@ -57,10 +60,13 @@ export const copy = {
   en: {
     nav: { work: "Projects", labs: "AI Lab", faq: "FAQ", people: "Who we are", notes: "Research Notes" },
     heroEyebrow: "Enrico Peruffo × Michele Valleri · Bergamo",
-    heroTitleA: "We design systems",
-    heroTitleB: "around how work gets done.",
-    heroBody:
-      "We map the process, find where time and information get lost, then build what is missing — software, automation or AI, each with a defined job.",
+    heroTitleA: "Your company.",
+    heroTitleB: "First mapped. Then evolved.",
+    heroBody: [
+      "We build a living map of the company: people, processes, tools, responsibilities and dependencies connected in a single model.",
+      "AI explores it, updates it and connects what would normally remain separate, surfacing inefficiencies, risks, bottlenecks and opportunities.",
+      "From there, following leadership priorities and direction, we design and build the most suitable solutions, drawing directly from our R&D in AI agents, automation and operating systems.",
+    ],
     scroll: "Explore projects",
     manifesto:
       "We do not start with a technology to deploy. We start with the workflow: who does what, where information is repeated, what slows the process down and which decisions should remain human. From there, we decide what to build.",
