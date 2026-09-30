@@ -144,14 +144,14 @@
   --hairline: color-mix(in oklch, var(--ink) 16%, transparent);
   --text-soft: color-mix(in oklch, var(--ink) 76%, var(--paper));
   --text-muted-strong: color-mix(in oklch, var(--ink) 66%, var(--muted));
-  --topbar-bg: color-mix(in oklch, var(--paper) 84%, transparent);
+  --topbar-bg: color-mix(in oklch, var(--paper) 96%, white 4%);
   --visual-paper: color-mix(in oklch, var(--paper) 94%, white);
   --glow-core: color-mix(in oklch, var(--galaxy-accent) 23%, transparent);
   --glow-mid: color-mix(in oklch, var(--galaxy-accent) 9%, transparent);
   --outline-ink: var(--copy-gradient-b);
   --surface-wash: color-mix(in oklch, var(--galaxy-accent) 7%, transparent);
   --surface-wash-soft: color-mix(in oklch, var(--galaxy-accent) 3%, transparent);
-  --nav-wash: color-mix(in oklch, var(--galaxy-accent) 8%, var(--paper));
+  --nav-wash: color-mix(in oklch, var(--galaxy-accent) 4%, var(--paper));
   --hover-wash: color-mix(in oklch, var(--galaxy-accent) 6%, transparent);
 }
 
@@ -211,6 +211,7 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 104px;
 }
 
 body {
@@ -351,17 +352,25 @@ footer {
     border-color 220ms ease;
 }
 
-.desktop-nav a:hover,
-.desktop-nav a.is-active {
+.desktop-nav a:hover {
   color: var(--ink);
   transform: translateY(-1px);
 }
 
-.desktop-nav a:hover::before,
-.desktop-nav a.is-active::before {
+.desktop-nav a.is-active {
+  color: var(--ink);
+  transform: none;
+}
+
+.desktop-nav a:hover::before {
   opacity: 1;
   transform: scale(1);
   border-color: var(--hairline);
+}
+
+.desktop-nav a.is-active::before {
+  opacity: 0;
+  transform: scale(0.86);
 }
 
 .desktop-nav a.is-active::after {
@@ -2023,9 +2032,12 @@ footer {
 }
 
 :root[data-visual-theme="galaxy"] .desktop-nav a::before,
-:root[data-visual-theme="galaxy"] .mobile-nav-panel > a:hover,
-:root[data-visual-theme="galaxy"] .mobile-nav-panel > a.is-active {
+:root[data-visual-theme="galaxy"] .mobile-nav-panel > a:hover {
   background: rgba(245, 247, 250, 0.46);
+}
+
+:root[data-visual-theme="galaxy"] .mobile-nav-panel > a.is-active {
+  background: transparent;
 }
 
 
@@ -2661,5 +2673,27 @@ footer {
   .research-note-title h1 {
     font-size: clamp(2.8rem, 9vw, 3.35rem);
     line-height: 0.98;
+  }
+}
+
+
+/* Fixed-nav anchor safety */
+#people,
+#work,
+#labs,
+#faq {
+  scroll-margin-top: 104px;
+}
+
+@media (max-width: 900px) {
+  html {
+    scroll-padding-top: 82px;
+  }
+
+  #people,
+  #work,
+  #labs,
+  #faq {
+    scroll-margin-top: 82px;
   }
 }
