@@ -656,7 +656,6 @@ function PortfolioApp({
               />
             ))}
           </div>
-          <p className="labs-note">{c.labsNote}</p>
         </section>
 
         <section className="faq section-pad" id="faq">
