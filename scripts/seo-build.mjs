@@ -289,7 +289,7 @@ function businessCardMarkup(route) {
     '<div class="business-card-actions">',
     '<a class="business-card-action business-card-action--primary" href="', esc(asset(card.vcard)), '"><span>Salva contatto</span></a>',
     '<a class="business-card-action" href="', esc(card.whatsapp), '"><span>WhatsApp</span></a>',
-    '<a class="business-card-action" href="mailto:', esc(card.email), '"><span>Email</span></a>',
+    '<a class="business-card-action" href="mailto:', esc(card.email), '"><span>', esc(card.email), '</span></a>',
     '<a class="business-card-action" href="', esc(card.linkedin), '"><span>LinkedIn</span></a>',
     '<a class="business-card-action" href="', esc(card.website), '"><span>Visita EMPV</span></a>',
     '</div>',

@@ -1,119 +1,102 @@
 .business-card-shell {
-  --card-bg: #090909;
-  --card-surface: rgba(20, 20, 19, 0.78);
-  --card-surface-strong: rgba(25, 25, 24, 0.92);
-  --card-ink: #f3f0e9;
-  --card-muted: rgba(243, 240, 233, 0.58);
-  --card-line: rgba(243, 240, 233, 0.14);
-  --card-orange: #ff4b19;
   position: relative;
   min-height: 100svh;
   overflow: hidden;
-  background: var(--card-bg);
-  color: var(--card-ink);
+  background:
+    linear-gradient(180deg, var(--surface-wash-soft, transparent), transparent 220px),
+    var(--paper);
+  color: var(--ink);
   isolation: isolate;
 }
 
 .business-card-background {
   position: absolute !important;
   inset: 0;
-  z-index: -3;
-  opacity: 0.24;
-  filter: grayscale(1) contrast(1.08);
-}
-
-.business-card-shell::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -2;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      460px circle at var(--pointer-x, 50vw) var(--pointer-y, 50vh),
-      rgba(255, 75, 25, 0.16),
-      rgba(255, 75, 25, 0.045) 36%,
-      transparent 72%
-    ),
-    linear-gradient(180deg, rgba(255,255,255,0.025), transparent 42%);
-}
-
-.business-card-orange-glow {
-  position: absolute;
-  z-index: -1;
-  width: min(42vw, 560px);
-  aspect-ratio: 1;
-  right: -12vw;
-  top: 8vh;
-  border-radius: 50%;
-  background: rgba(255, 75, 25, 0.11);
-  filter: blur(110px);
+  z-index: 0;
+  opacity: 0.5;
   pointer-events: none;
 }
 
 .business-card-topbar {
-  width: min(1180px, calc(100% - 48px));
-  margin: 0 auto;
-  min-height: 92px;
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  z-index: 50;
+  width: min(calc(100% - 40px), 1180px);
+  min-height: 54px;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--card-line);
+  gap: 16px;
+  padding: 6px 16px 6px 20px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: var(--topbar-bg);
+  box-shadow:
+    0 12px 36px rgba(17, 20, 27, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.34);
+  backdrop-filter: blur(22px) saturate(1.18);
 }
 
 .business-card-brand {
-  color: var(--card-ink);
-  font-size: 1rem;
+  width: max-content;
+  color: var(--ink);
+  font-size: 0.98rem;
   font-weight: 700;
-  letter-spacing: -0.035em;
+  letter-spacing: -0.045em;
 }
 
 .business-card-topbar > span {
-  color: var(--card-muted);
+  color: var(--muted);
   font-size: 0.65rem;
   font-weight: 600;
-  letter-spacing: 0.075em;
+  letter-spacing: 0.045em;
   text-transform: uppercase;
 }
 
 .business-card-layout {
-  width: min(1180px, calc(100% - 48px));
-  min-height: calc(100svh - 92px);
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1480px;
+  min-height: 100svh;
   margin: 0 auto;
-  padding: 54px 0 64px;
+  padding: 118px var(--page-gutter) 52px;
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.58fr);
-  gap: 22px;
+  grid-template-columns: minmax(0, 1.55fr) minmax(260px, 0.55fr);
+  gap: clamp(42px, 6vw, 96px);
   align-items: stretch;
-}
-
-.business-card-panel,
-.business-card-qr-panel {
-  border: 1px solid var(--card-line);
-  background: var(--card-surface);
-  backdrop-filter: blur(24px) saturate(1.04);
 }
 
 .business-card-panel {
   display: grid;
-  grid-template-columns: minmax(220px, 0.58fr) minmax(0, 1fr);
+  grid-template-columns: minmax(240px, 0.7fr) minmax(0, 1.25fr);
   grid-template-areas:
     "photo identity"
     "actions actions"
     "footer footer";
-  gap: 36px;
-  padding: clamp(22px, 3vw, 42px);
+  gap: clamp(32px, 4vw, 64px);
+  align-content: start;
+  padding: 32px 0 24px;
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
 }
 
 .business-card-photo-wrap {
   grid-area: photo;
-  min-width: 0;
-  aspect-ratio: 1 / 1.12;
+  width: min(100%, 380px);
+  justify-self: center;
+  align-self: start;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-  border: 1px solid var(--card-line);
+  border: 1px solid var(--hairline);
   background:
-    radial-gradient(circle at 50% 32%, rgba(255,75,25,0.10), transparent 54%),
-    rgba(255,255,255,0.025);
+    radial-gradient(
+      circle at 50% 32%,
+      color-mix(in oklch, var(--galaxy-accent, var(--ink)) 8%, var(--paper)),
+      var(--paper) 72%
+    );
 }
 
 .business-card-photo {
@@ -122,7 +105,6 @@
   display: block;
   object-fit: cover;
   object-position: 50% 38%;
-  filter: saturate(0.82) contrast(1.02);
 }
 
 .business-card-shell--enrico .business-card-photo {
@@ -132,32 +114,35 @@
 
 .business-card-identity {
   grid-area: identity;
-  align-self: end;
+  align-self: center;
   min-width: 0;
 }
 
 .business-card-kicker {
   display: block;
-  margin-bottom: 18px;
-  color: var(--card-orange);
-  font-size: 0.63rem;
-  font-weight: 700;
-  letter-spacing: 0.075em;
+  margin-bottom: 16px;
+  color: var(--muted);
+  font-family: var(--ui);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
 }
 
 .business-card-identity h1 {
   margin: 0;
-  max-width: 660px;
-  font-size: clamp(3.25rem, 7vw, 7.6rem);
-  line-height: 0.84;
-  letter-spacing: -0.075em;
+  max-width: 760px;
+  font-size: clamp(3.4rem, 7.4vw, 7.8rem);
+  line-height: 0.86;
+  letter-spacing: -0.072em;
   font-weight: 600;
   text-wrap: balance;
 }
 
 .business-card-role {
   margin: 26px 0 0;
-  color: var(--card-ink);
+  max-width: 620px;
+  color: var(--ink);
   font-size: clamp(1rem, 1.5vw, 1.28rem);
   font-weight: 600;
   letter-spacing: -0.025em;
@@ -165,10 +150,10 @@
 
 .business-card-description {
   margin: 12px 0 0;
-  max-width: 520px;
-  color: var(--card-muted);
-  font-size: 0.94rem;
-  line-height: 1.6;
+  max-width: 590px;
+  color: var(--text-soft);
+  font-size: 1rem;
+  line-height: 1.65;
   text-wrap: pretty;
 }
 
@@ -176,45 +161,52 @@
   grid-area: actions;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  border-top: 1px solid var(--card-line);
+  border-top: 1px solid var(--hairline);
 }
 
 .business-card-action {
   appearance: none;
+  position: relative;
   width: 100%;
-  min-height: 58px;
+  min-height: 64px;
   display: grid;
   grid-template-columns: 24px minmax(0, 1fr) 20px;
-  gap: 10px;
+  gap: 12px;
   align-items: center;
-  padding: 0 16px;
+  padding: 0 14px;
   border: 0;
-  border-bottom: 1px solid var(--card-line);
+  border-bottom: 1px solid var(--hairline);
   background: transparent;
-  color: var(--card-ink);
+  color: var(--ink);
   font: inherit;
+  font-size: 0.86rem;
   text-align: left;
   cursor: pointer;
-  transition: background 180ms ease, color 180ms ease;
+  transition:
+    background 180ms ease,
+    padding 220ms cubic-bezier(.22,1,.36,1);
 }
 
 .business-card-action:nth-child(odd) {
-  border-right: 1px solid var(--card-line);
+  border-right: 1px solid var(--hairline);
 }
 
 .business-card-action:hover,
 .business-card-action:focus-visible {
-  background: rgba(255,255,255,0.055);
+  padding-left: 20px;
+  background: var(--hover-wash, color-mix(in srgb, var(--ink) 3%, transparent));
 }
 
-.business-card-action--primary {
-  background: var(--card-orange);
-  color: #120a07;
-}
-
-.business-card-action--primary:hover,
-.business-card-action--primary:focus-visible {
-  background: #ff6238;
+.business-card-action--primary::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 48px;
+  width: 4px;
+  height: 4px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  background: var(--signal);
 }
 
 .business-card-linkedin-icon {
@@ -232,7 +224,14 @@
 
 .business-card-action svg:last-child {
   justify-self: end;
-  opacity: 0.58;
+  color: var(--muted);
+  transition: transform 220ms cubic-bezier(.22,1,.36,1), color 180ms ease;
+}
+
+.business-card-action:hover svg:last-child,
+.business-card-action:focus-visible svg:last-child {
+  transform: translate(4px, -4px);
+  color: var(--ink);
 }
 
 .business-card-footer {
@@ -241,7 +240,6 @@
   justify-content: space-between;
   gap: 24px;
   align-items: end;
-  padding-top: 2px;
 }
 
 .business-card-footer > div {
@@ -251,40 +249,45 @@
 
 .business-card-footer span,
 .business-card-qr-panel span {
-  color: var(--card-muted);
-  font-size: 0.61rem;
-  font-weight: 700;
-  letter-spacing: 0.075em;
+  color: var(--muted);
+  font-family: var(--ui);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.045em;
   text-transform: uppercase;
 }
 
 .business-card-footer strong {
+  color: var(--text-soft);
   font-size: 0.72rem;
   font-weight: 500;
-  color: rgba(243,240,233,0.78);
 }
 
 .business-card-footer a {
-  color: var(--card-ink);
+  color: var(--ink);
   font-size: 0.76rem;
 }
 
 .business-card-qr-panel {
-  padding: clamp(22px, 2.7vw, 34px);
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   gap: 24px;
+  padding: 32px 0 24px clamp(24px, 3vw, 52px);
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  border-left: 1px solid var(--hairline);
 }
 
 .business-card-qr-frame {
-  width: min(100%, 320px);
+  width: min(100%, 300px);
   margin: 0 auto auto;
   aspect-ratio: 1;
   display: grid;
   place-items: center;
-  padding: clamp(18px, 2vw, 28px);
-  background: #f4f1ea;
+  padding: clamp(18px, 2vw, 26px);
+  border: 1px solid var(--hairline);
+  background: color-mix(in oklch, var(--paper) 94%, white);
 }
 
 .business-card-qr-frame img {
@@ -296,33 +299,46 @@
 .business-card-qr-panel p {
   margin: 9px 0 0;
   max-width: 320px;
-  color: var(--card-muted);
+  color: var(--text-soft);
   font-size: 0.9rem;
   line-height: 1.55;
 }
 
 .business-card-qr-panel small {
   padding-top: 18px;
-  border-top: 1px solid var(--card-line);
-  color: rgba(243,240,233,0.78);
+  border-top: 1px solid var(--hairline);
+  color: var(--muted);
   font-size: 0.72rem;
   overflow-wrap: anywhere;
 }
 
-@media (max-width: 860px) {
-  .business-card-topbar,
+@media (max-width: 980px) {
   .business-card-layout {
-    width: min(100% - 28px, 680px);
-  }
-
-  .business-card-topbar {
-    min-height: 72px;
-  }
-
-  .business-card-layout {
-    min-height: 0;
-    padding: 24px 0 38px;
     grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .business-card-qr-panel {
+    border-top: 0;
+    border-left: 0;
+    padding: 38px 0 28px;
+  }
+
+  .business-card-qr-frame {
+    width: min(62vw, 280px);
+    margin-bottom: 12px;
+  }
+}
+
+@media (max-width: 760px) {
+  .business-card-topbar {
+    top: 12px;
+    width: calc(100% - 24px);
+    min-height: 52px;
+  }
+
+  .business-card-layout {
+    padding: 92px 18px 32px;
   }
 
   .business-card-panel {
@@ -332,50 +348,20 @@
       "identity"
       "actions"
       "footer";
-    gap: 26px;
+    gap: 28px;
+    padding-top: 26px;
   }
 
   .business-card-photo-wrap {
-    width: min(72vw, 360px);
-    justify-self: center;
-    aspect-ratio: 1 / 1;
+    width: min(66vw, 340px);
+  }
+
+  .business-card-identity h1 {
+    font-size: clamp(3rem, 14vw, 5rem);
   }
 
   .business-card-identity {
     align-self: start;
-  }
-
-  .business-card-identity h1 {
-    font-size: clamp(3rem, 15vw, 5.2rem);
-  }
-
-  .business-card-qr-panel {
-    min-height: 0;
-  }
-
-  .business-card-qr-frame {
-    width: min(72vw, 300px);
-  }
-}
-
-@media (max-width: 520px) {
-  .business-card-topbar,
-  .business-card-layout {
-    width: calc(100% - 20px);
-  }
-
-  .business-card-topbar > span {
-    display: none;
-  }
-
-  .business-card-layout {
-    padding-top: 10px;
-    gap: 10px;
-  }
-
-  .business-card-panel,
-  .business-card-qr-panel {
-    padding: 18px;
   }
 
   .business-card-actions {
@@ -386,27 +372,47 @@
     border-right: 0;
   }
 
+  .business-card-action:hover,
+  .business-card-action:focus-visible {
+    padding-left: 14px;
+  }
+
   .business-card-footer {
     align-items: start;
     flex-direction: column;
     gap: 14px;
   }
-
-  .business-card-description {
-    font-size: 0.9rem;
-  }
 }
 
-@media (hover: none), (pointer: coarse) {
-  .business-card-shell::before {
-    background:
-      radial-gradient(circle at 78% 14%, rgba(255, 75, 25, 0.11), transparent 30%),
-      linear-gradient(180deg, rgba(255,255,255,0.025), transparent 42%);
+@media (max-width: 520px) {
+  .business-card-topbar {
+    padding-left: 14px;
+  }
+
+  .business-card-topbar > span {
+    display: none;
+  }
+
+  .business-card-photo-wrap {
+    width: min(72vw, 300px);
+  }
+
+  .business-card-role {
+    margin-top: 20px;
+  }
+
+  .business-card-description {
+    font-size: 0.95rem;
+  }
+
+  .business-card-action {
+    min-height: 60px;
+    font-size: 0.82rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .business-card-background {
-    opacity: 0.16;
+    opacity: 0.34;
   }
 }
