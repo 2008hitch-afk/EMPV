@@ -588,8 +588,8 @@ export default function BackgroundEffect({
             grainIntensity={0.012}
             opacity={0.82 + intensity * 0.18}
             mouseInteraction={tuning.pointer}
-            mouseRadius={0.35}
-            mouseStrength={0.18 + intensity * 0.22}
+            mouseRadius={0.42}
+            mouseStrength={0.42 + intensity * 0.38}
           />
         )}
 
