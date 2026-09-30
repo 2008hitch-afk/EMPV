@@ -17,22 +17,6 @@
   pointer-events: none;
 }
 
-.business-card-orange-glow {
-  position: fixed;
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.62;
-  background: radial-gradient(
-    520px circle at var(--pointer-x, 50vw) var(--pointer-y, 50vh),
-    var(--glow-core),
-    var(--glow-mid) 22%,
-    transparent 66%
-  );
-  mix-blend-mode: multiply;
-  transition: opacity 220ms ease;
-}
-
 .business-card-topbar {
   position: fixed;
   top: 16px;
@@ -424,17 +408,6 @@
   .business-card-action {
     min-height: 60px;
     font-size: 0.82rem;
-  }
-}
-
-@media (hover: none), (pointer: coarse) {
-  .business-card-orange-glow {
-    opacity: 0.42;
-    background: radial-gradient(
-      circle at 76% 14%,
-      var(--glow-core),
-      transparent 32%
-    );
   }
 }
 
