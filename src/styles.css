@@ -870,6 +870,7 @@ footer {
   color: var(--text-soft);
   font-size: 0.82rem;
   line-height: 1.55;
+  text-wrap: pretty;
 }
 
 .lab-focus p {
@@ -898,6 +899,7 @@ footer {
   line-height: 1.65;
   letter-spacing: 0.035em;
   text-transform: uppercase;
+  text-wrap: pretty;
 }
 
 :root[data-visual-theme="galaxy"] .labs {
@@ -1640,6 +1642,7 @@ footer {
   line-height: 0.84;
   letter-spacing: -0.075em;
   font-weight: 600;
+  text-wrap: balance;
 }
 
 .detail-title-project h1 {
@@ -1687,6 +1690,7 @@ footer {
   line-height: 1.48;
   letter-spacing: -0.018em;
   font-weight: 550;
+  text-wrap: pretty;
 }
 
 .detail-tags {
