@@ -3,10 +3,8 @@ import { ArrowDownRight, ArrowUpRight, Languages } from "lucide-react";
 import {
   AnimatePresence,
   motion,
-  useMotionValue,
   useReducedMotion,
   useScroll,
-  useSpring,
   useTransform,
 } from "motion/react";
 import BackgroundLab from "./BackgroundLab";
@@ -29,15 +27,9 @@ import { copy, faqs, labs, selected, type Lang, type Project } from "./homeConte
 
 function GlobalCursor() {
   const reduceMotion = useReducedMotion();
-  const x = useMotionValue(-120);
-  const y = useMotionValue(-120);
-  const ringX = useSpring(x, { stiffness: 520, damping: 36, mass: 0.22 });
-  const ringY = useSpring(y, { stiffness: 520, damping: 36, mass: 0.22 });
   const [enabled, setEnabled] = useState(false);
   const [visible, setVisible] = useState(false);
   const [interactive, setInteractive] = useState(false);
-  const [linkTarget, setLinkTarget] = useState(false);
-  const [pressed, setPressed] = useState(false);
 
   useEffect(() => {
     const media = window.matchMedia("(hover: hover) and (pointer: fine)");
@@ -61,66 +53,38 @@ function GlobalCursor() {
     const onPointerMove = (event: PointerEvent) => {
       const target = event.target instanceof Element ? event.target : null;
       const formControl = target?.closest("input, textarea, select");
+
       if (formControl) {
         setVisible(false);
         setInteractive(false);
-        setLinkTarget(false);
         return;
       }
 
-      x.set(event.clientX);
-      y.set(event.clientY);
       setVisible(true);
-
-      const clickable = target?.closest("a, button, summary, [role='button']");
-      setInteractive(Boolean(clickable));
-      setLinkTarget(Boolean(clickable?.closest("a")));
+      setInteractive(Boolean(target?.closest("a, button, summary, [role='button']")));
     };
 
     const onPointerLeave = () => setVisible(false);
-    const onPointerDown = () => setPressed(true);
-    const onPointerUp = () => setPressed(false);
 
     window.addEventListener("pointermove", onPointerMove, { passive: true });
     document.documentElement.addEventListener("mouseleave", onPointerLeave);
-    window.addEventListener("pointerdown", onPointerDown, { passive: true });
-    window.addEventListener("pointerup", onPointerUp, { passive: true });
 
     return () => {
       root.classList.remove("empv-custom-cursor-enabled");
       window.removeEventListener("pointermove", onPointerMove);
       document.documentElement.removeEventListener("mouseleave", onPointerLeave);
-      window.removeEventListener("pointerdown", onPointerDown);
-      window.removeEventListener("pointerup", onPointerUp);
     };
-  }, [enabled, x, y]);
+  }, [enabled]);
 
   if (!enabled) return null;
 
-  const stateClass = [
-    "empv-cursor",
-    visible ? "is-visible" : "",
-    interactive ? "is-interactive" : "",
-    linkTarget ? "is-link" : "",
-    pressed ? "is-pressed" : "",
-  ]
-    .filter(Boolean)
-    .join(" ");
-
   return (
-    <div className={stateClass} aria-hidden="true">
-      <motion.div className="empv-cursor-ring-track" style={{ x: ringX, y: ringY }}>
-        <div className="empv-cursor-ring">
-          <ArrowUpRight className="empv-cursor-arrow" size={13} strokeWidth={1.7} />
-        </div>
-      </motion.div>
-      <motion.div className="empv-cursor-dot-track" style={{ x, y }}>
-        <span className="empv-cursor-dot" />
-      </motion.div>
-    </div>
+    <div
+      className={`empv-signal-probe ${visible ? "is-visible" : ""} ${interactive ? "is-interactive" : ""}`}
+      aria-hidden="true"
+    />
   );
 }
-
 
 function ProjectRow({ project, href, lang }: { project: Project; href: string; lang: Lang }) {
   return (
