@@ -60,6 +60,17 @@ jobs:
           grep -q '"logo":{"@type":"ImageObject"' dist/it/index.html
           grep -q 'class="detail-nav-back"' dist/it/progetti/commesse-posa/index.html
           grep -q 'hreflang="en"' dist/it/progetti/commesse-posa/index.html
+          test -f dist/enrico/index.html
+          test -f dist/michele/index.html
+          test -f dist/contacts/enrico-peruffo.vcf
+          test -f dist/contacts/michele-valleri.vcf
+          test -f dist/qr/enrico.svg
+          test -f dist/qr/michele.svg
+          grep -q 'https://empv.it/enrico/' dist/enrico/index.html
+          grep -q 'https://empv.it/michele/' dist/michele/index.html
+          grep -q 'property="og:type" content="profile"' dist/enrico/index.html
+          grep -q 'property="og:image"' dist/michele/index.html
+          grep -q 'Salva contatto' dist/enrico/index.html
           ! grep -R "2008hitch-afk.github.io/EMPV" dist --exclude='*.map'
           ! grep -R 'src="/EMPV/' dist/*.html dist/it dist/en 2>/dev/null
           ! grep -R 'href="/EMPV/' dist/*.html dist/it dist/en 2>/dev/null
