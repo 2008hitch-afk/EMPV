@@ -577,17 +577,14 @@ function PortfolioApp({
               <span>{c.heroTitleA}</span>
               <span className="outline">{c.heroTitleB}</span>
             </h1>
-            <div className="hero-bottom">
-              <div className="hero-narrative">
-                {c.heroBody.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-              </div>
-              <a href="#work" className="scroll-cue">
-                {c.scroll}
-                <ArrowDownRight size={20} strokeWidth={1.3} />
-              </a>
+            <div className="hero-statement">
+              <p className="hero-statement-lead">{c.heroBody[0]}</p>
+              <p className="hero-statement-support">{c.heroBody[1]}</p>
             </div>
+            <a href="#work" className="scroll-cue">
+              {c.scroll}
+              <ArrowDownRight size={20} strokeWidth={1.3} />
+            </a>
           </motion.div>
 
         </section>
