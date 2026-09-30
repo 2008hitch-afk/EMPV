@@ -3,7 +3,6 @@ import {
   ArrowUpRight,
   ContactRound,
   Globe2,
-  Linkedin,
   Mail,
   MessageCircle,
   Share2,
@@ -111,7 +110,7 @@ export default function BusinessCard({ person }: { person: BusinessPerson }) {
               target="_blank"
               rel="noreferrer"
             >
-              <Linkedin size={19} strokeWidth={1.55} />
+              <span className="business-card-linkedin-icon" aria-hidden="true">in</span>
               <span>LinkedIn</span>
               <ArrowUpRight size={17} strokeWidth={1.45} />
             </a>
