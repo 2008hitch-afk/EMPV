@@ -263,6 +263,147 @@ button {
   transition: opacity 220ms ease;
 }
 
+/* EMPV cursor — spring-following scanner probe */
+.empv-custom-cursor-enabled,
+.empv-custom-cursor-enabled body,
+.empv-custom-cursor-enabled a,
+.empv-custom-cursor-enabled button,
+.empv-custom-cursor-enabled summary,
+.empv-custom-cursor-enabled [role="button"] {
+  cursor: none !important;
+}
+
+.empv-custom-cursor-enabled input,
+.empv-custom-cursor-enabled textarea,
+.empv-custom-cursor-enabled select {
+  cursor: auto !important;
+}
+
+.empv-cursor {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 150ms ease;
+}
+
+.empv-cursor.is-visible {
+  opacity: 1;
+}
+
+.empv-cursor-ring-track,
+.empv-cursor-dot-track {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  will-change: transform;
+}
+
+.empv-cursor-ring,
+.empv-cursor-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+
+.empv-cursor-ring {
+  width: 28px;
+  height: 28px;
+  border: 1px solid color-mix(
+    in oklch,
+    var(--galaxy-accent, var(--signal)) 72%,
+    transparent
+  );
+  border-radius: 50%;
+  background: color-mix(
+    in oklch,
+    var(--galaxy-accent, var(--signal)) 0%,
+    transparent
+  );
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--paper) 36%, transparent),
+    0 0 18px color-mix(in oklch, var(--galaxy-accent, var(--signal)) 8%, transparent);
+  display: grid;
+  place-items: center;
+  transition:
+    width 220ms cubic-bezier(.22,1,.36,1),
+    height 220ms cubic-bezier(.22,1,.36,1),
+    background 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 120ms ease;
+}
+
+.empv-cursor-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--galaxy-accent, var(--signal));
+  box-shadow: 0 0 12px color-mix(in oklch, var(--galaxy-accent, var(--signal)) 22%, transparent);
+  transition:
+    width 180ms cubic-bezier(.22,1,.36,1),
+    height 180ms cubic-bezier(.22,1,.36,1),
+    opacity 160ms ease,
+    transform 120ms ease;
+}
+
+.empv-cursor-arrow {
+  opacity: 0;
+  color: var(--galaxy-accent, var(--signal));
+  transform: scale(0.72) rotate(-8deg);
+  transition:
+    opacity 150ms ease,
+    transform 220ms cubic-bezier(.22,1,.36,1);
+}
+
+.empv-cursor.is-interactive .empv-cursor-ring {
+  width: 36px;
+  height: 36px;
+  background: color-mix(
+    in oklch,
+    var(--galaxy-accent, var(--signal)) 5%,
+    transparent
+  );
+  border-color: color-mix(
+    in oklch,
+    var(--galaxy-accent, var(--signal)) 88%,
+    transparent
+  );
+  box-shadow:
+    0 0 0 1px color-mix(in oklch, var(--paper) 42%, transparent),
+    0 0 22px color-mix(in oklch, var(--galaxy-accent, var(--signal)) 12%, transparent);
+}
+
+.empv-cursor.is-interactive .empv-cursor-dot {
+  width: 3px;
+  height: 3px;
+  opacity: 0.78;
+}
+
+.empv-cursor.is-link .empv-cursor-ring {
+  width: 42px;
+  height: 42px;
+}
+
+.empv-cursor.is-link .empv-cursor-dot {
+  opacity: 0;
+}
+
+.empv-cursor.is-link .empv-cursor-arrow {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.empv-cursor.is-pressed .empv-cursor-ring,
+.empv-cursor.is-pressed .empv-cursor-dot {
+  transform: translate(-50%, -50%) scale(0.88);
+}
+
+
 main,
 footer {
   position: relative;
@@ -1542,7 +1683,8 @@ footer {
 }
 
 @media (hover: none), (pointer: coarse) {
-  .global-pointer-glow {
+  .global-pointer-glow,
+  .empv-cursor {
     display: none;
   }
 }
@@ -1550,6 +1692,10 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .empv-cursor {
+    display: none;
   }
 
   *,
