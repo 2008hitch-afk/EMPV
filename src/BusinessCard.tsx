@@ -53,8 +53,6 @@ export default function BusinessCard({ person }: { person: BusinessPerson }) {
         galaxyPalette="mist"
       />
 
-      <div className="business-card-orange-glow" aria-hidden="true" />
-
       <header className="business-card-topbar">
         <a className="business-card-brand" href={assetHref("it/")} aria-label="EMPV">
           EMPV
