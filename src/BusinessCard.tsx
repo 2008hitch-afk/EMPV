@@ -115,6 +115,17 @@ export default function BusinessCard({ person }: { person: BusinessPerson }) {
 
             <a
               className="business-card-action"
+              href={card.x}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="business-card-x-icon" aria-hidden="true">X</span>
+              <span>X / @EMPV26</span>
+              <ArrowUpRight size={17} strokeWidth={1.45} />
+            </a>
+
+            <a
+              className="business-card-action"
               href={card.website}
               target="_blank"
               rel="noreferrer"
