@@ -65,6 +65,19 @@
   letter-spacing: -0.04em;
 }
 
+.footer-x-icon {
+  width: 15px;
+  height: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.08em;
+}
+
 @media (max-width: 900px) {
   .footer-meta {
     grid-template-columns: 1fr 1fr;
