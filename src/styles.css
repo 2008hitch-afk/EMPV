@@ -1305,14 +1305,8 @@ footer {
   justify-self: center;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  border: 1px solid var(--hairline);
-  background:
-    radial-gradient(
-      circle at 68% 28%,
-      color-mix(in oklch, var(--galaxy-accent, var(--ink)) 12%, transparent),
-      transparent 46%
-    ),
-    color-mix(in oklch, var(--paper) 95%, var(--ink) 5%);
+  border: 0;
+  background: transparent;
 }
 
 .person-photo::after {
@@ -1350,12 +1344,7 @@ footer {
 }
 
 .person-photo--a {
-  background:
-    radial-gradient(
-      circle at 50% 32%,
-      color-mix(in oklch, var(--galaxy-accent, var(--ink)) 8%, var(--paper)),
-      var(--paper) 72%
-    );
+  background: transparent;
 }
 
 .person-photo--a img {

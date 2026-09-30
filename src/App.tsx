@@ -671,14 +671,14 @@ function PortfolioApp({
               role={c.enricoRole}
               text={c.enricoText}
               variant="a"
-              photoSrc={siteAssetHref("team/enrico-peruffo.webp")}
+              photoSrc={siteAssetHref("team/enrico-peruffo.avif")}
             />
             <PersonProfile
               name="Michele Valleri"
               role={c.micheleRole}
               text={c.micheleText}
               variant="b"
-              photoSrc={siteAssetHref("team/michele-valleri.webp")}
+              photoSrc={siteAssetHref("team/michele-valleri.avif")}
             />
           </div>
         </section>
