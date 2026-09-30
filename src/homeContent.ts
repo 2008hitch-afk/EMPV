@@ -43,12 +43,12 @@ export const copy = {
     peopleLabel: "00 / Chi siamo",
     peopleTitle: "Scopri il team",
     peopleIntro: "",
-    enricoRole: "AI & Systems Engineering",
+    enricoRole: "AI Systems & Architecture",
     enricoText:
-      "Architetture software, infrastruttura, AI locale, orchestrazione e implementazione tecnica. Porta sistemi complessi da ipotesi a ambienti eseguibili e verificabili.",
-    micheleRole: "Product & Process Design",
+      "Lavora su architetture AI, automazioni, modelli locali e integrazioni tra sistemi.",
+    micheleRole: "AI Product & Process Design",
     micheleText:
-      "Analisi dei processi, progettazione del prodotto e trasformazione dei problemi operativi in sistemi costruibili.",
+      "Lavora su prodotti AI, processi e workflow progettati intorno alle attività operative.",
     portraitNote: "Ritratto in arrivo",
     footerTop: "EMPV / Enrico + Michele",
     footerBottom: "Systems · Products · AI · Research",
@@ -81,12 +81,12 @@ export const copy = {
     peopleLabel: "00 / Who we are",
     peopleTitle: "Meet the team",
     peopleIntro: "",
-    enricoRole: "AI & Systems Engineering",
+    enricoRole: "AI Systems & Architecture",
     enricoText:
-      "Software architecture, infrastructure, local AI, orchestration and technical implementation. Turns complex hypotheses into executable and verifiable systems.",
-    micheleRole: "Product & Process Design",
+      "Works on AI architectures, automation, local models and integrations between systems.",
+    micheleRole: "AI Product & Process Design",
     micheleText:
-      "Process analysis, product design and turning operational problems into systems that can be built.",
+      "Works on AI products, processes and workflows designed around day-to-day operations.",
     portraitNote: "Portrait coming soon",
     footerTop: "EMPV / Enrico + Michele",
     footerBottom: "Systems · Products · AI · Research",
