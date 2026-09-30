@@ -179,14 +179,27 @@ function PersonProfile({
   variant: "a" | "b";
   photoSrc: string;
 }) {
+  const index = variant === "a" ? "01" : "02";
+
   return (
     <motion.article
-      className="person person-editorial"
+      className={`person person-editorial person--${variant}`}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-10%" }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
+      <div className="person-meta">
+        <span className="person-index">{index}</span>
+        <span className="person-meta-rule" aria-hidden="true" />
+        <p className="role">{role}</p>
+      </div>
+
+      <div className="person-editorial-copy">
+        <h3>{name}</h3>
+        <p className="person-description">{text}</p>
+      </div>
+
       <div className={`person-photo person-photo--${variant} has-photo`}>
         <img
           src={photoSrc}
@@ -194,12 +207,6 @@ function PersonProfile({
           loading="lazy"
           decoding="async"
         />
-      </div>
-      <div className="person-index">{variant === "a" ? "01" : "02"}</div>
-      <div className="person-editorial-copy">
-        <p className="role">{role}</p>
-        <h3>{name}</h3>
-        <p className="person-description">{text}</p>
       </div>
     </motion.article>
   );
