@@ -678,7 +678,7 @@ function PortfolioApp({
               role={c.enricoRole}
               text={c.enricoText}
               variant="a"
-              photoSrc={siteAssetHref("team/enrico-peruffo.avif")}
+              photoSrc={siteAssetHref("team/enrico-peruffo-transparent.webp")}
             />
             <PersonProfile
               name="Michele Valleri"
