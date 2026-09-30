@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import manifest from "./seo-manifest.json";
 import type { SiteLang } from "./detailContent";
+import { businessCards, type BusinessPerson } from "./businessCardData";
 import { getResearchNoteById, getResearchNoteBySlug } from "./researchNotesContent";
 
 export type LegalSlug = "privacy" | "cookies" | "legal";
@@ -8,6 +9,7 @@ export type DetailKind = "project" | "lab";
 
 export type SiteRoute =
   | { kind: "home"; lang: SiteLang }
+  | { kind: "businessCard"; lang: SiteLang; person: BusinessPerson }
   | { kind: "detail"; lang: SiteLang; detailKind: DetailKind; slug: string }
   | { kind: "notesIndex"; lang: SiteLang }
   | { kind: "note"; lang: SiteLang; noteId: string }
@@ -22,6 +24,7 @@ export const SITE_URL = `${runtimeSiteOrigin}${runtimeBasePath}`;
 
 export function routePath(route: SiteRoute): string {
   if (route.kind === "home") return `/${route.lang}/`;
+  if (route.kind === "businessCard") return `/${route.person}/`;
   if (route.kind === "detail") {
     const segment = route.detailKind === "project" ? (route.lang === "it" ? "progetti" : "projects") : "lab";
     return `/${route.lang}/${segment}/${route.slug}/`;
@@ -64,6 +67,8 @@ export function parseCurrentRoute(): SiteRoute {
   const params = new URLSearchParams(window.location.search);
   const queryLang: SiteLang = params.get("lang") === "en" ? "en" : "it";
   const clean = window.location.pathname.replace(/\/index\.html$/, "/").replace(/\/+$/, "");
+  if (/(?:^|\/)enrico$/.test(clean)) return { kind: "businessCard", lang: "it", person: "enrico" };
+  if (/(?:^|\/)michele$/.test(clean)) return { kind: "businessCard", lang: "it", person: "michele" };
   const langMatch = clean.match(/\/(it|en)(?:\/|$)/);
 
   if (langMatch?.index !== undefined) {
@@ -102,6 +107,13 @@ export function parseCurrentRoute(): SiteRoute {
 
 function copyFor(route: SiteRoute): { title: string; description: string } {
   if (route.kind === "home") return manifest.home[route.lang];
+  if (route.kind === "businessCard") {
+    const card = businessCards[route.person];
+    return {
+      title: `${card.name} — ${card.role} | EMPV`,
+      description: `${card.name}, ${card.role} at EMPV. Contatti, WhatsApp, email, LinkedIn e vCard in un'unica pagina.`,
+    };
+  }
   if (route.kind === "detail") {
     const item = manifest.details[route.slug as keyof typeof manifest.details];
     return item?.[route.lang] ?? manifest.home[route.lang];
@@ -131,25 +143,35 @@ export function applySeo(route: SiteRoute) {
   const canonical = canonicalUrl(route);
   const it = canonicalUrl({ ...route, lang: "it" } as SiteRoute);
   const en = canonicalUrl({ ...route, lang: "en" } as SiteRoute);
+  const card = route.kind === "businessCard" ? businessCards[route.person] : null;
+  const shareImage = card ? `${SITE_URL}/${card.photo}`.replace(/([^:]\/)\/+/, "$1") : null;
   document.documentElement.lang = route.lang;
   document.title = copy.title;
 
   meta('meta[name="description"]', { name: "description", content: copy.description });
   meta('meta[name="robots"]', { name: "robots", content: route.kind === "legal" ? "noindex,follow" : "index,follow,max-image-preview:large" });
   link('link[rel="canonical"]', { rel: "canonical", href: canonical });
-  link('link[rel="alternate"][hreflang="it"]', { rel: "alternate", hreflang: "it", href: it });
-  link('link[rel="alternate"][hreflang="en"]', { rel: "alternate", hreflang: "en", href: en });
-  link('link[rel="alternate"][hreflang="x-default"]', { rel: "alternate", hreflang: "x-default", href: it });
+
+  if (route.kind !== "businessCard") {
+    link('link[rel="alternate"][hreflang="it"]', { rel: "alternate", hreflang: "it", href: it });
+    link('link[rel="alternate"][hreflang="en"]', { rel: "alternate", hreflang: "en", href: en });
+    link('link[rel="alternate"][hreflang="x-default"]', { rel: "alternate", hreflang: "x-default", href: it });
+  }
 
   meta('meta[property="og:title"]', { property: "og:title", content: copy.title });
   meta('meta[property="og:description"]', { property: "og:description", content: copy.description });
-  meta('meta[property="og:type"]', { property: "og:type", content: route.kind === "detail" || route.kind === "note" ? "article" : "website" });
+  meta('meta[property="og:type"]', { property: "og:type", content: route.kind === "businessCard" ? "profile" : route.kind === "detail" || route.kind === "note" ? "article" : "website" });
   meta('meta[property="og:url"]', { property: "og:url", content: canonical });
   meta('meta[property="og:site_name"]', { property: "og:site_name", content: "EMPV" });
   meta('meta[property="og:locale"]', { property: "og:locale", content: route.lang === "it" ? "it_IT" : "en_GB" });
-  meta('meta[name="twitter:card"]', { name: "twitter:card", content: "summary" });
+  if (shareImage) {
+    meta('meta[property="og:image"]', { property: "og:image", content: shareImage });
+    meta('meta[property="og:image:alt"]', { property: "og:image:alt", content: card!.name });
+  }
+  meta('meta[name="twitter:card"]', { name: "twitter:card", content: shareImage ? "summary_large_image" : "summary" });
   meta('meta[name="twitter:title"]', { name: "twitter:title", content: copy.title });
   meta('meta[name="twitter:description"]', { name: "twitter:description", content: copy.description });
+  if (shareImage) meta('meta[name="twitter:image"]', { name: "twitter:image", content: shareImage });
 }
 
 export function SeoHead({ route }: { route: SiteRoute }) {

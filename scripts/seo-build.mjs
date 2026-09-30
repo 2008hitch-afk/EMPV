@@ -24,6 +24,7 @@ async function loadTypeScriptModule(relativePath) {
 const homeContent = await loadTypeScriptModule("../src/homeContent.ts");
 const detailContent = await loadTypeScriptModule("../src/detailContent.ts");
 const researchContent = await loadTypeScriptModule("../src/researchNotesContent.ts");
+const businessCardContent = await loadTypeScriptModule("../src/businessCardData.ts");
 const copy = homeContent.copy;
 const selected = homeContent.selected;
 const faqs = homeContent.faqs;
@@ -31,9 +32,11 @@ const labs = homeContent.labs;
 const getDetail = detailContent.getDetail;
 const researchNotes = researchContent.researchNotes;
 const getResearchNoteById = researchContent.getResearchNoteById;
+const businessCards = businessCardContent.businessCards;
 
 function routePath(route) {
   if (route.kind === "home") return "/" + route.lang + "/";
+  if (route.kind === "businessCard") return "/" + route.person + "/";
   if (route.kind === "detail") {
     const segment = route.detailKind === "project" ? (route.lang === "it" ? "progetti" : "projects") : "lab";
     return "/" + route.lang + "/" + segment + "/" + route.slug + "/";
@@ -52,6 +55,11 @@ function routePath(route) {
 const canonical = route => siteUrl + routePath(route);
 const copyFor = route => route.kind === "home"
   ? manifest.home[route.lang]
+  : route.kind === "businessCard"
+    ? {
+        title: businessCards[route.person].name + " — " + businessCards[route.person].role + " | EMPV",
+        description: businessCards[route.person].name + ", " + businessCards[route.person].role + " at EMPV. Contatti, WhatsApp, email, LinkedIn e vCard in un'unica pagina."
+      }
   : route.kind === "detail"
     ? manifest.details[route.slug][route.lang]
     : route.kind === "notesIndex"
@@ -269,6 +277,28 @@ function noteMarkup(route) {
   ].join("");
 }
 
+function businessCardMarkup(route) {
+  const card = businessCards[route.person];
+  const asset = path => withBase("/" + (path.startsWith("/") ? path.slice(1) : path));
+  return [
+    '<div class="business-card-shell business-card-shell--', esc(route.person), '" data-prerendered="true">',
+    '<header class="business-card-topbar"><a class="business-card-brand" href="', esc(withBase("/it/")), '">EMPV</a><span>Digital business card</span></header>',
+    '<main class="business-card-layout"><article class="business-card-panel">',
+    '<div class="business-card-photo-wrap"><img class="business-card-photo" src="', esc(asset(card.photo)), '" alt="', esc(card.name), '" /></div>',
+    '<div class="business-card-identity"><span class="business-card-kicker">EMPV / CONTACT</span><h1>', esc(card.name), '</h1><p class="business-card-role">', esc(card.role), '</p><p class="business-card-description">', esc(card.description), '</p></div>',
+    '<div class="business-card-actions">',
+    '<a class="business-card-action business-card-action--primary" href="', esc(asset(card.vcard)), '"><span>Salva contatto</span></a>',
+    '<a class="business-card-action" href="', esc(card.whatsapp), '"><span>WhatsApp</span></a>',
+    '<a class="business-card-action" href="mailto:', esc(card.email), '"><span>Email</span></a>',
+    '<a class="business-card-action" href="', esc(card.linkedin), '"><span>LinkedIn</span></a>',
+    '<a class="business-card-action" href="', esc(card.website), '"><span>Visita EMPV</span></a>',
+    '</div>',
+    '<div class="business-card-footer"><div><span>EMPV</span><strong>Systems · Products · AI · Research</strong></div><a href="', esc(card.website), '">empv.it</a></div>',
+    '</article><aside class="business-card-qr-panel"><div class="business-card-qr-frame"><img src="', esc(asset(card.qr)), '" alt="QR code per ', esc(card.name), '" /></div><div><span>QR personale</span><p>Scansiona per aprire questa e-card su un altro dispositivo.</p></div><small>', esc(card.url.replace("https://", "")), '</small></aside>',
+    '</main></div>'
+  ].join("");
+}
+
 function legalMarkup(route) {
   const pageCopy = copyFor(route);
   return '<div class="detail-shell" data-prerendered="true"><main class="detail-not-found"><div class="eyebrow">EMPV</div><h1>' +
@@ -278,6 +308,7 @@ function legalMarkup(route) {
 
 function staticMarkup(route) {
   if (route.kind === "home") return homeMarkup(route.lang);
+  if (route.kind === "businessCard") return businessCardMarkup(route);
   if (route.kind === "detail") return detailMarkup(route);
   if (route.kind === "notesIndex") return notesIndexMarkup(route.lang);
   if (route.kind === "note") return noteMarkup(route);
@@ -346,6 +377,29 @@ function structuredData(route) {
       about: { "@id": orgId }
     }
   ];
+
+  if (route.kind === "businessCard") {
+    const card = businessCards[route.person];
+    const personId = route.person === "enrico" ? enricoId : micheleId;
+    graph.push({
+      "@type": "ProfilePage",
+      "@id": url + "#profile",
+      url,
+      name: pageCopy.title,
+      description: pageCopy.description,
+      inLanguage: route.lang,
+      mainEntity: { "@id": personId },
+      isPartOf: { "@id": websiteId }
+    });
+    graph.push({
+      "@type": "ContactPoint",
+      "@id": url + "#contact",
+      contactType: "business",
+      email: card.email,
+      telephone: card.phone,
+      url: card.url
+    });
+  }
 
   if (route.kind === "home") {
     graph.push({
@@ -430,6 +484,9 @@ function inject(html, route) {
   const it = canonical({ ...route, lang: "it" });
   const en = canonical({ ...route, lang: "en" });
   const robots = route.kind === "legal" ? "noindex,follow" : "index,follow,max-image-preview:large";
+  const card = route.kind === "businessCard" ? businessCards[route.person] : null;
+  const shareBase = siteUrl.endsWith("/") ? siteUrl.slice(0, -1) : siteUrl;
+  const shareImage = card ? shareBase + "/" + card.photo : null;
 
   html = html
     .replace(/\s*<meta name="robots"[^>]*>/g, "")
@@ -443,32 +500,55 @@ function inject(html, route) {
   html = html.replace(/<title>[\s\S]*?<\/title>/, '<title>' + esc(pageCopy.title) + '</title>');
   html = html.replace(/<meta name="description"[^>]*>/, '<meta name="description" content="' + esc(pageCopy.description) + '" />');
 
-  const head = [
+  const headParts = [
     '    <meta name="robots" content="' + robots + '" />',
-    '    <link rel="canonical" href="' + url + '" />',
-    '    <link rel="alternate" hreflang="it" href="' + it + '" />',
-    '    <link rel="alternate" hreflang="en" href="' + en + '" />',
-    '    <link rel="alternate" hreflang="x-default" href="' + it + '" />',
+    '    <link rel="canonical" href="' + url + '" />'
+  ];
+  if (route.kind !== "businessCard") {
+    headParts.push(
+      '    <link rel="alternate" hreflang="it" href="' + it + '" />',
+      '    <link rel="alternate" hreflang="en" href="' + en + '" />',
+      '    <link rel="alternate" hreflang="x-default" href="' + it + '" />'
+    );
+  }
+  headParts.push(
     '    <link rel="describedby" href="' + siteUrl + '/llms.txt" type="text/markdown" />',
     '    <meta property="og:title" content="' + esc(pageCopy.title) + '" />',
     '    <meta property="og:description" content="' + esc(pageCopy.description) + '" />',
-    '    <meta property="og:type" content="' + (route.kind === "detail" || route.kind === "note" ? "article" : "website") + '" />',
+    '    <meta property="og:type" content="' + (route.kind === "businessCard" ? "profile" : route.kind === "detail" || route.kind === "note" ? "article" : "website") + '" />',
     '    <meta property="og:url" content="' + url + '" />',
     '    <meta property="og:site_name" content="EMPV" />',
-    '    <meta property="og:locale" content="' + (route.lang === "it" ? "it_IT" : "en_GB") + '" />',
-    '    <meta name="twitter:card" content="summary" />',
+    '    <meta property="og:locale" content="' + (route.lang === "it" ? "it_IT" : "en_GB") + '" />'
+  );
+  if (shareImage) {
+    headParts.push(
+      '    <meta property="og:image" content="' + shareImage + '" />',
+      '    <meta property="og:image:alt" content="' + esc(card.name) + '" />'
+    );
+  }
+  headParts.push(
+    '    <meta name="twitter:card" content="' + (shareImage ? "summary_large_image" : "summary") + '" />',
     '    <meta name="twitter:title" content="' + esc(pageCopy.title) + '" />',
-    '    <meta name="twitter:description" content="' + esc(pageCopy.description) + '" />',
+    '    <meta name="twitter:description" content="' + esc(pageCopy.description) + '" />'
+  );
+  if (shareImage) headParts.push('    <meta name="twitter:image" content="' + shareImage + '" />');
+  headParts.push(
     '    <script type="application/ld+json">' + jsonForHtml(structuredData(route)) + '</script>',
     '  </head>'
-  ].join("\n");
+  );
+  const head = headParts.join("\n");
 
   html = html.replace("</head>", head);
   html = html.replace('<div id="root"></div>', '<div id="root">' + staticMarkup(route) + '</div>');
   return adaptAssets(html, routePath(route));
 }
 
-const routes = [{ kind: "home", lang: "it" }, { kind: "home", lang: "en" }];
+const routes = [
+  { kind: "home", lang: "it" },
+  { kind: "home", lang: "en" },
+  { kind: "businessCard", lang: "it", person: "enrico" },
+  { kind: "businessCard", lang: "it", person: "michele" }
+];
 for (const lang of ["it", "en"]) routes.push({ kind: "notesIndex", lang });
 for (const note of researchNotes) {
   for (const lang of ["it", "en"]) routes.push({ kind: "note", lang, noteId: note.id });
@@ -493,6 +573,9 @@ await copyFile(new URL("../dist/index.html", import.meta.url), new URL("../dist/
 const indexable = routes.filter(route => route.kind !== "legal");
 const urls = indexable.map(route => {
   const loc = canonical(route);
+  if (route.kind === "businessCard") {
+    return '  <url>\n    <loc>' + loc + '</loc>\n  </url>';
+  }
   const it = canonical({ ...route, lang: "it" });
   const en = canonical({ ...route, lang: "en" });
   return '  <url>\n    <loc>' + loc + '</loc>\n' +
@@ -570,8 +653,8 @@ llmsLines.push(
   "",
   "## People",
   "",
-  "- Enrico Peruffo — AI & Systems Engineering.",
-  "- Michele Valleri — Product & Process Design.",
+  "- [Enrico Peruffo — AI Systems & Architecture](" + siteUrl + "/enrico/): digital business card and contact details.",
+  "- [Michele Valleri — AI Product & Process Design](" + siteUrl + "/michele/): digital business card and contact details.",
   "",
   "## Contact",
   "",

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ArrowDownRight, ArrowUpRight, Languages } from "lucide-react";
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import BackgroundLab from "./BackgroundLab";
+import BusinessCard from "./BusinessCard";
 import BackgroundEffect, {
   BACKGROUND_OPTIONS,
   DEFAULT_TUNING,
@@ -774,6 +775,8 @@ function App() {
   let page;
   if (isBackgroundLab) {
     page = <BackgroundLab />;
+  } else if (route.kind === "businessCard") {
+    page = <BusinessCard person={route.person} />;
   } else if (route.kind === "legal") {
     page = <LegalPage slug={route.slug} initialLang={initialLang} />;
   } else if (route.kind === "detail") {
