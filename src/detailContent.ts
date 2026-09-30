@@ -237,7 +237,7 @@ const it: Record<string, DetailContent> = {
       },
       {
         label: "04 / Come funziona adesso",
-        title: "Il sito raccoglie il contesto; Il team parte da una richiesta già leggibile.",
+        title: "Il sito raccoglie il contesto; il team parte da una richiesta già leggibile.",
         body:
           "Il sito e il percorso guidato diventano un unico ingresso commerciale: la persona racconta l'evento, il sistema struttura i dati e il team riceve un contesto più consistente su cui lavorare.",
       },
