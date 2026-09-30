@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ArrowLeft, ArrowUpRight, Languages } from "lucide-react";
-import { motion } from "motion/react";
+import { AnimatePresence, motion } from "motion/react";
 import SiteFooter from "./SiteFooter";
 import { getResearchNoteById, researchNotes } from "./researchNotesContent";
 import { siteHref } from "./seo";
@@ -26,6 +26,10 @@ function NotesTopbar({
   lang: SiteLang;
   noteId?: string;
 }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const homeHref = siteHref({ kind: "home", lang });
+  const notesHref = siteHref({ kind: "notesIndex", lang });
+
   const toggleLang = () => {
     const next = lang === "it" ? "en" : "it";
     window.location.href = noteId
@@ -33,29 +37,91 @@ function NotesTopbar({
       : siteHref({ kind: "notesIndex", lang: next });
   };
 
+  const navItems = [
+    ["00", "people", lang === "it" ? "Chi siamo" : "Who we are"],
+    ["01", "work", lang === "it" ? "Progetti" : "Projects"],
+    ["02", "labs", "AI Lab"],
+    ["03", "faq", "FAQ"],
+  ] as const;
+
   return (
-    <header className="topbar detail-topbar">
-      <a className="wordmark" href={siteHref({ kind: "home", lang })} aria-label="EMPV home">
-        EMPV
-      </a>
+    <>
+      <header className="topbar topbar-home notes-topbar">
+        <a className="wordmark wordmark-pill" href={homeHref} aria-label="EMPV home">
+          EMPV
+        </a>
 
-      <a
-        className="detail-nav-back"
-        href={noteId ? siteHref({ kind: "notesIndex", lang }) : siteHref({ kind: "home", lang })}
-      >
-        <ArrowLeft size={15} strokeWidth={1.5} />
-        {noteId
-          ? "Research Notes"
-          : lang === "it"
-            ? "Torna alla home"
-            : "Back home"}
-      </a>
+        <nav className="desktop-nav" aria-label="Primary navigation">
+          {navItems.map(([, id, label]) => (
+            <a key={id} href={`${homeHref}#${id}`}>
+              <span>{label}</span>
+            </a>
+          ))}
+          <a className="is-active" href={notesHref}>
+            <span>Research Notes</span>
+          </a>
+        </nav>
 
-      <button className="lang-switch" type="button" onClick={toggleLang}>
-        <Languages size={15} strokeWidth={1.6} />
-        {lang === "it" ? "EN" : "IT"}
-      </button>
-    </header>
+        <div className="topbar-actions">
+          <button className="lang-switch desktop-lang" type="button" onClick={toggleLang}>
+            <Languages size={15} strokeWidth={1.6} />
+            {lang === "it" ? "EN" : "IT"}
+          </button>
+          <button
+            className={`mobile-menu-toggle ${menuOpen ? "is-open" : ""}`}
+            type="button"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            <span />
+            <span />
+          </button>
+        </div>
+      </header>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.nav
+            className="mobile-nav-panel notes-mobile-nav"
+            aria-label="Mobile navigation"
+            initial={{ opacity: 0, y: -12, scale: 0.985 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.99 }}
+            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+          >
+            {navItems.map(([index, id, label]) => (
+              <a
+                key={id}
+                href={`${homeHref}#${id}`}
+                onClick={() => setMenuOpen(false)}
+              >
+                <span className="mobile-nav-index">{index}</span>
+                <strong>{label}</strong>
+                <ArrowUpRight size={20} strokeWidth={1.35} />
+              </a>
+            ))}
+            <a className="is-active" href={notesHref} onClick={() => setMenuOpen(false)}>
+              <span className="mobile-nav-index">04</span>
+              <strong>Research Notes</strong>
+              <ArrowUpRight size={20} strokeWidth={1.35} />
+            </a>
+            <button
+              className="mobile-nav-language"
+              type="button"
+              onClick={() => {
+                toggleLang();
+                setMenuOpen(false);
+              }}
+            >
+              <Languages size={17} strokeWidth={1.5} />
+              <span>{lang === "it" ? "English" : "Italiano"}</span>
+              <span>{lang === "it" ? "EN" : "IT"}</span>
+            </button>
+          </motion.nav>
+        )}
+      </AnimatePresence>
+    </>
   );
 }
 
