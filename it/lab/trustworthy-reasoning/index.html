@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="Ricerca su sistemi AI che mantengono evidenze, tempo, contraddizioni e versioni invece di comprimerle automaticamente in una sola risposta." />
+    <title>Trustworthy Reasoning — AI Lab | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-GFGnELRm.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BeRKbHHS.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/it/lab/trustworthy-reasoning/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/lab/trustworthy-reasoning/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/lab/trustworthy-reasoning/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/lab/trustworthy-reasoning/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="Trustworthy Reasoning — AI Lab | EMPV" />
+    <meta property="og:description" content="Ricerca su sistemi AI che mantengono evidenze, tempo, contraddizioni e versioni invece di comprimerle automaticamente in una sola risposta." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://empv.it/it/lab/trustworthy-reasoning/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="it_IT" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="Trustworthy Reasoning — AI Lab | EMPV" />
+    <meta name="twitter:description" content="Ricerca su sistemi AI che mantengono evidenze, tempo, contraddizioni e versioni invece di comprimerle automaticamente in una sola risposta." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/it/lab/trustworthy-reasoning/#webpage","url":"https://empv.it/it/lab/trustworthy-reasoning/","name":"Trustworthy Reasoning — AI Lab | EMPV","description":"Ricerca su sistemi AI che mantengono evidenze, tempo, contraddizioni e versioni invece di comprimerle automaticamente in una sola risposta.","inLanguage":"it","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"CreativeWork","@id":"https://empv.it/it/lab/trustworthy-reasoning/#work","name":"Trustworthy Reasoning","description":"Ricerca su sistemi AI che mantengono evidenze, tempo, contraddizioni e versioni invece di comprimerle automaticamente in una sola risposta.","url":"https://empv.it/it/lab/trustworthy-reasoning/","inLanguage":"it","creator":{"@id":"https://empv.it/#organization"},"keywords":["Reasoning","Evidence","Trust"],"isPartOf":{"@id":"https://empv.it/#website"}}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/it/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/it/#labs">AI Lab</a><a class="lang-switch" href="/en/lab/trustworthy-reasoning/" hreflang="en">EN</a></header><main><section class="detail-hero"><div class="detail-hero-inner"><div class="detail-kicker-row"><span class="eyebrow">EMPV / AI Lab</span><span class="detail-index">D</span></div><div class="detail-title-wrap"><p class="detail-kicker">Research / epistemic AI</p><h1>Trustworthy Reasoning</h1></div><div class="detail-hero-bottom"><p class="detail-lead">Ricerca su sistemi AI che non comprimono automaticamente evidenze contrastanti in una risposta unica, ma mantengono storia, contraddizioni, versioni e ragioni dietro le conclusioni.</p><div class="detail-status"><span>Fase</span><strong>Phase 0 — Call decomposition and research governance. Nessun claim di novelty è considerato validato.</strong></div></div><div class="tags detail-tags"><span>Reasoning</span><span>Evidence</span><span>Trust</span></div></div></section><section class="detail-comparison section-pad"><article><div class="eyebrow">Problema</div><h2>Una risposta può nascondere il percorso che l'ha prodotta</h2><p>Quando fonti, tempi o contesti sono in conflitto, fondere tutto in una singola rappresentazione può cancellare informazione importante.</p></article><article><div class="eyebrow">Direzione</div><h2>Ragionamento che porta con sé l'evidenza</h2><p>La ricerca esplora grafi versionati, branching epistemico, contraddizioni temporali, belief revision e planning che cerca nuova evidenza quando quella disponibile non basta.</p></article></section><section class="detail-blocks section-pad"><article class="detail-block"><div class="eyebrow">01 / La domanda</div><div class="detail-block-main"><h2>Come dovrebbe ragionare un sistema quando le fonti non concordano?</h2><p>L'obiettivo è trattare divergenze e aggiornamenti come parte del problema, non come rumore da eliminare prima del ragionamento.</p></div></article><article class="detail-block"><div class="eyebrow">02 / La ricerca</div><div class="detail-block-main"><h2>Evidence graphs, tempo e revisione delle credenze.</h2><p>La linea di lavoro combina conoscenza versionata, temporalità, contraddizioni contestuali, merge con prova, astrazione e pianificazione orientata alla ricerca di evidenza.</p></div></article><article class="detail-block"><div class="eyebrow">03 / Perché la teniamo nel Lab</div><div class="detail-block-main"><h2>È una direzione scientifica, non una feature da vendere.</h2><p>Prima di parlare di prodotto servono novelty, benchmark e falsificazione. Psicologia ed educazione sono possibili domini di validazione, non la giustificazione automatica del progetto.</p></div></article></section><section class="detail-boundary section-pad"><div class="section-code">EMPV / NOTE</div><p>Il progetto è in fase iniziale di ricerca e governance scientifica. Nessun claim di breakthrough o novelty viene presentato come già validato.</p></section><section class="detail-end section-pad"><a href="/it/#labs"><span>AI Lab</span></a></section></main></div></div>
+  </body>
+</html>

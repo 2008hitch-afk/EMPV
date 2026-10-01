@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="Ricerca su sistemi operativi verticali in cui prenotazioni, capacità, servizi e attività del team appartengono allo stesso dominio." />
+    <title>Vertical Operations — AI Lab | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-GFGnELRm.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BeRKbHHS.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/it/lab/vertical-operations/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/lab/vertical-operations/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/lab/vertical-operations/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/lab/vertical-operations/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="Vertical Operations — AI Lab | EMPV" />
+    <meta property="og:description" content="Ricerca su sistemi operativi verticali in cui prenotazioni, capacità, servizi e attività del team appartengono allo stesso dominio." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://empv.it/it/lab/vertical-operations/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="it_IT" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="Vertical Operations — AI Lab | EMPV" />
+    <meta name="twitter:description" content="Ricerca su sistemi operativi verticali in cui prenotazioni, capacità, servizi e attività del team appartengono allo stesso dominio." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/it/lab/vertical-operations/#webpage","url":"https://empv.it/it/lab/vertical-operations/","name":"Vertical Operations — AI Lab | EMPV","description":"Ricerca su sistemi operativi verticali in cui prenotazioni, capacità, servizi e attività del team appartengono allo stesso dominio.","inLanguage":"it","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"CreativeWork","@id":"https://empv.it/it/lab/vertical-operations/#work","name":"Vertical Operations","description":"Ricerca su sistemi operativi verticali in cui prenotazioni, capacità, servizi e attività del team appartengono allo stesso dominio.","url":"https://empv.it/it/lab/vertical-operations/","inLanguage":"it","creator":{"@id":"https://empv.it/#organization"},"keywords":["Vertical SaaS","Operations","Product"],"isPartOf":{"@id":"https://empv.it/#website"}}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/it/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/it/#labs">AI Lab</a><a class="lang-switch" href="/en/lab/vertical-operations/" hreflang="en">EN</a></header><main><section class="detail-hero"><div class="detail-hero-inner"><div class="detail-kicker-row"><span class="eyebrow">EMPV / AI Lab</span><span class="detail-index">D</span></div><div class="detail-title-wrap"><p class="detail-kicker">Product direction / vertical SaaS</p><h1>Vertical Operations</h1></div><div class="detail-hero-bottom"><p class="detail-lead">Una direzione prodotto: sistemi verticali in cui ciò che il cliente compra o prenota genera direttamente il lavoro che lo staff deve svolgere.</p><div class="detail-status"><span>Primo test</span><strong>Il primo verticale completo è stato costruito attorno alla pet hospitality.</strong></div></div><div class="tags detail-tags"><span>Vertical SaaS</span><span>Operations</span><span>Product</span></div></div></section><section class="detail-comparison section-pad"><article><div class="eyebrow">Software verticale classico</div><h2>Moduli che convivono</h2><p>CRM, booking, pagamenti e task spesso esistono come funzioni separate che richiedono ancora riconciliazione operativa.</p></article><article><div class="eyebrow">Direzione</div><h2>Una sola catena operativa</h2><p>Disponibilità, acquisto/prenotazione, configurazione del servizio e attività dello staff condividono lo stesso dominio e generano lavoro coerente.</p></article></section><section class="detail-blocks section-pad"><article class="detail-block"><div class="eyebrow">01 / La tesi</div><div class="detail-block-main"><h2>Il prodotto deve modellare il lavoro, non solo registrarlo.</h2><p>Quando il cliente acquista un servizio, quel fatto dovrebbe produrre automaticamente disponibilità occupata, attività, responsabilità e stato operativo per il team.</p></div></article><article class="detail-block"><div class="eyebrow">02 / Primo verticale</div><div class="detail-block-main"><h2>Pet resort come banco di prova.</h2><p>Il V1 multi-tenant include booking engine, area cliente, team/ruoli, strutture e alloggi, task, soggiorni, grooming, documenti, pagamenti base e reporting operativo.</p></div></article><article class="detail-block"><div class="eyebrow">03 / Cosa stiamo cercando</div><div class="detail-block-main"><h2>Capire quanto del modello sia riutilizzabile.</h2><p>Il test successivo è capire quali primitive operative possono essere riutilizzate in altri verticali di servizio senza trasformare il prodotto in un gestionale generico.</p></div></article></section><section class="detail-boundary section-pad"><div class="section-code">EMPV / NOTE</div><p>Il primo prodotto è funzionalmente completo a livello V1, ma la production readiness e l'estensione ad altri verticali restano fasi separate.</p></section><section class="detail-end section-pad"><a href="/it/#labs"><span>AI Lab</span></a></section></main></div></div>
+  </body>
+</html>
