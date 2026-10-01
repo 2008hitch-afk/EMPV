@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { SiteLang } from "./detailContent";
 import { siteHref } from "./seo";
 import {
+  clearAnalyticsConsentChoice,
   disableAnalytics,
   enableAnalytics,
   readAnalyticsConsent,
@@ -12,11 +13,32 @@ import "./cookie-consent.css";
 
 const OPEN_SETTINGS_EVENT = "empv:open-cookie-settings";
 
+function readInitialState(): { choice: AnalyticsConsent | null; open: boolean } {
+  const params = new URLSearchParams(window.location.search);
+  const forceReset = params.get("consent") === "reset";
+
+  if (forceReset) {
+    clearAnalyticsConsentChoice();
+    disableAnalytics();
+
+    params.delete("consent");
+    const cleanUrl =
+      window.location.pathname +
+      (params.toString() ? `?${params.toString()}` : "") +
+      window.location.hash;
+    window.history.replaceState({}, "", cleanUrl);
+
+    return { choice: null, open: true };
+  }
+
+  const choice = readAnalyticsConsent();
+  return { choice, open: choice === null };
+}
+
 export default function AnalyticsConsent({ lang }: { lang: SiteLang }) {
-  const [choice, setChoice] = useState<AnalyticsConsent | null>(
-    readAnalyticsConsent,
-  );
-  const [open, setOpen] = useState(() => readAnalyticsConsent() === null);
+  const initial = readInitialState();
+  const [choice, setChoice] = useState<AnalyticsConsent | null>(initial.choice);
+  const [open, setOpen] = useState(initial.open);
   const isIt = lang === "it";
 
   useEffect(() => {
