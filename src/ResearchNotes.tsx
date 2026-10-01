@@ -1,5 +1,5 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { ArrowLeft, ArrowUpRight, Languages } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Check, Copy, Languages, Share2 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import SiteFooter from "./SiteFooter";
 import { getResearchNoteById, researchNotes } from "./researchNotesContent";
@@ -144,6 +144,86 @@ function NotesTopbar({
         )}
       </AnimatePresence>
     </>
+  );
+}
+
+
+function ResearchNoteShare({
+  lang,
+  title,
+  url,
+}: {
+  lang: SiteLang;
+  title: string;
+  url: string;
+}) {
+  const [copied, setCopied] = useState(false);
+
+  const absoluteUrl = typeof window !== "undefined"
+    ? new URL(url, window.location.origin).toString()
+    : url;
+
+  const shareText = lang === "it"
+    ? title + " — EMPV Research Notes"
+    : title + " — EMPV Research Notes";
+
+  const linkedinHref =
+    "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(absoluteUrl);
+  const xHref =
+    "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText) +
+    "&url=" + encodeURIComponent(absoluteUrl);
+  const whatsappHref =
+    "https://wa.me/?text=" + encodeURIComponent(shareText + " " + absoluteUrl);
+
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(absoluteUrl);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1800);
+    } catch {
+      window.prompt(
+        lang === "it" ? "Copia questo link" : "Copy this link",
+        absoluteUrl,
+      );
+    }
+  };
+
+  const share = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({ title, text: shareText, url: absoluteUrl });
+        return;
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+      }
+    }
+    await copyLink();
+  };
+
+  return (
+    <section className="research-note-share section-pad" aria-label={lang === "it" ? "Condividi questa Research Note" : "Share this Research Note"}>
+      <div className="section-code">EMPV / {lang === "it" ? "CONDIVIDI" : "SHARE"}</div>
+      <div className="research-note-share-inner">
+        <p>
+          {lang === "it"
+            ? "Condividi questa Research Note."
+            : "Share this Research Note."}
+        </p>
+        <div className="research-note-share-actions">
+          <button type="button" className="research-note-share-primary" onClick={share}>
+            <Share2 size={16} strokeWidth={1.5} />
+            <span>{lang === "it" ? "Condividi" : "Share"}</span>
+          </button>
+          <a href={linkedinHref} target="_blank" rel="noreferrer noopener">LinkedIn</a>
+          <a href={xHref} target="_blank" rel="noreferrer noopener">X</a>
+          <a href={whatsappHref} target="_blank" rel="noreferrer noopener">WhatsApp</a>
+          <button type="button" onClick={copyLink} aria-live="polite">
+            {copied ? <Check size={16} strokeWidth={1.5} /> : <Copy size={16} strokeWidth={1.5} />}
+            <span>{copied ? (lang === "it" ? "Copiato" : "Copied") : (lang === "it" ? "Copia link" : "Copy link")}</span>
+          </button>
+        </div>
+      </div>
+    </section>
   );
 }
 
@@ -317,6 +397,12 @@ function ResearchNoteArticle({ lang, noteId }: { lang: SiteLang; noteId: string 
           <div className="section-code">EMPV / TAKEAWAY</div>
           <p>{note.takeaway[lang]}</p>
         </section>
+
+        <ResearchNoteShare
+          lang={lang}
+          title={note.title[lang]}
+          url={siteHref({ kind: "note", lang, noteId: note.id })}
+        />
 
         <section className="detail-end section-pad">
           <a href={siteHref({ kind: "notesIndex", lang })}>
