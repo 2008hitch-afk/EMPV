@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { ArrowLeft, ArrowUpRight, Check, Copy, Languages, Share2 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import SiteFooter from "./SiteFooter";
+import { trackAnalyticsEvent } from "./analytics";
 import { getResearchNoteById, researchNotes } from "./researchNotesContent";
 import { siteHref } from "./seo";
 import type { SiteLang } from "./detailContent";
@@ -186,16 +187,32 @@ function ResearchNoteShare({
   const whatsappHref =
     "https://wa.me/?text=" + encodeURIComponent(shareText + " " + sharedUrl);
 
+  const articlePath = (() => {
+    try {
+      return new URL(sharedUrl).pathname;
+    } catch {
+      return window.location.pathname;
+    }
+  })();
+
+  const trackShare = (method: string) =>
+    trackAnalyticsEvent("share_article", {
+      method,
+      article_path: articlePath,
+    });
+
   const copyLink = async () => {
     try {
       await navigator.clipboard.writeText(sharedUrl);
       setCopied(true);
+      trackShare("copy");
       window.setTimeout(() => setCopied(false), 1800);
     } catch {
       window.prompt(
         lang === "it" ? "Copia questo link" : "Copy this link",
         sharedUrl,
       );
+      trackShare("copy_prompt");
     }
   };
 
@@ -203,6 +220,7 @@ function ResearchNoteShare({
     if (navigator.share) {
       try {
         await navigator.share({ title, text: shareText, url: sharedUrl });
+        trackShare("native");
         return;
       } catch (error) {
         if (error instanceof DOMException && error.name === "AbortError") return;
@@ -225,9 +243,9 @@ function ResearchNoteShare({
             <Share2 size={16} strokeWidth={1.5} />
             <span>{lang === "it" ? "Condividi" : "Share"}</span>
           </button>
-          <a href={linkedinHref} target="_blank" rel="noreferrer noopener">LinkedIn</a>
-          <a href={xHref} target="_blank" rel="noreferrer noopener">X</a>
-          <a href={whatsappHref} target="_blank" rel="noreferrer noopener">WhatsApp</a>
+          <a href={linkedinHref} target="_blank" rel="noreferrer noopener" onClick={() => trackShare("linkedin")}>LinkedIn</a>
+          <a href={xHref} target="_blank" rel="noreferrer noopener" onClick={() => trackShare("x")}>X</a>
+          <a href={whatsappHref} target="_blank" rel="noreferrer noopener" onClick={() => trackShare("whatsapp")}>WhatsApp</a>
           <button type="button" onClick={copyLink} aria-live="polite">
             {copied ? <Check size={16} strokeWidth={1.5} /> : <Copy size={16} strokeWidth={1.5} />}
             <span>{copied ? (lang === "it" ? "Copiato" : "Copied") : (lang === "it" ? "Copia link" : "Copy link")}</span>
