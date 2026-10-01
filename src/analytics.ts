@@ -22,6 +22,8 @@ declare global {
 
 let analyticsEnabled = false;
 let clickTrackingBound = false;
+let analyticsConfigured = false;
+let lastPageViewKey = "";
 
 function setGaDisabled(disabled: boolean) {
   (window as unknown as Record<string, unknown>)[
@@ -31,11 +33,12 @@ function setGaDisabled(disabled: boolean) {
 
 function ensureGtag() {
   window.dataLayer = window.dataLayer || [];
-  window.gtag =
-    window.gtag ||
-    ((...args: unknown[]) => {
-      window.dataLayer.push(args);
-    });
+
+  if (!window.gtag) {
+    window.gtag = function (..._args: unknown[]) {
+      window.dataLayer.push(arguments);
+    };
+  }
 }
 
 export function readAnalyticsConsent(): AnalyticsConsent | null {
@@ -63,6 +66,14 @@ export function writeAnalyticsConsent(choice: AnalyticsConsent) {
     window.localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify(value));
   } catch {
     // Consent still applies for the current page if browser storage is unavailable.
+  }
+}
+
+export function clearAnalyticsConsentChoice() {
+  try {
+    window.localStorage.removeItem(CONSENT_STORAGE_KEY);
+  } catch {
+    // Nothing else to do when browser storage is unavailable.
   }
 }
 
@@ -172,12 +183,23 @@ export function enableAnalytics() {
   setGaDisabled(false);
   ensureGtag();
 
-  window.gtag?.("consent", "default", {
+  window.gtag?.("consent", "update", {
     analytics_storage: "granted",
     ad_storage: "denied",
     ad_user_data: "denied",
     ad_personalization: "denied",
   });
+
+  if (!analyticsConfigured) {
+    window.gtag?.("js", new Date());
+    window.gtag?.("config", GA_MEASUREMENT_ID, {
+      send_page_view: false,
+      anonymize_ip: true,
+      allow_google_signals: false,
+      allow_ad_personalization_signals: false,
+    });
+    analyticsConfigured = true;
+  }
 
   if (!document.querySelector(`script[data-empv-ga4="${GA_MEASUREMENT_ID}"]`)) {
     const script = document.createElement("script");
@@ -189,13 +211,17 @@ export function enableAnalytics() {
     document.head.appendChild(script);
   }
 
-  window.gtag?.("js", new Date());
-  window.gtag?.("config", GA_MEASUREMENT_ID, {
-    send_page_view: true,
-    anonymize_ip: true,
-    allow_google_signals: false,
-    allow_ad_personalization_signals: false,
-  });
+  const pageViewKey =
+    window.location.pathname + window.location.search + window.location.hash;
+
+  if (lastPageViewKey !== pageViewKey) {
+    window.gtag?.("event", "page_view", {
+      page_title: document.title,
+      page_location: window.location.href,
+      page_path: window.location.pathname,
+    });
+    lastPageViewKey = pageViewKey;
+  }
 
   bindClickTracking();
 }
