@@ -152,38 +152,49 @@ function ResearchNoteShare({
   lang,
   title,
   url,
+  version,
 }: {
   lang: SiteLang;
   title: string;
   url: string;
+  version: string;
 }) {
   const [copied, setCopied] = useState(false);
 
   const absoluteUrl = typeof window !== "undefined"
     ? new URL(url, window.location.origin).toString()
     : url;
+  const sharedUrl = (() => {
+    try {
+      const next = new URL(absoluteUrl);
+      next.searchParams.set("share", version);
+      return next.toString();
+    } catch {
+      return absoluteUrl + (absoluteUrl.includes("?") ? "&" : "?") + "share=" + encodeURIComponent(version);
+    }
+  })();
 
   const shareText = lang === "it"
     ? title + " — EMPV Research Notes"
     : title + " — EMPV Research Notes";
 
   const linkedinHref =
-    "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(absoluteUrl);
+    "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(sharedUrl);
   const xHref =
     "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText) +
-    "&url=" + encodeURIComponent(absoluteUrl);
+    "&url=" + encodeURIComponent(sharedUrl);
   const whatsappHref =
-    "https://wa.me/?text=" + encodeURIComponent(shareText + " " + absoluteUrl);
+    "https://wa.me/?text=" + encodeURIComponent(shareText + " " + sharedUrl);
 
   const copyLink = async () => {
     try {
-      await navigator.clipboard.writeText(absoluteUrl);
+      await navigator.clipboard.writeText(sharedUrl);
       setCopied(true);
       window.setTimeout(() => setCopied(false), 1800);
     } catch {
       window.prompt(
         lang === "it" ? "Copia questo link" : "Copy this link",
-        absoluteUrl,
+        sharedUrl,
       );
     }
   };
@@ -191,7 +202,7 @@ function ResearchNoteShare({
   const share = async () => {
     if (navigator.share) {
       try {
-        await navigator.share({ title, text: shareText, url: absoluteUrl });
+        await navigator.share({ title, text: shareText, url: sharedUrl });
         return;
       } catch (error) {
         if (error instanceof DOMException && error.name === "AbortError") return;
@@ -402,6 +413,7 @@ function ResearchNoteArticle({ lang, noteId }: { lang: SiteLang; noteId: string 
           lang={lang}
           title={note.title[lang]}
           url={siteHref({ kind: "note", lang, noteId: note.id })}
+          version={(note.updated || note.published).replaceAll("-", "")}
         />
 
         <section className="detail-end section-pad">
