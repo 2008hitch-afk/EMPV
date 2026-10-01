@@ -24,6 +24,176 @@ export type ResearchNote = {
 
 export const researchNotes: ResearchNote[] = [
   {
+    "id": "openai-dots",
+    "index": "007",
+    "slugs": {
+      "it": "openai-dots-agenti-sempre-attivi-computer-cloud",
+      "en": "openai-dots-always-on-agents-cloud-computer"
+    },
+    "title": {
+      "it": "OpenAI lancia Dots, agenti sempre attivi con un computer nel cloud",
+      "en": "OpenAI launches Dots, always-on agents with their own cloud computer"
+    },
+    "dek": {
+      "it": "I Dots usano GPT-6 Astra, continuano a lavorare tra una conversazione e l'altra e possono agire attraverso app collegate. Sono disponibili su Pro, Business Premium ed Enterprise.",
+      "en": "Dots run on GPT-6 Astra, keep working between conversations and can act across connected apps. They are available on Pro, Business Premium and Enterprise."
+    },
+    "category": {
+      "it": "NEWS NOTE / AI AGENTS",
+      "en": "NEWS NOTE / AI AGENTS"
+    },
+    "tags": {
+      "it": [
+        "OpenAI Dots",
+        "GPT-6 Astra",
+        "AI agents",
+        "ChatGPT"
+      ],
+      "en": [
+        "OpenAI Dots",
+        "GPT-6 Astra",
+        "AI agents",
+        "ChatGPT"
+      ]
+    },
+    "published": "2026-10-01",
+    "updated": "2026-10-01",
+    "readingTime": {
+      "it": "6 min",
+      "en": "6 min"
+    },
+    "sections": {
+      "it": [
+        {
+          "label": "01 / L'annuncio",
+          "title": "Dots è il nuovo sistema di agenti personali di OpenAI.",
+          "paragraphs": [
+            "[OpenAI](https://chatgpt.com/features/dots/) ha presentato Dots il 29 settembre durante il DevDay 2026. Ogni Dot è un agente personale basato su GPT-6 Astra che può continuare a lavorare dopo la fine di una conversazione, inviare aggiornamenti e chiedere conferma quando serve una decisione.",
+            "L'accesso è in rollout su ChatGPT web, mobile e desktop per i piani Pro, Business Premium ed Enterprise nei mercati supportati. Gli utenti Enterprise possono usarlo quando viene abilitato dall'amministratore del workspace."
+          ]
+        },
+        {
+          "label": "02 / Come funziona",
+          "title": "Ogni Dot lavora su un proprio computer nel cloud.",
+          "paragraphs": [
+            "Secondo [OpenAI](https://chatgpt.com/features/dots/), il Dot parte dal contesto della memoria ChatGPT, usa Codex e gli strumenti collegati e può continuare un progetto tra una sessione e l'altra. L'utente decide quali app può usare e può cambiare direzione o mettere in pausa il lavoro.",
+            "OpenAI mostra esempi che vanno dalla preparazione di una presentazione alla gestione di una migrazione API, fino alla costruzione e al test di piccole modifiche software partendo dal feedback degli utenti. I Dots possono anche comparire in Slack e Microsoft Teams mantenendo il contesto del lavoro iniziato altrove.",
+            "[The Verge](https://www.theverge.com/ai-artificial-intelligence/1002033/openai-dots-launch-muse-competitor) riporta che per ora ogni utente può creare un solo Dot; OpenAI prevede di supportarne più di uno in futuro."
+          ]
+        },
+        {
+          "label": "03 / Autonomia e permessi",
+          "title": "Il Dot può lavorare da solo, ma non tutte le azioni sono automatiche.",
+          "paragraphs": [
+            "Le autorizzazioni passano dagli stessi plugin usati da ChatGPT, ChatGPT Work e Codex. Nella [documentazione di sicurezza](https://help.openai.com/en/articles/20001529-dots-privacy-security-and-safety-faqs), OpenAI spiega che le Custom Rules possono vietare azioni specifiche, per esempio l'invio di email, o imporre un'approvazione prima di procedere.",
+            "Le azioni che possono modificare account o condividere informazioni passano attraverso Auto-review. Operazioni come il cambio password restano a carico dell'utente.",
+            "Esiste anche una modalità di ricerca proattiva: il Dot può leggere fonti collegate autorizzate e salvare note private prima che venga fatta una richiesta. Questa modalità, però, non può da sola inviare messaggi, modificare contenuti tramite plugin o controllare browser e computer; per farlo deve passare dalle normali regole di autorizzazione."
+          ]
+        },
+        {
+          "label": "04 / Memoria e dati",
+          "title": "Dots e ChatGPT condividono parte del contesto.",
+          "paragraphs": [
+            "La [FAQ di OpenAI](https://help.openai.com/en/articles/20001529-dots-privacy-security-and-safety-faqs) specifica che un Dot può ricevere memoria e conversazioni recenti da ChatGPT e che le conversazioni con il Dot possono a loro volta contribuire alla memoria di ChatGPT. Disattivare Memory interrompe la condivisione futura, ma non elimina automaticamente il contesto già ricevuto dal Dot.",
+            "Scollegare un servizio impedisce nuovi accessi, ma non cancella le informazioni che il Dot ha già incorporato nel proprio contesto. Eliminare il Dot cancella il suo contesto, mentre file, thread Codex e conversazioni ChatGPT creati durante il lavoro restano nelle rispettive aree.",
+            "Per Business, Enterprise ed Edu, OpenAI dichiara che i dati non vengono usati per addestrare i modelli per impostazione predefinita. Nei piani personali, invece, vale l'impostazione “Improve the model for everyone”."
+          ]
+        },
+        {
+          "label": "05 / Cosa può fare oggi",
+          "title": "Il caso d'uso è più vicino a un collaboratore persistente che a una singola chat.",
+          "paragraphs": [
+            "Negli esempi ufficiali, un Dot segue metriche e feedback per aggiornare una presentazione, controlla requisiti di un RFP contro email e documentazione, prepara codice e test durante una migrazione API e continua a monitorare il lavoro finché le dipendenze non vengono eliminate.",
+            "Questi sono scenari dimostrativi pubblicati da OpenAI, non benchmark indipendenti. Il punto tecnico è che il Dot combina memoria, strumenti, computer cloud e lavoro asincrono sotto un unico agente, invece di richiedere una nuova conversazione per ogni passaggio."
+          ]
+        },
+        {
+          "label": "06 / La parte ancora da dimostrare",
+          "title": "Lavorare a lungo senza supervisione resta il test più importante.",
+          "paragraphs": [
+            "[Reuters](https://www.reuters.com/business/openai-takes-meta-with-always-on-dots-agent-enterprise-ai-push-2026-09-29/) riporta che durante il DevDay alcune demo live hanno avuto problemi: i Dots non sono riusciti più volte a fornire gli aggiornamenti vocali richiesti sul palco. OpenAI ha attribuito i problemi al rollout simultaneo degli aggiornamenti.",
+            "Reuters ricorda anche che il lancio arriva mentre cresce l'attenzione sulla sicurezza degli agenti autonomi. OpenAI afferma di aver introdotto regole, approvazioni e controlli proprio per ridurre il rischio che un agente agisca fuori dalle intenzioni dell'utente.",
+            "La domanda utile non è quindi se Dots sappia completare una demo, ma quanto spesso riesca a portare avanti task lunghi con app reali, permessi reali e dati reali senza richiedere continui interventi umani."
+          ]
+        },
+        {
+          "label": "07 / Disponibilità",
+          "title": "Dots non è ancora un prodotto per tutti gli utenti ChatGPT.",
+          "paragraphs": [
+            "OpenAI lo sta distribuendo su Pro, Business Premium ed Enterprise nei mercati supportati. I minori di 18 anni non possono usarlo al momento, secondo la [documentazione ufficiale](https://help.openai.com/en/articles/20001529-dots-privacy-security-and-safety-faqs).",
+            "La pagina ufficiale del prodotto è su [ChatGPT](https://chatgpt.com/features/dots/). Dots non va confuso con domini come dot.com o dots.com, che non sono il sito ufficiale del prodotto OpenAI."
+          ]
+        }
+      ],
+      "en": [
+        {
+          "label": "01 / The announcement",
+          "title": "Dots is OpenAI's new personal agent system.",
+          "paragraphs": [
+            "[OpenAI](https://chatgpt.com/features/dots/) introduced Dots on September 29 at DevDay 2026. Each Dot is a personal agent powered by GPT-6 Astra that can keep working after a conversation ends, send updates and ask for confirmation when a decision is needed.",
+            "Access is rolling out across ChatGPT web, mobile and desktop for Pro, Business Premium and Enterprise plans in eligible markets. Enterprise users can use Dots when enabled by their workspace administrator."
+          ]
+        },
+        {
+          "label": "02 / How it works",
+          "title": "Each Dot works on its own cloud computer.",
+          "paragraphs": [
+            "According to [OpenAI](https://chatgpt.com/features/dots/), a Dot starts with context from ChatGPT memory, uses Codex and connected tools, and can keep a project moving between sessions. Users decide which apps it can access and can redirect or pause its work.",
+            "OpenAI shows examples ranging from presentation updates to API migrations and building and testing small software changes from user feedback. Dots can also appear in Slack and Microsoft Teams while carrying context from work started elsewhere.",
+            "[The Verge](https://www.theverge.com/ai-artificial-intelligence/1002033/openai-dots-launch-muse-competitor) reports that users can create only one Dot for now; OpenAI plans to support multiple agents later."
+          ]
+        },
+        {
+          "label": "03 / Autonomy and permissions",
+          "title": "A Dot can work independently, but not every action is automatic.",
+          "paragraphs": [
+            "Permissions use the same plugin connections as ChatGPT, ChatGPT Work and Codex. In its [security documentation](https://help.openai.com/en/articles/20001529-dots-privacy-security-and-safety-faqs), OpenAI says Custom Rules can block specific actions, such as sending email, or require approval before proceeding.",
+            "Actions that can affect accounts or share information go through Auto-review. Operations such as changing a password remain with the user.",
+            "Dots can also perform proactive research by reading authorized connected sources and saving private notes before a request is made. That research mode cannot directly send messages, change content through plugins or control a browser or computer; follow-up actions still use the normal permission rules."
+          ]
+        },
+        {
+          "label": "04 / Memory and data",
+          "title": "Dots and ChatGPT share part of their context.",
+          "paragraphs": [
+            "OpenAI's [FAQ](https://help.openai.com/en/articles/20001529-dots-privacy-security-and-safety-faqs) says a Dot can receive memories and recent conversation context from ChatGPT, while Dot conversations can contribute to ChatGPT memory. Turning Memory off stops future sharing but does not automatically delete context the Dot already received.",
+            "Disconnecting a service prevents new access but does not erase information already incorporated into the Dot's context. Deleting the Dot removes its own context, while files, Codex threads and ChatGPT conversations created during its work remain in their respective locations.",
+            "For Business, Enterprise and Edu, OpenAI says data is not used for model training by default. On personal plans, the “Improve the model for everyone” setting controls whether Dot conversations and work may be used for model improvement."
+          ]
+        },
+        {
+          "label": "05 / What it can do today",
+          "title": "The use case looks more like a persistent collaborator than a single chat.",
+          "paragraphs": [
+            "In OpenAI's examples, a Dot tracks metrics and feedback to update a presentation, checks RFP requirements against email and product documentation, prepares code and tests during an API migration, and keeps monitoring the project until dependencies are gone.",
+            "These are company demos, not independent benchmarks. The technical shift is that memory, tools, a cloud computer and background work sit under one persistent agent instead of requiring a fresh conversation for each step."
+          ]
+        },
+        {
+          "label": "06 / What still needs to be proven",
+          "title": "Working for long periods with limited supervision is the more important test.",
+          "paragraphs": [
+            "[Reuters](https://www.reuters.com/business/openai-takes-meta-with-always-on-dots-agent-enterprise-ai-push-2026-09-29/) reports that some live DevDay demos ran into problems, with Dots repeatedly failing to deliver requested voice updates on stage. OpenAI attributed the glitches to rolling out all the updates at once.",
+            "Reuters also notes that the launch comes amid growing scrutiny of autonomous-agent safety. OpenAI says rules, approvals and review systems are designed to reduce the chance that an agent acts outside a user's intent.",
+            "The useful question is not whether Dots can complete a polished demo, but how often it can finish long-running tasks across real apps, permissions and data without constant human intervention."
+          ]
+        },
+        {
+          "label": "07 / Availability",
+          "title": "Dots is not yet available to every ChatGPT user.",
+          "paragraphs": [
+            "OpenAI is rolling it out to Pro, Business Premium and Enterprise users in eligible markets. Users under 18 cannot use Dots for now, according to the [official documentation](https://help.openai.com/en/articles/20001529-dots-privacy-security-and-safety-faqs).",
+            "The official product page is on [ChatGPT](https://chatgpt.com/features/dots/). Dots should not be confused with domains such as dot.com or dots.com, which are not the official OpenAI product site."
+          ]
+        }
+      ]
+    },
+    "takeaway": {
+      "it": "Dots mette insieme memoria, strumenti e un computer cloud in un agente persistente. Il punto da misurare sarà quanto lavoro riesce davvero a portare avanti senza supervisione continua.",
+      "en": "Dots combines memory, tools and a cloud computer in one persistent agent. The key measure will be how much work it can actually carry forward without constant supervision."
+    }
+  },
+  {
     "id": "gemini-4-argon",
     "index": "006",
     "slugs": {
