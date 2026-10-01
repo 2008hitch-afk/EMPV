@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { ArrowLeft, ArrowUpRight, Languages } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import SiteFooter from "./SiteFooter";
@@ -10,6 +10,28 @@ type ResearchNotesProps = {
   initialLang: SiteLang;
   noteId?: string;
 };
+
+
+function renderInlineLinks(text: string): ReactNode[] {
+  const pattern = /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g;
+  const nodes: ReactNode[] = [];
+  let lastIndex = 0;
+  let match: RegExpExecArray | null;
+  let key = 0;
+
+  while ((match = pattern.exec(text)) !== null) {
+    if (match.index > lastIndex) nodes.push(text.slice(lastIndex, match.index));
+    nodes.push(
+      <a key={"link-" + key++} href={match[2]} target="_blank" rel="noreferrer noopener">
+        {match[1]}
+      </a>,
+    );
+    lastIndex = pattern.lastIndex;
+  }
+
+  if (lastIndex < text.length) nodes.push(text.slice(lastIndex));
+  return nodes;
+}
 
 function formatDate(value: string, lang: SiteLang) {
   return new Intl.DateTimeFormat(lang === "it" ? "it-IT" : "en-GB", {
@@ -276,13 +298,13 @@ function ResearchNoteArticle({ lang, noteId }: { lang: SiteLang; noteId: string 
                 <h2>{section.title}</h2>
                 <div className="research-note-copy">
                   {section.paragraphs.map((paragraph) => (
-                    <p key={paragraph}>{paragraph}</p>
+                    <p key={paragraph}>{renderInlineLinks(paragraph)}</p>
                   ))}
                 </div>
                 {section.bullets && (
                   <ul>
                     {section.bullets.map((item) => (
-                      <li key={item}>{item}</li>
+                      <li key={item}>{renderInlineLinks(item)}</li>
                     ))}
                   </ul>
                 )}
