@@ -74,6 +74,23 @@ const esc = value => String(value ?? "")
   .replaceAll("<", "&lt;")
   .replaceAll(">", "&gt;");
 
+
+const inlineMarkup = value => {
+  const source = String(value ?? "");
+  const pattern = /\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g;
+  let html = "";
+  let lastIndex = 0;
+  let match;
+
+  while ((match = pattern.exec(source)) !== null) {
+    html += esc(source.slice(lastIndex, match.index));
+    html += '<a href="' + esc(match[2]) + '" target="_blank" rel="noreferrer noopener">' + esc(match[1]) + '</a>';
+    lastIndex = pattern.lastIndex;
+  }
+
+  return html + esc(source.slice(lastIndex));
+};
+
 const jsonForHtml = value => JSON.stringify(value).replaceAll("<", "\\u003c");
 const withBase = path => (basePath + path).replace(/\/+/g, "/") || "/";
 const hrefFor = route => withBase(routePath(route));
@@ -250,8 +267,8 @@ function noteMarkup(route) {
   const blocks = note.sections[lang].map(section =>
     '<article class="detail-block research-note-block"><div class="eyebrow">' + esc(section.label) +
     '</div><div class="detail-block-main"><h2>' + esc(section.title) + '</h2><div class="research-note-copy">' +
-    section.paragraphs.map(paragraph => '<p>' + esc(paragraph) + '</p>').join("") + '</div>' +
-    (section.bullets ? '<ul>' + section.bullets.map(item => '<li>' + esc(item) + '</li>').join("") + '</ul>' : "") +
+    section.paragraphs.map(paragraph => '<p>' + inlineMarkup(paragraph) + '</p>').join("") + '</div>' +
+    (section.bullets ? '<ul>' + section.bullets.map(item => '<li>' + inlineMarkup(item) + '</li>').join("") + '</ul>' : "") +
     '</div></article>'
   ).join("");
 
