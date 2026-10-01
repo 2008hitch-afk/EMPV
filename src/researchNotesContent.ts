@@ -31,8 +31,8 @@ export const researchNotes: ResearchNote[] = [
       "en": "gemini-4-argon-long-horizon-ai-agents"
     },
     "title": {
-      "it": "Gemini 4 Argon e il problema dei task lunghi",
-      "en": "Gemini 4 Argon and the problem of long-running tasks"
+      "it": "Gemini 4 Argon: task lunghi, agenti e limiti",
+      "en": "Gemini 4 Argon: long-running tasks, agents and limits"
     },
     "dek": {
       "it": "Google ha progettato Argon per attività che richiedono molti passaggi e possono durare a lungo. La parte da osservare è come mantiene stato, usa strumenti e recupera dagli errori mentre il lavoro procede.",
@@ -92,12 +92,12 @@ export const researchNotes: ResearchNote[] = [
           "title": "Google sta puntando Argon anche su attività enterprise, non solo sul coding.",
           "paragraphs": [
             "Google dichiara risultati forti su valutazioni di software engineering long-horizon, ricerca finanziaria multi-step, lavoro legale e automazione end-to-end. Sul benchmark AutomationBench di Zapier, per esempio, Google riporta un punteggio di 51,3%.",
-            "La multimodalità viene usata anche per analisi di grafici, video lunghi e sequenze di documenti. La direzione è meno “chatbot che sa molte cose” e più componente che attraversa documenti, software, dati e passaggi operativi mantenendo memoria di lavoro sufficiente per arrivare alla fine."
+            "Google cita anche analisi di grafici, video lunghi e sequenze di documenti. In pratica sta cercando di usare lo stesso modello dentro attività composte da più fonti, strumenti e passaggi, invece che su richieste isolate."
           ]
         },
         {
           "label": "05 / Cybersecurity",
-          "title": "Più autonomia significa anche più superficie di rischio.",
+          "title": "Un agente che può eseguire più passaggi può anche fare più danni quando sbaglia.",
           "paragraphs": [
             "Argon è stato addestrato per trovare, validare e correggere vulnerabilità software. Proprio questa capacità spiega il rilascio iniziale ristretto e il lavoro dichiarato da Google su misuse, prompt injection, monitoraggio del disallineamento e isolamento degli ambienti di esecuzione.",
             "È una distinzione utile per qualunque sistema agentico: capacità del modello e autorizzazione operativa sono due cose diverse. Un agente può essere capace di fare qualcosa senza dover avere automaticamente il permesso di farla in produzione."
@@ -161,12 +161,12 @@ export const researchNotes: ResearchNote[] = [
           "title": "Google is targeting enterprise work as well as coding.",
           "paragraphs": [
             "Google reports strong results on long-horizon software engineering, multi-step financial research, legal work and end-to-end automation. On Zapier's AutomationBench, for example, Google reports a score of 51.3%.",
-            "Its multimodal capabilities are also used for charts, long videos and document sequences. The direction is less “chatbot that knows many things” and more component that crosses documents, software, data and operational steps with enough working memory to finish the process."
+            "Google also cites work across charts, long videos and document sequences. In practice, the model is being pushed into tasks that combine multiple sources, tools and steps rather than isolated requests."
           ]
         },
         {
           "label": "05 / Cybersecurity",
-          "title": "More autonomy also means more risk surface.",
+          "title": "An agent that can execute more steps can also cause more damage when it gets something wrong.",
           "paragraphs": [
             "Argon was trained to find, validate and patch software vulnerabilities. That capability helps explain the restricted release and Google's stated work on misuse prevention, prompt injection, misalignment monitoring and isolated execution environments.",
             "The distinction applies to any agentic system: model capability and operational authorization are different things. An agent may be capable of an action without automatically receiving permission to perform it in production."
