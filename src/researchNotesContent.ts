@@ -18,6 +18,8 @@ export type ResearchNote = {
   published: string;
   updated?: string;
   readingTime: Record<SiteLang, string>;
+  socialVersion?: string;
+  socialImage?: Partial<Record<SiteLang, string>>;
   sections: Record<SiteLang, ResearchNoteSection[]>;
   takeaway: Record<SiteLang, string>;
 };
@@ -58,6 +60,10 @@ export const researchNotes: ResearchNote[] = [
     },
     "published": "2026-10-01",
     "updated": "2026-10-01",
+    "socialVersion": "20261001b",
+    "socialImage": {
+      "it": "/social/research-notes/openai-dots-it-20261001b.jpg"
+    },
     "readingTime": {
       "it": "6 min",
       "en": "6 min"
