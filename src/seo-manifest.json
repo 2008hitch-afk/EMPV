@@ -208,12 +208,12 @@
       },
       "gemini-4-argon": {
         "it": {
-          "title": "Gemini 4 Argon: cosa cambia davvero per gli agenti AI | EMPV",
-          "description": "Analisi EMPV di Gemini 4 Argon: long-horizon reasoning, agenti AI, codebase reali, workflow enterprise, cybersecurity e controllo operativo."
+          "title": "Gemini 4 Argon e il problema dei task lunghi | EMPV",
+          "description": "Cosa cambia con Gemini 4 Argon quando un agente deve lavorare per molti passaggi: stato, strumenti, errori, benchmark e limiti operativi."
         },
         "en": {
-          "title": "Gemini 4 Argon: what changes for AI agents | EMPV",
-          "description": "EMPV analysis of Gemini 4 Argon: long-horizon reasoning, AI agents, real codebases, enterprise workflows, cybersecurity and operational control."
+          "title": "Gemini 4 Argon and the problem of long-running tasks | EMPV",
+          "description": "What changes with Gemini 4 Argon when an agent has to work across many steps: state, tools, errors, benchmarks and operational limits."
         }
       }
     }
