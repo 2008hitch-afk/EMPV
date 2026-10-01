@@ -24,6 +24,189 @@ export type ResearchNote = {
 
 export const researchNotes: ResearchNote[] = [
   {
+    "id": "gemini-4-argon",
+    "index": "006",
+    "slugs": {
+      "it": "gemini-4-argon-agenti-ai-lavoro-lungo",
+      "en": "gemini-4-argon-long-horizon-ai-agents"
+    },
+    "title": {
+      "it": "Gemini 4 Argon: il salto non è rispondere meglio, è lavorare più a lungo",
+      "en": "Gemini 4 Argon: the shift is not answering better, it is working longer"
+    },
+    "dek": {
+      "it": "Google presenta Argon come un modello progettato per workflow lunghi e multi-step. Il segnale più interessante non è la classifica dei benchmark: è la capacità di sostenere lavoro, strumenti, verifiche e controllo lungo l'intero processo.",
+      "en": "Google presents Argon as a model designed for long, multi-step workflows. The interesting signal is not the benchmark ranking: it is the ability to sustain work, tools, verification and control across the full process."
+    },
+    "category": {
+      "it": "FRONTIER NOTE / AI AGENTS",
+      "en": "FRONTIER NOTE / AI AGENTS"
+    },
+    "tags": {
+      "it": [
+        "Gemini 4 Argon",
+        "AI agents",
+        "Long-horizon",
+        "Enterprise AI"
+      ],
+      "en": [
+        "Gemini 4 Argon",
+        "AI agents",
+        "Long-horizon",
+        "Enterprise AI"
+      ]
+    },
+    "published": "2026-10-01",
+    "readingTime": {
+      "it": "7 min",
+      "en": "7 min"
+    },
+    "sections": {
+      "it": [
+        {
+          "label": "01 / Cosa ha annunciato Google",
+          "title": "Argon è il nuovo modello frontier della famiglia Gemini 4, costruito per workload complessi e di lunga durata.",
+          "paragraphs": [
+            "Google ha annunciato Gemini 4 Argon il 30 settembre 2026. La descrizione ufficiale concentra il modello su software engineering reale, knowledge work enterprise — inclusi finanza e legal — e cybersecurity difensiva.",
+            "Il rollout iniziale è limitato: Argon viene distribuito a un gruppo di cyber defender selezionati attraverso il Fairwind Program mentre Google continua test e guardrail prima di una disponibilità più ampia."
+          ]
+        },
+        {
+          "label": "02 / Il segnale vero",
+          "title": "Il nuovo confine non è solo quante domande sa risolvere, ma quanto lavoro riesce a sostenere senza perdere coerenza.",
+          "paragraphs": [
+            "Google porta il limite di output di Argon fino a 1 milione di token, rispetto ai 64K precedenti, e descrive il modello come capace di mantenere una singola traiettoria di ragionamento su problemi molto più lunghi del classico prompt-response.",
+            "Per un agente questo conta più di un incremento marginale su un benchmark. Un agente utile deve pianificare, leggere stato e strumenti, produrre modifiche, controllare le conseguenze, correggersi e continuare."
+          ]
+        },
+        {
+          "label": "03 / Dal coding al lavoro operativo",
+          "title": "Google sta usando Argon su sistemi reali, dove l'output non è testo: è una modifica che deve reggere.",
+          "paragraphs": [
+            "Tra gli esempi pubblicati ci sono agenti che analizzano telemetria dei data center per trovare ottimizzazioni di memoria e attività di migrazione di grandi codebase C/C++ verso Rust, fino a componenti da centinaia di migliaia di linee.",
+            "La parte più interessante è ciò che circonda il modello: test automatici, audit manuale, emulazione e review prima del rollout. Non è semplicemente “l'AI riscrive il codice”; è un modello inserito dentro un processo di verifica."
+          ]
+        },
+        {
+          "label": "04 / Enterprise AI",
+          "title": "Argon prova a spostare gli agenti dal laboratorio ai workflow economici reali.",
+          "paragraphs": [
+            "Google dichiara risultati forti su valutazioni di software engineering long-horizon, ricerca finanziaria multi-step, lavoro legale e automazione end-to-end. Sul benchmark AutomationBench di Zapier, per esempio, Google riporta un punteggio di 51,3%.",
+            "La multimodalità viene usata anche per analisi di grafici, video lunghi e sequenze di documenti. La direzione è meno “chatbot che sa molte cose” e più componente che attraversa documenti, software, dati e passaggi operativi mantenendo memoria di lavoro sufficiente per arrivare alla fine."
+          ]
+        },
+        {
+          "label": "05 / Cybersecurity",
+          "title": "Più autonomia significa anche più superficie di rischio.",
+          "paragraphs": [
+            "Argon è stato addestrato per trovare, validare e correggere vulnerabilità software. Proprio questa capacità spiega il rilascio iniziale ristretto e il lavoro dichiarato da Google su misuse, prompt injection, monitoraggio del disallineamento e isolamento degli ambienti di esecuzione.",
+            "È una distinzione utile per qualunque sistema agentico: capacità del modello e autorizzazione operativa sono due cose diverse. Un agente può essere capace di fare qualcosa senza dover avere automaticamente il permesso di farla in produzione."
+          ]
+        },
+        {
+          "label": "06 / Benchmark ≠ verdetto",
+          "title": "I numeri sono evidenza iniziale, non una classifica definitiva.",
+          "paragraphs": [
+            "Google pubblica risultati molto forti su diversi benchmark, incluso il 77,9% su DeepSWE v1.1 per software engineering long-horizon. Reuters osserva però che Argon resta dietro ai rivali su alcune metriche di coding incluse nello stesso confronto.",
+            "Per scegliere un modello servono workload propri, strumenti reali, failure mode osservabili, costo, latenza e limiti di autorizzazione. Il benchmark aiuta a decidere cosa testare. Non decide cosa mettere in produzione."
+          ]
+        },
+        {
+          "label": "07 / La lettura EMPV",
+          "title": "Il modello conta. Ma il vantaggio si sposta verso il sistema che gli permette di lavorare.",
+          "paragraphs": [
+            "Se la traiettoria di Argon regge nei test indipendenti, il prossimo salto di valore non arriverà soltanto da modelli più capaci. Arriverà da architetture che danno al modello contesto, strumenti, memoria, permessi, verifiche e punti di arresto.",
+            "Per un'azienda significa una cosa semplice: non basta aggiungere l'AI. Bisogna progettare il lavoro attorno all'AI in modo che ogni azione resti osservabile, verificabile e reversibile."
+          ]
+        },
+        {
+          "label": "08 / Fonti",
+          "title": "Annuncio primario e verifica indipendente.",
+          "paragraphs": [
+            "La nota distingue i dati dichiarati da Google dalle osservazioni esterne e va letta alla luce del rollout ancora limitato del modello."
+          ],
+          "bullets": [
+            "Google, “Gemini 4 Argon: our next era of frontier intelligence”, 30 settembre 2026 — https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+            "Reuters, “Google announces Gemini 4 flagship AI model after months of delays”, 30 settembre 2026 — https://www.reuters.com/legal/litigation/google-announces-gemini-4-flagship-ai-model-after-months-delays-2026-09-30/"
+          ]
+        }
+      ],
+      "en": [
+        {
+          "label": "01 / What Google announced",
+          "title": "Argon is Google's new Gemini 4 frontier model, built for complex, long-duration workloads.",
+          "paragraphs": [
+            "Google announced Gemini 4 Argon on September 30, 2026. The official description focuses on real-world software engineering, enterprise knowledge work — including finance and legal — and defensive cybersecurity.",
+            "The initial rollout is restricted: Argon is being provided to selected cyber defenders through the Fairwind Program while Google continues testing safeguards before broader availability."
+          ]
+        },
+        {
+          "label": "02 / The real signal",
+          "title": "The frontier is moving from how many questions a model can solve to how much work it can sustain without losing coherence.",
+          "paragraphs": [
+            "Google expands Argon's output limit to as much as one million tokens, up from 64K, and describes the model as capable of maintaining a single reasoning trajectory across problems far longer than the usual prompt-response loop.",
+            "For agents, that matters more than a marginal benchmark gain. A useful agent needs to plan, read state and tools, make changes, inspect consequences, recover from mistakes and keep going."
+          ]
+        },
+        {
+          "label": "03 / From coding to operational work",
+          "title": "Google is using Argon on real systems where the output is not text: it is a change that must survive verification.",
+          "paragraphs": [
+            "Published examples include agents analysing data-center telemetry for memory optimisations and migrating large C/C++ codebases to Rust, including components with hundreds of thousands of lines.",
+            "The important part is everything around the model: automated tests, manual audits, emulation and review before rollout. It is not simply “AI rewrites code”; it is a model operating inside a verification process."
+          ]
+        },
+        {
+          "label": "04 / Enterprise AI",
+          "title": "Argon is an attempt to move agents from demos into economically meaningful workflows.",
+          "paragraphs": [
+            "Google reports strong results on long-horizon software engineering, multi-step financial research, legal work and end-to-end automation. On Zapier's AutomationBench, for example, Google reports a score of 51.3%.",
+            "Its multimodal capabilities are also used for charts, long videos and document sequences. The direction is less “chatbot that knows many things” and more component that crosses documents, software, data and operational steps with enough working memory to finish the process."
+          ]
+        },
+        {
+          "label": "05 / Cybersecurity",
+          "title": "More autonomy also means more risk surface.",
+          "paragraphs": [
+            "Argon was trained to find, validate and patch software vulnerabilities. That capability helps explain the restricted release and Google's stated work on misuse prevention, prompt injection, misalignment monitoring and isolated execution environments.",
+            "The distinction applies to any agentic system: model capability and operational authorization are different things. An agent may be capable of an action without automatically receiving permission to perform it in production."
+          ]
+        },
+        {
+          "label": "06 / Benchmark ≠ verdict",
+          "title": "The numbers are useful evidence, not a final ranking.",
+          "paragraphs": [
+            "Google reports strong benchmark results, including 77.9% on DeepSWE v1.1 for long-horizon software engineering. Reuters notes, however, that Argon remains behind competitors on some coding metrics included in the same comparison.",
+            "Model selection requires your own workloads, real tools, observable failure modes, cost, latency and authorization boundaries. A benchmark can help decide what to test. It cannot decide what belongs in production."
+          ]
+        },
+        {
+          "label": "07 / The EMPV reading",
+          "title": "The model matters. But the advantage is moving toward the system that lets it work.",
+          "paragraphs": [
+            "If Argon's trajectory holds up in independent testing, the next value jump will not come only from more capable models. It will come from architectures that give the model context, tools, memory, permissions, verification and stop conditions.",
+            "For a company, the implication is simple: it is not enough to add AI. Work has to be designed around AI so that every action remains observable, verifiable and reversible."
+          ]
+        },
+        {
+          "label": "08 / Sources",
+          "title": "Primary announcement and independent verification.",
+          "paragraphs": [
+            "This note separates Google's reported results from external observations and should be read in the context of Argon's still-limited rollout."
+          ],
+          "bullets": [
+            "Google, “Gemini 4 Argon: our next era of frontier intelligence”, September 30, 2026 — https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/",
+            "Reuters, “Google announces Gemini 4 flagship AI model after months of delays”, September 30, 2026 — https://www.reuters.com/legal/litigation/google-announces-gemini-4-flagship-ai-model-after-months-delays-2026-09-30/"
+          ]
+        }
+      ]
+    },
+    "takeaway": {
+      "it": "Il salto non è soltanto rispondere meglio. È sostenere un lavoro lungo, verificabile e controllato.",
+      "en": "The shift is not only answering better. It is sustaining long, verifiable and controlled work."
+    }
+  },
+  {
     id: "local-llm-evaluation",
     index: "001",
     slugs: {
