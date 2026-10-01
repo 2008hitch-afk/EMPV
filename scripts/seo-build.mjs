@@ -1,5 +1,6 @@
 import { mkdir, readFile, writeFile, copyFile } from "node:fs/promises";
 import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import ts from "typescript";
 import sharp from "sharp";
 
@@ -187,7 +188,7 @@ async function generateResearchNoteCards() {
   for (const note of researchNotes) {
     for (const lang of ["it", "en"]) {
       const svg = socialCardSvg(note, lang);
-      const target = new URL(note.id + "-" + lang + ".png", socialCardDir);
+      const target = fileURLToPath(new URL(note.id + "-" + lang + ".png", socialCardDir));
       await sharp(Buffer.from(svg)).png({ quality: 92, compressionLevel: 9 }).toFile(target);
     }
   }
