@@ -413,7 +413,7 @@ function ResearchNoteArticle({ lang, noteId }: { lang: SiteLang; noteId: string 
           lang={lang}
           title={note.title[lang]}
           url={siteHref({ kind: "note", lang, noteId: note.id })}
-          version={(note.updated || note.published).replaceAll("-", "")}
+          version={note.socialVersion || (note.updated || note.published).replaceAll("-", "")}
         />
 
         <section className="detail-end section-pad">
