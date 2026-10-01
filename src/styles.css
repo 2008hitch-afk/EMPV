@@ -2694,6 +2694,24 @@ footer {
   margin: 0;
 }
 
+.research-note-copy a,
+.research-note-block li a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: color-mix(in oklch, var(--galaxy-accent, var(--ink)) 46%, transparent);
+  transition: color 160ms ease, text-decoration-color 160ms ease;
+}
+
+.research-note-copy a:hover,
+.research-note-copy a:focus-visible,
+.research-note-block li a:hover,
+.research-note-block li a:focus-visible {
+  color: var(--copy-accent-strong, var(--ink));
+  text-decoration-color: currentColor;
+}
+
 .research-note-takeaway p {
   max-width: 980px;
 }
