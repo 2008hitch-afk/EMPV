@@ -205,6 +205,16 @@
           "title": "When to integrate an ERP instead of replacing it | EMPV",
           "description": "When to build an operating layer around an existing ERP instead of rewriting software, data and dependencies."
         }
+      },
+      "gemini-4-argon": {
+        "it": {
+          "title": "Gemini 4 Argon: cosa cambia davvero per gli agenti AI | EMPV",
+          "description": "Analisi EMPV di Gemini 4 Argon: long-horizon reasoning, agenti AI, codebase reali, workflow enterprise, cybersecurity e controllo operativo."
+        },
+        "en": {
+          "title": "Gemini 4 Argon: what changes for AI agents | EMPV",
+          "description": "EMPV analysis of Gemini 4 Argon: long-horizon reasoning, AI agents, real codebases, enterprise workflows, cybersecurity and operational control."
+        }
       }
     }
   }
