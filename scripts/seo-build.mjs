@@ -259,6 +259,29 @@ function notesIndexMarkup(lang) {
   ].join("");
 }
 
+
+function shareMarkup(route, note) {
+  const url = canonical(route);
+  const lang = route.lang;
+  const title = note.title[lang] + " — EMPV Research Notes";
+  const linkedIn = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(url);
+  const x = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(title) + "&url=" + encodeURIComponent(url);
+  const whatsapp = "https://wa.me/?text=" + encodeURIComponent(title + " " + url);
+
+  return [
+    '<section class="research-note-share section-pad" aria-label="', lang === "it" ? "Condividi questa Research Note" : "Share this Research Note", '">',
+    '<div class="section-code">EMPV / ', lang === "it" ? "CONDIVIDI" : "SHARE", '</div>',
+    '<div class="research-note-share-inner"><p>', lang === "it" ? "Condividi questa Research Note." : "Share this Research Note.", '</p>',
+    '<div class="research-note-share-actions">',
+    '<a class="research-note-share-primary" href="', esc(url), '">', lang === "it" ? "Condividi" : "Share", '</a>',
+    '<a href="', esc(linkedIn), '" target="_blank" rel="noreferrer noopener">LinkedIn</a>',
+    '<a href="', esc(x), '" target="_blank" rel="noreferrer noopener">X</a>',
+    '<a href="', esc(whatsapp), '" target="_blank" rel="noreferrer noopener">WhatsApp</a>',
+    '<a href="', esc(url), '">', lang === "it" ? "Copia link" : "Copy link", '</a>',
+    '</div></div></section>'
+  ].join("");
+}
+
 function noteMarkup(route) {
   const note = getResearchNoteById(route.noteId);
   if (!note) return "";
@@ -289,6 +312,7 @@ function noteMarkup(route) {
     '</div></section>',
     '<section class="detail-blocks section-pad research-note-blocks">', blocks, '</section>',
     '<section class="detail-boundary section-pad research-note-takeaway"><div class="section-code">EMPV / TAKEAWAY</div><p>', esc(note.takeaway[lang]), '</p></section>',
+    shareMarkup(route, note),
     '<section class="detail-end section-pad"><a href="', esc(hrefFor({ kind: "notesIndex", lang })), '"><span>Research Notes</span></a></section>',
     '</main></div>'
   ].join("");
