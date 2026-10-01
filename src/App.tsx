@@ -7,6 +7,7 @@ import {
   useScroll,
   useTransform,
 } from "motion/react";
+import AnalyticsConsent from "./AnalyticsConsent";
 import BackgroundLab from "./BackgroundLab";
 import BusinessCard from "./BusinessCard";
 import BackgroundEffect, {
@@ -881,6 +882,7 @@ function App() {
       <div className="global-pointer-glow" aria-hidden="true" />
       {!isBackgroundLab && <GlobalCursor />}
       {page}
+      {!isBackgroundLab && <AnalyticsConsent lang={initialLang} />}
     </>
   );
 }
