@@ -1,6 +1,7 @@
 import { mkdir, readFile, writeFile, copyFile } from "node:fs/promises";
 import { join } from "node:path";
 import ts from "typescript";
+import sharp from "sharp";
 
 const manifest = JSON.parse(await readFile(new URL("../src/seo-manifest.json", import.meta.url), "utf8"));
 const template = await readFile(new URL("../dist/index.html", import.meta.url), "utf8");
@@ -33,6 +34,167 @@ const getDetail = detailContent.getDetail;
 const researchNotes = researchContent.researchNotes;
 const getResearchNoteById = researchContent.getResearchNoteById;
 const businessCards = businessCardContent.businessCards;
+
+const socialCardDir = new URL("../dist/social/research-notes/", import.meta.url);
+
+const xml = value => String(value ?? "")
+  .replaceAll("&", "&amp;")
+  .replaceAll("<", "&lt;")
+  .replaceAll(">", "&gt;")
+  .replaceAll('"', "&quot;")
+  .replaceAll("'", "&apos;");
+
+function wrapCardTitle(title, maxChars = 27, maxLines = 4) {
+  const words = String(title).split(/\s+/);
+  const lines = [];
+  let line = "";
+  for (const word of words) {
+    const candidate = line ? line + " " + word : word;
+    if (candidate.length > maxChars && line) {
+      lines.push(line);
+      line = word;
+      if (lines.length === maxLines - 1) break;
+    } else {
+      line = candidate;
+    }
+  }
+  const consumed = lines.join(" ").split(/\s+/).filter(Boolean).length;
+  const remaining = words.slice(consumed);
+  if (remaining.length) {
+    const last = remaining.join(" ");
+    lines.push(last.length > maxChars + 10 ? last.slice(0, maxChars + 7).trimEnd() + "…" : last);
+  } else if (line && lines.length < maxLines) {
+    lines.push(line);
+  }
+  return lines.slice(0, maxLines);
+}
+
+function cardVisual(noteId) {
+  const orange = "#ff5a24";
+  const faint = "#d8d6cf";
+  if (noteId === "openai-dots") {
+    return `
+      <g transform="translate(820 82)">
+        <circle cx="170" cy="230" r="168" fill="none" stroke="${faint}" stroke-width="1"/>
+        <circle cx="170" cy="230" r="112" fill="none" stroke="${faint}" stroke-width="1"/>
+        <circle cx="170" cy="230" r="56" fill="none" stroke="${faint}" stroke-width="1"/>
+        <circle cx="170" cy="230" r="13" fill="${orange}"/>
+        <circle cx="170" cy="62" r="8" fill="#171715"/>
+        <circle cx="282" cy="146" r="8" fill="#171715"/>
+        <circle cx="58" cy="314" r="8" fill="#171715"/>
+        <circle cx="250" cy="360" r="8" fill="#171715"/>
+        <path d="M170 62 C252 89 305 158 282 230 C260 300 208 338 250 360" fill="none" stroke="${orange}" stroke-width="2"/>
+      </g>`;
+  }
+  if (noteId === "gemini-4-argon") {
+    return `
+      <g transform="translate(810 120)" fill="none">
+        <path d="M0 110 C115 20 220 25 350 104" stroke="${faint}" stroke-width="2"/>
+        <path d="M0 180 C130 82 245 102 350 168" stroke="#171715" stroke-width="2"/>
+        <path d="M0 250 C115 170 245 165 350 238" stroke="${orange}" stroke-width="3"/>
+        <path d="M0 320 C140 255 240 248 350 304" stroke="${faint}" stroke-width="2"/>
+        <circle cx="0" cy="250" r="7" fill="${orange}" stroke="none"/>
+        <circle cx="350" cy="238" r="7" fill="${orange}" stroke="none"/>
+      </g>`;
+  }
+  if (noteId === "local-llm-evaluation") {
+    return `
+      <g transform="translate(850 125)">
+        ${Array.from({length:5},(_,r)=>Array.from({length:5},(_,c)=>{
+          const active=(r===1&&c===3)||(r===3&&c===1)||(r===4&&c===4);
+          return '<rect x="'+(c*62)+'" y="'+(r*62)+'" width="42" height="42" rx="8" fill="'+(active?orange:"none")+'" stroke="'+(active?orange:faint)+'" stroke-width="2"/>';
+        }).join("")).join("")}
+      </g>`;
+  }
+  if (noteId === "on-premise-vs-cloud") {
+    return `
+      <g transform="translate(820 130)">
+        <rect x="0" y="95" width="145" height="145" rx="18" fill="none" stroke="#171715" stroke-width="2"/>
+        <circle cx="72" cy="168" r="18" fill="${orange}"/>
+        <path d="M210 205 C205 160 240 132 278 142 C295 100 363 106 370 154 C405 158 424 183 414 211 C406 234 385 246 356 246 H260 C229 246 208 230 210 205Z" fill="none" stroke="${faint}" stroke-width="2"/>
+        <path d="M145 168 H210" stroke="${orange}" stroke-width="3" stroke-dasharray="7 7"/>
+      </g>`;
+  }
+  if (noteId === "email-to-order") {
+    return `
+      <g transform="translate(820 135)">
+        <rect x="0" y="65" width="150" height="105" rx="14" fill="none" stroke="#171715" stroke-width="2"/>
+        <path d="M0 72 L75 128 L150 72" fill="none" stroke="${faint}" stroke-width="2"/>
+        <path d="M176 116 H246" stroke="${orange}" stroke-width="3"/>
+        <path d="M232 102 L248 116 L232 130" fill="none" stroke="${orange}" stroke-width="3"/>
+        <rect x="275" y="20" width="120" height="56" rx="10" fill="none" stroke="${faint}" stroke-width="2"/>
+        <rect x="275" y="100" width="120" height="56" rx="10" fill="none" stroke="${orange}" stroke-width="2"/>
+        <rect x="275" y="180" width="120" height="56" rx="10" fill="none" stroke="${faint}" stroke-width="2"/>
+      </g>`;
+  }
+  if (noteId === "quote-intake") {
+    return `
+      <g transform="translate(835 110)" fill="none" stroke-width="2">
+        <circle cx="50" cy="70" r="20" stroke="${faint}"/>
+        <circle cx="50" cy="170" r="20" stroke="${faint}"/>
+        <circle cx="50" cy="270" r="20" stroke="${faint}"/>
+        <path d="M70 70 H190 M70 170 H190 M70 270 H190" stroke="${faint}"/>
+        <path d="M190 70 C250 70 250 170 310 170 M190 170 H310 M190 270 C250 270 250 170 310 170" stroke="#171715"/>
+        <circle cx="330" cy="170" r="24" fill="${orange}" stroke="${orange}"/>
+      </g>`;
+  }
+  if (noteId === "integrate-not-replace") {
+    return `
+      <g transform="translate(845 120)">
+        <rect x="78" y="88" width="175" height="175" rx="24" fill="none" stroke="#171715" stroke-width="2"/>
+        <rect x="0" y="0" width="92" height="62" rx="12" fill="none" stroke="${faint}" stroke-width="2"/>
+        <rect x="255" y="18" width="92" height="62" rx="12" fill="none" stroke="${faint}" stroke-width="2"/>
+        <rect x="0" y="292" width="92" height="62" rx="12" fill="none" stroke="${faint}" stroke-width="2"/>
+        <rect x="255" y="278" width="92" height="62" rx="12" fill="none" stroke="${faint}" stroke-width="2"/>
+        <path d="M92 45 C150 45 142 88 165 88 M255 49 C220 49 228 88 210 88 M92 323 C150 323 142 263 165 263 M255 309 C220 309 228 263 210 263" fill="none" stroke="${orange}" stroke-width="2"/>
+      </g>`;
+  }
+  return `
+    <g transform="translate(850 135)">
+      <circle cx="160" cy="160" r="142" fill="none" stroke="${faint}" stroke-width="2"/>
+      <circle cx="160" cy="160" r="86" fill="none" stroke="#171715" stroke-width="2"/>
+      <circle cx="160" cy="160" r="14" fill="${orange}"/>
+    </g>`;
+}
+
+function socialCardSvg(note, lang) {
+  const title = note.title[lang];
+  const lines = wrapCardTitle(title);
+  const titleSize = lines.length >= 4 ? 49 : lines.length === 3 ? 54 : 60;
+  const lineHeight = Math.round(titleSize * 1.04);
+  const titleY = 230;
+  const titleMarkup = lines.map((line, i) =>
+    '<text x="70" y="' + (titleY + i * lineHeight) + '" font-family="Arial, Helvetica, sans-serif" font-size="' + titleSize + '" font-weight="600" letter-spacing="-2.1" fill="#171715">' + xml(line) + '</text>'
+  ).join("");
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+    <rect width="1200" height="630" fill="#f0efe9"/>
+    <circle cx="1070" cy="66" r="280" fill="#ff5a24" opacity="0.055"/>
+    <circle cx="1020" cy="580" r="260" fill="#ff5a24" opacity="0.032"/>
+    <line x1="70" y1="112" x2="1130" y2="112" stroke="#d8d6cf"/>
+    <text x="70" y="78" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" letter-spacing="1.7" fill="#171715">EMPV / RESEARCH NOTES</text>
+    <text x="1130" y="78" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700" letter-spacing="1.5" fill="#696862">NOTE / ${xml(note.index)}</text>
+    <text x="70" y="174" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" letter-spacing="1.1" fill="#ff5a24">${xml(note.category[lang])}</text>
+    ${titleMarkup}
+    <text x="70" y="566" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="600" fill="#171715">empv.it</text>
+    <text x="1130" y="566" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="500" fill="#696862">${xml(note.published)}</text>
+    ${cardVisual(note.id)}
+  </svg>`;
+}
+
+async function generateResearchNoteCards() {
+  await mkdir(socialCardDir, { recursive: true });
+  for (const note of researchNotes) {
+    for (const lang of ["it", "en"]) {
+      const svg = socialCardSvg(note, lang);
+      const target = new URL(note.id + "-" + lang + ".png", socialCardDir);
+      await sharp(Buffer.from(svg)).png({ quality: 92, compressionLevel: 9 }).toFile(target);
+    }
+  }
+}
+
+await generateResearchNoteCards();
+
 
 function routePath(route) {
   if (route.kind === "home") return "/" + route.lang + "/";
@@ -509,7 +671,12 @@ function structuredData(route) {
         dateModified: note.updated || note.published,
         inLanguage: route.lang,
         keywords: note.tags[route.lang],
-        image: { "@id": siteUrl + "/#logo" },
+        image: {
+          "@type": "ImageObject",
+          url: siteUrl + "/social/research-notes/" + note.id + "-" + route.lang + ".png",
+          width: 1200,
+          height: 630
+        },
         mainEntityOfPage: { "@id": url + "#webpage" },
         author: [{ "@id": enricoId }, { "@id": micheleId }],
         publisher: { "@id": orgId }
@@ -527,8 +694,18 @@ function inject(html, route) {
   const en = canonical({ ...route, lang: "en" });
   const robots = route.kind === "legal" ? "noindex,follow" : "index,follow,max-image-preview:large";
   const card = route.kind === "businessCard" ? businessCards[route.person] : null;
+  const note = route.kind === "note" ? getResearchNoteById(route.noteId) : null;
   const shareBase = siteUrl.endsWith("/") ? siteUrl.slice(0, -1) : siteUrl;
-  const shareImage = card ? shareBase + "/" + card.photo : null;
+  const shareImage = card
+    ? shareBase + "/" + card.photo
+    : note
+      ? shareBase + "/social/research-notes/" + note.id + "-" + route.lang + ".png"
+      : null;
+  const shareImageAlt = card
+    ? card.name
+    : note
+      ? note.title[route.lang]
+      : "EMPV";
 
   html = html
     .replace(/\s*<meta name="robots"[^>]*>/g, "")
@@ -565,7 +742,11 @@ function inject(html, route) {
   if (shareImage) {
     headParts.push(
       '    <meta property="og:image" content="' + shareImage + '" />',
-      '    <meta property="og:image:alt" content="' + esc(card.name) + '" />'
+      '    <meta property="og:image:secure_url" content="' + shareImage + '" />',
+      '    <meta property="og:image:type" content="image/png" />',
+      '    <meta property="og:image:width" content="1200" />',
+      '    <meta property="og:image:height" content="630" />',
+      '    <meta property="og:image:alt" content="' + esc(shareImageAlt) + '" />'
     );
   }
   headParts.push(
@@ -573,7 +754,12 @@ function inject(html, route) {
     '    <meta name="twitter:title" content="' + esc(pageCopy.title) + '" />',
     '    <meta name="twitter:description" content="' + esc(pageCopy.description) + '" />'
   );
-  if (shareImage) headParts.push('    <meta name="twitter:image" content="' + shareImage + '" />');
+  if (shareImage) {
+    headParts.push(
+      '    <meta name="twitter:image" content="' + shareImage + '" />',
+      '    <meta name="twitter:image:alt" content="' + esc(shareImageAlt) + '" />'
+    );
+  }
   headParts.push(
     '    <script type="application/ld+json">' + jsonForHtml(structuredData(route)) + '</script>',
     '  </head>'
