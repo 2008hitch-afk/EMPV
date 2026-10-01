@@ -2716,6 +2716,97 @@ footer {
   max-width: 980px;
 }
 
+
+.research-note-share {
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+}
+
+.research-note-share-inner {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.7fr) minmax(0, 1.3fr);
+  gap: clamp(28px, 6vw, 96px);
+  align-items: start;
+  margin-top: 24px;
+}
+
+.research-note-share-inner > p {
+  margin: 0;
+  max-width: 520px;
+  font-size: clamp(1.55rem, 2.4vw, 2.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+  font-weight: 560;
+}
+
+.research-note-share-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.research-note-share-actions a,
+.research-note-share-actions button {
+  min-height: 42px;
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  padding: 0 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  cursor: pointer;
+  font-family: var(--ui);
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  transition:
+    background 160ms ease,
+    border-color 160ms ease,
+    transform 160ms ease;
+}
+
+.research-note-share-actions a:hover,
+.research-note-share-actions a:focus-visible,
+.research-note-share-actions button:hover,
+.research-note-share-actions button:focus-visible {
+  background: var(--hover-wash);
+  border-color: color-mix(in oklch, var(--galaxy-accent, var(--ink)) 34%, var(--hairline));
+  transform: translateY(-1px);
+}
+
+.research-note-share-actions .research-note-share-primary {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--paper);
+}
+
+.research-note-share-actions .research-note-share-primary:hover,
+.research-note-share-actions .research-note-share-primary:focus-visible {
+  background: color-mix(in oklch, var(--ink) 88%, var(--galaxy-accent, var(--ink)));
+  border-color: var(--ink);
+}
+
+@media (max-width: 700px) {
+  .research-note-share-inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .research-note-share-actions {
+    justify-content: flex-start;
+  }
+
+  .research-note-share-actions a,
+  .research-note-share-actions button {
+    min-height: 40px;
+    padding-inline: 13px;
+  }
+}
+
 @media (max-width: 1080px) and (min-width: 901px) {
   .desktop-nav a {
     padding-left: 11px;
