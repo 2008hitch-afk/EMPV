@@ -60,9 +60,9 @@ export const researchNotes: ResearchNote[] = [
     },
     "published": "2026-10-01",
     "updated": "2026-10-01",
-    "socialVersion": "20261001b",
+    "socialVersion": "20261001c",
     "socialImage": {
-      "it": "/social/research-notes/openai-dots-it-20261001b.jpg"
+      "it": "/social/research-notes/openai-dots-it-20261001c.jpg"
     },
     "readingTime": {
       "it": "6 min",
