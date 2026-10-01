@@ -12,12 +12,12 @@ type LegalSection = {
 
 const common = {
   it: {
-    updated: "Ultimo aggiornamento: 28 settembre 2026",
+    updated: "Ultimo aggiornamento: 1 ottobre 2026",
     back: "Torna al sito",
     other: "Altre pagine legali",
   },
   en: {
-    updated: "Last updated: 28 September 2026",
+    updated: "Last updated: 1 October 2026",
     back: "Back to site",
     other: "Other legal pages",
   },
@@ -37,8 +37,8 @@ function PrivacySections({ lang }: { lang: SiteLang }): LegalSection[] {
             </p>
             <p>
               Contact: <a href="mailto:hello@empv.it">hello@empv.it</a> ·
-              {" "}<a href="https://wa.me/393472438705" target="_blank" rel="noreferrer">
-                +39 347 243 8705
+              {" "}<a href="https://wa.me/393792438705" target="_blank" rel="noreferrer">
+                +39 379 243 8705
               </a>.
             </p>
           </>
@@ -55,8 +55,11 @@ function PrivacySections({ lang }: { lang: SiteLang }): LegalSection[] {
               hosting provider for service delivery, reliability and security.
             </p>
             <p>
-              EMPV does not currently configure proprietary analytics, advertising
-              pixels or profiling tools on the website.
+              If the visitor gives analytics consent, EMPV loads Google Analytics 4
+              (measurement ID <code>G-TFK8ZN8CDW</code>) to measure visits and selected
+              interactions with the website. Without consent, the Google Analytics script
+              is not loaded by EMPV. EMPV does not use advertising pixels or profiling
+              tools on this website.
             </p>
           </>
         ),
@@ -115,6 +118,7 @@ function PrivacySections({ lang }: { lang: SiteLang }): LegalSection[] {
           <ul>
             <li>providing, protecting and technically operating the website;</li>
             <li>remembering visual settings explicitly chosen by the visitor;</li>
+            <li>measuring website usage through Google Analytics 4 only after consent;</li>
             <li>responding to enquiries and taking requested pre-contractual steps;</li>
             <li>meeting legal, accounting or defence obligations where applicable.</li>
           </ul>
@@ -124,11 +128,12 @@ function PrivacySections({ lang }: { lang: SiteLang }): LegalSection[] {
         title: "7. Recipients and international transfers",
         body: (
           <p>
-            Technical or communication data may be processed by service providers used
-            for hosting and communications, including GitHub, the email service provider and, only
-            after a click on the external link, WhatsApp/Meta. Some providers may process
-            data outside the European Economic Area under the safeguards described in
-            their applicable privacy documentation.
+            Technical, analytics or communication data may be processed by service
+            providers used for hosting, measurement and communications, including GitHub,
+            Google only after analytics consent, the email service provider and, only after
+            a click on the external link, WhatsApp/Meta. Some providers may process data
+            outside the European Economic Area under the safeguards described in their
+            applicable privacy documentation.
           </p>
         ),
       },
@@ -180,8 +185,8 @@ function PrivacySections({ lang }: { lang: SiteLang }): LegalSection[] {
           </p>
           <p>
             Contatti: <a href="mailto:hello@empv.it">hello@empv.it</a> ·
-            {" "}<a href="https://wa.me/393472438705" target="_blank" rel="noreferrer">
-              +39 347 243 8705
+            {" "}<a href="https://wa.me/393792438705" target="_blank" rel="noreferrer">
+              +39 379 243 8705
             </a>.
           </p>
         </>
@@ -198,8 +203,11 @@ function PrivacySections({ lang }: { lang: SiteLang }): LegalSection[] {
             richieste, per erogazione, affidabilità e sicurezza del servizio.
           </p>
           <p>
-            EMPV non configura attualmente sul sito strumenti propri di analytics, pixel
-            pubblicitari o sistemi di profilazione.
+            Se il visitatore presta il consenso analytics, EMPV carica Google Analytics 4
+            (ID di misurazione <code>G-TFK8ZN8CDW</code>) per misurare visite e alcune
+            interazioni con il sito. Senza consenso, lo script di Google Analytics non
+            viene caricato da EMPV. Il sito non utilizza pixel pubblicitari o strumenti di
+            profilazione.
           </p>
         </>
       ),
@@ -259,6 +267,7 @@ function PrivacySections({ lang }: { lang: SiteLang }): LegalSection[] {
         <ul>
           <li>erogare, proteggere e far funzionare tecnicamente il sito;</li>
           <li>ricordare le impostazioni visuali richieste dall&apos;utente;</li>
+          <li>misurare l&apos;uso del sito tramite Google Analytics 4 solo dopo consenso;</li>
           <li>rispondere ai contatti e svolgere le attività precontrattuali richieste;</li>
           <li>adempiere, quando applicabile, obblighi legali, contabili o di difesa.</li>
         </ul>
@@ -268,8 +277,9 @@ function PrivacySections({ lang }: { lang: SiteLang }): LegalSection[] {
       title: "7. Destinatari e trasferimenti extra SEE",
       body: (
         <p>
-          Dati tecnici o di comunicazione possono essere trattati dai fornitori utilizzati
-          per hosting e comunicazioni, tra cui GitHub, il fornitore del servizio email e, solo dopo il click
+          Dati tecnici, analytics o di comunicazione possono essere trattati dai fornitori
+          utilizzati per hosting, misurazione e comunicazioni, tra cui GitHub, Google solo
+          dopo il consenso analytics, il fornitore del servizio email e, solo dopo il click
           sul collegamento esterno, WhatsApp/Meta. Alcuni fornitori possono trattare dati
           fuori dallo Spazio Economico Europeo secondo le garanzie indicate nelle
           rispettive informative applicabili.
@@ -316,58 +326,74 @@ function CookieSections({ lang }: { lang: SiteLang }): LegalSection[] {
   if (lang === "en") {
     return [
       {
-        title: "1. Current configuration",
-        body: (
-          <p>
-            EMPV does not currently configure analytics, advertising or profiling cookies
-            or trackers on this website. For this reason no consent banner is currently
-            displayed.
-          </p>
-        ),
-      },
-      {
-        title: "2. Local storage used by EMPV",
+        title: "1. Google Analytics 4",
         body: (
           <>
             <p>
-              The site uses browser localStorage to save the visitor&apos;s visual
-              customizer settings under <code>empv-visual-preferences</code>.
+              EMPV uses Google Analytics 4 only after the visitor has accepted analytics
+              through the consent banner. The measurement ID is
+              {" "}<code>G-TFK8ZN8CDW</code>.
             </p>
-            <ul>
-              <li>purpose: remember graphic, palette and motion choices;</li>
-              <li>scope: first-party browser storage;</li>
-              <li>profiling: none;</li>
-              <li>duration: until overwritten, reset or deleted by the visitor.</li>
-            </ul>
+            <p>
+              Until consent is given, EMPV does not load the Google Analytics script.
+              Advertising storage and advertising-personalization signals are not enabled
+              by this implementation.
+            </p>
           </>
         ),
       },
       {
-        title: "3. How to remove it",
+        title: "2. What is measured after consent",
+        body: (
+          <>
+            <p>
+              Analytics may measure page views and selected interactions, including clicks
+              on WhatsApp, email, LinkedIn, X, Research Notes, the team section and article
+              sharing actions. Google Analytics may also process technical information
+              about the browser, device and visit in order to provide measurement reports.
+            </p>
+            <p>
+              Google Analytics may set first-party measurement cookies such as
+              {" "}<code>_ga</code> and <code>_ga_*</code> after consent.
+            </p>
+          </>
+        ),
+      },
+      {
+        title: "3. Local storage used by EMPV",
+        body: (
+          <>
+            <p>
+              The site uses browser localStorage for the visual customizer under
+              {" "}<code>empv-visual-preferences</code> and to remember the analytics
+              choice under <code>empv-analytics-consent</code>.
+            </p>
+            <p>
+              These local entries are used to restore the visitor&apos;s choices and are
+              not used by EMPV for advertising profiling.
+            </p>
+          </>
+        ),
+      },
+      {
+        title: "4. Changing or withdrawing consent",
         body: (
           <p>
-            You can use “Reset to EMPV” in the customizer to restore the default
-            configuration, or delete local site data through your browser settings.
+            The analytics choice can be changed at any time through “Cookie settings” in
+            the website footer. Rejecting or withdrawing consent prevents further
+            analytics collection by this implementation and the site attempts to remove
+            first-party Google Analytics cookies that it can access.
           </p>
         ),
       },
       {
-        title: "4. Third-party services",
+        title: "5. Third-party services",
         body: (
           <p>
-            Hosting, fonts and communication links may involve connections to external
-            providers as described in the Privacy Policy. EMPV does not use those
-            connections to perform advertising profiling on this site.
-          </p>
-        ),
-      },
-      {
-        title: "5. Future changes",
-        body: (
-          <p>
-            If EMPV introduces non-technical analytics, advertising or profiling tools,
-            this policy will be updated and, where required, those tools will remain
-            disabled until the visitor has expressed a valid choice.
+            Google Analytics is a Google service. Hosting, fonts and communication links
+            may also involve connections to external providers as described in the Privacy
+            Policy. External services opened by the visitor are governed by their own
+            privacy and cookie information.
           </p>
         ),
       },
@@ -376,59 +402,75 @@ function CookieSections({ lang }: { lang: SiteLang }): LegalSection[] {
 
   return [
     {
-      title: "1. Configurazione attuale",
-      body: (
-        <p>
-          EMPV non configura attualmente su questo sito cookie o strumenti di analytics,
-          advertising o profilazione. Per questo motivo non viene mostrato un banner di
-          consenso.
-        </p>
-      ),
-    },
-    {
-      title: "2. Archiviazione locale utilizzata da EMPV",
+      title: "1. Google Analytics 4",
       body: (
         <>
           <p>
-            Il sito usa il localStorage del browser per salvare le impostazioni del
-            configuratore visuale nella voce <code>empv-visual-preferences</code>.
+            EMPV utilizza Google Analytics 4 solo dopo che il visitatore ha accettato gli
+            analytics tramite il banner di consenso. L&apos;ID di misurazione è
+            {" "}<code>G-TFK8ZN8CDW</code>.
           </p>
-          <ul>
-            <li>finalità: ricordare grafica, palette e movimento scelti;</li>
-            <li>ambito: memoria locale di prima parte nel browser;</li>
-            <li>profilazione: nessuna;</li>
-            <li>durata: fino a sovrascrittura, reset o cancellazione da parte dell&apos;utente.</li>
-          </ul>
+          <p>
+            Fino al consenso EMPV non carica lo script di Google Analytics. Questa
+            implementazione non abilita lo storage pubblicitario né i segnali di
+            personalizzazione pubblicitaria.
+          </p>
         </>
       ),
     },
     {
-      title: "3. Come eliminarla",
+      title: "2. Cosa viene misurato dopo il consenso",
+      body: (
+        <>
+          <p>
+            Gli analytics possono misurare visualizzazioni di pagina e alcune interazioni,
+            tra cui click su WhatsApp, email, LinkedIn, X, Research Notes, sezione team e
+            azioni di condivisione degli articoli. Google Analytics può inoltre trattare
+            informazioni tecniche relative a browser, dispositivo e visita per produrre i
+            report di misurazione.
+          </p>
+          <p>
+            Dopo il consenso Google Analytics può impostare cookie di misurazione di prima
+            parte come <code>_ga</code> e <code>_ga_*</code>.
+          </p>
+        </>
+      ),
+    },
+    {
+      title: "3. Archiviazione locale utilizzata da EMPV",
+      body: (
+        <>
+          <p>
+            Il sito usa il localStorage del browser per il configuratore visuale nella voce
+            {" "}<code>empv-visual-preferences</code> e per ricordare la scelta analytics
+            nella voce <code>empv-analytics-consent</code>.
+          </p>
+          <p>
+            Queste voci locali servono a ripristinare le scelte del visitatore e non sono
+            utilizzate da EMPV per profilazione pubblicitaria.
+          </p>
+        </>
+      ),
+    },
+    {
+      title: "4. Modificare o revocare il consenso",
       body: (
         <p>
-          Puoi usare “Reset to EMPV” nel configuratore per ripristinare la configurazione
-          predefinita oppure eliminare i dati locali del sito dalle impostazioni del
-          browser.
+          La scelta analytics può essere modificata in qualsiasi momento tramite
+          “Impostazioni cookie” nel footer del sito. Il rifiuto o la revoca impediscono a
+          questa implementazione di effettuare ulteriori raccolte analytics e il sito prova
+          a eliminare i cookie Google Analytics di prima parte a cui può accedere.
         </p>
       ),
     },
     {
-      title: "4. Servizi di terze parti",
+      title: "5. Servizi di terze parti",
       body: (
         <p>
-          Hosting, font e collegamenti di comunicazione possono comportare connessioni a
-          fornitori esterni come descritto nella Privacy Policy. EMPV non utilizza tali
-          connessioni per effettuare profilazione pubblicitaria sul sito.
-        </p>
-      ),
-    },
-    {
-      title: "5. Modifiche future",
-      body: (
-        <p>
-          Se EMPV introdurrà strumenti non tecnici di analytics, advertising o
-          profilazione, questa informativa verrà aggiornata e, quando richiesto, tali
-          strumenti resteranno disattivati fino a una scelta valida dell&apos;utente.
+          Google Analytics è un servizio di Google. Hosting, font e collegamenti di
+          comunicazione possono inoltre comportare connessioni a fornitori esterni come
+          descritto nella Privacy Policy. I servizi esterni aperti volontariamente dal
+          visitatore sono soggetti alle rispettive informative privacy e cookie.
         </p>
       ),
     },
@@ -452,8 +494,8 @@ function LegalNoticeSections({ lang }: { lang: SiteLang }): LegalSection[] {
             </p>
             <p>
               Email: <a href="mailto:hello@empv.it">hello@empv.it</a> ·
-              WhatsApp/phone: <a href="https://wa.me/393472438705" target="_blank" rel="noreferrer">
-                +39 347 243 8705
+              WhatsApp/phone: <a href="https://wa.me/393792438705" target="_blank" rel="noreferrer">
+                +39 379 243 8705
               </a>.
             </p>
           </>
@@ -531,8 +573,8 @@ function LegalNoticeSections({ lang }: { lang: SiteLang }): LegalSection[] {
           </p>
           <p>
             Email: <a href="mailto:hello@empv.it">hello@empv.it</a> ·
-            WhatsApp/telefono: <a href="https://wa.me/393472438705" target="_blank" rel="noreferrer">
-              +39 347 243 8705
+            WhatsApp/telefono: <a href="https://wa.me/393792438705" target="_blank" rel="noreferrer">
+              +39 379 243 8705
             </a>.
           </p>
         </>
