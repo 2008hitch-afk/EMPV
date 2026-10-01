@@ -28,5 +28,15 @@ Use them as selective sources of components/patterns. Do not clone entire upstre
 - accessibility and reduced-motion support
 - no fake portraits of Enrico or Michele
 
+## Research Notes editorial standard
+For any work involving Research Notes, article copy, source/link treatment, social copy, Open Graph cards or social-preview visuals, **follow `docs/RESEARCH_NOTES_EDITORIAL_GUIDE.md`**.
+
+In particular:
+- avoid generic AI hype and AI-slop copy or imagery;
+- use factual, source-led editorial writing;
+- when a subject has a recognizable visual identity, integrate that identity into the EMPV visual system instead of inventing generic AI artwork;
+- keep the Dots NOTE / 007 social card as the reference logic for product-led Research Note covers;
+- preserve EMPV hierarchy, palette and visual consistency across cards.
+
 ## Stack
 React + TypeScript + Vite. Motion is used for progressive animation. Keep the site static-first unless a future requirement justifies backend infrastructure.
