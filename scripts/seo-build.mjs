@@ -158,7 +158,138 @@ function cardVisual(noteId) {
     </g>`;
 }
 
+
+function approvedDotsSocialCardSvg(note, lang) {
+  const title = note.title[lang];
+  const lines = wrapCardTitle(title, lang === "it" ? 24 : 25, 4);
+  const titleMarkup = lines.map((line, i) =>
+    '<text x="70" y="' + (250 + i * 62) + '" font-family="Arial, Helvetica, sans-serif" font-size="58" font-weight="600" letter-spacing="-2.6" fill="#151515">' + xml(line) + '</text>'
+  ).join("");
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+    <defs>
+      <radialGradient id="dotsGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#ff5a24" stop-opacity="0.20"/>
+        <stop offset="50%" stop-color="#ff5a24" stop-opacity="0.07"/>
+        <stop offset="100%" stop-color="#ff5a24" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="paperFade" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#f4f1eb"/>
+        <stop offset="100%" stop-color="#ecebe5"/>
+      </linearGradient>
+      <filter id="softShadow" x="-30%" y="-30%" width="160%" height="180%">
+        <feDropShadow dx="0" dy="12" stdDeviation="12" flood-color="#171715" flood-opacity="0.10"/>
+      </filter>
+    </defs>
+
+    <rect width="1200" height="630" fill="url(#paperFade)"/>
+    <ellipse cx="950" cy="320" rx="310" ry="280" fill="url(#dotsGlow)"/>
+
+    <line x1="70" y1="103" x2="1130" y2="103" stroke="#cbc8c0" stroke-width="1"/>
+    <line x1="70" y1="562" x2="1130" y2="562" stroke="#cbc8c0" stroke-width="1"/>
+
+    <text x="70" y="72" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="700" letter-spacing="2.0" fill="#151515">EMPV</text>
+    <text x="140" y="72" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="600" fill="#ff5a24">/</text>
+    <text x="166" y="72" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="500" letter-spacing="3.0" fill="#272725">RESEARCH NOTES</text>
+
+    <text x="1050" y="72" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="600" letter-spacing="2.1" fill="#272725">NOTE</text>
+    <text x="1070" y="72" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" fill="#ff5a24">/</text>
+    <text x="1130" y="72" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="600" letter-spacing="2.0" fill="#272725">${xml(note.index)}</text>
+
+    <text x="70" y="184" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="700" letter-spacing="2.1" fill="#3b3a36">${xml(note.category[lang].replace(" / ", "  /  "))}</text>
+    ${titleMarkup}
+
+    <text x="70" y="598" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="500" letter-spacing="3.0" fill="#272725">empv.it</text>
+    <text x="1130" y="598" text-anchor="end" font-family="Arial, Helvetica, sans-serif" font-size="16" font-weight="500" letter-spacing="2.2" fill="#55534d">${xml(note.published)}</text>
+
+    <!-- restrained EMPV system orbit -->
+    <path d="M710 355 C755 185 1010 160 1125 295 C1168 346 1142 416 1067 438 C967 468 789 449 717 396"
+      fill="none" stroke="#ff6a37" stroke-width="1.2" stroke-opacity="0.68"/>
+    <path d="M765 474 C840 504 1008 510 1100 458"
+      fill="none" stroke="#ff6a37" stroke-width="1" stroke-opacity="0.52" stroke-dasharray="5 7"/>
+    <circle cx="720" cy="386" r="6" fill="#ff5a24"/>
+    <circle cx="1112" cy="312" r="6" fill="#ff5a24"/>
+    <circle cx="1018" cy="491" r="6" fill="#ff5a24"/>
+
+    <!-- cloud -->
+    <g opacity="0.96">
+      <circle cx="902" cy="340" r="78" fill="#f9f6f0"/>
+      <circle cx="975" cy="315" r="104" fill="#f9f6f0"/>
+      <circle cx="1050" cy="354" r="70" fill="#f9f6f0"/>
+      <rect x="860" y="338" width="235" height="85" rx="42" fill="#f9f6f0"/>
+    </g>
+
+    <!-- upper flying Dot -->
+    <g transform="translate(965 160)" filter="url(#softShadow)">
+      <circle cx="0" cy="0" r="66" fill="#f7f3ec" stroke="#d8d4cc" stroke-width="1.5"/>
+      <rect x="-43" y="-28" width="86" height="57" rx="27" fill="#171715"/>
+      <path d="M-22 2 Q-14 -8 -6 2" fill="none" stroke="#ff934f" stroke-width="4" stroke-linecap="round"/>
+      <path d="M9 2 Q17 -8 25 2" fill="none" stroke="#ff934f" stroke-width="4" stroke-linecap="round"/>
+      <ellipse cx="-58" cy="25" rx="20" ry="30" fill="#f7f3ec" stroke="#d8d4cc"/>
+      <ellipse cx="58" cy="23" rx="20" ry="30" fill="#f7f3ec" stroke="#d8d4cc"/>
+      <line x1="31" y1="-58" x2="42" y2="-82" stroke="#272725" stroke-width="2"/>
+      <circle cx="44" cy="-87" r="9" fill="#ff5a24"/>
+    </g>
+
+    <!-- floating document -->
+    <g transform="translate(1082 196) rotate(8)" filter="url(#softShadow)">
+      <rect x="-48" y="-35" width="96" height="70" rx="10" fill="#eee9df" stroke="#ddd7cd"/>
+      <rect x="-30" y="-18" width="48" height="5" rx="2.5" fill="#c8c2b8"/>
+      <rect x="-30" y="-6" width="38" height="5" rx="2.5" fill="#c8c2b8"/>
+      <rect x="-30" y="6" width="44" height="5" rx="2.5" fill="#c8c2b8"/>
+      <circle cx="28" cy="18" r="6" fill="#ff5a24"/>
+    </g>
+
+    <!-- lower left Dot with laptop -->
+    <g transform="translate(820 410)" filter="url(#softShadow)">
+      <ellipse cx="0" cy="48" rx="98" ry="25" fill="#e7e2d9"/>
+      <circle cx="0" cy="0" r="61" fill="#f7f3ec" stroke="#d8d4cc" stroke-width="1.5"/>
+      <rect x="-40" y="-25" width="80" height="52" rx="25" fill="#171715"/>
+      <ellipse cx="-15" cy="2" rx="5" ry="10" fill="#ff934f"/>
+      <ellipse cx="15" cy="2" rx="5" ry="10" fill="#ff934f"/>
+      <line x1="25" y1="-54" x2="33" y2="-72" stroke="#272725" stroke-width="2"/>
+      <circle cx="35" cy="-77" r="8" fill="#ff5a24"/>
+      <ellipse cx="-48" cy="20" rx="18" ry="26" fill="#f7f3ec" stroke="#d8d4cc"/>
+      <ellipse cx="47" cy="19" rx="18" ry="26" fill="#f7f3ec" stroke="#d8d4cc"/>
+      <g transform="translate(-10 48)">
+        <path d="M-70 -22 H45 L58 31 H-58 Z" fill="#232321"/>
+        <rect x="-63" y="-17" width="101" height="44" rx="4" fill="#2e2e2b"/>
+        <circle cx="-12" cy="5" r="6" fill="none" stroke="#ff7a3f" stroke-width="2"/>
+        <path d="M-58 31 H72 L61 39 H-68 Z" fill="#1c1c1b"/>
+      </g>
+    </g>
+
+    <!-- lower right Dot with checklist -->
+    <g transform="translate(1038 414)" filter="url(#softShadow)">
+      <ellipse cx="0" cy="50" rx="94" ry="24" fill="#e7e2d9"/>
+      <circle cx="0" cy="0" r="58" fill="#f7f3ec" stroke="#d8d4cc" stroke-width="1.5"/>
+      <rect x="-39" y="-24" width="78" height="50" rx="24" fill="#171715"/>
+      <ellipse cx="-14" cy="2" rx="5" ry="10" fill="#ff934f"/>
+      <ellipse cx="14" cy="2" rx="5" ry="10" fill="#ff934f"/>
+      <ellipse cx="-45" cy="22" rx="17" ry="25" fill="#f7f3ec" stroke="#d8d4cc"/>
+      <ellipse cx="45" cy="22" rx="17" ry="25" fill="#f7f3ec" stroke="#d8d4cc"/>
+      <g transform="translate(59 25) rotate(-8)">
+        <rect x="-30" y="-39" width="100" height="86" rx="10" fill="#eee9df" stroke="#d9d3c9"/>
+        <rect x="-16" y="-22" width="14" height="14" rx="3" fill="#ff6a37"/>
+        <path d="M-12 -15 l4 4 7 -9" fill="none" stroke="#fffaf5" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <rect x="10" y="-20" width="42" height="4" rx="2" fill="#bfb9af"/>
+        <rect x="-16" y="4" width="14" height="14" rx="3" fill="none" stroke="#bbb5ab"/>
+        <rect x="10" y="7" width="48" height="4" rx="2" fill="#bfb9af"/>
+      </g>
+    </g>
+
+    <!-- tiny data panel -->
+    <g transform="translate(780 265) rotate(5)" opacity="0.95">
+      <rect x="-34" y="-26" width="68" height="52" rx="8" fill="#eee9df" stroke="#ddd7cd"/>
+      <rect x="-20" y="4" width="7" height="12" rx="2" fill="#d1cbc1"/>
+      <rect x="-7" y="-3" width="7" height="19" rx="2" fill="#e6b294"/>
+      <rect x="6" y="-10" width="7" height="26" rx="2" fill="#ff7a3f"/>
+    </g>
+  </svg>`;
+}
+
 function socialCardSvg(note, lang) {
+  if (note.id === "openai-dots") return approvedDotsSocialCardSvg(note, lang);
   const title = note.title[lang];
   const lines = wrapCardTitle(title);
   const titleSize = lines.length >= 4 ? 49 : lines.length === 3 ? 54 : 60;
@@ -188,9 +319,15 @@ async function generateResearchNoteCards() {
   for (const note of researchNotes) {
     for (const lang of ["it", "en"]) {
       const svg = socialCardSvg(note, lang);
-      const cardVersion = researchNoteSocialVersion(note);
-      const target = fileURLToPath(new URL(note.id + "-" + lang + "-" + cardVersion + ".png", socialCardDir));
-      await sharp(Buffer.from(svg)).png({ quality: 92, compressionLevel: 9 }).toFile(target);
+      const socialPath = researchNoteSocialImage(note, lang);
+      const filename = socialPath.split("/").pop();
+      const target = fileURLToPath(new URL(filename, socialCardDir));
+      const output = sharp(Buffer.from(svg));
+      if (/\.jpe?g$/i.test(filename)) {
+        await output.jpeg({ quality: 90, chromaSubsampling: "4:4:4", progressive: true }).toFile(target);
+      } else {
+        await output.png({ quality: 92, compressionLevel: 9 }).toFile(target);
+      }
     }
   }
 }
