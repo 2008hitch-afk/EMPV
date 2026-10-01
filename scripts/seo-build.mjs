@@ -188,7 +188,8 @@ async function generateResearchNoteCards() {
   for (const note of researchNotes) {
     for (const lang of ["it", "en"]) {
       const svg = socialCardSvg(note, lang);
-      const target = fileURLToPath(new URL(note.id + "-" + lang + ".png", socialCardDir));
+      const cardVersion = String(note.updated || note.published).replaceAll("-", "");
+      const target = fileURLToPath(new URL(note.id + "-" + lang + "-" + cardVersion + ".png", socialCardDir));
       await sharp(Buffer.from(svg)).png({ quality: 92, compressionLevel: 9 }).toFile(target);
     }
   }
@@ -427,20 +428,22 @@ function shareMarkup(route, note) {
   const url = canonical(route);
   const lang = route.lang;
   const title = note.title[lang] + " — EMPV Research Notes";
-  const linkedIn = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(url);
-  const x = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(title) + "&url=" + encodeURIComponent(url);
-  const whatsapp = "https://wa.me/?text=" + encodeURIComponent(title + " " + url);
+  const version = String(note.updated || note.published).replaceAll("-", "");
+  const sharedUrl = url + "?share=" + version;
+  const linkedIn = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(sharedUrl);
+  const x = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(title) + "&url=" + encodeURIComponent(sharedUrl);
+  const whatsapp = "https://wa.me/?text=" + encodeURIComponent(title + " " + sharedUrl);
 
   return [
     '<section class="research-note-share section-pad" aria-label="', lang === "it" ? "Condividi questa Research Note" : "Share this Research Note", '">',
     '<div class="section-code">EMPV / ', lang === "it" ? "CONDIVIDI" : "SHARE", '</div>',
     '<div class="research-note-share-inner"><p>', lang === "it" ? "Condividi questa Research Note." : "Share this Research Note.", '</p>',
     '<div class="research-note-share-actions">',
-    '<a class="research-note-share-primary" href="', esc(url), '">', lang === "it" ? "Condividi" : "Share", '</a>',
+    '<a class="research-note-share-primary" href="', esc(sharedUrl), '">', lang === "it" ? "Condividi" : "Share", '</a>',
     '<a href="', esc(linkedIn), '" target="_blank" rel="noreferrer noopener">LinkedIn</a>',
     '<a href="', esc(x), '" target="_blank" rel="noreferrer noopener">X</a>',
     '<a href="', esc(whatsapp), '" target="_blank" rel="noreferrer noopener">WhatsApp</a>',
-    '<a href="', esc(url), '">', lang === "it" ? "Copia link" : "Copy link", '</a>',
+    '<a href="', esc(sharedUrl), '">', lang === "it" ? "Copia link" : "Copy link", '</a>',
     '</div></div></section>'
   ].join("");
 }
@@ -674,7 +677,7 @@ function structuredData(route) {
         keywords: note.tags[route.lang],
         image: {
           "@type": "ImageObject",
-          url: siteUrl + "/social/research-notes/" + note.id + "-" + route.lang + ".png",
+          url: siteUrl + "/social/research-notes/" + note.id + "-" + route.lang + "-" + String(note.updated || note.published).replaceAll("-", "") + ".png",
           width: 1200,
           height: 630
         },
@@ -700,7 +703,7 @@ function inject(html, route) {
   const shareImage = card
     ? shareBase + "/" + card.photo
     : note
-      ? shareBase + "/social/research-notes/" + note.id + "-" + route.lang + ".png"
+      ? shareBase + "/social/research-notes/" + note.id + "-" + route.lang + "-" + String(note.updated || note.published).replaceAll("-", "") + ".png"
       : null;
   const shareImageAlt = card
     ? card.name
@@ -743,6 +746,7 @@ function inject(html, route) {
   if (shareImage) {
     headParts.push(
       '    <meta property="og:image" content="' + shareImage + '" />',
+      '    <meta property="og:image:url" content="' + shareImage + '" />',
       '    <meta property="og:image:secure_url" content="' + shareImage + '" />',
       '    <meta property="og:image:type" content="image/png" />',
       '    <meta property="og:image:width" content="1200" />',
@@ -752,6 +756,7 @@ function inject(html, route) {
   }
   headParts.push(
     '    <meta name="twitter:card" content="' + (shareImage ? "summary_large_image" : "summary") + '" />',
+    '    <meta name="twitter:site" content="@EMPV26" />',
     '    <meta name="twitter:title" content="' + esc(pageCopy.title) + '" />',
     '    <meta name="twitter:description" content="' + esc(pageCopy.description) + '" />'
   );
