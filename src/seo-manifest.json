@@ -215,6 +215,16 @@
           "title": "Google introduces Gemini 4 Argon for long-running AI tasks | EMPV",
           "description": "Gemini 4 Argon raises output to one million tokens. What Google announced, where it is already being used, pricing and what the benchmarks show."
         }
+      },
+      "openai-dots": {
+        "it": {
+          "title": "OpenAI lancia Dots, agenti sempre attivi con un computer nel cloud | EMPV",
+          "description": "Come funzionano OpenAI Dots: GPT-6 Astra, computer cloud, memoria, plugin, permessi, privacy, disponibilità e limiti ancora da verificare."
+        },
+        "en": {
+          "title": "OpenAI launches Dots, always-on agents with a cloud computer | EMPV",
+          "description": "How OpenAI Dots work: GPT-6 Astra, cloud computer, memory, plugins, permissions, privacy, availability and what still needs to be proven."
+        }
       }
     }
   }
