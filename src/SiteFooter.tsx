@@ -31,6 +31,13 @@ export default function SiteFooter({ lang }: { lang: SiteLang }) {
               {item.label}
             </a>
           ))}
+          <button
+            className="footer-cookie-settings"
+            type="button"
+            onClick={() => window.dispatchEvent(new Event("empv:open-cookie-settings"))}
+          >
+            {isIt ? "Impostazioni cookie" : "Cookie settings"}
+          </button>
         </div>
 
         <div className="footer-column">
