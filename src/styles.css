@@ -283,7 +283,7 @@ button {
   position: fixed;
   left: var(--pointer-x);
   top: var(--pointer-y);
-  z-index: 120;
+  z-index: 20000;
   width: 4px;
   height: 4px;
   pointer-events: none;
