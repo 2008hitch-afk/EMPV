@@ -188,7 +188,7 @@ async function generateResearchNoteCards() {
   for (const note of researchNotes) {
     for (const lang of ["it", "en"]) {
       const svg = socialCardSvg(note, lang);
-      const cardVersion = String(note.updated || note.published).replaceAll("-", "");
+      const cardVersion = researchNoteSocialVersion(note);
       const target = fileURLToPath(new URL(note.id + "-" + lang + "-" + cardVersion + ".png", socialCardDir));
       await sharp(Buffer.from(svg)).png({ quality: 92, compressionLevel: 9 }).toFile(target);
     }
@@ -217,6 +217,16 @@ function routePath(route) {
 }
 
 const canonical = route => siteUrl + routePath(route);
+
+function researchNoteSocialVersion(note) {
+  return note.socialVersion || String(note.updated || note.published).replaceAll("-", "");
+}
+
+function researchNoteSocialImage(note, lang) {
+  const custom = note.socialImage?.[lang];
+  if (custom) return custom.startsWith("/") ? custom : "/" + custom;
+  return "/social/research-notes/" + note.id + "-" + lang + "-" + researchNoteSocialVersion(note) + ".png";
+}
 const copyFor = route => route.kind === "home"
   ? manifest.home[route.lang]
   : route.kind === "businessCard"
@@ -428,7 +438,7 @@ function shareMarkup(route, note) {
   const url = canonical(route);
   const lang = route.lang;
   const title = note.title[lang] + " — EMPV Research Notes";
-  const version = String(note.updated || note.published).replaceAll("-", "");
+  const version = researchNoteSocialVersion(note);
   const sharedUrl = url + "?share=" + version;
   const linkedIn = "https://www.linkedin.com/sharing/share-offsite/?url=" + encodeURIComponent(sharedUrl);
   const x = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(title) + "&url=" + encodeURIComponent(sharedUrl);
@@ -677,7 +687,7 @@ function structuredData(route) {
         keywords: note.tags[route.lang],
         image: {
           "@type": "ImageObject",
-          url: siteUrl + "/social/research-notes/" + note.id + "-" + route.lang + "-" + String(note.updated || note.published).replaceAll("-", "") + ".png",
+          url: siteUrl + researchNoteSocialImage(note, route.lang),
           width: 1200,
           height: 630
         },
@@ -703,8 +713,11 @@ function inject(html, route) {
   const shareImage = card
     ? shareBase + "/" + card.photo
     : note
-      ? shareBase + "/social/research-notes/" + note.id + "-" + route.lang + "-" + String(note.updated || note.published).replaceAll("-", "") + ".png"
+      ? shareBase + researchNoteSocialImage(note, route.lang)
       : null;
+  const shareImageType = shareImage?.toLowerCase().endsWith(".jpg") || shareImage?.toLowerCase().endsWith(".jpeg")
+    ? "image/jpeg"
+    : "image/png";
   const shareImageAlt = card
     ? card.name
     : note
@@ -748,7 +761,7 @@ function inject(html, route) {
       '    <meta property="og:image" content="' + shareImage + '" />',
       '    <meta property="og:image:url" content="' + shareImage + '" />',
       '    <meta property="og:image:secure_url" content="' + shareImage + '" />',
-      '    <meta property="og:image:type" content="image/png" />',
+      '    <meta property="og:image:type" content="' + shareImageType + '" />',
       '    <meta property="og:image:width" content="1200" />',
       '    <meta property="og:image:height" content="630" />',
       '    <meta property="og:image:alt" content="' + esc(shareImageAlt) + '" />'
