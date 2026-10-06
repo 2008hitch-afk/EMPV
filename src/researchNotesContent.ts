@@ -26,6 +26,154 @@ export type ResearchNote = {
 
 export const researchNotes: ResearchNote[] = [
   {
+    "id": "thinkingbox-agent-reliability",
+    "index": "008",
+    "slugs": {
+      "it": "thinkingbox-valutare-agenti-stato-finale-sistemi",
+      "en": "thinkingbox-evaluating-agents-by-final-system-state"
+    },
+    "title": {
+      "it": "ThinkingBox misura gli agenti sullo stato finale dei sistemi",
+      "en": "ThinkingBox evaluates agents by the final state of the system"
+    },
+    "dek": {
+      "it": "Il benchmark di Microsoft e Hugging Face esegue 507 workflow aziendali più volte e controlla database ed effetti prodotti. Un agente può terminare senza errori e dichiarare il task concluso lasciando comunque il sistema nello stato sbagliato.",
+      "en": "The Microsoft and Hugging Face benchmark repeatedly runs 507 business workflows and checks databases and resulting side effects. An agent can finish without an error and report completion while still leaving the system in the wrong state."
+    },
+    "category": {
+      "it": "TECH NOTE / AI AGENTS",
+      "en": "TECH NOTE / AI AGENTS"
+    },
+    "tags": {
+      "it": [
+        "ThinkingBox",
+        "AI agents",
+        "MCP",
+        "Agent evaluation"
+      ],
+      "en": [
+        "ThinkingBox",
+        "AI agents",
+        "MCP",
+        "Agent evaluation"
+      ]
+    },
+    "published": "2026-10-06",
+    "updated": "2026-10-06",
+    "readingTime": {
+      "it": "7 min",
+      "en": "7 min"
+    },
+    "sections": {
+      "it": [
+        {
+          "label": "01 / Il benchmark",
+          "title": "ThinkingBox verifica cosa resta nel sistema dopo che l'agente ha finito.",
+          "paragraphs": [
+            "Il 3 ottobre Microsoft e Hugging Face hanno pubblicato una nuova presentazione di [ThinkingBox](https://huggingface.co/blog/microsoft/thinkingbox), un ambiente e benchmark per valutare agenti che lavorano su workflow aziendali con stato persistente. Il relativo [paper](https://arxiv.org/abs/2608.19741), aggiornato il 1° ottobre, descrive 507 task in scenari come retail, assicurazioni auto, viaggi, neobank e supporto IT/HR.",
+            "Ogni task parte da uno stato iniziale definito, mette a disposizione strumenti compatibili con Model Context Protocol (MCP) e termina con check eseguibili sullo stato del backend. L'obiettivo non è stabilire se la risposta dell'agente sembra corretta, ma se database e modifiche prodotte corrispondono davvero al risultato richiesto."
+          ]
+        },
+        {
+          "label": "02 / Un tool call non è un risultato",
+          "title": "Una sequenza di azioni plausibili può comunque lasciare il record sbagliato.",
+          "paragraphs": [
+            "L'esempio usato dagli autori riguarda un ticket di assistenza per una consegna bloccata. L'agente consulta ordine, tracking, profilo cliente e policy, apre il ticket e poi lo chiude come risolto. Il flusso appare ordinato, ma il corriere mantiene un'eccezione aperta: lo stato corretto del ticket avrebbe dovuto essere \"hold\", non \"solved\".",
+            "ThinkingBox tratta quindi la traiettoria dell'agente come una dichiarazione e lo stato finale come evidenza. Nei task con effetti strutturati, giudici deterministici confrontano ciò che è cambiato con lo stato atteso e rifiutano valori errati, azioni mancanti o modifiche aggiuntive non richieste."
+          ]
+        },
+        {
+          "label": "03 / Affidabilità",
+          "title": "Riuscire una volta e riuscire sempre sono due metriche diverse.",
+          "paragraphs": [
+            "I 507 task vengono ripetuti 20 volte da uno stato pulito. Il benchmark distingue il successo medio di una singola esecuzione, la capacità di risolvere un task almeno una volta e il numero di task completati correttamente in tutte e 20 le prove.",
+            "Questa distinzione cambia la lettura dei risultati. Nel report, Claude Opus 5.5 ottiene il 67,16% di pass@1 ma completa 241 task su 507 in tutte le 20 esecuzioni, il 47,53%. Kimi-K3 raggiunge almeno una volta 476 task su 507, ma ne completa solo 68 in tutte le 20 prove. Il benchmark non misura soltanto cosa un modello sa fare: misura quanto spesso lo stesso workflow resta corretto quando viene ripetuto."
+          ]
+        },
+        {
+          "label": "04 / I fallimenti silenziosi",
+          "title": "Molti errori non producono un segnale di errore utilizzabile dal sistema.",
+          "paragraphs": [
+            "In un'analisi comune a 12 modelli, gli autori riportano 121.680 trial validi. Di questi, 79.853 falliscono i check eseguibili. Il 67,24% dei fallimenti termina comunque normalmente, include almeno un'azione che modifica lo stato e non presenta un errore finale del tool.",
+            "Tra quei fallimenti, i check trovano valori di campo errati nel 77,61% dei casi, effetti aggiuntivi non richiesti nel 43,30% e azioni necessarie mancanti nel 25,36%; le categorie possono sovrapporsi. Un monitor che guarda soltanto eccezioni, tool call formalmente valide o il testo finale dell'agente può quindi classificare come riuscito un lavoro che il sistema di record mostra come incompleto o sbagliato."
+          ]
+        },
+        {
+          "label": "05 / Implicazioni operative",
+          "title": "Per un agente che scrive nei sistemi aziendali, il criterio di successo deve vivere fuori dall'agente.",
+          "paragraphs": [
+            "Il punto utile per chi costruisce automazioni è separare l'esecuzione dalla verifica. Se un agente aggiorna CRM, ticketing, ordini o anagrafiche, il risultato può essere controllato leggendo lo stato autorevole dopo l'azione e confrontandolo con condizioni esplicite, invece di accettare come prova il messaggio finale del modello.",
+            "Gli autori suggeriscono anche di classificare gli errori di tool e sistema per applicare retry mirati, ridurre la superficie di strumenti al necessario e mantenere approvazione umana sulle modifiche difficili da invertire. ThinkingBox rende queste scelte misurabili perché ogni tentativo parte da uno stato isolato e restituisce effetti osservabili."
+          ]
+        },
+        {
+          "label": "06 / Cosa dimostra e cosa no",
+          "title": "È un benchmark riproducibile, ma i workflow pubblici restano ricostruzioni sintetiche.",
+          "paragraphs": [
+            "I 507 task modellano pattern aziendali, ma il post specifica che ogni workflow pubblico è una ricostruzione sintetica e non contiene clienti reali. Inoltre 477 task sono giudicati sullo stato, mentre 30 aggiungono una rubrica binaria sulla risposta quando un requisito non può essere espresso con un semplice valore nel database.",
+            "Il vantaggio è che ambiente, dataset e controlli sono ispezionabili. Il [framework ThinkingBox](https://github.com/microsoft/thinkingbox) è open source, il [benchmark v1.0](https://github.com/microsoft/thinkingbox-data/releases/tag/thinkingbox-bench-v1.0) è pubblicato separatamente e l'integrazione con [OpenEnv](https://huggingface.co/docs/openenv/environments/thinkingbox) permette di eseguire episodi e ottenere un esito pass/fail.",
+            "Per un'azienda questo non sostituisce una valutazione sui propri processi. Offre però un criterio concreto da trasferire nei test interni: definire prima lo stato finale corretto, poi verificare se l'agente lo raggiunge in modo ripetibile."
+          ]
+        }
+      ],
+      "en": [
+        {
+          "label": "01 / The benchmark",
+          "title": "ThinkingBox checks what remains in the system after the agent finishes.",
+          "paragraphs": [
+            "On October 3, Microsoft and Hugging Face published a new overview of [ThinkingBox](https://huggingface.co/blog/microsoft/thinkingbox), an environment and benchmark for evaluating agents that work on stateful business workflows. The accompanying [paper](https://arxiv.org/abs/2608.19741), revised on October 1, describes 507 tasks across retail, auto insurance, travel, neobank and IT/HR support scenarios.",
+            "Each task starts from a defined initial state, exposes Model Context Protocol (MCP)-compatible tools and ends with executable checks over the backend state. The goal is not to decide whether the agent's answer sounds correct, but whether the database and resulting side effects actually match the requested outcome."
+          ]
+        },
+        {
+          "label": "02 / A tool call is not an outcome",
+          "title": "A plausible sequence of actions can still leave the wrong record behind.",
+          "paragraphs": [
+            "The authors use a support ticket for a delayed delivery as an example. The agent checks the order, tracking, customer profile and policy, opens a ticket and then closes it as resolved. The sequence looks orderly, but the carrier still has an open exception: the correct ticket state should have been \"hold\", not \"solved\".",
+            "ThinkingBox therefore treats the agent trajectory as a claim and the terminal state as evidence. For tasks with structured effects, deterministic judges compare what changed with the required end state and reject wrong values, missing actions or unintended extra changes."
+          ]
+        },
+        {
+          "label": "03 / Reliability",
+          "title": "Succeeding once and succeeding every time are different metrics.",
+          "paragraphs": [
+            "The 507 tasks are repeated 20 times from a clean state. The benchmark separates average single-run success, whether a task can be solved at least once, and how many tasks are completed correctly in all 20 recorded attempts.",
+            "That distinction changes how the results read. In the report, Claude Opus 5.5 reaches 67.16% pass@1 but completes 241 of 507 tasks in all 20 runs, or 47.53%. Kimi-K3 solves 476 of 507 tasks at least once but only 68 in all 20 attempts. The benchmark is not only asking what a model can do; it measures how often the same workflow stays correct when repeated."
+          ]
+        },
+        {
+          "label": "04 / Silent failures",
+          "title": "Many failures do not produce an error signal that the surrounding system can rely on.",
+          "paragraphs": [
+            "In a common-set analysis across 12 models, the authors report 121,680 valid trials. Of those, 79,853 fail the executable checks. Yet 67.24% of the failures still terminate cleanly, include at least one state-changing action and report no final tool error.",
+            "Within those failures, executable checks find wrong field values in 77.61%, unintended extra effects in 43.30% and missing required effects in 25.36%; the categories overlap. A monitor that only watches exceptions, formally valid tool calls or the agent's final text can therefore mark work as successful even when the system of record shows an incomplete or incorrect outcome."
+          ]
+        },
+        {
+          "label": "05 / Operational implications",
+          "title": "For agents that write to business systems, the success criterion should live outside the agent.",
+          "paragraphs": [
+            "The practical design lesson is to separate execution from verification. If an agent updates a CRM, ticketing system, order record or customer master, the outcome can be checked by reading the authoritative state after the action and comparing it with explicit conditions, rather than treating the model's final message as proof.",
+            "The authors also suggest classifying tool and system errors so retries target recoverable failures, reducing the tool surface to what the workflow needs, and keeping human approval for changes that are difficult to reverse. ThinkingBox makes these choices measurable because each attempt starts in isolation and exposes the effects it produced."
+          ]
+        },
+        {
+          "label": "06 / What it shows and what it does not",
+          "title": "It is a reproducible benchmark, but the public workflows are still synthetic reconstructions.",
+          "paragraphs": [
+            "The 507 tasks model enterprise patterns, but the post states that every public workflow is a synthetic reconstruction and does not contain real customers. In addition, 477 tasks are graded on state alone, while 30 add a narrow binary response rubric where a requirement cannot be expressed as a simple database value.",
+            "The advantage is that the environment, data and checks are inspectable. The [ThinkingBox framework](https://github.com/microsoft/thinkingbox) is open source, the [v1.0 benchmark](https://github.com/microsoft/thinkingbox-data/releases/tag/thinkingbox-bench-v1.0) is released separately, and its [OpenEnv integration](https://huggingface.co/docs/openenv/environments/thinkingbox) can run episodes and return a pass/fail result.",
+            "For a company, this does not replace evaluation on its own processes. It does provide a concrete criterion to bring into internal tests: define the correct final state first, then verify whether the agent reaches it repeatedly."
+          ]
+        }
+      ]
+    },
+    "takeaway": {
+      "it": "Se un agente modifica sistemi aziendali, \"fatto\" non è una prova: il risultato va letto nello stato finale del sistema e verificato più di una volta.",
+      "en": "If an agent changes business systems, \"done\" is not evidence: the result should be read from the final system state and verified more than once."
+    }
+  },
+  {
     "id": "openai-dots",
     "index": "007",
     "slugs": {
