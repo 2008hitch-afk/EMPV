@@ -225,6 +225,16 @@
           "title": "OpenAI launches Dots, always-on agents with a cloud computer | EMPV",
           "description": "How OpenAI Dots work: GPT-6 Astra, cloud computer, memory, plugins, permissions, privacy, availability and what still needs to be proven."
         }
+      },
+      "thinkingbox-agent-reliability": {
+        "it": {
+          "title": "ThinkingBox misura gli agenti sullo stato finale dei sistemi | EMPV",
+          "description": "ThinkingBox valuta 507 workflow aziendali controllando lo stato finale del backend e la ripetibilità. Cosa insegna sui fallimenti silenziosi degli agenti AI."
+        },
+        "en": {
+          "title": "ThinkingBox evaluates agents by final system state | EMPV",
+          "description": "ThinkingBox evaluates 507 business workflows by checking final backend state and repeatability. What it shows about silent failures in AI agents."
+        }
       }
     }
   }
