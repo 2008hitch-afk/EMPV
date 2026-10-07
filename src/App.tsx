@@ -173,12 +173,14 @@ function PersonProfile({
   text,
   variant,
   photoSrc,
+  profileHref,
 }: {
   name: string;
   role: string;
   text: string;
   variant: "a" | "b";
   photoSrc: string;
+  profileHref: string;
 }) {
   const index = variant === "a" ? "01" : "02";
 
@@ -197,7 +199,7 @@ function PersonProfile({
       </div>
 
       <div className="person-editorial-copy">
-        <h3>{name}</h3>
+        <h3><a className="person-profile-link" href={profileHref}>{name}</a></h3>
         <p className="person-description">{text}</p>
       </div>
 
@@ -680,6 +682,7 @@ function PortfolioApp({
               text={c.enricoText}
               variant="a"
               photoSrc={siteAssetHref("team/enrico-peruffo.webp")}
+              profileHref={siteHref({ kind: "businessCard", lang, person: "enrico" })}
             />
             <PersonProfile
               name="Michele Valleri"
@@ -687,6 +690,7 @@ function PortfolioApp({
               text={c.micheleText}
               variant="b"
               photoSrc={siteAssetHref("team/michele-valleri.avif")}
+              profileHref={siteHref({ kind: "businessCard", lang, person: "michele" })}
             />
           </div>
         </section>
