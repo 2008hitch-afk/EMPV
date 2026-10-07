@@ -6,11 +6,13 @@ import { getResearchNoteById, getResearchNoteBySlug } from "./researchNotesConte
 
 export type LegalSlug = "privacy" | "cookies" | "legal";
 export type DetailKind = "project" | "lab";
+export type SectionKind = "projects" | "lab";
 
 export type SiteRoute =
   | { kind: "home"; lang: SiteLang }
   | { kind: "businessCard"; lang: SiteLang; person: BusinessPerson }
   | { kind: "detail"; lang: SiteLang; detailKind: DetailKind; slug: string }
+  | { kind: "sectionIndex"; lang: SiteLang; section: SectionKind }
   | { kind: "notesIndex"; lang: SiteLang }
   | { kind: "note"; lang: SiteLang; noteId: string }
   | { kind: "legal"; lang: SiteLang; slug: LegalSlug };
@@ -28,6 +30,10 @@ export function routePath(route: SiteRoute): string {
   if (route.kind === "detail") {
     const segment = route.detailKind === "project" ? (route.lang === "it" ? "progetti" : "projects") : "lab";
     return `/${route.lang}/${segment}/${route.slug}/`;
+  }
+  if (route.kind === "sectionIndex") {
+    const segment = route.section === "projects" ? (route.lang === "it" ? "progetti" : "projects") : "lab";
+    return `/${route.lang}/${segment}/`;
   }
   if (route.kind === "notesIndex") return `/${route.lang}/research-notes/`;
   if (route.kind === "note") {
@@ -76,6 +82,12 @@ export function parseCurrentRoute(): SiteRoute {
     const local = clean.slice(langMatch.index + langMatch[0].length - 1);
     const parts = local.split("/").filter(Boolean);
     if (!parts.length) return { kind: "home", lang };
+    if ((parts[0] === "progetti" || parts[0] === "projects") && !parts[1]) {
+      return { kind: "sectionIndex", lang, section: "projects" };
+    }
+    if (parts[0] === "lab" && !parts[1]) {
+      return { kind: "sectionIndex", lang, section: "lab" };
+    }
     if ((parts[0] === "progetti" || parts[0] === "projects") && parts[1] && projectSlugs.has(parts[1])) {
       return { kind: "detail", lang, detailKind: "project", slug: parts[1] };
     }
@@ -118,6 +130,7 @@ function copyFor(route: SiteRoute): { title: string; description: string } {
     const item = manifest.details[route.slug as keyof typeof manifest.details];
     return item?.[route.lang] ?? manifest.home[route.lang];
   }
+  if (route.kind === "sectionIndex") return manifest.sections[route.section][route.lang];
   if (route.kind === "notesIndex") return manifest.researchNotes.index[route.lang];
   if (route.kind === "note") {
     const item = manifest.researchNotes.notes[route.noteId as keyof typeof manifest.researchNotes.notes];
