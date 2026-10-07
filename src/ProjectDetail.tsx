@@ -51,8 +51,8 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
   const detailSlug = detail.slug;
   const backHref =
     detailType === "project"
-      ? `${siteHref({ kind: "home", lang })}#work`
-      : `${siteHref({ kind: "home", lang })}#labs`;
+      ? siteHref({ kind: "sectionIndex", lang, section: "projects" })
+      : siteHref({ kind: "sectionIndex", lang, section: "lab" });
 
   function toggleLang() {
     const next = lang === "it" ? "en" : "it";
