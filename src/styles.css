@@ -1366,6 +1366,18 @@ footer {
   text-wrap: balance;
 }
 
+.person-profile-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.person-profile-link:hover,
+.person-profile-link:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: 0.055em;
+  text-underline-offset: 0.12em;
+}
+
 .person-description {
   margin: 0;
   max-width: 350px;
