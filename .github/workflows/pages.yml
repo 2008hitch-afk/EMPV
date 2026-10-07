@@ -60,6 +60,16 @@ jobs:
           grep -q '"logo":{"@type":"ImageObject"' dist/it/index.html
           grep -q 'class="detail-nav-back"' dist/it/progetti/commesse-posa/index.html
           grep -q 'hreflang="en"' dist/it/progetti/commesse-posa/index.html
+          test -f dist/it/progetti/index.html
+          test -f dist/en/projects/index.html
+          test -f dist/it/lab/index.html
+          test -f dist/en/lab/index.html
+          grep -q 'https://empv.it/it/progetti/' dist/it/progetti/index.html
+          grep -q 'https://empv.it/en/projects/' dist/en/projects/index.html
+          grep -q 'https://empv.it/it/lab/' dist/it/lab/index.html
+          grep -q 'https://empv.it/en/lab/' dist/en/lab/index.html
+          grep -q 'CollectionPage' dist/it/progetti/index.html
+          grep -q 'BreadcrumbList' dist/it/progetti/commesse-posa/index.html
           test -f dist/enrico/index.html
           test -f dist/michele/index.html
           test -f dist/contacts/enrico-peruffo.vcf
