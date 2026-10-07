@@ -453,8 +453,8 @@ function homeMarkup(lang) {
     '</div></section>',
     '<section class="people section-pad" id="people"><div class="section-head"><div><div class="eyebrow">', esc(c.peopleLabel), '</div><h2>', esc(c.peopleTitle), '</h2></div></div>',
     '<div class="people-grid">',
-    '<article class="person person-editorial"><div class="person-editorial-copy"><p class="role">', esc(c.enricoRole), '</p><h3>Enrico Peruffo</h3><p class="person-description">', esc(c.enricoText), '</p></div></article>',
-    '<article class="person person-editorial"><div class="person-editorial-copy"><p class="role">', esc(c.micheleRole), '</p><h3>Michele Valleri</h3><p class="person-description">', esc(c.micheleText), '</p></div></article>',
+    '<article class="person person-editorial"><div class="person-editorial-copy"><p class="role">', esc(c.enricoRole), '</p><h3><a class="person-profile-link" href="', esc(hrefFor({ kind: "businessCard", lang: "it", person: "enrico" })), '">Enrico Peruffo</a></h3><p class="person-description">', esc(c.enricoText), '</p></div></article>',
+    '<article class="person person-editorial"><div class="person-editorial-copy"><p class="role">', esc(c.micheleRole), '</p><h3><a class="person-profile-link" href="', esc(hrefFor({ kind: "businessCard", lang: "it", person: "michele" })), '">Michele Valleri</a></h3><p class="person-description">', esc(c.micheleText), '</p></div></article>',
     '</div></section>',
     '<section class="work section-pad" id="work"><div class="section-head"><div><div class="eyebrow">', esc(c.selectedLabel), '</div><h2>', esc(c.selectedTitle), '</h2></div><p>', esc(c.selectedIntro), '</p></div>',
     '<div class="project-list">', projects, '</div></section>',
@@ -955,14 +955,32 @@ await writeFile(new URL("../dist/index.html", import.meta.url), inject(template,
 await copyFile(new URL("../dist/index.html", import.meta.url), new URL("../dist/404.html", import.meta.url));
 
 const indexable = routes.filter(route => route.kind !== "legal");
+const latestResearchNoteDate = researchNotes
+  .map(note => note.updated || note.published)
+  .filter(Boolean)
+  .sort()
+  .at(-1);
+
+function sitemapLastmod(route) {
+  if (route.kind === "note") {
+    const note = getResearchNoteById(route.noteId);
+    return note?.updated || note?.published || null;
+  }
+  if (route.kind === "notesIndex") return latestResearchNoteDate || null;
+  return null;
+}
+
 const urls = indexable.map(route => {
   const loc = canonical(route);
+  const lastmod = sitemapLastmod(route);
+  const lastmodLine = lastmod ? '    <lastmod>' + xml(lastmod) + '</lastmod>\n' : '';
   if (route.kind === "businessCard") {
-    return '  <url>\n    <loc>' + loc + '</loc>\n  </url>';
+    return '  <url>\n    <loc>' + loc + '</loc>\n' + lastmodLine + '  </url>';
   }
   const it = canonical({ ...route, lang: "it" });
   const en = canonical({ ...route, lang: "en" });
   return '  <url>\n    <loc>' + loc + '</loc>\n' +
+    lastmodLine +
     '    <xhtml:link rel="alternate" hreflang="it" href="' + it + '" />\n' +
     '    <xhtml:link rel="alternate" hreflang="en" href="' + en + '" />\n' +
     '    <xhtml:link rel="alternate" hreflang="x-default" href="' + it + '" />\n  </url>';
