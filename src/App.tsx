@@ -21,6 +21,7 @@ import BackgroundEffect, {
 import ProjectDetail from "./ProjectDetail";
 import LegalPage from "./LegalPage";
 import ResearchNotes from "./ResearchNotes";
+import SectionIndex from "./SectionIndex";
 import SiteFooter from "./SiteFooter";
 import { SeoHead, parseCurrentRoute, siteAssetHref, siteHref, type SiteRoute } from "./seo";
 import type { SiteLang } from "./detailContent";
@@ -543,10 +544,16 @@ function PortfolioApp({
           <a className={activeSection === "people" ? "is-active" : ""} href="#people">
             <span>{c.nav.people}</span>
           </a>
-          <a className={activeSection === "work" ? "is-active" : ""} href="#work">
+          <a
+            className={activeSection === "work" ? "is-active" : ""}
+            href={siteHref({ kind: "sectionIndex", lang, section: "projects" })}
+          >
             <span>{c.nav.work}</span>
           </a>
-          <a className={activeSection === "labs" ? "is-active" : ""} href="#labs">
+          <a
+            className={activeSection === "labs" ? "is-active" : ""}
+            href={siteHref({ kind: "sectionIndex", lang, section: "lab" })}
+          >
             <span>{c.nav.labs}</span>
           </a>
           <a className={activeSection === "faq" ? "is-active" : ""} href="#faq">
@@ -586,15 +593,15 @@ function PortfolioApp({
             transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
           >
             {[
-              ["00", "people", c.nav.people],
-              ["01", "work", c.nav.work],
-              ["02", "labs", c.nav.labs],
-              ["03", "faq", c.nav.faq],
-            ].map(([index, id, label]) => (
+              ["00", "people", c.nav.people, "#people"],
+              ["01", "work", c.nav.work, siteHref({ kind: "sectionIndex", lang, section: "projects" })],
+              ["02", "labs", c.nav.labs, siteHref({ kind: "sectionIndex", lang, section: "lab" })],
+              ["03", "faq", c.nav.faq, "#faq"],
+            ].map(([index, id, label, href]) => (
               <a
                 key={id}
                 className={activeSection === id ? "is-active" : ""}
-                href={`#${id}`}
+                href={href}
                 onClick={() => setMenuOpen(false)}
               >
                 <span className="mobile-nav-index">{index}</span>
@@ -861,6 +868,8 @@ function App() {
     page = <LegalPage slug={route.slug} initialLang={initialLang} />;
   } else if (route.kind === "detail") {
     page = <ProjectDetail slug={route.slug} initialLang={initialLang} />;
+  } else if (route.kind === "sectionIndex") {
+    page = <SectionIndex section={route.section} initialLang={initialLang} />;
   } else if (route.kind === "notesIndex") {
     page = <ResearchNotes initialLang={initialLang} />;
   } else if (route.kind === "note") {
