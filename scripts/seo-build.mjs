@@ -98,6 +98,30 @@ function cardVisual(noteId) {
         <circle cx="350" cy="238" r="7" fill="${orange}" stroke="none"/>
       </g>`;
   }
+  if (noteId === "embeddinggemma-2") {
+    return `
+      <g transform="translate(812 108)" fill="none" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="0" y="20" width="82" height="56" rx="10" stroke="\${faint}" stroke-width="2"/>
+        <path d="M16 38 H64 M16 49 H54 M16 60 H60" stroke="#171715" stroke-width="2"/>
+        <rect x="0" y="104" width="82" height="56" rx="10" stroke="\${faint}" stroke-width="2"/>
+        <path d="M14 145 L31 126 L45 138 L58 122 L70 145 Z" stroke="#171715" stroke-width="2"/>
+        <path d="M0 215 H10 L18 194 L27 234 L38 203 L48 225 L58 199 L69 215 H82" stroke="\${faint}" stroke-width="2"/>
+        <rect x="0" y="270" width="82" height="56" rx="10" stroke="\${faint}" stroke-width="2"/>
+        <path d="M16 282 V314 M66 282 V314" stroke="#171715" stroke-width="2" stroke-dasharray="4 5"/>
+        <rect x="25" y="283" width="32" height="30" rx="4" stroke="#171715" stroke-width="2"/>
+        <path d="M82 48 C152 48 150 162 214 174" stroke="\${faint}" stroke-width="2"/>
+        <path d="M82 132 C150 132 154 167 214 174" stroke="\${faint}" stroke-width="2"/>
+        <path d="M82 215 C150 215 154 181 214 174" stroke="\${faint}" stroke-width="2"/>
+        <path d="M82 298 C152 298 150 187 214 174" stroke="\${faint}" stroke-width="2"/>
+        <circle cx="230" cy="174" r="16" fill="\${orange}" stroke="\${orange}"/>
+        <path d="M246 174 H286" stroke="\${orange}" stroke-width="3"/>
+        <rect x="300" y="92" width="12" height="164" rx="6" fill="#171715" stroke="none"/>
+        <rect x="322" y="121" width="12" height="106" rx="6" fill="\${faint}" stroke="none"/>
+        <rect x="344" y="76" width="12" height="196" rx="6" fill="\${orange}" stroke="none"/>
+        <rect x="366" y="135" width="12" height="78" rx="6" fill="#171715" stroke="none"/>
+        <rect x="388" y="108" width="12" height="132" rx="6" fill="\${faint}" stroke="none"/>
+      </g>`;
+  }
   if (noteId === "local-llm-evaluation") {
     return `
       <g transform="translate(850 125)">

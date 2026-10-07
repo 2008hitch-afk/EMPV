@@ -26,6 +26,179 @@ export type ResearchNote = {
 
 export const researchNotes: ResearchNote[] = [
   {
+    "id": "embeddinggemma-2",
+    "index": "009",
+    "slugs": {
+      "it": "embeddinggemma-2-retrieval-multimodale-locale",
+      "en": "embeddinggemma-2-local-multimodal-retrieval"
+    },
+    "title": {
+      "it": "EmbeddingGemma 2 porta il retrieval multimodale in locale",
+      "en": "EmbeddingGemma 2 brings multimodal retrieval on-device"
+    },
+    "dek": {
+      "it": "Google DeepMind unifica testo, codice, immagini, video e audio in uno spazio vettoriale da 768 dimensioni. Il modello da 740M è modulare e pensato per hardware consumer; corpus, memoria e costo dell'indice restano le variabili da testare.",
+      "en": "Google DeepMind maps text, code, images, video and audio into a shared 768-dimensional vector space. The 740M model is modular and designed for consumer hardware; corpus quality, memory and index cost still need to be tested."
+    },
+    "category": {
+      "it": "TECH NOTE / LOCAL AI",
+      "en": "TECH NOTE / LOCAL AI"
+    },
+    "tags": {
+      "it": [
+        "EmbeddingGemma 2",
+        "Multimodal retrieval",
+        "RAG",
+        "Local AI"
+      ],
+      "en": [
+        "EmbeddingGemma 2",
+        "Multimodal retrieval",
+        "RAG",
+        "Local AI"
+      ]
+    },
+    "published": "2026-10-07",
+    "updated": "2026-10-07",
+    "socialVersion": "20261007a",
+    "readingTime": {
+      "it": "7 min",
+      "en": "7 min"
+    },
+    "sections": {
+      "it": [
+        {
+          "label": "01 / Il modello",
+          "title": "Un embedding model per testo, codice, immagini, video e audio.",
+          "paragraphs": [
+            "[Google DeepMind](https://blog.google/innovation-and-ai/technology/developers-tools/embeddinggemma-2/) ha pubblicato EmbeddingGemma 2 il 6 ottobre 2026. La [model card ufficiale](https://ai.google.dev/gemma/docs/embeddinggemma/model_card_2) descrive un modello da 740 milioni di parametri che mappa testo e codice, immagini, video e audio — anche combinati nello stesso input — in uno spazio vettoriale condiviso da 768 dimensioni. I [pesi sono disponibili su Hugging Face](https://huggingface.co/google/embeddinggemma-2).",
+            "Non è un modello generativo. Produce rappresentazioni numeriche confrontabili per ricerca semantica, retrieval-augmented generation (RAG), classificazione, clustering e misure di similarità. Il cambiamento rispetto alla prima EmbeddingGemma è soprattutto l'estensione dal testo a un indice realmente multimodale."
+          ]
+        },
+        {
+          "label": "02 / Un unico indice",
+          "title": "Una query testuale può recuperare contenuti che non sono testo.",
+          "paragraphs": [
+            "Poiché le modalità finiscono nello stesso spazio vettoriale, una query testuale può essere confrontata direttamente con l'embedding di un'immagine, di un segmento audio o di frame video. Google indica una context window di 8.192 token e, con le impostazioni descritte al lancio, fino a circa 5,5 minuti di audio, 29 immagini o 58 frame video quando viene usata una sola modalità.",
+            "Per un archivio aziendale il pattern è concreto: manuali, PDF visuali, screenshot, fotografie tecniche, registrazioni, video e documentazione testuale possono condividere lo stesso livello di retrieval. Questo non elimina segmentazione, metadata, permessi o controllo degli accessi; riduce però la necessità di costruire una pipeline di rappresentazione completamente separata per ogni formato."
+          ]
+        },
+        {
+          "label": "03 / Il footprint",
+          "title": "Le modalità non usate possono essere escluse dal deployment.",
+          "paragraphs": [
+            "La [model card](https://ai.google.dev/gemma/docs/embeddinggemma/model_card_2) separa un componente text-only da 270M parametri, un encoder vision da 170M e un encoder audio da 300M. La configurazione testo+immagini arriva a 440M, testo+audio a 570M e quella completa a 740M.",
+            "Nel [post di lancio](https://blog.google/innovation-and-ai/technology/developers-tools/embeddinggemma-2/), Google riporta che con quantizzazione su Pixel 11 Pro i pesi text-only richiedono circa 191 MB di RAM attiva e la configurazione multimodale completa circa 567 MB. Sono misure del produttore, non benchmark indipendenti, ma mostrano il target del progetto: retrieval su laptop, smartphone ed edge device, non soltanto attraverso una API cloud.",
+            "Questo si collega direttamente alla scelta tra [AI locale e cloud](https://empv.it/it/research-notes/ai-on-premise-vs-cloud-quando-conviene/): eseguire l'embedding vicino al corpus può ridurre dipendenze esterne e trasferimenti di dati, ma file, vector database, permessi e pipeline di indicizzazione restano componenti da proteggere."
+          ]
+        },
+        {
+          "label": "04 / La dimensione dell'indice",
+          "title": "Da 768 a 256 dimensioni: meno storage, con un trade-off misurabile.",
+          "paragraphs": [
+            "EmbeddingGemma 2 usa Matryoshka Representation Learning. Il vettore nativo da 768 dimensioni può essere troncato a 512, 256 o 128 dimensioni e poi normalizzato nuovamente. Passare da 768 a 256 dimensioni riduce a un terzo lo spazio occupato da ogni vettore; 128 dimensioni portano la riduzione a 6 volte.",
+            "Nei risultati pubblicati da Google, MTEB multilingual passa da 61,36 a 60,41 a 256d, MTEB Code da 78,68 a 76,18 e MMEB v2 complessivo da 59,01 a 56,24. A 128d MMEB v2 scende invece a 45,65, e la stessa documentazione raccomanda di validare questa configurazione con particolare attenzione per workload multimodali.",
+            "C'è anche un failure mode operativo poco visibile: la [documentazione tecnica](https://ai.google.dev/gemma/docs/embeddinggemma/model_card_2) raccomanda `bfloat16` o `float32` e sconsiglia `float16`, perché il modello può produrre NaN o embedding degradati senza generare necessariamente un errore esplicito. Configurazione numerica e dimensionalità fanno quindi parte del test, non sono dettagli del runtime."
+          ]
+        },
+        {
+          "label": "05 / I benchmark",
+          "title": "Sul testo il miglioramento è minimo. Sul codice è molto più evidente.",
+          "paragraphs": [
+            "La [valutazione pubblicata da Google](https://ai.google.dev/gemma/docs/embeddinggemma/model_card_2) mette EmbeddingGemma 2 a 61,36 su MTEB multilingual contro 61,15 della prima EmbeddingGemma. Sul testo, quindi, il salto dichiarato è piccolo.",
+            "Su MTEB Code il punteggio passa invece da 68,76 a 78,68. Se il risultato si trasferisce a repository reali, il caso d'uso diventa interessante per semantic code search, retrieval per coding agent e navigazione di codebase locali. Per immagini, documenti visuali, video e audio non esiste un confronto diretto con EmbeddingGemma 1, perché quelle modalità non erano supportate.",
+            "Al lancio, la maggior parte dei numeri dettagliati arriva ancora da Google. La model card dichiara supporto per oltre 100 lingue ma avverte anche che la qualità può non essere uniforme tra lingue. Per un corpus italiano o tecnico, i benchmark pubblici non sostituiscono una valutazione sul proprio materiale."
+          ]
+        },
+        {
+          "label": "06 / Il modello dell'indice",
+          "title": "Con gli embedding il lock-in resta nel database anche dopo la chiamata.",
+          "paragraphs": [
+            "La model card indica licenza Apache 2.0 e specifica anche che i deployment devono aderire alla Gemma Prohibited Use Policy. La disponibilità dei pesi ha una conseguenza particolare per gli embedding: i vettori prodotti oggi possono restare in un database per anni, e cambiare modello significa normalmente ricalcolare il corpus.",
+            "[Simon Willison](https://simonwillison.net/2026/Oct/6/hn-49983751/) ha evidenziato questo punto commentando il lancio: anche chi preferisce usare un servizio hosted può voler scegliere un modello con pesi disponibili, così da poterlo eseguire altrove se il provider smette di offrirlo.",
+            "Per un sistema aziendale il modello di embedding va quindi trattato come parte dello schema dell'indice, insieme a dimensionalità, strategia di chunking e metadata. Sostituirlo assomiglia più a una migrazione dati che al cambio di una API stateless."
+          ]
+        },
+        {
+          "label": "07 / Il test aziendale",
+          "title": "La domanda utile è se recupera gli elementi corretti nel corpus reale.",
+          "paragraphs": [
+            "EmbeddingGemma 2 rende plausibile un retrieval multimodale locale con un footprint contenuto, ma il test dovrebbe partire da un corpus rappresentativo: documenti italiani, PDF con layout reali, immagini, screenshot, registrazioni, video e codice a seconda del sistema da indicizzare. Servono poi query per cui sia già noto quali elementi dovrebbero essere recuperati.",
+            "A quel punto si possono confrontare configurazione text-only e multimodale, 768 contro 256 dimensioni, recall, latenza, memoria e dimensione dell'indice. È lo stesso principio usato nella nostra nota su [come valutare un LLM locale prima della produzione](https://empv.it/it/research-notes/valutare-llm-locale-prima-produzione/): modello, runtime e workload vanno misurati insieme.",
+            "Il vantaggio del locale non è semplicemente evitare il cloud. È poter mettere modello, corpus e indice dentro un confine operativo definito e sapere, con test riproducibili, quale qualità di retrieval quel sistema mantiene nel tempo."
+          ]
+        }
+      ],
+      "en": [
+        {
+          "label": "01 / The model",
+          "title": "One embedding model for text, code, images, video and audio.",
+          "paragraphs": [
+            "[Google DeepMind](https://blog.google/innovation-and-ai/technology/developers-tools/embeddinggemma-2/) released EmbeddingGemma 2 on October 6, 2026. The [official model card](https://ai.google.dev/gemma/docs/embeddinggemma/model_card_2) describes a 740-million-parameter model that maps text and code, images, video and audio — including combinations in the same input — into a shared 768-dimensional vector space. The [weights are available on Hugging Face](https://huggingface.co/google/embeddinggemma-2).",
+            "It is not a generative model. It produces comparable numerical representations for semantic search, retrieval-augmented generation (RAG), classification, clustering and similarity. The main change from the first EmbeddingGemma is the move from text embeddings to a natively multimodal index."
+          ]
+        },
+        {
+          "label": "02 / One index",
+          "title": "A text query can retrieve content that is not text.",
+          "paragraphs": [
+            "Because the modalities share one vector space, a text query can be compared directly with an image embedding, an audio segment or video frames. Google lists an 8,192-token context window and, under the launch configuration, up to roughly 5.5 minutes of audio, 29 images or 58 video frames when using a single modality.",
+            "For an enterprise knowledge archive, the pattern is concrete: manuals, visual PDFs, screenshots, technical photographs, recordings, videos and text documentation can share the same retrieval layer. This does not remove segmentation, metadata, permissions or access control, but it can reduce the need to maintain a completely separate representation pipeline for every format."
+          ]
+        },
+        {
+          "label": "03 / The footprint",
+          "title": "Unused modalities can be left out of the deployment.",
+          "paragraphs": [
+            "The [model card](https://ai.google.dev/gemma/docs/embeddinggemma/model_card_2) separates a 270M text-only component, a 170M vision encoder and a 300M audio encoder. Text plus images uses 440M parameters, text plus audio 570M, and the complete configuration 740M.",
+            "In the [launch post](https://blog.google/innovation-and-ai/technology/developers-tools/embeddinggemma-2/), Google reports that with quantization on a Pixel 11 Pro the text-only weights require roughly 191 MB of active RAM and the complete multimodal model roughly 567 MB. These are vendor-reported measurements rather than independent benchmarks, but they show the intended target: retrieval on laptops, phones and edge devices rather than exclusively through a cloud API.",
+            "This connects directly to the choice between [local and cloud AI](https://empv.it/en/research-notes/on-premise-vs-cloud-when-it-makes-sense/): generating embeddings close to the corpus can reduce external dependencies and data transfers, but files, vector databases, permissions and indexing pipelines still need their own security boundary."
+          ]
+        },
+        {
+          "label": "04 / Index size",
+          "title": "From 768 to 256 dimensions: less storage with a measurable trade-off.",
+          "paragraphs": [
+            "EmbeddingGemma 2 uses Matryoshka Representation Learning. Its native 768-dimensional vectors can be truncated to 512, 256 or 128 dimensions and then re-normalized. Moving from 768 to 256 dimensions cuts storage per vector to one third; 128 dimensions gives a 6x reduction.",
+            "In Google's published results, multilingual MTEB moves from 61.36 to 60.41 at 256d, MTEB Code from 78.68 to 76.18 and overall MMEB v2 from 59.01 to 56.24. At 128d, MMEB v2 drops to 45.65, and the documentation itself recommends careful validation for multimodal workloads.",
+            "There is also a less visible runtime failure mode: the [technical documentation](https://ai.google.dev/gemma/docs/embeddinggemma/model_card_2) recommends `bfloat16` or `float32` and advises against `float16`, because the model can return NaNs or silently degraded embeddings without necessarily raising an explicit error. Numerical precision and vector dimensionality are therefore part of the evaluation, not incidental runtime settings."
+          ]
+        },
+        {
+          "label": "05 / Benchmarks",
+          "title": "The text improvement is small. The code result moves much more.",
+          "paragraphs": [
+            "The [evaluation published by Google](https://ai.google.dev/gemma/docs/embeddinggemma/model_card_2) places EmbeddingGemma 2 at 61.36 on multilingual MTEB versus 61.15 for the first EmbeddingGemma. On text, the reported improvement is minimal.",
+            "On MTEB Code, the score rises from 68.76 to 78.68. If that result transfers to real repositories, the model could be useful for semantic code search, retrieval for coding agents and local codebase navigation. There is no direct EmbeddingGemma 1 comparison for images, visual documents, video or audio because the previous model did not support those modalities.",
+            "At launch, most detailed evaluation numbers still come from Google. The model card says the model supports more than 100 languages while also warning that quality may not be uniform across them. For an Italian or domain-specific corpus, public benchmarks do not replace workload-specific evaluation."
+          ]
+        },
+        {
+          "label": "06 / The model behind the index",
+          "title": "Embedding lock-in stays in the database after the API request is over.",
+          "paragraphs": [
+            "The model card lists an Apache 2.0 license and also states that deployments must comply with the Gemma Prohibited Use Policy. Weight availability has a specific consequence for embeddings: vectors generated today may stay in a database for years, and switching to an incompatible model will normally require re-embedding the corpus.",
+            "[Simon Willison](https://simonwillison.net/2026/Oct/6/hn-49983751/) highlighted this when commenting on the release: even teams that prefer a hosted service may want a model whose weights remain available, so the same model can be run elsewhere if a provider stops serving it.",
+            "For an enterprise system, the embedding model should therefore be treated as part of the index schema alongside vector dimensionality, chunking strategy and metadata. Replacing it can look more like a data migration than switching a stateless API."
+          ]
+        },
+        {
+          "label": "07 / The enterprise test",
+          "title": "The useful question is whether it retrieves the right items from the real corpus.",
+          "paragraphs": [
+            "EmbeddingGemma 2 makes compact local multimodal retrieval plausible, but the evaluation should start with a representative corpus: real documents, PDFs with actual layouts, images, screenshots, recordings, video and code depending on the system being indexed. The test also needs queries for which the expected relevant items are already known.",
+            "That makes it possible to compare text-only and multimodal configurations, 768 versus 256 dimensions, recall, latency, memory use and index size. It is the same principle from our note on [evaluating a local LLM before production](https://empv.it/en/research-notes/evaluating-local-llms-before-production/): model, runtime and workload need to be measured together.",
+            "The advantage of local execution is not simply avoiding the cloud. It is the ability to place model, corpus and index inside a defined operating boundary and measure, with reproducible tests, what retrieval quality the whole system can sustain over time."
+          ]
+        }
+      ]
+    },
+    "takeaway": {
+      "it": "EmbeddingGemma 2 può mettere testo, codice e media nello stesso spazio vettoriale su hardware locale. La scelta utile parte dal corpus, dalle query reali e dal costo di mantenere l'indice nel tempo.",
+      "en": "EmbeddingGemma 2 can place text, code and media inside one vector space on local hardware. The useful decision starts with the corpus, real queries and the long-term cost of maintaining the index."
+    }
+  },
+  {
     "id": "thinkingbox-agent-reliability",
     "index": "008",
     "slugs": {

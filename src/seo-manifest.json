@@ -257,6 +257,16 @@
           "title": "ThinkingBox evaluates agents by final system state | EMPV",
           "description": "ThinkingBox evaluates 507 business workflows by checking final backend state and repeatability. What it shows about silent failures in AI agents."
         }
+      },
+      "embeddinggemma-2": {
+        "it": {
+          "title": "EmbeddingGemma 2 porta il retrieval multimodale in locale | EMPV",
+          "description": "EmbeddingGemma 2 unifica testo, codice, immagini, video e audio in uno spazio vettoriale locale. Architettura, memoria, Matryoshka, benchmark e lock-in."
+        },
+        "en": {
+          "title": "EmbeddingGemma 2 brings multimodal retrieval on-device | EMPV",
+          "description": "EmbeddingGemma 2 maps text, code, images, video and audio into one local vector space. Architecture, memory, Matryoshka, benchmarks and embedding lock-in."
+        }
       }
     }
   }
