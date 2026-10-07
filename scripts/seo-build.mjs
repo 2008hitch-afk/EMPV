@@ -342,6 +342,10 @@ function routePath(route) {
     const segment = route.detailKind === "project" ? (route.lang === "it" ? "progetti" : "projects") : "lab";
     return "/" + route.lang + "/" + segment + "/" + route.slug + "/";
   }
+  if (route.kind === "sectionIndex") {
+    const segment = route.section === "projects" ? (route.lang === "it" ? "progetti" : "projects") : "lab";
+    return "/" + route.lang + "/" + segment + "/";
+  }
   if (route.kind === "notesIndex") return "/" + route.lang + "/research-notes/";
   if (route.kind === "note") {
     const note = getResearchNoteById(route.noteId);
@@ -373,6 +377,8 @@ const copyFor = route => route.kind === "home"
       }
   : route.kind === "detail"
     ? manifest.details[route.slug][route.lang]
+    : route.kind === "sectionIndex"
+      ? manifest.sections[route.section][route.lang]
     : route.kind === "notesIndex"
       ? manifest.researchNotes.index[route.lang]
       : route.kind === "note"
@@ -440,8 +446,8 @@ function homeMarkup(lang) {
     '<div class="site-shell" data-prerendered="true">',
     '<header class="topbar topbar-home"><a class="wordmark wordmark-pill" href="#top" aria-label="EMPV home">EMPV</a><nav class="desktop-nav" aria-label="Primary navigation">',
     '<a href="#people"><span>', esc(c.nav.people), '</span></a>',
-    '<a href="#work"><span>', esc(c.nav.work), '</span></a>',
-    '<a href="#labs"><span>', esc(c.nav.labs), '</span></a>',
+    '<a href="', esc(hrefFor({ kind: "sectionIndex", lang, section: "projects" })), '"><span>', esc(c.nav.work), '</span></a>',
+    '<a href="', esc(hrefFor({ kind: "sectionIndex", lang, section: "lab" })), '"><span>', esc(c.nav.labs), '</span></a>',
     '<a href="#faq"><span>', esc(c.nav.faq), '</span></a>',
     '<a href="', esc(hrefFor({ kind: "notesIndex", lang })), '"><span>', esc(c.nav.notes), '</span></a>',
     '</nav></header>',
@@ -475,7 +481,11 @@ function detailMarkup(route) {
   if (!detail) return "";
   const isIt = route.lang === "it";
   const homeHref = hrefFor({ kind: "home", lang: route.lang });
-  const backHref = homeHref + (detail.type === "project" ? "#work" : "#labs");
+  const backHref = hrefFor({
+    kind: "sectionIndex",
+    lang: route.lang,
+    section: detail.type === "project" ? "projects" : "lab"
+  });
   const backLabel = detail.type === "project"
     ? (isIt ? "Torna ai progetti" : "Back to projects")
     : "AI Lab";
@@ -536,6 +546,66 @@ function detailMarkup(route) {
     detail.boundary ? '<section class="detail-boundary section-pad"><div class="section-code">EMPV / NOTE</div><p>' + esc(detail.boundary) + '</p></section>' : "",
     '<section class="detail-end section-pad"><a href="', esc(backHref), '"><span>', esc(backLabel), '</span></a></section>',
     '</main></div>'
+  ].join("");
+}
+
+
+function sectionIndexMarkup(route) {
+  const lang = route.lang;
+  const isProjects = route.section === "projects";
+  const title = isProjects
+    ? (lang === "it" ? "Progetti costruiti sui processi reali." : "Projects built around real operating processes.")
+    : (lang === "it" ? "AI Lab: ipotesi trasformate in sistemi verificabili." : "AI Lab: turning hypotheses into verifiable systems.");
+  const intro = isProjects
+    ? (lang === "it"
+      ? "Una raccolta dei sistemi realizzati da EMPV partendo da flussi di lavoro, strumenti, ruoli e vincoli già presenti nelle organizzazioni."
+      : "A collection of systems built by EMPV around existing workflows, tools, roles and operating constraints.")
+    : (lang === "it"
+      ? "Linee di ricerca e prototipi sviluppati per capire quali idee AI reggono tecnicamente, operativamente e come prodotto."
+      : "Research directions and prototypes used to test which AI ideas hold up technically, operationally and as products.");
+  const alternateLang = lang === "it" ? "en" : "it";
+  const items = isProjects ? selected[lang] : labs[lang];
+  const rows = items.map(item => {
+    if (isProjects) {
+      return '<a class="project-row" href="' +
+        esc(hrefFor({ kind: "detail", lang, detailKind: "project", slug: item.slug })) +
+        '"><div class="project-row-identity"><span class="project-row-kind">' + esc(item.kind) +
+        '</span><h3>' + esc(item.name) + '</h3></div><div class="project-row-content"><div class="project-row-description"><span>' +
+        (lang === "it" ? "Cosa abbiamo costruito" : "What we built") + '</span><p>' + esc(item.description) +
+        '</p></div><div class="project-row-tags">' + item.meta.map(meta => '<span>' + esc(meta) + '</span>').join("") +
+        '</div></div></a>';
+    }
+    return '<a class="lab-row lab-register-row" href="' +
+      esc(hrefFor({ kind: "detail", lang, detailKind: "lab", slug: item.slug })) +
+      '"><div class="lab-index">' + esc(item.index) + '</div><div class="lab-identity"><span class="lab-kind">' +
+      esc(item.kind) + '</span><h3>' + esc(item.name) + '</h3></div><div class="lab-content"><div class="lab-question"><span>' +
+      (lang === "it" ? "Cosa stiamo testando" : "What we are testing") + '</span><strong>' + esc(item.question) +
+      '</strong></div><div class="lab-evidence"><div class="lab-state"><span>' +
+      (lang === "it" ? "Stato del repo" : "Repository state") + '</span><p>' + esc(item.state) +
+      '</p></div><div class="lab-focus"><span>' + (lang === "it" ? "Focus corrente" : "Current focus") +
+      '</span><p>' + esc(item.focus) + '</p></div></div></div></a>';
+  }).join("");
+
+  return [
+    '<div class="detail-shell section-index-shell" data-prerendered="true">',
+    '<header class="topbar detail-topbar">',
+    '<a class="wordmark" href="', esc(hrefFor({ kind: "home", lang })), '" aria-label="EMPV home">EMPV</a>',
+    '<a class="detail-nav-back" href="', esc(hrefFor({ kind: "home", lang })), '">',
+    lang === "it" ? "Torna alla home" : "Back home",
+    '</a>',
+    '<a class="lang-switch" href="', esc(hrefFor({ kind: "sectionIndex", lang: alternateLang, section: route.section })), '" hreflang="', alternateLang, '">', alternateLang.toUpperCase(), '</a>',
+    '</header><main>',
+    '<section class="notes-index-hero"><div class="notes-index-hero-inner">',
+    '<div class="eyebrow">EMPV / ', isProjects ? (lang === "it" ? "PROGETTI" : "PROJECTS") : "AI LAB", '</div>',
+    '<h1>', esc(title), '</h1><p>', esc(intro), '</p>',
+    '</div></section>',
+    '<section class="', isProjects ? "work" : "labs", ' section-pad"><div class="', isProjects ? "project-list" : "lab-list", '">',
+    rows,
+    '</div></section></main>',
+    '<footer><div class="footer-mark">EMPV</div><div class="footer-meta"><div class="footer-column footer-identity"><strong>EMPV</strong><span>Systems · Products · AI · Research</span><span>',
+    lang === "it" ? "Bergamo, Italia" : "Bergamo, Italy",
+    '</span><span>© 2026 EMPV</span></div><div class="footer-column"><a href="mailto:hello@empv.it">hello@empv.it</a><a href="https://wa.me/393792438705">WhatsApp</a><a href="https://www.linkedin.com/company/emp26/">LinkedIn</a><a href="https://x.com/EMPV26">X / @EMPV26</a></div></div></footer>',
+    '</div>'
   ].join("");
 }
 
@@ -665,6 +735,7 @@ function staticMarkup(route) {
   if (route.kind === "home") return homeMarkup(route.lang);
   if (route.kind === "businessCard") return businessCardMarkup(route);
   if (route.kind === "detail") return detailMarkup(route);
+  if (route.kind === "sectionIndex") return sectionIndexMarkup(route);
   if (route.kind === "notesIndex") return notesIndexMarkup(route.lang);
   if (route.kind === "note") return noteMarkup(route);
   return legalMarkup(route);
@@ -782,7 +853,62 @@ function structuredData(route) {
         keywords: detail.tags,
         isPartOf: { "@id": websiteId }
       });
+      const parentSection = detail.type === "project" ? "projects" : "lab";
+      const parentName = detail.type === "project"
+        ? (route.lang === "it" ? "Progetti" : "Projects")
+        : "AI Lab";
+      graph.push({
+        "@type": "BreadcrumbList",
+        "@id": url + "#breadcrumb",
+        itemListElement: [
+          {
+            "@type": "ListItem",
+            position: 1,
+            name: "EMPV",
+            item: canonical({ kind: "home", lang: route.lang })
+          },
+          {
+            "@type": "ListItem",
+            position: 2,
+            name: parentName,
+            item: canonical({ kind: "sectionIndex", lang: route.lang, section: parentSection })
+          },
+          {
+            "@type": "ListItem",
+            position: 3,
+            name: detail.title,
+            item: url
+          }
+        ]
+      });
     }
+  }
+
+  if (route.kind === "sectionIndex") {
+    const items = route.section === "projects" ? selected[route.lang] : labs[route.lang];
+    const detailKind = route.section === "projects" ? "project" : "lab";
+    graph.push({
+      "@type": "CollectionPage",
+      "@id": url + "#collection",
+      name: pageCopy.title,
+      description: pageCopy.description,
+      url,
+      inLanguage: route.lang,
+      isPartOf: { "@id": websiteId },
+      mainEntity: {
+        "@type": "ItemList",
+        itemListElement: items.map((item, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          item: {
+            "@type": "WebPage",
+            "@id": canonical({ kind: "detail", lang: route.lang, detailKind, slug: item.slug }) + "#webpage",
+            name: item.name,
+            url: canonical({ kind: "detail", lang: route.lang, detailKind, slug: item.slug })
+          }
+        }))
+      }
+    });
   }
 
   if (route.kind === "notesIndex") {
@@ -933,7 +1059,11 @@ const routes = [
   { kind: "businessCard", lang: "it", person: "enrico" },
   { kind: "businessCard", lang: "it", person: "michele" }
 ];
-for (const lang of ["it", "en"]) routes.push({ kind: "notesIndex", lang });
+for (const lang of ["it", "en"]) {
+  routes.push({ kind: "sectionIndex", lang, section: "projects" });
+  routes.push({ kind: "sectionIndex", lang, section: "lab" });
+  routes.push({ kind: "notesIndex", lang });
+}
 for (const note of researchNotes) {
   for (const lang of ["it", "en"]) routes.push({ kind: "note", lang, noteId: note.id });
 }
@@ -1026,6 +1156,10 @@ const llmsLines = [
   "",
   "- [EMPV — Italiano](" + siteUrl + "/it/): Progetti, team, AI Lab e FAQ in italiano.",
   "- [EMPV — English](" + siteUrl + "/en/): Projects, team, AI Lab and FAQ in English.",
+  "- [Progetti — Italiano](" + siteUrl + "/it/progetti/): Indice dei progetti EMPV.",
+  "- [Projects — English](" + siteUrl + "/en/projects/): EMPV project index.",
+  "- [AI Lab — Italiano](" + siteUrl + "/it/lab/): Indice delle linee di ricerca e dei prototipi AI.",
+  "- [AI Lab — English](" + siteUrl + "/en/lab/): AI research and prototype index.",
   "",
   "## Projects"
 ];
