@@ -315,6 +315,22 @@ export const labs: Record<Lang, Project[]> = {
     },
     {
       index: "D",
+      slug: "vertical-operations",
+      name: "Vertical Operations",
+      kind: "Product direction / vertical SaaS",
+      description:
+        "Sistemi verticali in cui ciò che il cliente compra o prenota genera direttamente disponibilità, attività, responsabilità e stato operativo per il team.",
+      question:
+        "Quanto del modello operativo può essere riutilizzato in altri verticali senza trasformarlo in un gestionale generico?",
+      state:
+        "Primo verticale completo costruito attorno alla pet hospitality",
+      focus:
+        "Booking → capacità → servizio → attività staff · un unico dominio operativo",
+      meta: ["Vertical SaaS", "Operations", "Product"],
+      accent: "vertical",
+    },
+    {
+      index: "E",
       slug: "trustworthy-reasoning",
       name: "Trustworthy Reasoning",
       kind: "Research / epistemic AI",
@@ -381,6 +397,22 @@ export const labs: Record<Lang, Project[]> = {
     },
     {
       index: "D",
+      slug: "vertical-operations",
+      name: "Vertical Operations",
+      kind: "Product direction / vertical SaaS",
+      description:
+        "Vertical systems where what a customer buys or books directly generates capacity usage, tasks, responsibility and operational state for the team.",
+      question:
+        "How much of the operating model can be reused across other verticals without turning it into a generic management system?",
+      state:
+        "First complete vertical built around pet hospitality",
+      focus:
+        "Booking → capacity → service → staff work · one operating domain",
+      meta: ["Vertical SaaS", "Operations", "Product"],
+      accent: "vertical",
+    },
+    {
+      index: "E",
       slug: "trustworthy-reasoning",
       name: "Trustworthy Reasoning",
       kind: "Research / epistemic AI",
