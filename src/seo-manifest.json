@@ -11,6 +11,28 @@
       "description": "EMPV designs software, automation, AI systems and internal tools around business workflows, tools and operating constraints."
     }
   },
+  "sections": {
+    "projects": {
+      "it": {
+        "title": "Progetti — Sistemi digitali costruiti sui processi reali | EMPV",
+        "description": "Progetti EMPV: sistemi digitali, automazioni e strumenti operativi costruiti intorno a processi, ruoli e vincoli reali delle organizzazioni."
+      },
+      "en": {
+        "title": "Projects — Digital systems built around real operations | EMPV",
+        "description": "EMPV projects: digital systems, automation and operational tools built around real workflows, roles and organizational constraints."
+      }
+    },
+    "lab": {
+      "it": {
+        "title": "AI Lab — Ricerca applicata e sistemi AI verificabili | EMPV",
+        "description": "AI Lab EMPV: ricerca applicata, prototipi e sistemi AI verificabili sviluppati per testare idee tecniche e direzioni di prodotto."
+      },
+      "en": {
+        "title": "AI Lab — Applied research and verifiable AI systems | EMPV",
+        "description": "EMPV AI Lab: applied research, prototypes and verifiable AI systems used to test technical ideas and product directions."
+      }
+    }
+  },
   "details": {
     "commesse-posa": {
       "type": "project",
