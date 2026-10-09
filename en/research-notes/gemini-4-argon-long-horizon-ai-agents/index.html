@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="Gemini 4 Argon raises output to one million tokens. What Google announced, where it is already being used, pricing and what the benchmarks show." />
+    <title>Google introduces Gemini 4 Argon for long-running AI tasks | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-BFBksyuh.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D2cag0Se.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/en/research-notes/gemini-4-argon-long-horizon-ai-agents/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/research-notes/gemini-4-argon-agenti-ai-lavoro-lungo/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/research-notes/gemini-4-argon-long-horizon-ai-agents/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/research-notes/gemini-4-argon-agenti-ai-lavoro-lungo/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="Google introduces Gemini 4 Argon for long-running AI tasks | EMPV" />
+    <meta property="og:description" content="Gemini 4 Argon raises output to one million tokens. What Google announced, where it is already being used, pricing and what the benchmarks show." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://empv.it/en/research-notes/gemini-4-argon-long-horizon-ai-agents/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:image" content="https://empv.it/social/research-notes/gemini-4-argon-en-20261001.png" />
+    <meta property="og:image:url" content="https://empv.it/social/research-notes/gemini-4-argon-en-20261001.png" />
+    <meta property="og:image:secure_url" content="https://empv.it/social/research-notes/gemini-4-argon-en-20261001.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Google introduces Gemini 4 Argon for long-running AI tasks" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="Google introduces Gemini 4 Argon for long-running AI tasks | EMPV" />
+    <meta name="twitter:description" content="Gemini 4 Argon raises output to one million tokens. What Google announced, where it is already being used, pricing and what the benchmarks show." />
+    <meta name="twitter:image" content="https://empv.it/social/research-notes/gemini-4-argon-en-20261001.png" />
+    <meta name="twitter:image:alt" content="Google introduces Gemini 4 Argon for long-running AI tasks" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/en/research-notes/gemini-4-argon-long-horizon-ai-agents/#webpage","url":"https://empv.it/en/research-notes/gemini-4-argon-long-horizon-ai-agents/","name":"Google introduces Gemini 4 Argon for long-running AI tasks | EMPV","description":"Gemini 4 Argon raises output to one million tokens. What Google announced, where it is already being used, pricing and what the benchmarks show.","inLanguage":"en","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"Article","@id":"https://empv.it/en/research-notes/gemini-4-argon-long-horizon-ai-agents/#article","headline":"Google introduces Gemini 4 Argon for long-running AI tasks","description":"Argon raises the output limit to one million tokens and is already being used inside Google for coding, data centers and cybersecurity. Access is still limited.","datePublished":"2026-10-01","dateModified":"2026-10-01","inLanguage":"en","keywords":["Gemini 4 Argon","Google DeepMind","AI agents","Long-horizon"],"image":{"@type":"ImageObject","url":"https://empv.it/social/research-notes/gemini-4-argon-en-20261001.png","width":1200,"height":630},"mainEntityOfPage":{"@id":"https://empv.it/en/research-notes/gemini-4-argon-long-horizon-ai-agents/#webpage"},"author":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}],"publisher":{"@id":"https://empv.it/#organization"}}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell notes-shell" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/en/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/en/research-notes/">Research Notes</a><a class="lang-switch" href="/it/research-notes/gemini-4-argon-agenti-ai-lavoro-lungo/" hreflang="it">IT</a></header><main><section class="detail-hero research-note-hero"><div class="detail-hero-inner"><div class="detail-kicker-row"><span class="eyebrow">EMPV / RESEARCH NOTES</span><span class="detail-index">NOTE / 006</span></div><div class="detail-title-wrap detail-title-project research-note-title"><p class="detail-kicker">NEWS NOTE / AI</p><h1>Google introduces Gemini 4 Argon for long-running AI tasks</h1></div><div class="detail-hero-bottom"><p class="detail-lead">Argon raises the output limit to one million tokens and is already being used inside Google for coding, data centers and cybersecurity. Access is still limited.</p><div class="detail-status"><span>Published</span><strong>2026-10-01 · 5 min</strong></div></div><div class="tags detail-tags"><span>Gemini 4 Argon</span><span>Google DeepMind</span><span>AI agents</span><span>Long-horizon</span></div></div></section><section class="detail-blocks section-pad research-note-blocks"><article class="detail-block research-note-block"><div class="eyebrow">01 / The announcement</div><div class="detail-block-main"><h2>Argon is the first model in the Gemini 4 family.</h2><div class="research-note-copy"><p><a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/" target="_blank" rel="noreferrer noopener">Google</a> announced Gemini 4 Argon on September 30. The model is designed for tasks that require many steps, with a stated focus on software engineering, financial research, legal work and defensive cybersecurity.</p><p>Google's introductory pricing is $2 per million input tokens and $10 per million output tokens. After the introductory period, the listed prices rise to $4 and $20 respectively. <a href="https://www.reuters.com/legal/litigation/google-announces-gemini-4-flagship-ai-model-after-months-delays-2026-09-30/" target="_blank" rel="noreferrer noopener">Reuters</a> reports that Google has not given a date for a public release.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">02 / One million output tokens</div><div class="detail-block-main"><h2>Google raised Argon's output limit from 64K to one million tokens.</h2><div class="research-note-copy"><p>That is one of the most concrete changes from previous models. A much larger output budget gives the model room to keep a single work trajectory going across many steps instead of constantly breaking the task into separate requests.</p><p>One million tokens does not automatically mean one million useful tokens. For agents, the important part is what happens along the sequence: whether the model keeps state, uses tools correctly and avoids compounding errors as the task grows.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">03 / Google is already using it</div><div class="detail-block-main"><h2>The clearest examples come from Google's internal systems.</h2><div class="research-note-copy"><p>According to <a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/gemini-4-argon/" target="_blank" rel="noreferrer noopener">Google</a>, a group of Argon agents analysed data-center telemetry and found changes that freed more than 300 TiB of memory after rollout. The company estimates total potential savings of 500 TiB to 1 PiB.</p><p>Google also cites C/C++ to Rust migrations on codebases exceeding 800,000 lines, including Fuchsia's Zircon kernel. In another case, Argon worked on 32,000 lines of SIMD code in libgav1; Google says the resulting Rust implementation runs 2.7 times faster than the previous port while producing identical video output.</p><p>These are company-reported results rather than independent tests. The useful detail is that Google also describes the surrounding process: automated tests, manual audits, emulation and review before changes are rolled out.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">04 / Enterprise and cybersecurity</div><div class="detail-block-main"><h2>Google is pushing Argon beyond coding.</h2><div class="research-note-copy"><p>The model is also being evaluated on finance, legal work and business automation. On <a href="https://zapier.com/benchmarks" target="_blank" rel="noreferrer noopener">Zapier's AutomationBench</a>, which measures end-to-end task execution across business tools, the Argon High configuration is currently listed at 51.29%.</p><p>Cybersecurity is the other major focus. Google says Argon can find, validate and patch software vulnerabilities. Initial access therefore runs through the <a href="https://blog.google/innovation-and-ai/technology/safety-security/fairwind-program/" target="_blank" rel="noreferrer noopener">Fairwind Program</a>, which is limited to governments, selected Google Cloud customers and cybersecurity partners.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">05 / Benchmarks need context</div><div class="detail-block-main"><h2>One of Google's headline results comes from a benchmark with known issues.</h2><div class="research-note-copy"><p>Google reports 77.9% on <a href="https://deepswe.datacurve.ai/" target="_blank" rel="noreferrer noopener">DeepSWE v1.1</a>, a benchmark for long-horizon software engineering tasks. But an <a href="https://epoch.ai/benchmarks/deepswe/review" target="_blank" rel="noreferrer noopener">independent Epoch AI review</a> rated the benchmark “Flawed” after finding problems in at least 23 of the 113 tasks it examined.</p><p><a href="https://www.reuters.com/legal/litigation/google-announces-gemini-4-flagship-ai-model-after-months-delays-2026-09-30/" target="_blank" rel="noreferrer noopener">Reuters</a> also notes that Argon remains behind competitors on two of the four coding benchmarks included in Google's launch material. The picture is therefore less straightforward than any single score suggests.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">06 / What is still missing</div><div class="detail-block-main"><h2>Argon still needs to be tested outside workflows controlled by Google.</h2><div class="research-note-copy"><p>Restricted access makes it difficult to know how the model behaves on long-running tasks designed by external teams, with different tools, data and failure modes.</p><p>Once access widens, the most useful measurements will be less dramatic than leaderboard scores: completed-task rate, errors accumulated across a sequence, recovery after tool failures, cost per task and the number of human interventions required.</p></div></div></article></section><section class="detail-boundary section-pad research-note-takeaway"><div class="section-code">EMPV / TAKEAWAY</div><p>For now, Argon remains limited-access. The more useful test will be how it handles long-running tasks built outside Google.</p></section><section class="research-note-share section-pad" aria-label="Share this Research Note"><div class="section-code">EMPV / SHARE</div><div class="research-note-share-inner"><p>Share this Research Note.</p><div class="research-note-share-actions"><a class="research-note-share-primary" href="https://empv.it/en/research-notes/gemini-4-argon-long-horizon-ai-agents/?share=20261001">Share</a><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fempv.it%2Fen%2Fresearch-notes%2Fgemini-4-argon-long-horizon-ai-agents%2F%3Fshare%3D20261001" target="_blank" rel="noreferrer noopener">LinkedIn</a><a href="https://twitter.com/intent/tweet?text=Google%20introduces%20Gemini%204%20Argon%20for%20long-running%20AI%20tasks%20%E2%80%94%20EMPV%20Research%20Notes&amp;url=https%3A%2F%2Fempv.it%2Fen%2Fresearch-notes%2Fgemini-4-argon-long-horizon-ai-agents%2F%3Fshare%3D20261001" target="_blank" rel="noreferrer noopener">X</a><a href="https://wa.me/?text=Google%20introduces%20Gemini%204%20Argon%20for%20long-running%20AI%20tasks%20%E2%80%94%20EMPV%20Research%20Notes%20https%3A%2F%2Fempv.it%2Fen%2Fresearch-notes%2Fgemini-4-argon-long-horizon-ai-agents%2F%3Fshare%3D20261001" target="_blank" rel="noreferrer noopener">WhatsApp</a><a href="https://empv.it/en/research-notes/gemini-4-argon-long-horizon-ai-agents/?share=20261001">Copy link</a></div></div></section><section class="detail-end section-pad"><a href="/en/research-notes/"><span>Research Notes</span></a></section></main></div></div>
+  </body>
+</html>

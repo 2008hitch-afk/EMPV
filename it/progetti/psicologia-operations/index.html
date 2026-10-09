@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="Una piattaforma per unificare appuntamenti, professionisti, pagamenti e attività amministrative mantenendo ruoli e permessi separati." />
+    <title>Gestione operativa per uno studio psicologico | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-BFBksyuh.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D2cag0Se.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/it/progetti/psicologia-operations/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/progetti/psicologia-operations/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/projects/psicologia-operations/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/progetti/psicologia-operations/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="Gestione operativa per uno studio psicologico | EMPV" />
+    <meta property="og:description" content="Una piattaforma per unificare appuntamenti, professionisti, pagamenti e attività amministrative mantenendo ruoli e permessi separati." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://empv.it/it/progetti/psicologia-operations/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="it_IT" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="Gestione operativa per uno studio psicologico | EMPV" />
+    <meta name="twitter:description" content="Una piattaforma per unificare appuntamenti, professionisti, pagamenti e attività amministrative mantenendo ruoli e permessi separati." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/it/progetti/psicologia-operations/#webpage","url":"https://empv.it/it/progetti/psicologia-operations/","name":"Gestione operativa per uno studio psicologico | EMPV","description":"Una piattaforma per unificare appuntamenti, professionisti, pagamenti e attività amministrative mantenendo ruoli e permessi separati.","inLanguage":"it","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"CreativeWork","@id":"https://empv.it/it/progetti/psicologia-operations/#work","name":"Gestione operativa per uno studio psicologico","description":"Una piattaforma per unificare appuntamenti, professionisti, pagamenti e attività amministrative mantenendo ruoli e permessi separati.","url":"https://empv.it/it/progetti/psicologia-operations/","inLanguage":"it","creator":{"@id":"https://empv.it/#organization"},"keywords":["Operations","Scheduling","Ruoli","Amministrazione"],"isPartOf":{"@id":"https://empv.it/#website"}},{"@type":"BreadcrumbList","@id":"https://empv.it/it/progetti/psicologia-operations/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"EMPV","item":"https://empv.it/it/"},{"@type":"ListItem","position":2,"name":"Progetti","item":"https://empv.it/it/progetti/"},{"@type":"ListItem","position":3,"name":"Gestione operativa per uno studio psicologico","item":"https://empv.it/it/progetti/psicologia-operations/"}]}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/it/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/it/progetti/">Torna ai progetti</a><a class="lang-switch" href="/en/projects/psicologia-operations/" hreflang="en">EN</a></header><main><section class="detail-hero"><div class="detail-hero-inner"><div class="detail-kicker-row"><span class="eyebrow">EMPV / Progetto</span><span class="detail-index">02</span></div><div class="detail-title-wrap"><p class="detail-kicker">Piattaforma operativa per un centro di psicologia</p><p class="detail-project-name">Gestione operativa per uno studio psicologico</p><h1>Il problema non erano le prenotazioni. Era tutto ciò che succedeva tra una prenotazione e l'altra.</h1></div><div class="detail-hero-bottom"><p class="detail-lead">Pazienti, appuntamenti, professionisti, pagamenti e attività amministrative vivevano su più strumenti. La segreteria doveva riportare informazioni da una piattaforma all'altra, controllare manualmente gli stati e ricostruire continuamente cosa fosse successo.</p><div class="detail-status"><span>Cosa abbiamo cambiato</span><strong>Abbiamo portato quei passaggi dentro un unico flusso operativo.</strong></div></div><div class="tags detail-tags"><span>Operations</span><span>Scheduling</span><span>Ruoli</span><span>Amministrazione</span></div></div></section><section class="detail-comparison section-pad"><article><div class="eyebrow">Prima</div><h2>Più piattaforme, più passaggi manuali</h2><p>Dati e attività erano distribuiti tra più strumenti. La segreteria doveva reimmettere informazioni, verificare stati e ricostruire manualmente una parte importante del lavoro quotidiano.</p></article><article><div class="eyebrow">Sistema</div><h2>Un'unica identità operativa</h2><p>Pazienti, professionisti, appuntamenti, pagamenti, pacchetti e regole di chiusura condividono lo stesso modello, con permessi server-side e viste diverse in base al ruolo.</p></article></section><section class="detail-blocks section-pad"><article class="detail-block"><div class="eyebrow">01 / Perché era un problema</div><div class="detail-block-main"><h2>La segreteria faceva da ponte manuale tra strumenti che non condividevano lo stesso stato.</h2><p>In un centro psicologico non basta mettere tutto nello stesso database. Segreteria, professionisti e direzione devono vedere e modificare cose diverse; le note professionali non possono diventare semplicemente 'dati del centro'.</p></div></article><article class="detail-block"><div class="eyebrow">02 / Come abbiamo ragionato</div><div class="detail-block-main"><h2>Centralizzare il flusso, non appiattire ruoli e responsabilità.</h2><p>Il disegno usa identità canoniche per paziente e professionista, contesto di centro, autorizzazioni server-side e audit delle correzioni. L'esperienza quotidiana resta semplice, mentre regole e permessi rimangono nel backend.</p></div></article><article class="detail-block"><div class="eyebrow">03 / Cosa abbiamo cambiato</div><div class="detail-block-main"><h2>Paziente, appuntamento, seduta e stato amministrativo condividono lo stesso flusso.</h2><p>Disponibilità, prenotazioni, spostamenti, chiusura delle sedute, stato pagamenti, pacchetti, regola delle 48 ore, promemoria, report e correzioni autorizzate vengono trattati come parti dello stesso sistema operativo.</p></div></article><article class="detail-block"><div class="eyebrow">04 / Come funziona adesso</div><div class="detail-block-main"><h2>L'operatività quotidiana è unificata; regole e permessi restano autorevoli nel backend.</h2><p>La direzione tecnica parte da Frappe / ERPNext e Marley Healthcare, estendendoli con un layer dedicato quando regole, sicurezza o workflow non possono essere rappresentati correttamente in modo nativo.</p></div></article></section><section class="detail-end section-pad"><a href="/it/progetti/"><span>Torna ai progetti</span></a></section></main></div></div>
+  </body>
+</html>

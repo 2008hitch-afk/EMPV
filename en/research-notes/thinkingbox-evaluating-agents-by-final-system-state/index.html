@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="ThinkingBox evaluates 507 business workflows by checking final backend state and repeatability. What it shows about silent failures in AI agents." />
+    <title>ThinkingBox evaluates agents by final system state | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-BFBksyuh.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D2cag0Se.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/en/research-notes/thinkingbox-evaluating-agents-by-final-system-state/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/research-notes/thinkingbox-valutare-agenti-stato-finale-sistemi/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/research-notes/thinkingbox-evaluating-agents-by-final-system-state/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/research-notes/thinkingbox-valutare-agenti-stato-finale-sistemi/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="ThinkingBox evaluates agents by final system state | EMPV" />
+    <meta property="og:description" content="ThinkingBox evaluates 507 business workflows by checking final backend state and repeatability. What it shows about silent failures in AI agents." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://empv.it/en/research-notes/thinkingbox-evaluating-agents-by-final-system-state/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:image" content="https://empv.it/social/research-notes/thinkingbox-agent-reliability-en-20261006.png" />
+    <meta property="og:image:url" content="https://empv.it/social/research-notes/thinkingbox-agent-reliability-en-20261006.png" />
+    <meta property="og:image:secure_url" content="https://empv.it/social/research-notes/thinkingbox-agent-reliability-en-20261006.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="ThinkingBox evaluates agents by the final state of the system" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="ThinkingBox evaluates agents by final system state | EMPV" />
+    <meta name="twitter:description" content="ThinkingBox evaluates 507 business workflows by checking final backend state and repeatability. What it shows about silent failures in AI agents." />
+    <meta name="twitter:image" content="https://empv.it/social/research-notes/thinkingbox-agent-reliability-en-20261006.png" />
+    <meta name="twitter:image:alt" content="ThinkingBox evaluates agents by the final state of the system" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/en/research-notes/thinkingbox-evaluating-agents-by-final-system-state/#webpage","url":"https://empv.it/en/research-notes/thinkingbox-evaluating-agents-by-final-system-state/","name":"ThinkingBox evaluates agents by final system state | EMPV","description":"ThinkingBox evaluates 507 business workflows by checking final backend state and repeatability. What it shows about silent failures in AI agents.","inLanguage":"en","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"Article","@id":"https://empv.it/en/research-notes/thinkingbox-evaluating-agents-by-final-system-state/#article","headline":"ThinkingBox evaluates agents by the final state of the system","description":"The Microsoft and Hugging Face benchmark repeatedly runs 507 business workflows and checks databases and resulting side effects. An agent can finish without an error and report completion while still leaving the system in the wrong state.","datePublished":"2026-10-06","dateModified":"2026-10-06","inLanguage":"en","keywords":["ThinkingBox","AI agents","MCP","Agent evaluation"],"image":{"@type":"ImageObject","url":"https://empv.it/social/research-notes/thinkingbox-agent-reliability-en-20261006.png","width":1200,"height":630},"mainEntityOfPage":{"@id":"https://empv.it/en/research-notes/thinkingbox-evaluating-agents-by-final-system-state/#webpage"},"author":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}],"publisher":{"@id":"https://empv.it/#organization"}}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell notes-shell" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/en/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/en/research-notes/">Research Notes</a><a class="lang-switch" href="/it/research-notes/thinkingbox-valutare-agenti-stato-finale-sistemi/" hreflang="it">IT</a></header><main><section class="detail-hero research-note-hero"><div class="detail-hero-inner"><div class="detail-kicker-row"><span class="eyebrow">EMPV / RESEARCH NOTES</span><span class="detail-index">NOTE / 008</span></div><div class="detail-title-wrap detail-title-project research-note-title"><p class="detail-kicker">TECH NOTE / AI AGENTS</p><h1>ThinkingBox evaluates agents by the final state of the system</h1></div><div class="detail-hero-bottom"><p class="detail-lead">The Microsoft and Hugging Face benchmark repeatedly runs 507 business workflows and checks databases and resulting side effects. An agent can finish without an error and report completion while still leaving the system in the wrong state.</p><div class="detail-status"><span>Published</span><strong>2026-10-06 · 7 min</strong></div></div><div class="tags detail-tags"><span>ThinkingBox</span><span>AI agents</span><span>MCP</span><span>Agent evaluation</span></div></div></section><section class="detail-blocks section-pad research-note-blocks"><article class="detail-block research-note-block"><div class="eyebrow">01 / The benchmark</div><div class="detail-block-main"><h2>ThinkingBox checks what remains in the system after the agent finishes.</h2><div class="research-note-copy"><p>On October 3, Microsoft and Hugging Face published a new overview of <a href="https://huggingface.co/blog/microsoft/thinkingbox" target="_blank" rel="noreferrer noopener">ThinkingBox</a>, an environment and benchmark for evaluating agents that work on stateful business workflows. The accompanying <a href="https://arxiv.org/abs/2608.19741" target="_blank" rel="noreferrer noopener">paper</a>, revised on October 1, describes 507 tasks across retail, auto insurance, travel, neobank and IT/HR support scenarios.</p><p>Each task starts from a defined initial state, exposes Model Context Protocol (MCP)-compatible tools and ends with executable checks over the backend state. The goal is not to decide whether the agent's answer sounds correct, but whether the database and resulting side effects actually match the requested outcome.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">02 / A tool call is not an outcome</div><div class="detail-block-main"><h2>A plausible sequence of actions can still leave the wrong record behind.</h2><div class="research-note-copy"><p>The authors use a support ticket for a delayed delivery as an example. The agent checks the order, tracking, customer profile and policy, opens a ticket and then closes it as resolved. The sequence looks orderly, but the carrier still has an open exception: the correct ticket state should have been &quot;hold&quot;, not &quot;solved&quot;.</p><p>ThinkingBox therefore treats the agent trajectory as a claim and the terminal state as evidence. For tasks with structured effects, deterministic judges compare what changed with the required end state and reject wrong values, missing actions or unintended extra changes.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">03 / Reliability</div><div class="detail-block-main"><h2>Succeeding once and succeeding every time are different metrics.</h2><div class="research-note-copy"><p>The 507 tasks are repeated 20 times from a clean state. The benchmark separates average single-run success, whether a task can be solved at least once, and how many tasks are completed correctly in all 20 recorded attempts.</p><p>That distinction changes how the results read. In the report, Claude Opus 5.5 reaches 67.16% pass@1 but completes 241 of 507 tasks in all 20 runs, or 47.53%. Kimi-K3 solves 476 of 507 tasks at least once but only 68 in all 20 attempts. The benchmark is not only asking what a model can do; it measures how often the same workflow stays correct when repeated.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">04 / Silent failures</div><div class="detail-block-main"><h2>Many failures do not produce an error signal that the surrounding system can rely on.</h2><div class="research-note-copy"><p>In a common-set analysis across 12 models, the authors report 121,680 valid trials. Of those, 79,853 fail the executable checks. Yet 67.24% of the failures still terminate cleanly, include at least one state-changing action and report no final tool error.</p><p>Within those failures, executable checks find wrong field values in 77.61%, unintended extra effects in 43.30% and missing required effects in 25.36%; the categories overlap. A monitor that only watches exceptions, formally valid tool calls or the agent's final text can therefore mark work as successful even when the system of record shows an incomplete or incorrect outcome.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">05 / Operational implications</div><div class="detail-block-main"><h2>For agents that write to business systems, the success criterion should live outside the agent.</h2><div class="research-note-copy"><p>The practical design lesson is to separate execution from verification. If an agent updates a CRM, ticketing system, order record or customer master, the outcome can be checked by reading the authoritative state after the action and comparing it with explicit conditions, rather than treating the model's final message as proof.</p><p>The authors also suggest classifying tool and system errors so retries target recoverable failures, reducing the tool surface to what the workflow needs, and keeping human approval for changes that are difficult to reverse. ThinkingBox makes these choices measurable because each attempt starts in isolation and exposes the effects it produced.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">06 / What it shows and what it does not</div><div class="detail-block-main"><h2>It is a reproducible benchmark, but the public workflows are still synthetic reconstructions.</h2><div class="research-note-copy"><p>The 507 tasks model enterprise patterns, but the post states that every public workflow is a synthetic reconstruction and does not contain real customers. In addition, 477 tasks are graded on state alone, while 30 add a narrow binary response rubric where a requirement cannot be expressed as a simple database value.</p><p>The advantage is that the environment, data and checks are inspectable. The <a href="https://github.com/microsoft/thinkingbox" target="_blank" rel="noreferrer noopener">ThinkingBox framework</a> is open source, the <a href="https://github.com/microsoft/thinkingbox-data/releases/tag/thinkingbox-bench-v1.0" target="_blank" rel="noreferrer noopener">v1.0 benchmark</a> is released separately, and its <a href="https://huggingface.co/docs/openenv/environments/thinkingbox" target="_blank" rel="noreferrer noopener">OpenEnv integration</a> can run episodes and return a pass/fail result.</p><p>For a company, this does not replace evaluation on its own processes. It does provide a concrete criterion to bring into internal tests: define the correct final state first, then verify whether the agent reaches it repeatedly.</p></div></div></article></section><section class="detail-boundary section-pad research-note-takeaway"><div class="section-code">EMPV / TAKEAWAY</div><p>If an agent changes business systems, &quot;done&quot; is not evidence: the result should be read from the final system state and verified more than once.</p></section><section class="research-note-share section-pad" aria-label="Share this Research Note"><div class="section-code">EMPV / SHARE</div><div class="research-note-share-inner"><p>Share this Research Note.</p><div class="research-note-share-actions"><a class="research-note-share-primary" href="https://empv.it/en/research-notes/thinkingbox-evaluating-agents-by-final-system-state/?share=20261006">Share</a><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fempv.it%2Fen%2Fresearch-notes%2Fthinkingbox-evaluating-agents-by-final-system-state%2F%3Fshare%3D20261006" target="_blank" rel="noreferrer noopener">LinkedIn</a><a href="https://twitter.com/intent/tweet?text=ThinkingBox%20evaluates%20agents%20by%20the%20final%20state%20of%20the%20system%20%E2%80%94%20EMPV%20Research%20Notes&amp;url=https%3A%2F%2Fempv.it%2Fen%2Fresearch-notes%2Fthinkingbox-evaluating-agents-by-final-system-state%2F%3Fshare%3D20261006" target="_blank" rel="noreferrer noopener">X</a><a href="https://wa.me/?text=ThinkingBox%20evaluates%20agents%20by%20the%20final%20state%20of%20the%20system%20%E2%80%94%20EMPV%20Research%20Notes%20https%3A%2F%2Fempv.it%2Fen%2Fresearch-notes%2Fthinkingbox-evaluating-agents-by-final-system-state%2F%3Fshare%3D20261006" target="_blank" rel="noreferrer noopener">WhatsApp</a><a href="https://empv.it/en/research-notes/thinkingbox-evaluating-agents-by-final-system-state/?share=20261006">Copy link</a></div></div></section><section class="detail-end section-pad"><a href="/en/research-notes/"><span>Research Notes</span></a></section></main></div></div>
+  </body>
+</html>

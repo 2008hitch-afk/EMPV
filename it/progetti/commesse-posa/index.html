@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="Un sistema operativo condiviso per collegare sopralluogo, ufficio, officina e posa, riducendo reinserimenti e perdita di contesto." />
+    <title>Sistema operativo per commesse e posa | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-BFBksyuh.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D2cag0Se.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/it/progetti/commesse-posa/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/progetti/commesse-posa/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/projects/commesse-posa/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/progetti/commesse-posa/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="Sistema operativo per commesse e posa | EMPV" />
+    <meta property="og:description" content="Un sistema operativo condiviso per collegare sopralluogo, ufficio, officina e posa, riducendo reinserimenti e perdita di contesto." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://empv.it/it/progetti/commesse-posa/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="it_IT" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="Sistema operativo per commesse e posa | EMPV" />
+    <meta name="twitter:description" content="Un sistema operativo condiviso per collegare sopralluogo, ufficio, officina e posa, riducendo reinserimenti e perdita di contesto." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/it/progetti/commesse-posa/#webpage","url":"https://empv.it/it/progetti/commesse-posa/","name":"Sistema operativo per commesse e posa | EMPV","description":"Un sistema operativo condiviso per collegare sopralluogo, ufficio, officina e posa, riducendo reinserimenti e perdita di contesto.","inLanguage":"it","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"CreativeWork","@id":"https://empv.it/it/progetti/commesse-posa/#work","name":"Sistema operativo per commesse e posa","description":"Un sistema operativo condiviso per collegare sopralluogo, ufficio, officina e posa, riducendo reinserimenti e perdita di contesto.","url":"https://empv.it/it/progetti/commesse-posa/","inLanguage":"it","creator":{"@id":"https://empv.it/#organization"},"keywords":["Commesse","Campo → officina","Dati condivisi","Automazioni"],"isPartOf":{"@id":"https://empv.it/#website"}},{"@type":"BreadcrumbList","@id":"https://empv.it/it/progetti/commesse-posa/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"EMPV","item":"https://empv.it/it/"},{"@type":"ListItem","position":2,"name":"Progetti","item":"https://empv.it/it/progetti/"},{"@type":"ListItem","position":3,"name":"Sistema operativo per commesse e posa","item":"https://empv.it/it/progetti/commesse-posa/"}]}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/it/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/it/progetti/">Torna ai progetti</a><a class="lang-switch" href="/en/projects/commesse-posa/" hreflang="en">EN</a></header><main><section class="detail-hero"><div class="detail-hero-inner"><div class="detail-kicker-row"><span class="eyebrow">EMPV / Progetto</span><span class="detail-index">01</span></div><div class="detail-title-wrap"><p class="detail-kicker">Sistema operativo per commesse</p><p class="detail-project-name">Sistema operativo per commesse e posa</p><h1>Le informazioni della commessa non seguivano la commessa.</h1></div><div class="detail-hero-bottom"><p class="detail-lead">Una commessa passava dal sopralluogo all'ufficio, poi all'officina e infine alla posa. Ma clienti, documenti, misure e stato del lavoro non vivevano nello stesso posto: una parte era nelle cartelle Windows, una parte nel software specialistico e una parte nelle persone che stavano seguendo il lavoro.</p><div class="detail-status"><span>Cosa abbiamo cambiato</span><strong>Abbiamo trasformato la commessa nella fonte comune del lavoro.</strong></div></div><div class="tags detail-tags"><span>Commesse</span><span>Campo → officina</span><span>Dati condivisi</span><span>Automazioni</span></div></div></section><section class="detail-comparison section-pad"><article><div class="eyebrow">Prima</div><h2>Informazioni distribuite</h2><p>Clienti e documenti vivevano soprattutto in cartelle Windows, mentre il lavoro operativo attraversava sopralluoghi, amministrazione, officina e un software specialistico separato.</p></article><article><div class="eyebrow">Sistema</div><h2>Una commessa come fonte comune</h2><p>Una piattaforma web centralizza cliente, rilievi, avanzamento, materiali, attività mancanti e automazioni assistite, lasciando il controllo umano sulle azioni esterne.</p></article></section><section class="detail-blocks section-pad"><article class="detail-block"><div class="eyebrow">01 / Perché era un problema</div><div class="detail-block-main"><h2>Ogni passaggio poteva richiedere di cercare o ricreare informazioni già raccolte.</h2><p>Il nodo non era sostituire ogni strumento, ma evitare reinserimenti, passaggi informali e perdita di contesto mentre la stessa commessa passava dal campo all'ufficio, poi all'officina e infine alla posa.</p><ul><li>dati e documenti distribuiti</li><li>ruoli diversi che usano porzioni diverse della stessa commessa</li><li>software specialistico da preservare e studiare, non da sostituire per principio</li><li>integrazioni con macchine e strumenti da verificare prima di prometterle</li></ul></div></article><article class="detail-block"><div class="eyebrow">02 / Come abbiamo ragionato</div><div class="detail-block-main"><h2>Non sostituire tutto. Creare uno strato operativo condiviso intorno alla commessa.</h2><p>Il nuovo sistema diventa lo strato operativo condiviso. Gli strumenti specialistici restano dove hanno senso e vengono collegati solo quando fattibilità tecnica e beneficio sono stati verificati.</p></div></article><article class="detail-block"><div class="eyebrow">03 / Cosa abbiamo cambiato</div><div class="detail-block-main"><h2>Campo, ufficio e officina lavorano sulla stessa commessa.</h2><p>Il nucleo comprende gestione clienti e commesse, rilievi guidati, viste dedicate ai diversi ruoli, avanzamento e priorità, stato di materiali e accessori, promemoria, checklist e predisposizione assistita di comunicazioni e ordini.</p></div></article><article class="detail-block"><div class="eyebrow">04 / Come funziona adesso</div><div class="detail-block-main"><h2>Il dato viene raccolto una volta e riutilizzato nelle fasi successive.</h2><p>Il metodo è questo: prima si ricostruisce il flusso, poi si decide dove centralizzare, dove integrare e dove mantenere una decisione umana.</p></div></article></section><section class="detail-end section-pad"><a href="/it/progetti/"><span>Torna ai progetti</span></a></section></main></div></div>
+  </body>
+</html>

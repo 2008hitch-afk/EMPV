@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="Progetti EMPV: sistemi digitali, automazioni e strumenti operativi costruiti intorno a processi, ruoli e vincoli reali delle organizzazioni." />
+    <title>Progetti — Sistemi digitali costruiti sui processi reali | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-BFBksyuh.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D2cag0Se.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/it/progetti/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/progetti/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/projects/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/progetti/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="Progetti — Sistemi digitali costruiti sui processi reali | EMPV" />
+    <meta property="og:description" content="Progetti EMPV: sistemi digitali, automazioni e strumenti operativi costruiti intorno a processi, ruoli e vincoli reali delle organizzazioni." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://empv.it/it/progetti/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="it_IT" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="Progetti — Sistemi digitali costruiti sui processi reali | EMPV" />
+    <meta name="twitter:description" content="Progetti EMPV: sistemi digitali, automazioni e strumenti operativi costruiti intorno a processi, ruoli e vincoli reali delle organizzazioni." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/it/progetti/#webpage","url":"https://empv.it/it/progetti/","name":"Progetti — Sistemi digitali costruiti sui processi reali | EMPV","description":"Progetti EMPV: sistemi digitali, automazioni e strumenti operativi costruiti intorno a processi, ruoli e vincoli reali delle organizzazioni.","inLanguage":"it","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"CollectionPage","@id":"https://empv.it/it/progetti/#collection","name":"Progetti — Sistemi digitali costruiti sui processi reali | EMPV","description":"Progetti EMPV: sistemi digitali, automazioni e strumenti operativi costruiti intorno a processi, ruoli e vincoli reali delle organizzazioni.","url":"https://empv.it/it/progetti/","inLanguage":"it","isPartOf":{"@id":"https://empv.it/#website"},"mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"WebPage","@id":"https://empv.it/it/progetti/commesse-posa/#webpage","name":"Sistema operativo per commesse e posa","url":"https://empv.it/it/progetti/commesse-posa/"}},{"@type":"ListItem","position":2,"item":{"@type":"WebPage","@id":"https://empv.it/it/progetti/psicologia-operations/#webpage","name":"Gestione operativa per uno studio psicologico","url":"https://empv.it/it/progetti/psicologia-operations/"}},{"@type":"ListItem","position":3,"item":{"@type":"WebPage","@id":"https://empv.it/it/progetti/pet-resort-operations/#webpage","name":"Piattaforma operativa per una struttura pet","url":"https://empv.it/it/progetti/pet-resort-operations/"}},{"@type":"ListItem","position":4,"item":{"@type":"WebPage","@id":"https://empv.it/it/progetti/richieste-preventivi/#webpage","name":"Sistema di qualificazione richieste e preventivi","url":"https://empv.it/it/progetti/richieste-preventivi/"}}]}}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell section-index-shell" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/it/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/it/">Torna alla home</a><a class="lang-switch" href="/en/projects/" hreflang="en">EN</a></header><main><section class="notes-index-hero"><div class="notes-index-hero-inner"><div class="eyebrow">EMPV / PROGETTI</div><h1>Progetti costruiti sui processi reali.</h1><p>Una raccolta dei sistemi realizzati da EMPV partendo da flussi di lavoro, strumenti, ruoli e vincoli già presenti nelle organizzazioni.</p></div></section><section class="work section-pad"><div class="project-list"><a class="project-row" href="/it/progetti/commesse-posa/"><div class="project-row-identity"><span class="project-row-kind">Progetto / Serramenti</span><h3>Sistema operativo per commesse e posa</h3></div><div class="project-row-content"><div class="project-row-description"><span>Cosa abbiamo costruito</span><p>Da informazioni distribuite tra cartelle, ufficio, officina e sopralluoghi a un unico sistema che accompagna la commessa dal rilievo alla posa.</p></div><div class="project-row-tags"><span>Commesse</span><span>Campo → officina</span><span>Dati condivisi</span><span>Automazioni</span></div></div></a><a class="project-row" href="/it/progetti/psicologia-operations/"><div class="project-row-identity"><span class="project-row-kind">Progetto / Psicologia</span><h3>Gestione operativa per uno studio psicologico</h3></div><div class="project-row-content"><div class="project-row-description"><span>Cosa abbiamo costruito</span><p>Un unico sistema per coordinare pazienti, professionisti, appuntamenti, sedute e amministrazione, rispettando ruoli e responsabilità differenti.</p></div><div class="project-row-tags"><span>Operations</span><span>Scheduling</span><span>Ruoli</span><span>Amministrazione</span></div></div></a><a class="project-row" href="/it/progetti/pet-resort-operations/"><div class="project-row-identity"><span class="project-row-kind">Progetto / Pet hospitality</span><h3>Piattaforma operativa per una struttura pet</h3></div><div class="project-row-content"><div class="project-row-description"><span>Cosa abbiamo costruito</span><p>Prenotazione cliente e lavoro quotidiano dello staff nello stesso sistema: soggiorni, disponibilità, attività, grooming, documenti e pagamenti.</p></div><div class="project-row-tags"><span>Hospitality ops</span><span>Booking</span><span>Area cliente</span><span>Daily operations</span></div></div></a><a class="project-row" href="/it/progetti/richieste-preventivi/"><div class="project-row-identity"><span class="project-row-kind">Progetto / Audio &amp; eventi</span><h3>Sistema di qualificazione richieste e preventivi</h3></div><div class="project-row-content"><div class="project-row-description"><span>Cosa abbiamo costruito</span><p>Da richieste libere e difficili da valutare a un percorso guidato che raccoglie le informazioni necessarie prima della preparazione del preventivo.</p></div><div class="project-row-tags"><span>Lead flow</span><span>Richiesta guidata</span><span>Website</span><span>Human review</span></div></div></a></div></section></main><footer><div class="footer-mark">EMPV</div><div class="footer-meta"><div class="footer-column footer-identity"><strong>EMPV</strong><span>Systems · Products · AI · Research</span><span>Bergamo, Italia</span><span>© 2026 EMPV</span></div><div class="footer-column"><a href="mailto:hello@empv.it">hello@empv.it</a><a href="https://wa.me/393792438705">WhatsApp</a><a href="https://www.linkedin.com/company/emp26/">LinkedIn</a><a href="https://x.com/EMPV26">X / @EMPV26</a></div></div></footer></div></div>
+  </body>
+</html>

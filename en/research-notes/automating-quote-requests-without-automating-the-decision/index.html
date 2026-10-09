@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="How to structure and qualify quote requests while reducing manual work and keeping the commercial decision explicit." />
+    <title>Automating quote requests without automating the decision | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-BFBksyuh.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D2cag0Se.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/en/research-notes/automating-quote-requests-without-automating-the-decision/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/research-notes/automatizzare-richieste-preventivo-senza-automatizzare-decisione/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/research-notes/automating-quote-requests-without-automating-the-decision/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/research-notes/automatizzare-richieste-preventivo-senza-automatizzare-decisione/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="Automating quote requests without automating the decision | EMPV" />
+    <meta property="og:description" content="How to structure and qualify quote requests while reducing manual work and keeping the commercial decision explicit." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://empv.it/en/research-notes/automating-quote-requests-without-automating-the-decision/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:image" content="https://empv.it/social/research-notes/quote-intake-en-20260929.png" />
+    <meta property="og:image:url" content="https://empv.it/social/research-notes/quote-intake-en-20260929.png" />
+    <meta property="og:image:secure_url" content="https://empv.it/social/research-notes/quote-intake-en-20260929.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Automating a quote request without automating the decision" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="Automating quote requests without automating the decision | EMPV" />
+    <meta name="twitter:description" content="How to structure and qualify quote requests while reducing manual work and keeping the commercial decision explicit." />
+    <meta name="twitter:image" content="https://empv.it/social/research-notes/quote-intake-en-20260929.png" />
+    <meta name="twitter:image:alt" content="Automating a quote request without automating the decision" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/en/research-notes/automating-quote-requests-without-automating-the-decision/#webpage","url":"https://empv.it/en/research-notes/automating-quote-requests-without-automating-the-decision/","name":"Automating quote requests without automating the decision | EMPV","description":"How to structure and qualify quote requests while reducing manual work and keeping the commercial decision explicit.","inLanguage":"en","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"Article","@id":"https://empv.it/en/research-notes/automating-quote-requests-without-automating-the-decision/#article","headline":"Automating a quote request without automating the decision","description":"The bottleneck is not always calculating a price. Often it is collecting the information a person needs to make a fast and well-informed decision.","datePublished":"2026-09-29","dateModified":"2026-09-29","inLanguage":"en","keywords":["Quoting","Lead qualification","Human review","Workflow"],"image":{"@type":"ImageObject","url":"https://empv.it/social/research-notes/quote-intake-en-20260929.png","width":1200,"height":630},"mainEntityOfPage":{"@id":"https://empv.it/en/research-notes/automating-quote-requests-without-automating-the-decision/#webpage"},"author":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}],"publisher":{"@id":"https://empv.it/#organization"}}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell notes-shell" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/en/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/en/research-notes/">Research Notes</a><a class="lang-switch" href="/it/research-notes/automatizzare-richieste-preventivo-senza-automatizzare-decisione/" hreflang="it">IT</a></header><main><section class="detail-hero research-note-hero"><div class="detail-hero-inner"><div class="detail-kicker-row"><span class="eyebrow">EMPV / RESEARCH NOTES</span><span class="detail-index">NOTE / 004</span></div><div class="detail-title-wrap detail-title-project research-note-title"><p class="detail-kicker">FIELD NOTE / COMMERCIAL OPS</p><h1>Automating a quote request without automating the decision</h1></div><div class="detail-hero-bottom"><p class="detail-lead">The bottleneck is not always calculating a price. Often it is collecting the information a person needs to make a fast and well-informed decision.</p><div class="detail-status"><span>Published</span><strong>2026-09-29 · 5 min</strong></div></div><div class="tags detail-tags"><span>Quoting</span><span>Lead qualification</span><span>Human review</span><span>Workflow</span></div></div></section><section class="detail-blocks section-pad research-note-blocks"><article class="detail-block research-note-block"><div class="eyebrow">01 / The false objective</div><div class="detail-block-main"><h2>An automatic quote is not always the right outcome.</h2><div class="research-note-copy"><p>In project-based work, technical services or highly variable jobs, price depends on information that emerges during the conversation. Fully automating the quotation can therefore move the problem rather than solve it.</p><p>The first objective can be simpler: make sure the team receives a request that is already understandable.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">02 / Collection</div><div class="detail-block-main"><h2>Ask only for information that changes the evaluation.</h2><div class="research-note-copy"><p>A good flow is not an endless form. It starts from the few variables that determine the next path and adapts questions to the type of request.</p><p>The output is consistent context, not an automatic decision.</p></div><ul><li>separate required and optional information</li><li>adapt questions to the request type</li><li>make missing data visible</li><li>keep room for free-form context</li></ul></div></article><article class="detail-block research-note-block"><div class="eyebrow">03 / Qualification</div><div class="detail-block-main"><h2>Structuring is not the same as judging.</h2><div class="research-note-copy"><p>The system can check completeness, classify the request and prepare a summary. But if margin, risk or feasibility require experience, the decision can remain human.</p><p>That boundary is useful: automation removes mechanical work without hiding a commercial choice inside an opaque score.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">04 / The outcome</div><div class="detail-block-main"><h2>The team starts from context, not reconstruction.</h2><div class="research-note-copy"><p>The commercial or technical team should be able to open a request and already have the elements needed for an initial evaluation. That means fewer clarification messages, less re-entry and fewer forgotten details.</p><p>Automation prepares the decision. It does not necessarily need to make it.</p></div></div></article></section><section class="detail-boundary section-pad research-note-takeaway"><div class="section-code">EMPV / TAKEAWAY</div><p>The best automation point may be before the quote, not inside the price.</p></section><section class="research-note-share section-pad" aria-label="Share this Research Note"><div class="section-code">EMPV / SHARE</div><div class="research-note-share-inner"><p>Share this Research Note.</p><div class="research-note-share-actions"><a class="research-note-share-primary" href="https://empv.it/en/research-notes/automating-quote-requests-without-automating-the-decision/?share=20260929">Share</a><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fempv.it%2Fen%2Fresearch-notes%2Fautomating-quote-requests-without-automating-the-decision%2F%3Fshare%3D20260929" target="_blank" rel="noreferrer noopener">LinkedIn</a><a href="https://twitter.com/intent/tweet?text=Automating%20a%20quote%20request%20without%20automating%20the%20decision%20%E2%80%94%20EMPV%20Research%20Notes&amp;url=https%3A%2F%2Fempv.it%2Fen%2Fresearch-notes%2Fautomating-quote-requests-without-automating-the-decision%2F%3Fshare%3D20260929" target="_blank" rel="noreferrer noopener">X</a><a href="https://wa.me/?text=Automating%20a%20quote%20request%20without%20automating%20the%20decision%20%E2%80%94%20EMPV%20Research%20Notes%20https%3A%2F%2Fempv.it%2Fen%2Fresearch-notes%2Fautomating-quote-requests-without-automating-the-decision%2F%3Fshare%3D20260929" target="_blank" rel="noreferrer noopener">WhatsApp</a><a href="https://empv.it/en/research-notes/automating-quote-requests-without-automating-the-decision/?share=20260929">Copy link</a></div></div></section><section class="detail-end section-pad"><a href="/en/research-notes/"><span>Research Notes</span></a></section></main></div></div>
+  </body>
+</html>

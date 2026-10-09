@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="Michele Valleri, AI Product &amp; Process Design at EMPV. Contatti, WhatsApp, email, LinkedIn e vCard in un'unica pagina." />
+    <title>Michele Valleri — AI Product &amp; Process Design | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-BFBksyuh.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D2cag0Se.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/michele/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="Michele Valleri — AI Product &amp; Process Design | EMPV" />
+    <meta property="og:description" content="Michele Valleri, AI Product &amp; Process Design at EMPV. Contatti, WhatsApp, email, LinkedIn e vCard in un'unica pagina." />
+    <meta property="og:type" content="profile" />
+    <meta property="og:url" content="https://empv.it/michele/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:image" content="https://empv.it/team/michele-valleri.webp" />
+    <meta property="og:image:url" content="https://empv.it/team/michele-valleri.webp" />
+    <meta property="og:image:secure_url" content="https://empv.it/team/michele-valleri.webp" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Michele Valleri" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="Michele Valleri — AI Product &amp; Process Design | EMPV" />
+    <meta name="twitter:description" content="Michele Valleri, AI Product &amp; Process Design at EMPV. Contatti, WhatsApp, email, LinkedIn e vCard in un'unica pagina." />
+    <meta name="twitter:image" content="https://empv.it/team/michele-valleri.webp" />
+    <meta name="twitter:image:alt" content="Michele Valleri" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/michele/#webpage","url":"https://empv.it/michele/","name":"Michele Valleri — AI Product & Process Design | EMPV","description":"Michele Valleri, AI Product & Process Design at EMPV. Contatti, WhatsApp, email, LinkedIn e vCard in un'unica pagina.","inLanguage":"it","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"ProfilePage","@id":"https://empv.it/michele/#profile","url":"https://empv.it/michele/","name":"Michele Valleri — AI Product & Process Design | EMPV","description":"Michele Valleri, AI Product & Process Design at EMPV. Contatti, WhatsApp, email, LinkedIn e vCard in un'unica pagina.","inLanguage":"it","mainEntity":{"@id":"https://empv.it/#michele-valleri"},"isPartOf":{"@id":"https://empv.it/#website"}},{"@type":"ContactPoint","@id":"https://empv.it/michele/#contact","contactType":"business","email":"M.valleri@empv.it","telephone":"+39 379 243 8705","url":"https://empv.it/michele/"}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="business-card-shell business-card-shell--michele" data-prerendered="true"><header class="business-card-topbar"><a class="business-card-brand" href="/it/">EMPV</a><span>Digital business card</span></header><main class="business-card-layout"><article class="business-card-panel"><div class="business-card-photo-wrap"><img class="business-card-photo" src="/team/michele-valleri.webp" alt="Michele Valleri" /></div><div class="business-card-identity"><span class="business-card-kicker">EMPV / CONTACT</span><h1>Michele Valleri</h1><p class="business-card-role">AI Product &amp; Process Design</p><p class="business-card-description">Prodotti AI, processi e workflow progettati intorno alle attività operative.</p></div><div class="business-card-actions"><a class="business-card-action business-card-action--primary" href="/contacts/michele-valleri.vcf"><span>Salva contatto</span></a><a class="business-card-action" href="https://wa.me/393792438705"><span>WhatsApp</span></a><a class="business-card-action" href="mailto:M.valleri@empv.it"><span>M.valleri@empv.it</span></a><a class="business-card-action" href="https://www.linkedin.com/company/emp26/posts/?viewAsMember=true"><span>LinkedIn</span></a><a class="business-card-action" href="https://x.com/EMPV26"><span>X / @EMPV26</span></a><a class="business-card-action" href="https://empv.it"><span>Visita EMPV</span></a></div><div class="business-card-footer"><div><span>EMPV</span><strong>Systems · Products · AI · Research</strong></div><a href="https://empv.it">empv.it</a></div></article><aside class="business-card-qr-panel"><div class="business-card-qr-frame"><img src="/qr/michele.svg" alt="QR code per Michele Valleri" /></div><div><span>QR personale</span><p>Scansiona per aprire questa e-card su un altro dispositivo.</p></div><small>empv.it/michele/</small></aside></main></div></div>
+  </body>
+</html>

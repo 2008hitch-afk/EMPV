@@ -1,0 +1,13 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Peruffo;Enrico;;;
+FN:Enrico Peruffo
+ORG:EMPV
+TITLE:AI Systems & Architecture
+TEL;TYPE=CELL:+393792438705
+EMAIL;TYPE=WORK:E.peruffo@empv.it
+URL:https://empv.it/enrico/
+URL:https://empv.it
+X-SOCIALPROFILE;TYPE=twitter:https://x.com/EMPV26
+NOTE:EMPV — Systems · Products · AI · Research
+END:VCARD

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="A practical method for evaluating model, runtime, workload, failure modes and evidence before assigning production tasks to a local LLM." />
+    <title>How to evaluate a local LLM before production | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-BFBksyuh.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D2cag0Se.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/en/research-notes/evaluating-local-llms-before-production/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/research-notes/valutare-llm-locale-prima-produzione/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/research-notes/evaluating-local-llms-before-production/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/research-notes/valutare-llm-locale-prima-produzione/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="How to evaluate a local LLM before production | EMPV" />
+    <meta property="og:description" content="A practical method for evaluating model, runtime, workload, failure modes and evidence before assigning production tasks to a local LLM." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://empv.it/en/research-notes/evaluating-local-llms-before-production/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:image" content="https://empv.it/social/research-notes/local-llm-evaluation-en-20260929.png" />
+    <meta property="og:image:url" content="https://empv.it/social/research-notes/local-llm-evaluation-en-20260929.png" />
+    <meta property="og:image:secure_url" content="https://empv.it/social/research-notes/local-llm-evaluation-en-20260929.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="How to evaluate a local LLM before using it in production" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="How to evaluate a local LLM before production | EMPV" />
+    <meta name="twitter:description" content="A practical method for evaluating model, runtime, workload, failure modes and evidence before assigning production tasks to a local LLM." />
+    <meta name="twitter:image" content="https://empv.it/social/research-notes/local-llm-evaluation-en-20260929.png" />
+    <meta name="twitter:image:alt" content="How to evaluate a local LLM before using it in production" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/en/research-notes/evaluating-local-llms-before-production/#webpage","url":"https://empv.it/en/research-notes/evaluating-local-llms-before-production/","name":"How to evaluate a local LLM before production | EMPV","description":"A practical method for evaluating model, runtime, workload, failure modes and evidence before assigning production tasks to a local LLM.","inLanguage":"en","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"Article","@id":"https://empv.it/en/research-notes/evaluating-local-llms-before-production/#article","headline":"How to evaluate a local LLM before using it in production","description":"A model name and a benchmark score are not enough. Before a local model receives production tasks, workload, runtime, constraints and failure modes need to be tested together.","datePublished":"2026-09-29","dateModified":"2026-09-29","inLanguage":"en","keywords":["Local LLM","Evaluation","On-premise","Private AI"],"image":{"@type":"ImageObject","url":"https://empv.it/social/research-notes/local-llm-evaluation-en-20260929.png","width":1200,"height":630},"mainEntityOfPage":{"@id":"https://empv.it/en/research-notes/evaluating-local-llms-before-production/#webpage"},"author":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}],"publisher":{"@id":"https://empv.it/#organization"}}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell notes-shell" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/en/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/en/research-notes/">Research Notes</a><a class="lang-switch" href="/it/research-notes/valutare-llm-locale-prima-produzione/" hreflang="it">IT</a></header><main><section class="detail-hero research-note-hero"><div class="detail-hero-inner"><div class="detail-kicker-row"><span class="eyebrow">EMPV / RESEARCH NOTES</span><span class="detail-index">NOTE / 001</span></div><div class="detail-title-wrap detail-title-project research-note-title"><p class="detail-kicker">TECH NOTE / LOCAL AI</p><h1>How to evaluate a local LLM before using it in production</h1></div><div class="detail-hero-bottom"><p class="detail-lead">A model name and a benchmark score are not enough. Before a local model receives production tasks, workload, runtime, constraints and failure modes need to be tested together.</p><div class="detail-status"><span>Published</span><strong>2026-09-29 · 6 min</strong></div></div><div class="tags detail-tags"><span>Local LLM</span><span>Evaluation</span><span>On-premise</span><span>Private AI</span></div></div></section><section class="detail-blocks section-pad research-note-blocks"><article class="detail-block research-note-block"><div class="eyebrow">01 / The problem</div><div class="detail-block-main"><h2>A benchmark measures an abstract capability. A company needs an operational outcome.</h2><div class="research-note-copy"><p>A model can perform well on public benchmarks and still fail at the work we want it to perform. Production workloads include formats, tools, messy data, latency constraints, structured outputs and operational consequences that a benchmark does not represent.</p><p>The useful question is therefore not “which model is best?”, but “does this model + runtime + workload combination satisfy the contract we need?”</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">02 / The contract</div><div class="detail-block-main"><h2>Before testing, success has to be made explicit.</h2><div class="research-note-copy"><p>A useful test starts from an observable contract: allowed inputs, expected output, available tools, time limits, acceptable errors and conditions that must stop the flow.</p><p>Without those boundaries, an apparently correct result can become a false authorization.</p></div><ul><li>define the workload before choosing the model</li><li>separate output quality from tool-use capability</li><li>record failure modes alongside successful cases</li><li>keep reproducible evidence of every test</li></ul></div></article><article class="detail-block research-note-block"><div class="eyebrow">03 / The test</div><div class="detail-block-main"><h2>Model and runtime need to be evaluated together.</h2><div class="research-note-copy"><p>Quantization, context window, prompt format, tool calling, available memory and runtime libraries can change model behaviour. The same model can therefore produce different outcomes in different environments.</p><p>A useful test records configuration, version, input, output, timing and conditions so the result can be repeated and compared.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">04 / Authorization</div><div class="detail-block-main"><h2>Passing a test is not permanent permission.</h2><div class="research-note-copy"><p>A successful test demonstrates a capability under specific conditions. It does not prove that the model can operate without limits on different inputs, new data or additional tools.</p><p>For sensitive workloads it is useful to separate qualification from authorization: demonstrate the capability first, then authorize a narrow and observable operating boundary.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">05 / What changes</div><div class="detail-block-main"><h2>Model selection becomes an engineering decision, not a leaderboard.</h2><div class="research-note-copy"><p>This approach can make smaller models useful when they satisfy a specific contract, while preventing a large model from receiving critical work simply because it performs well on average.</p><p>The goal is not to find the best model in general. It is to know what a model can do, in which environment, with what evidence and within which limits.</p></div></div></article></section><section class="detail-boundary section-pad research-note-takeaway"><div class="section-code">EMPV / TAKEAWAY</div><p>Before deployment, qualify the workload. The model comes after.</p></section><section class="research-note-share section-pad" aria-label="Share this Research Note"><div class="section-code">EMPV / SHARE</div><div class="research-note-share-inner"><p>Share this Research Note.</p><div class="research-note-share-actions"><a class="research-note-share-primary" href="https://empv.it/en/research-notes/evaluating-local-llms-before-production/?share=20260929">Share</a><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fempv.it%2Fen%2Fresearch-notes%2Fevaluating-local-llms-before-production%2F%3Fshare%3D20260929" target="_blank" rel="noreferrer noopener">LinkedIn</a><a href="https://twitter.com/intent/tweet?text=How%20to%20evaluate%20a%20local%20LLM%20before%20using%20it%20in%20production%20%E2%80%94%20EMPV%20Research%20Notes&amp;url=https%3A%2F%2Fempv.it%2Fen%2Fresearch-notes%2Fevaluating-local-llms-before-production%2F%3Fshare%3D20260929" target="_blank" rel="noreferrer noopener">X</a><a href="https://wa.me/?text=How%20to%20evaluate%20a%20local%20LLM%20before%20using%20it%20in%20production%20%E2%80%94%20EMPV%20Research%20Notes%20https%3A%2F%2Fempv.it%2Fen%2Fresearch-notes%2Fevaluating-local-llms-before-production%2F%3Fshare%3D20260929" target="_blank" rel="noreferrer noopener">WhatsApp</a><a href="https://empv.it/en/research-notes/evaluating-local-llms-before-production/?share=20260929">Copy link</a></div></div></section><section class="detail-end section-pad"><a href="/en/research-notes/"><span>Research Notes</span></a></section></main></div></div>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+# EMPV
+
+> EMPV is the bilingual portfolio of Enrico Peruffo and Michele Valleri in Bergamo, Italy. It documents systems, products, automation, AI and applied research built around business workflows and operating constraints.
+
+EMPV starts from people, handoffs, tools, data, constraints and decisions inside a workflow. The public site separates delivered projects from AI Lab research and keeps claims evidence-led.
+
+## Primary
+
+- [EMPV — Italiano](https://empv.it/it/): Progetti, team, AI Lab e FAQ in italiano.
+- [EMPV — English](https://empv.it/en/): Projects, team, AI Lab and FAQ in English.
+- [Progetti — Italiano](https://empv.it/it/progetti/): Indice dei progetti EMPV.
+- [Projects — English](https://empv.it/en/projects/): EMPV project index.
+- [AI Lab — Italiano](https://empv.it/it/lab/): Indice delle linee di ricerca e dei prototipi AI.
+- [AI Lab — English](https://empv.it/en/lab/): AI research and prototype index.
+
+## Projects
+- [Sistema operativo per commesse e posa](https://empv.it/it/progetti/commesse-posa/): Da informazioni distribuite tra cartelle, ufficio, officina e sopralluoghi a un unico sistema che accompagna la commessa dal rilievo alla posa.
+- [Gestione operativa per uno studio psicologico](https://empv.it/it/progetti/psicologia-operations/): Un unico sistema per coordinare pazienti, professionisti, appuntamenti, sedute e amministrazione, rispettando ruoli e responsabilità differenti.
+- [Piattaforma operativa per una struttura pet](https://empv.it/it/progetti/pet-resort-operations/): Prenotazione cliente e lavoro quotidiano dello staff nello stesso sistema: soggiorni, disponibilità, attività, grooming, documenti e pagamenti.
+- [Sistema di qualificazione richieste e preventivi](https://empv.it/it/progetti/richieste-preventivi/): Da richieste libere e difficili da valutare a un percorso guidato che raccoglie le informazioni necessarie prima della preparazione del preventivo.
+- [Job and installation operating system](https://empv.it/en/projects/commesse-posa/): From information split across folders, office, workshop and site surveys to one system that follows each job from measurement to installation.
+- [Operations platform for a psychology practice](https://empv.it/en/projects/psicologia-operations/): One operating system for patients, professionals, appointments, sessions and administration, while preserving distinct roles and responsibilities.
+- [Operations platform for a pet facility](https://empv.it/en/projects/pet-resort-operations/): Customer booking and staff operations in the same system: stays, availability, tasks, grooming, documents and payments.
+- [Request qualification and quoting system](https://empv.it/en/projects/richieste-preventivi/): From unstructured requests that were hard to evaluate to a guided flow that collects the information needed before preparing a quote.
+
+## AI Lab
+
+- [System Twin — IT](https://empv.it/it/lab/system-twin/): Ricostruire sistemi digitali in esercizio in un modello semantico evidence-backed che colleghi codice, configurazioni, API, runtime, telemetria e documentazione.
+- [Local AI — IT](https://empv.it/it/lab/local-ai/): Un public core per descrivere, validare, eseguire e valutare lavoro AI locale entro confini espliciti.
+- [Opportunity Engine — IT](https://empv.it/it/lab/opportunity-engine/): Un orchestratore evidence-first che parte da problemi operativi osservabili e li trasforma in ricerca, qualificazione e opportunità commerciali controllate.
+- [Vertical Operations — IT](https://empv.it/it/lab/vertical-operations/): Sistemi verticali in cui ciò che il cliente compra o prenota genera direttamente disponibilità, attività, responsabilità e stato operativo per il team.
+- [Trustworthy Reasoning — IT](https://empv.it/it/lab/trustworthy-reasoning/): Ricerca di fattibilità su cognitive AI che mantiene evidenza, tempo, versioni e contraddizioni come parte esplicita del ragionamento.
+- [System Twin — EN](https://empv.it/en/lab/system-twin/): Reconstructing digital systems in operation into an evidence-backed semantic model spanning code, configuration, APIs, runtime, telemetry and documentation.
+- [Local AI — EN](https://empv.it/en/lab/local-ai/): A public core for describing, validating, executing and evaluating bounded local-AI work.
+- [Opportunity Engine — EN](https://empv.it/en/lab/opportunity-engine/): An evidence-first orchestrator that starts from observable operational problems and turns them into controlled research, qualification and commercial opportunities.
+- [Vertical Operations — EN](https://empv.it/en/lab/vertical-operations/): Vertical systems where what a customer buys or books directly generates capacity usage, tasks, responsibility and operational state for the team.
+- [Trustworthy Reasoning — EN](https://empv.it/en/lab/trustworthy-reasoning/): Feasibility research into cognitive AI that keeps evidence, time, versions and contradictions explicit inside the reasoning process.
+
+## Research Notes
+
+- [Mistral Large 4: il modello europeo da un trilione di parametri — IT](https://empv.it/it/research-notes/mistral-large-4-modello-europeo-open-weight-preview/): Mistral presenta un modello multimodale Mixture-of-Experts addestrato su infrastruttura europea. La preview API è disponibile, ma i pesi sono previsti per fine ottobre. I test indipendenti mostrano punti di forza nel cyber e costi da valutare.
+- [Mistral Large 4: a trillion-parameter European model in preview — EN](https://empv.it/en/research-notes/mistral-large-4-european-open-weight-model-preview/): Mistral unveils a multimodal Mixture-of-Experts model trained on European infrastructure. The preview API is available, while weights are planned for late October. Independent tests find strengths in cyber and cost trade-offs.
+- [EmbeddingGemma 2 porta il retrieval multimodale in locale — IT](https://empv.it/it/research-notes/embeddinggemma-2-retrieval-multimodale-locale/): Google DeepMind unifica testo, codice, immagini, video e audio in uno spazio vettoriale da 768 dimensioni. Il modello da 740M è modulare e pensato per hardware consumer; corpus, memoria e costo dell'indice restano le variabili da testare.
+- [EmbeddingGemma 2 brings multimodal retrieval on-device — EN](https://empv.it/en/research-notes/embeddinggemma-2-local-multimodal-retrieval/): Google DeepMind maps text, code, images, video and audio into a shared 768-dimensional vector space. The 740M model is modular and designed for consumer hardware; corpus quality, memory and index cost still need to be tested.
+- [ThinkingBox misura gli agenti sullo stato finale dei sistemi — IT](https://empv.it/it/research-notes/thinkingbox-valutare-agenti-stato-finale-sistemi/): Il benchmark di Microsoft e Hugging Face esegue 507 workflow aziendali più volte e controlla database ed effetti prodotti. Un agente può terminare senza errori e dichiarare il task concluso lasciando comunque il sistema nello stato sbagliato.
+- [ThinkingBox evaluates agents by the final state of the system — EN](https://empv.it/en/research-notes/thinkingbox-evaluating-agents-by-final-system-state/): The Microsoft and Hugging Face benchmark repeatedly runs 507 business workflows and checks databases and resulting side effects. An agent can finish without an error and report completion while still leaving the system in the wrong state.
+- [OpenAI lancia Dots, agenti sempre attivi con un computer nel cloud — IT](https://empv.it/it/research-notes/openai-dots-agenti-sempre-attivi-computer-cloud/): I Dots usano GPT-6 Astra, continuano a lavorare tra una conversazione e l'altra e possono agire attraverso app collegate. Sono disponibili su Pro, Business Premium ed Enterprise.
+- [OpenAI launches Dots, always-on agents with their own cloud computer — EN](https://empv.it/en/research-notes/openai-dots-always-on-agents-cloud-computer/): Dots run on GPT-6 Astra, keep working between conversations and can act across connected apps. They are available on Pro, Business Premium and Enterprise.
+- [Google presenta Gemini 4 Argon, un modello per task AI di lunga durata — IT](https://empv.it/it/research-notes/gemini-4-argon-agenti-ai-lavoro-lungo/): Argon porta l'output fino a 1 milione di token ed è già usato internamente da Google su coding, data center e cybersecurity. Per ora l'accesso resta limitato.
+- [Google introduces Gemini 4 Argon for long-running AI tasks — EN](https://empv.it/en/research-notes/gemini-4-argon-long-horizon-ai-agents/): Argon raises the output limit to one million tokens and is already being used inside Google for coding, data centers and cybersecurity. Access is still limited.
+- [Come valutare un LLM locale prima di usarlo in produzione — IT](https://empv.it/it/research-notes/valutare-llm-locale-prima-produzione/): Il nome del modello e il benchmark non bastano. Prima di affidare a un modello locale attività operative bisogna testare workload, runtime, vincoli e failure mode.
+- [How to evaluate a local LLM before using it in production — EN](https://empv.it/en/research-notes/evaluating-local-llms-before-production/): A model name and a benchmark score are not enough. Before a local model receives production tasks, workload, runtime, constraints and failure modes need to be tested together.
+- [AI on-premise vs cloud: come scegliere — IT](https://empv.it/it/research-notes/ai-on-premise-vs-cloud-quando-conviene/): Tenere un modello in azienda non è automaticamente più sicuro, economico o utile. La scelta ha senso quando controllo, latenza, proprietà del dato e workload giustificano l'infrastruttura.
+- [On-premise vs cloud AI: how to choose — EN](https://empv.it/en/research-notes/ai-on-premise-vs-cloud-when-it-makes-sense/): Running a model inside the company is not automatically safer, cheaper or more useful. It makes sense when control, latency, data ownership and workload justify the infrastructure.
+- [Da email a ordine senza rifare il gestionale — IT](https://empv.it/it/research-notes/da-email-a-ordine-senza-rifare-gestionale/): Molte automazioni falliscono perché provano a sostituire il sistema centrale. Spesso basta un layer che legge, struttura, valida e prepara il dato prima che entri nel gestionale.
+- [From email to order without replacing the ERP — EN](https://empv.it/en/research-notes/from-email-to-order-without-replacing-the-erp/): Many automation projects fail because they try to replace the core system. Often a layer that reads, structures, validates and prepares data before it enters the ERP is enough.
+- [Automatizzare una richiesta di preventivo senza automatizzare la decisione — IT](https://empv.it/it/research-notes/automatizzare-richieste-preventivo-senza-automatizzare-decisione/): Il collo di bottiglia non è sempre calcolare un prezzo. Spesso è raccogliere in modo coerente le informazioni necessarie perché una persona possa decidere rapidamente e bene.
+- [Automating a quote request without automating the decision — EN](https://empv.it/en/research-notes/automating-quote-requests-without-automating-the-decision/): The bottleneck is not always calculating a price. Often it is collecting the information a person needs to make a fast and well-informed decision.
+- [Quando conviene integrare un gestionale invece di sostituirlo — IT](https://empv.it/it/research-notes/integrare-gestionale-senza-sostituirlo/): Un software vecchio o scomodo può comunque contenere regole, dati e dipendenze essenziali. Prima di riscrivere tutto, conviene capire quale parte del lavoro richiede un nuovo layer.
+- [When to integrate an ERP instead of replacing it — EN](https://empv.it/en/research-notes/integrating-an-erp-without-replacing-it/): An old or awkward system can still contain essential rules, data and dependencies. Before rewriting everything, identify which part of the work needs a new layer.
+
+## People
+
+- [Enrico Peruffo — AI Systems & Architecture](https://empv.it/enrico/): digital business card and contact details.
+- [Michele Valleri — AI Product & Process Design](https://empv.it/michele/): digital business card and contact details.
+
+## Contact
+
+- [LinkedIn](https://www.linkedin.com/company/emp26/): EMPV company profile.
+- [X](https://x.com/EMPV26): EMPV profile on X.
+- Email: hello@empv.it
+- WhatsApp: +39 379 243 8705
+
+## Discovery
+
+- [Sitemap](https://empv.it/sitemap.xml): Indexable localized pages.
+- [Robots](https://empv.it/robots.txt): Crawler access rules.

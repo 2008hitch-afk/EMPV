@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="How OpenAI Dots work: GPT-6 Astra, cloud computer, memory, plugins, permissions, privacy, availability and what still needs to be proven." />
+    <title>OpenAI launches Dots, always-on agents with a cloud computer | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-BFBksyuh.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D2cag0Se.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/en/research-notes/openai-dots-always-on-agents-cloud-computer/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/research-notes/openai-dots-agenti-sempre-attivi-computer-cloud/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/research-notes/openai-dots-always-on-agents-cloud-computer/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/research-notes/openai-dots-agenti-sempre-attivi-computer-cloud/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="OpenAI launches Dots, always-on agents with a cloud computer | EMPV" />
+    <meta property="og:description" content="How OpenAI Dots work: GPT-6 Astra, cloud computer, memory, plugins, permissions, privacy, availability and what still needs to be proven." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://empv.it/en/research-notes/openai-dots-always-on-agents-cloud-computer/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:image" content="https://empv.it/social/research-notes/openai-dots-en-20261001c.png" />
+    <meta property="og:image:url" content="https://empv.it/social/research-notes/openai-dots-en-20261001c.png" />
+    <meta property="og:image:secure_url" content="https://empv.it/social/research-notes/openai-dots-en-20261001c.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="OpenAI launches Dots, always-on agents with their own cloud computer" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="OpenAI launches Dots, always-on agents with a cloud computer | EMPV" />
+    <meta name="twitter:description" content="How OpenAI Dots work: GPT-6 Astra, cloud computer, memory, plugins, permissions, privacy, availability and what still needs to be proven." />
+    <meta name="twitter:image" content="https://empv.it/social/research-notes/openai-dots-en-20261001c.png" />
+    <meta name="twitter:image:alt" content="OpenAI launches Dots, always-on agents with their own cloud computer" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/en/research-notes/openai-dots-always-on-agents-cloud-computer/#webpage","url":"https://empv.it/en/research-notes/openai-dots-always-on-agents-cloud-computer/","name":"OpenAI launches Dots, always-on agents with a cloud computer | EMPV","description":"How OpenAI Dots work: GPT-6 Astra, cloud computer, memory, plugins, permissions, privacy, availability and what still needs to be proven.","inLanguage":"en","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"Article","@id":"https://empv.it/en/research-notes/openai-dots-always-on-agents-cloud-computer/#article","headline":"OpenAI launches Dots, always-on agents with their own cloud computer","description":"Dots run on GPT-6 Astra, keep working between conversations and can act across connected apps. They are available on Pro, Business Premium and Enterprise.","datePublished":"2026-10-01","dateModified":"2026-10-01","inLanguage":"en","keywords":["OpenAI Dots","GPT-6 Astra","AI agents","ChatGPT"],"image":{"@type":"ImageObject","url":"https://empv.it/social/research-notes/openai-dots-en-20261001c.png","width":1200,"height":630},"mainEntityOfPage":{"@id":"https://empv.it/en/research-notes/openai-dots-always-on-agents-cloud-computer/#webpage"},"author":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}],"publisher":{"@id":"https://empv.it/#organization"}}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell notes-shell" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/en/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/en/research-notes/">Research Notes</a><a class="lang-switch" href="/it/research-notes/openai-dots-agenti-sempre-attivi-computer-cloud/" hreflang="it">IT</a></header><main><section class="detail-hero research-note-hero"><div class="detail-hero-inner"><div class="detail-kicker-row"><span class="eyebrow">EMPV / RESEARCH NOTES</span><span class="detail-index">NOTE / 007</span></div><div class="detail-title-wrap detail-title-project research-note-title"><p class="detail-kicker">NEWS NOTE / AI AGENTS</p><h1>OpenAI launches Dots, always-on agents with their own cloud computer</h1></div><div class="detail-hero-bottom"><p class="detail-lead">Dots run on GPT-6 Astra, keep working between conversations and can act across connected apps. They are available on Pro, Business Premium and Enterprise.</p><div class="detail-status"><span>Published</span><strong>2026-10-01 · 6 min</strong></div></div><div class="tags detail-tags"><span>OpenAI Dots</span><span>GPT-6 Astra</span><span>AI agents</span><span>ChatGPT</span></div></div></section><section class="detail-blocks section-pad research-note-blocks"><article class="detail-block research-note-block"><div class="eyebrow">01 / The announcement</div><div class="detail-block-main"><h2>Dots is OpenAI's new personal agent system.</h2><div class="research-note-copy"><p><a href="https://chatgpt.com/features/dots/" target="_blank" rel="noreferrer noopener">OpenAI</a> introduced Dots on September 29 at DevDay 2026. Each Dot is a personal agent powered by GPT-6 Astra that can keep working after a conversation ends, send updates and ask for confirmation when a decision is needed.</p><p>Access is rolling out across ChatGPT web, mobile and desktop for Pro, Business Premium and Enterprise plans in eligible markets. Enterprise users can use Dots when enabled by their workspace administrator.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">02 / How it works</div><div class="detail-block-main"><h2>Each Dot works on its own cloud computer.</h2><div class="research-note-copy"><p>According to <a href="https://chatgpt.com/features/dots/" target="_blank" rel="noreferrer noopener">OpenAI</a>, a Dot starts with context from ChatGPT memory, uses Codex and connected tools, and can keep a project moving between sessions. Users decide which apps it can access and can redirect or pause its work.</p><p>OpenAI shows examples ranging from presentation updates to API migrations and building and testing small software changes from user feedback. Dots can also appear in Slack and Microsoft Teams while carrying context from work started elsewhere.</p><p><a href="https://www.theverge.com/ai-artificial-intelligence/1002033/openai-dots-launch-muse-competitor" target="_blank" rel="noreferrer noopener">The Verge</a> reports that users can create only one Dot for now; OpenAI plans to support multiple agents later.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">03 / Autonomy and permissions</div><div class="detail-block-main"><h2>A Dot can work independently, but not every action is automatic.</h2><div class="research-note-copy"><p>Permissions use the same plugin connections as ChatGPT, ChatGPT Work and Codex. In its <a href="https://help.openai.com/en/articles/20001529-dots-privacy-security-and-safety-faqs" target="_blank" rel="noreferrer noopener">security documentation</a>, OpenAI says Custom Rules can block specific actions, such as sending email, or require approval before proceeding.</p><p>Actions that can affect accounts or share information go through Auto-review. Operations such as changing a password remain with the user.</p><p>Dots can also perform proactive research by reading authorized connected sources and saving private notes before a request is made. That research mode cannot directly send messages, change content through plugins or control a browser or computer; follow-up actions still use the normal permission rules.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">04 / Memory and data</div><div class="detail-block-main"><h2>Dots and ChatGPT share part of their context.</h2><div class="research-note-copy"><p>OpenAI's <a href="https://help.openai.com/en/articles/20001529-dots-privacy-security-and-safety-faqs" target="_blank" rel="noreferrer noopener">FAQ</a> says a Dot can receive memories and recent conversation context from ChatGPT, while Dot conversations can contribute to ChatGPT memory. Turning Memory off stops future sharing but does not automatically delete context the Dot already received.</p><p>Disconnecting a service prevents new access but does not erase information already incorporated into the Dot's context. Deleting the Dot removes its own context, while files, Codex threads and ChatGPT conversations created during its work remain in their respective locations.</p><p>For Business, Enterprise and Edu, OpenAI says data is not used for model training by default. On personal plans, the “Improve the model for everyone” setting controls whether Dot conversations and work may be used for model improvement.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">05 / What it can do today</div><div class="detail-block-main"><h2>The use case looks more like a persistent collaborator than a single chat.</h2><div class="research-note-copy"><p>In OpenAI's examples, a Dot tracks metrics and feedback to update a presentation, checks RFP requirements against email and product documentation, prepares code and tests during an API migration, and keeps monitoring the project until dependencies are gone.</p><p>These are company demos, not independent benchmarks. The technical shift is that memory, tools, a cloud computer and background work sit under one persistent agent instead of requiring a fresh conversation for each step.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">06 / What still needs to be proven</div><div class="detail-block-main"><h2>Working for long periods with limited supervision is the more important test.</h2><div class="research-note-copy"><p><a href="https://www.reuters.com/business/openai-takes-meta-with-always-on-dots-agent-enterprise-ai-push-2026-09-29/" target="_blank" rel="noreferrer noopener">Reuters</a> reports that some live DevDay demos ran into problems, with Dots repeatedly failing to deliver requested voice updates on stage. OpenAI attributed the glitches to rolling out all the updates at once.</p><p>Reuters also notes that the launch comes amid growing scrutiny of autonomous-agent safety. OpenAI says rules, approvals and review systems are designed to reduce the chance that an agent acts outside a user's intent.</p><p>The useful question is not whether Dots can complete a polished demo, but how often it can finish long-running tasks across real apps, permissions and data without constant human intervention.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">07 / Availability</div><div class="detail-block-main"><h2>Dots is not yet available to every ChatGPT user.</h2><div class="research-note-copy"><p>OpenAI is rolling it out to Pro, Business Premium and Enterprise users in eligible markets. Users under 18 cannot use Dots for now, according to the <a href="https://help.openai.com/en/articles/20001529-dots-privacy-security-and-safety-faqs" target="_blank" rel="noreferrer noopener">official documentation</a>.</p><p>The official product page is on <a href="https://chatgpt.com/features/dots/" target="_blank" rel="noreferrer noopener">ChatGPT</a>. Dots should not be confused with domains such as dot.com or dots.com, which are not the official OpenAI product site.</p></div></div></article></section><section class="detail-boundary section-pad research-note-takeaway"><div class="section-code">EMPV / TAKEAWAY</div><p>Dots combines memory, tools and a cloud computer in one persistent agent. The key measure will be how much work it can actually carry forward without constant supervision.</p></section><section class="research-note-share section-pad" aria-label="Share this Research Note"><div class="section-code">EMPV / SHARE</div><div class="research-note-share-inner"><p>Share this Research Note.</p><div class="research-note-share-actions"><a class="research-note-share-primary" href="https://empv.it/en/research-notes/openai-dots-always-on-agents-cloud-computer/?share=20261001c">Share</a><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fempv.it%2Fen%2Fresearch-notes%2Fopenai-dots-always-on-agents-cloud-computer%2F%3Fshare%3D20261001c" target="_blank" rel="noreferrer noopener">LinkedIn</a><a href="https://twitter.com/intent/tweet?text=OpenAI%20launches%20Dots%2C%20always-on%20agents%20with%20their%20own%20cloud%20computer%20%E2%80%94%20EMPV%20Research%20Notes&amp;url=https%3A%2F%2Fempv.it%2Fen%2Fresearch-notes%2Fopenai-dots-always-on-agents-cloud-computer%2F%3Fshare%3D20261001c" target="_blank" rel="noreferrer noopener">X</a><a href="https://wa.me/?text=OpenAI%20launches%20Dots%2C%20always-on%20agents%20with%20their%20own%20cloud%20computer%20%E2%80%94%20EMPV%20Research%20Notes%20https%3A%2F%2Fempv.it%2Fen%2Fresearch-notes%2Fopenai-dots-always-on-agents-cloud-computer%2F%3Fshare%3D20261001c" target="_blank" rel="noreferrer noopener">WhatsApp</a><a href="https://empv.it/en/research-notes/openai-dots-always-on-agents-cloud-computer/?share=20261001c">Copy link</a></div></div></section><section class="detail-end section-pad"><a href="/en/research-notes/"><span>Research Notes</span></a></section></main></div></div>
+  </body>
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="Note tecniche EMPV su sistemi digitali, automazione, AI locale, integrazioni e operazioni aziendali." />
+    <title>Research Notes — Sistemi, AI e automazione | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-BFBksyuh.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D2cag0Se.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/it/research-notes/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/research-notes/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/research-notes/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/research-notes/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="Research Notes — Sistemi, AI e automazione | EMPV" />
+    <meta property="og:description" content="Note tecniche EMPV su sistemi digitali, automazione, AI locale, integrazioni e operazioni aziendali." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://empv.it/it/research-notes/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="it_IT" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="Research Notes — Sistemi, AI e automazione | EMPV" />
+    <meta name="twitter:description" content="Note tecniche EMPV su sistemi digitali, automazione, AI locale, integrazioni e operazioni aziendali." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/it/research-notes/#webpage","url":"https://empv.it/it/research-notes/","name":"Research Notes — Sistemi, AI e automazione | EMPV","description":"Note tecniche EMPV su sistemi digitali, automazione, AI locale, integrazioni e operazioni aziendali.","inLanguage":"it","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"CollectionPage","@id":"https://empv.it/it/research-notes/#collection","name":"Research Notes — Sistemi, AI e automazione | EMPV","description":"Note tecniche EMPV su sistemi digitali, automazione, AI locale, integrazioni e operazioni aziendali.","url":"https://empv.it/it/research-notes/","inLanguage":"it","isPartOf":{"@id":"https://empv.it/#website"},"mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"WebPage","@id":"https://empv.it/it/research-notes/mistral-large-4-modello-europeo-open-weight-preview/#webpage","name":"Mistral Large 4: il modello europeo da un trilione di parametri","url":"https://empv.it/it/research-notes/mistral-large-4-modello-europeo-open-weight-preview/"}},{"@type":"ListItem","position":2,"item":{"@type":"WebPage","@id":"https://empv.it/it/research-notes/embeddinggemma-2-retrieval-multimodale-locale/#webpage","name":"EmbeddingGemma 2 porta il retrieval multimodale in locale","url":"https://empv.it/it/research-notes/embeddinggemma-2-retrieval-multimodale-locale/"}},{"@type":"ListItem","position":3,"item":{"@type":"WebPage","@id":"https://empv.it/it/research-notes/thinkingbox-valutare-agenti-stato-finale-sistemi/#webpage","name":"ThinkingBox misura gli agenti sullo stato finale dei sistemi","url":"https://empv.it/it/research-notes/thinkingbox-valutare-agenti-stato-finale-sistemi/"}},{"@type":"ListItem","position":4,"item":{"@type":"WebPage","@id":"https://empv.it/it/research-notes/openai-dots-agenti-sempre-attivi-computer-cloud/#webpage","name":"OpenAI lancia Dots, agenti sempre attivi con un computer nel cloud","url":"https://empv.it/it/research-notes/openai-dots-agenti-sempre-attivi-computer-cloud/"}},{"@type":"ListItem","position":5,"item":{"@type":"WebPage","@id":"https://empv.it/it/research-notes/gemini-4-argon-agenti-ai-lavoro-lungo/#webpage","name":"Google presenta Gemini 4 Argon, un modello per task AI di lunga durata","url":"https://empv.it/it/research-notes/gemini-4-argon-agenti-ai-lavoro-lungo/"}},{"@type":"ListItem","position":6,"item":{"@type":"WebPage","@id":"https://empv.it/it/research-notes/valutare-llm-locale-prima-produzione/#webpage","name":"Come valutare un LLM locale prima di usarlo in produzione","url":"https://empv.it/it/research-notes/valutare-llm-locale-prima-produzione/"}},{"@type":"ListItem","position":7,"item":{"@type":"WebPage","@id":"https://empv.it/it/research-notes/ai-on-premise-vs-cloud-quando-conviene/#webpage","name":"AI on-premise vs cloud: come scegliere","url":"https://empv.it/it/research-notes/ai-on-premise-vs-cloud-quando-conviene/"}},{"@type":"ListItem","position":8,"item":{"@type":"WebPage","@id":"https://empv.it/it/research-notes/da-email-a-ordine-senza-rifare-gestionale/#webpage","name":"Da email a ordine senza rifare il gestionale","url":"https://empv.it/it/research-notes/da-email-a-ordine-senza-rifare-gestionale/"}},{"@type":"ListItem","position":9,"item":{"@type":"WebPage","@id":"https://empv.it/it/research-notes/automatizzare-richieste-preventivo-senza-automatizzare-decisione/#webpage","name":"Automatizzare una richiesta di preventivo senza automatizzare la decisione","url":"https://empv.it/it/research-notes/automatizzare-richieste-preventivo-senza-automatizzare-decisione/"}},{"@type":"ListItem","position":10,"item":{"@type":"WebPage","@id":"https://empv.it/it/research-notes/integrare-gestionale-senza-sostituirlo/#webpage","name":"Quando conviene integrare un gestionale invece di sostituirlo","url":"https://empv.it/it/research-notes/integrare-gestionale-senza-sostituirlo/"}}]}}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell notes-shell" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/it/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/it/">Torna alla home</a></header><main><section class="notes-index-hero"><div class="notes-index-hero-inner"><div class="eyebrow">EMPV / RESEARCH NOTES</div><h1>Note su sistemi, AI e operazioni.</h1><p>Appunti tecnici e operativi su ciò che costruiamo, testiamo e impariamo: architetture, automazioni, AI locale, integrazioni e decisioni di prodotto.</p></div></section><section class="notes-index-list section-pad"><div class="research-note-list"><article><div class="eyebrow">NOTE / 010 · NEWS NOTE / OPEN MODELS</div><h2><a href="/it/research-notes/mistral-large-4-modello-europeo-open-weight-preview/">Mistral Large 4: il modello europeo da un trilione di parametri</a></h2><p>Mistral presenta un modello multimodale Mixture-of-Experts addestrato su infrastruttura europea. La preview API è disponibile, ma i pesi sono previsti per fine ottobre. I test indipendenti mostrano punti di forza nel cyber e costi da valutare.</p><p>Mistral Large 4 · Open-weight AI · Mixture-of-Experts · Sovranità AI</p></article><article><div class="eyebrow">NOTE / 009 · TECH NOTE / LOCAL AI</div><h2><a href="/it/research-notes/embeddinggemma-2-retrieval-multimodale-locale/">EmbeddingGemma 2 porta il retrieval multimodale in locale</a></h2><p>Google DeepMind unifica testo, codice, immagini, video e audio in uno spazio vettoriale da 768 dimensioni. Il modello da 740M è modulare e pensato per hardware consumer; corpus, memoria e costo dell'indice restano le variabili da testare.</p><p>EmbeddingGemma 2 · Multimodal retrieval · RAG · Local AI</p></article><article><div class="eyebrow">NOTE / 008 · TECH NOTE / AI AGENTS</div><h2><a href="/it/research-notes/thinkingbox-valutare-agenti-stato-finale-sistemi/">ThinkingBox misura gli agenti sullo stato finale dei sistemi</a></h2><p>Il benchmark di Microsoft e Hugging Face esegue 507 workflow aziendali più volte e controlla database ed effetti prodotti. Un agente può terminare senza errori e dichiarare il task concluso lasciando comunque il sistema nello stato sbagliato.</p><p>ThinkingBox · AI agents · MCP · Agent evaluation</p></article><article><div class="eyebrow">NOTE / 007 · NEWS NOTE / AI AGENTS</div><h2><a href="/it/research-notes/openai-dots-agenti-sempre-attivi-computer-cloud/">OpenAI lancia Dots, agenti sempre attivi con un computer nel cloud</a></h2><p>I Dots usano GPT-6 Astra, continuano a lavorare tra una conversazione e l'altra e possono agire attraverso app collegate. Sono disponibili su Pro, Business Premium ed Enterprise.</p><p>OpenAI Dots · GPT-6 Astra · AI agents · ChatGPT</p></article><article><div class="eyebrow">NOTE / 006 · NEWS NOTE / AI</div><h2><a href="/it/research-notes/gemini-4-argon-agenti-ai-lavoro-lungo/">Google presenta Gemini 4 Argon, un modello per task AI di lunga durata</a></h2><p>Argon porta l'output fino a 1 milione di token ed è già usato internamente da Google su coding, data center e cybersecurity. Per ora l'accesso resta limitato.</p><p>Gemini 4 Argon · Google DeepMind · AI agents · Long-horizon</p></article><article><div class="eyebrow">NOTE / 001 · TECH NOTE / LOCAL AI</div><h2><a href="/it/research-notes/valutare-llm-locale-prima-produzione/">Come valutare un LLM locale prima di usarlo in produzione</a></h2><p>Il nome del modello e il benchmark non bastano. Prima di affidare a un modello locale attività operative bisogna testare workload, runtime, vincoli e failure mode.</p><p>LLM locale · Evaluation · On-premise · AI privata</p></article><article><div class="eyebrow">NOTE / 002 · TECH NOTE / AI INFRASTRUCTURE</div><h2><a href="/it/research-notes/ai-on-premise-vs-cloud-quando-conviene/">AI on-premise vs cloud: come scegliere</a></h2><p>Tenere un modello in azienda non è automaticamente più sicuro, economico o utile. La scelta ha senso quando controllo, latenza, proprietà del dato e workload giustificano l'infrastruttura.</p><p>AI on-premise · Cloud · Privacy · Infrastruttura</p></article><article><div class="eyebrow">NOTE / 003 · FIELD NOTE / OPERATIONS</div><h2><a href="/it/research-notes/da-email-a-ordine-senza-rifare-gestionale/">Da email a ordine senza rifare il gestionale</a></h2><p>Molte automazioni falliscono perché provano a sostituire il sistema centrale. Spesso basta un layer che legge, struttura, valida e prepara il dato prima che entri nel gestionale.</p><p>Ordini · Email · Data entry · Integrazione</p></article><article><div class="eyebrow">NOTE / 004 · FIELD NOTE / COMMERCIAL OPS</div><h2><a href="/it/research-notes/automatizzare-richieste-preventivo-senza-automatizzare-decisione/">Automatizzare una richiesta di preventivo senza automatizzare la decisione</a></h2><p>Il collo di bottiglia non è sempre calcolare un prezzo. Spesso è raccogliere in modo coerente le informazioni necessarie perché una persona possa decidere rapidamente e bene.</p><p>Preventivi · Lead qualification · Human review · Workflow</p></article><article><div class="eyebrow">NOTE / 005 · SYSTEMS NOTE / INTEGRATION</div><h2><a href="/it/research-notes/integrare-gestionale-senza-sostituirlo/">Quando conviene integrare un gestionale invece di sostituirlo</a></h2><p>Un software vecchio o scomodo può comunque contenere regole, dati e dipendenze essenziali. Prima di riscrivere tutto, conviene capire quale parte del lavoro richiede un nuovo layer.</p><p>Gestionale · ERP · Integrazione · Software su misura</p></article></div></section></main></div></div>
+  </body>
+</html>

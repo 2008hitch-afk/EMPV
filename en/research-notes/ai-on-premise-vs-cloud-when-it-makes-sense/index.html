@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="How to choose between local, on-premise and cloud AI based on data, control, latency, workload and operational dependencies." />
+    <title>On-premise vs cloud AI: when each makes sense | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-BFBksyuh.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D2cag0Se.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/en/research-notes/ai-on-premise-vs-cloud-when-it-makes-sense/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/research-notes/ai-on-premise-vs-cloud-quando-conviene/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/research-notes/ai-on-premise-vs-cloud-when-it-makes-sense/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/research-notes/ai-on-premise-vs-cloud-quando-conviene/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="On-premise vs cloud AI: when each makes sense | EMPV" />
+    <meta property="og:description" content="How to choose between local, on-premise and cloud AI based on data, control, latency, workload and operational dependencies." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://empv.it/en/research-notes/ai-on-premise-vs-cloud-when-it-makes-sense/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:image" content="https://empv.it/social/research-notes/on-premise-vs-cloud-en-20260929.png" />
+    <meta property="og:image:url" content="https://empv.it/social/research-notes/on-premise-vs-cloud-en-20260929.png" />
+    <meta property="og:image:secure_url" content="https://empv.it/social/research-notes/on-premise-vs-cloud-en-20260929.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="On-premise vs cloud AI: how to choose" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="On-premise vs cloud AI: when each makes sense | EMPV" />
+    <meta name="twitter:description" content="How to choose between local, on-premise and cloud AI based on data, control, latency, workload and operational dependencies." />
+    <meta name="twitter:image" content="https://empv.it/social/research-notes/on-premise-vs-cloud-en-20260929.png" />
+    <meta name="twitter:image:alt" content="On-premise vs cloud AI: how to choose" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/en/research-notes/ai-on-premise-vs-cloud-when-it-makes-sense/#webpage","url":"https://empv.it/en/research-notes/ai-on-premise-vs-cloud-when-it-makes-sense/","name":"On-premise vs cloud AI: when each makes sense | EMPV","description":"How to choose between local, on-premise and cloud AI based on data, control, latency, workload and operational dependencies.","inLanguage":"en","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"Article","@id":"https://empv.it/en/research-notes/ai-on-premise-vs-cloud-when-it-makes-sense/#article","headline":"On-premise vs cloud AI: how to choose","description":"Running a model inside the company is not automatically safer, cheaper or more useful. It makes sense when control, latency, data ownership and workload justify the infrastructure.","datePublished":"2026-09-29","dateModified":"2026-09-29","inLanguage":"en","keywords":["On-premise AI","Cloud","Privacy","Infrastructure"],"image":{"@type":"ImageObject","url":"https://empv.it/social/research-notes/on-premise-vs-cloud-en-20260929.png","width":1200,"height":630},"mainEntityOfPage":{"@id":"https://empv.it/en/research-notes/ai-on-premise-vs-cloud-when-it-makes-sense/#webpage"},"author":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}],"publisher":{"@id":"https://empv.it/#organization"}}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell notes-shell" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/en/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/en/research-notes/">Research Notes</a><a class="lang-switch" href="/it/research-notes/ai-on-premise-vs-cloud-quando-conviene/" hreflang="it">IT</a></header><main><section class="detail-hero research-note-hero"><div class="detail-hero-inner"><div class="detail-kicker-row"><span class="eyebrow">EMPV / RESEARCH NOTES</span><span class="detail-index">NOTE / 002</span></div><div class="detail-title-wrap detail-title-project research-note-title"><p class="detail-kicker">TECH NOTE / AI INFRASTRUCTURE</p><h1>On-premise vs cloud AI: how to choose</h1></div><div class="detail-hero-bottom"><p class="detail-lead">Running a model inside the company is not automatically safer, cheaper or more useful. It makes sense when control, latency, data ownership and workload justify the infrastructure.</p><div class="detail-status"><span>Published</span><strong>2026-09-29 · 6 min</strong></div></div><div class="tags detail-tags"><span>On-premise AI</span><span>Cloud</span><span>Privacy</span><span>Infrastructure</span></div></div></section><section class="detail-blocks section-pad research-note-blocks"><article class="detail-block research-note-block"><div class="eyebrow">01 / Not a religion</div><div class="detail-block-main"><h2>Cloud and on-premise are different tools.</h2><div class="research-note-copy"><p>Running AI locally can provide more control over data paths, the execution environment and system availability. It also introduces hardware, updates, monitoring, security and operational capacity that someone has to manage.</p><p>Cloud services remove much of that complexity and make powerful models easy to access. In exchange, the company depends on an external service and needs to design data handling carefully.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">02 / When local makes sense</div><div class="detail-block-main"><h2>Local deployment makes sense when there is a specific constraint.</h2><div class="research-note-copy"><p>A local deployment becomes interesting when data or documents must stay inside a defined boundary, latency needs to be predictable, offline operation matters or the workload is stable enough to justify dedicated infrastructure.</p></div><ul><li>data with control or segregation requirements</li><li>repeatable and frequent workloads</li><li>operation without Internet dependency</li><li>tight integration with internal systems</li><li>need to pin model and runtime</li></ul></div></article><article class="detail-block research-note-block"><div class="eyebrow">03 / When cloud is better</div><div class="detail-block-main"><h2>Cloud offers elasticity and fast access to larger models.</h2><div class="research-note-copy"><p>If workloads are irregular, change frequently or need very large models, cloud can be more efficient. It is also useful during discovery, when we do not yet know which workload deserves dedicated infrastructure.</p><p>The architecture can also be hybrid; it does not need to fit one category permanently.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">04 / The decision</div><div class="detail-block-main"><h2>Define the data boundary first, then decide where execution belongs.</h2><div class="research-note-copy"><p>A useful decision starts with four questions: what data enters, what data leaves, what capability is required and what level of external dependency is acceptable.</p><p>Only then does it make sense to compare costs, hardware, APIs and models.</p></div></div></article></section><section class="detail-boundary section-pad research-note-takeaway"><div class="section-code">EMPV / TAKEAWAY</div><p>On-premise is an architectural choice driven by control, latency or dependency requirements.</p></section><section class="research-note-share section-pad" aria-label="Share this Research Note"><div class="section-code">EMPV / SHARE</div><div class="research-note-share-inner"><p>Share this Research Note.</p><div class="research-note-share-actions"><a class="research-note-share-primary" href="https://empv.it/en/research-notes/ai-on-premise-vs-cloud-when-it-makes-sense/?share=20260929">Share</a><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fempv.it%2Fen%2Fresearch-notes%2Fai-on-premise-vs-cloud-when-it-makes-sense%2F%3Fshare%3D20260929" target="_blank" rel="noreferrer noopener">LinkedIn</a><a href="https://twitter.com/intent/tweet?text=On-premise%20vs%20cloud%20AI%3A%20how%20to%20choose%20%E2%80%94%20EMPV%20Research%20Notes&amp;url=https%3A%2F%2Fempv.it%2Fen%2Fresearch-notes%2Fai-on-premise-vs-cloud-when-it-makes-sense%2F%3Fshare%3D20260929" target="_blank" rel="noreferrer noopener">X</a><a href="https://wa.me/?text=On-premise%20vs%20cloud%20AI%3A%20how%20to%20choose%20%E2%80%94%20EMPV%20Research%20Notes%20https%3A%2F%2Fempv.it%2Fen%2Fresearch-notes%2Fai-on-premise-vs-cloud-when-it-makes-sense%2F%3Fshare%3D20260929" target="_blank" rel="noreferrer noopener">WhatsApp</a><a href="https://empv.it/en/research-notes/ai-on-premise-vs-cloud-when-it-makes-sense/?share=20260929">Copy link</a></div></div></section><section class="detail-end section-pad"><a href="/en/research-notes/"><span>Research Notes</span></a></section></main></div></div>
+  </body>
+</html>

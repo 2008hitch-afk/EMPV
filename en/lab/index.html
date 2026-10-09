@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="EMPV AI Lab: applied research, prototypes and verifiable AI systems used to test technical ideas and product directions." />
+    <title>AI Lab — Applied research and verifiable AI systems | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-BFBksyuh.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D2cag0Se.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/en/lab/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/lab/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/lab/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/lab/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="AI Lab — Applied research and verifiable AI systems | EMPV" />
+    <meta property="og:description" content="EMPV AI Lab: applied research, prototypes and verifiable AI systems used to test technical ideas and product directions." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://empv.it/en/lab/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="AI Lab — Applied research and verifiable AI systems | EMPV" />
+    <meta name="twitter:description" content="EMPV AI Lab: applied research, prototypes and verifiable AI systems used to test technical ideas and product directions." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/en/lab/#webpage","url":"https://empv.it/en/lab/","name":"AI Lab — Applied research and verifiable AI systems | EMPV","description":"EMPV AI Lab: applied research, prototypes and verifiable AI systems used to test technical ideas and product directions.","inLanguage":"en","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"CollectionPage","@id":"https://empv.it/en/lab/#collection","name":"AI Lab — Applied research and verifiable AI systems | EMPV","description":"EMPV AI Lab: applied research, prototypes and verifiable AI systems used to test technical ideas and product directions.","url":"https://empv.it/en/lab/","inLanguage":"en","isPartOf":{"@id":"https://empv.it/#website"},"mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"WebPage","@id":"https://empv.it/en/lab/system-twin/#webpage","name":"System Twin","url":"https://empv.it/en/lab/system-twin/"}},{"@type":"ListItem","position":2,"item":{"@type":"WebPage","@id":"https://empv.it/en/lab/local-ai/#webpage","name":"Local AI","url":"https://empv.it/en/lab/local-ai/"}},{"@type":"ListItem","position":3,"item":{"@type":"WebPage","@id":"https://empv.it/en/lab/opportunity-engine/#webpage","name":"Opportunity Engine","url":"https://empv.it/en/lab/opportunity-engine/"}},{"@type":"ListItem","position":4,"item":{"@type":"WebPage","@id":"https://empv.it/en/lab/vertical-operations/#webpage","name":"Vertical Operations","url":"https://empv.it/en/lab/vertical-operations/"}},{"@type":"ListItem","position":5,"item":{"@type":"WebPage","@id":"https://empv.it/en/lab/trustworthy-reasoning/#webpage","name":"Trustworthy Reasoning","url":"https://empv.it/en/lab/trustworthy-reasoning/"}}]}}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell section-index-shell" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/en/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/en/">Back home</a><a class="lang-switch" href="/it/lab/" hreflang="it">IT</a></header><main><section class="notes-index-hero"><div class="notes-index-hero-inner"><div class="eyebrow">EMPV / AI LAB</div><h1>AI Lab: turning hypotheses into verifiable systems.</h1><p>Research directions and prototypes used to test which AI ideas hold up technically, operationally and as products.</p></div></section><section class="labs section-pad"><div class="lab-list"><a class="lab-row lab-register-row" href="/en/lab/system-twin/"><div class="lab-index">A</div><div class="lab-identity"><span class="lab-kind">Research / systems intelligence</span><h3>System Twin</h3></div><div class="lab-content"><div class="lab-question"><span>What we are testing</span><strong>Can we reconstruct what a system does without conflating observed facts, declarations, derivations and inferences?</strong></div><div class="lab-evidence"><div class="lab-state"><span>Repository state</span><p>Research / model-definition · schema and stack not frozen</p></div><div class="lab-focus"><span>Current focus</span><p>Cross-source identity · evidence · time · reconciliation · projection</p></div></div></div></a><a class="lab-row lab-register-row" href="/en/lab/local-ai/"><div class="lab-index">B</div><div class="lab-identity"><span class="lab-kind">Applied R&amp;D / local AI</span><h3>Local AI</h3></div><div class="lab-content"><div class="lab-question"><span>What we are testing</span><strong>How do we prove what a local model can do before assigning it production tasks?</strong></div><div class="lab-evidence"><div class="lab-state"><span>Repository state</span><p>Public Core 0.3.1 RC1 · schema 1.0.1</p></div><div class="lab-focus"><span>Current focus</span><p>discover → candidate → TEST → preflight → one-RUN authorization → bounded RUN → evidence → compare</p></div></div></div></a><a class="lab-row lab-register-row" href="/en/lab/opportunity-engine/"><div class="lab-index">C</div><div class="lab-identity"><span class="lab-kind">MVP / agent orchestration</span><h3>Opportunity Engine</h3></div><div class="lab-content"><div class="lab-question"><span>What we are testing</span><strong>Does starting from problems instead of company lists produce prospects that human reviewers can qualify with stronger evidence?</strong></div><div class="lab-evidence"><div class="lab-state"><span>Repository state</span><p>Current milestone: Problem Research → Prospect Research → Qualification</p></div><div class="lab-focus"><span>Current focus</span><p>Evidence ≠ interpretation ≠ hypothesis · human gate for external actions</p></div></div></div></a><a class="lab-row lab-register-row" href="/en/lab/vertical-operations/"><div class="lab-index">D</div><div class="lab-identity"><span class="lab-kind">Product direction / vertical SaaS</span><h3>Vertical Operations</h3></div><div class="lab-content"><div class="lab-question"><span>What we are testing</span><strong>How much of the operating model can be reused across other verticals without turning it into a generic management system?</strong></div><div class="lab-evidence"><div class="lab-state"><span>Repository state</span><p>First complete vertical built around pet hospitality</p></div><div class="lab-focus"><span>Current focus</span><p>Booking → capacity → service → staff work · one operating domain</p></div></div></div></a><a class="lab-row lab-register-row" href="/en/lab/trustworthy-reasoning/"><div class="lab-index">E</div><div class="lab-identity"><span class="lab-kind">Research / epistemic AI</span><h3>Trustworthy Reasoning</h3></div><div class="lab-content"><div class="lab-question"><span>What we are testing</span><strong>Can we build a defensible scientific project around reasoning, abstraction and planning that preserves the history of evidence?</strong></div><div class="lab-evidence"><div class="lab-state"><span>Repository state</span><p>Phase 0 — Call decomposition and research governance</p></div><div class="lab-focus"><span>Current focus</span><p>No novelty claim validated · evidence graphs · bitemporal knowledge · epistemic branching</p></div></div></div></a></div></section></main><footer><div class="footer-mark">EMPV</div><div class="footer-meta"><div class="footer-column footer-identity"><strong>EMPV</strong><span>Systems · Products · AI · Research</span><span>Bergamo, Italy</span><span>© 2026 EMPV</span></div><div class="footer-column"><a href="mailto:hello@empv.it">hello@empv.it</a><a href="https://wa.me/393792438705">WhatsApp</a><a href="https://www.linkedin.com/company/emp26/">LinkedIn</a><a href="https://x.com/EMPV26">X / @EMPV26</a></div></div></footer></div></div>
+  </body>
+</html>

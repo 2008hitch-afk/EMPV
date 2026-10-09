@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="Ricerca su una rappresentazione interrogabile dei sistemi digitali che colleghi codice, runtime, configurazioni, API, documentazione ed evidenze." />
+    <title>System Twin — AI Lab | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-BFBksyuh.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D2cag0Se.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/it/lab/system-twin/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/lab/system-twin/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/lab/system-twin/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/lab/system-twin/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="System Twin — AI Lab | EMPV" />
+    <meta property="og:description" content="Ricerca su una rappresentazione interrogabile dei sistemi digitali che colleghi codice, runtime, configurazioni, API, documentazione ed evidenze." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://empv.it/it/lab/system-twin/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="it_IT" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="System Twin — AI Lab | EMPV" />
+    <meta name="twitter:description" content="Ricerca su una rappresentazione interrogabile dei sistemi digitali che colleghi codice, runtime, configurazioni, API, documentazione ed evidenze." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/it/lab/system-twin/#webpage","url":"https://empv.it/it/lab/system-twin/","name":"System Twin — AI Lab | EMPV","description":"Ricerca su una rappresentazione interrogabile dei sistemi digitali che colleghi codice, runtime, configurazioni, API, documentazione ed evidenze.","inLanguage":"it","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"CreativeWork","@id":"https://empv.it/it/lab/system-twin/#work","name":"System Twin","description":"Ricerca su una rappresentazione interrogabile dei sistemi digitali che colleghi codice, runtime, configurazioni, API, documentazione ed evidenze.","url":"https://empv.it/it/lab/system-twin/","inLanguage":"it","creator":{"@id":"https://empv.it/#organization"},"keywords":["System understanding","Evidence","Architecture"],"isPartOf":{"@id":"https://empv.it/#website"}},{"@type":"BreadcrumbList","@id":"https://empv.it/it/lab/system-twin/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"EMPV","item":"https://empv.it/it/"},{"@type":"ListItem","position":2,"name":"AI Lab","item":"https://empv.it/it/lab/"},{"@type":"ListItem","position":3,"name":"System Twin","item":"https://empv.it/it/lab/system-twin/"}]}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/it/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/it/lab/">AI Lab</a><a class="lang-switch" href="/en/lab/system-twin/" hreflang="en">EN</a></header><main><section class="detail-hero"><div class="detail-hero-inner"><div class="detail-kicker-row"><span class="eyebrow">EMPV / AI Lab</span><span class="detail-index">A</span></div><div class="detail-title-wrap"><p class="detail-kicker">Exploration / systems intelligence</p><h1>System Twin</h1></div><div class="detail-hero-bottom"><p class="detail-lead">Un esperimento su come ricostruire automaticamente un sistema digitale in esercizio in una rappresentazione interrogabile, mantenendo insieme codice, runtime, configurazioni, API, documentazione ed evidenze.</p><div class="detail-status"><span>Stato repo</span><strong>Research / model-definition. Nessuno schema canonico o stack implementativo è ancora congelato.</strong></div></div><div class="tags detail-tags"><span>System understanding</span><span>Evidence</span><span>Architecture</span></div></div></section><section class="detail-comparison section-pad"><article><div class="eyebrow">Oggi</div><h2>La conoscenza del sistema è frammentata</h2><p>Repository, deploy, telemetria, documenti e API descrivono parti diverse dello stesso sistema e spesso si riferiscono a momenti diversi.</p></article><article><div class="eyebrow">Direzione</div><h2>Un modello semantico con evidenza e tempo</h2><p>La ricerca prova a collegare quelle fonti in un modello comune capace di distinguere ciò che è osservato, dichiarato, derivato o inferito.</p></article></section><section class="detail-blocks section-pad"><article class="detail-block"><div class="eyebrow">01 / Cosa stiamo esplorando</div><div class="detail-block-main"><h2>Un gemello semantico, non un generatore di diagrammi.</h2><p>L'obiettivo è rappresentare cosa fa un sistema, cosa ne modifica il comportamento, dove gira, come si muovono i dati e quanto è supportata ogni affermazione.</p></div></article><article class="detail-block"><div class="eyebrow">02 / Perché potrebbe contare</div><div class="detail-block-main"><h2>Comprendere sistemi complessi è ancora un lavoro ad alta intensità umana.</h2><p>Debug, audit, migrazioni, incident response e onboarding richiedono spesso di ricostruire manualmente relazioni distribuite tra molte fonti. Un modello ricostruito e interrogabile potrebbe cambiare quel lavoro.</p></div></article><article class="detail-block"><div class="eyebrow">03 / Cosa stiamo verificando</div><div class="detail-block-main"><h2>Identità, provenance, tempo e riconciliazione.</h2><p>La ricerca si concentra sul livello che manca tra parser/telemetria già maturi e una rappresentazione causale utilizzabile: identità cross-source, conflitti, versioni, confidence e proiezioni diverse dello stesso modello.</p></div></article></section><section class="detail-boundary section-pad"><div class="section-code">EMPV / NOTE</div><p>Il progetto è ancora in fase di ricerca e definizione del modello. Non stiamo pubblicando schema definitivo, implementazione completa o roadmap commerciale.</p></section><section class="detail-end section-pad"><a href="/it/lab/"><span>AI Lab</span></a></section></main></div></div>
+  </body>
+</html>

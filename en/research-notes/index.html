@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="EMPV technical notes on digital systems, automation, local AI, integrations and business operations." />
+    <title>Research Notes — Systems, AI and automation | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-BFBksyuh.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D2cag0Se.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/en/research-notes/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/research-notes/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/research-notes/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/research-notes/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="Research Notes — Systems, AI and automation | EMPV" />
+    <meta property="og:description" content="EMPV technical notes on digital systems, automation, local AI, integrations and business operations." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://empv.it/en/research-notes/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="Research Notes — Systems, AI and automation | EMPV" />
+    <meta name="twitter:description" content="EMPV technical notes on digital systems, automation, local AI, integrations and business operations." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/en/research-notes/#webpage","url":"https://empv.it/en/research-notes/","name":"Research Notes — Systems, AI and automation | EMPV","description":"EMPV technical notes on digital systems, automation, local AI, integrations and business operations.","inLanguage":"en","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"CollectionPage","@id":"https://empv.it/en/research-notes/#collection","name":"Research Notes — Systems, AI and automation | EMPV","description":"EMPV technical notes on digital systems, automation, local AI, integrations and business operations.","url":"https://empv.it/en/research-notes/","inLanguage":"en","isPartOf":{"@id":"https://empv.it/#website"},"mainEntity":{"@type":"ItemList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@type":"WebPage","@id":"https://empv.it/en/research-notes/mistral-large-4-european-open-weight-model-preview/#webpage","name":"Mistral Large 4: a trillion-parameter European model in preview","url":"https://empv.it/en/research-notes/mistral-large-4-european-open-weight-model-preview/"}},{"@type":"ListItem","position":2,"item":{"@type":"WebPage","@id":"https://empv.it/en/research-notes/embeddinggemma-2-local-multimodal-retrieval/#webpage","name":"EmbeddingGemma 2 brings multimodal retrieval on-device","url":"https://empv.it/en/research-notes/embeddinggemma-2-local-multimodal-retrieval/"}},{"@type":"ListItem","position":3,"item":{"@type":"WebPage","@id":"https://empv.it/en/research-notes/thinkingbox-evaluating-agents-by-final-system-state/#webpage","name":"ThinkingBox evaluates agents by the final state of the system","url":"https://empv.it/en/research-notes/thinkingbox-evaluating-agents-by-final-system-state/"}},{"@type":"ListItem","position":4,"item":{"@type":"WebPage","@id":"https://empv.it/en/research-notes/openai-dots-always-on-agents-cloud-computer/#webpage","name":"OpenAI launches Dots, always-on agents with their own cloud computer","url":"https://empv.it/en/research-notes/openai-dots-always-on-agents-cloud-computer/"}},{"@type":"ListItem","position":5,"item":{"@type":"WebPage","@id":"https://empv.it/en/research-notes/gemini-4-argon-long-horizon-ai-agents/#webpage","name":"Google introduces Gemini 4 Argon for long-running AI tasks","url":"https://empv.it/en/research-notes/gemini-4-argon-long-horizon-ai-agents/"}},{"@type":"ListItem","position":6,"item":{"@type":"WebPage","@id":"https://empv.it/en/research-notes/evaluating-local-llms-before-production/#webpage","name":"How to evaluate a local LLM before using it in production","url":"https://empv.it/en/research-notes/evaluating-local-llms-before-production/"}},{"@type":"ListItem","position":7,"item":{"@type":"WebPage","@id":"https://empv.it/en/research-notes/ai-on-premise-vs-cloud-when-it-makes-sense/#webpage","name":"On-premise vs cloud AI: how to choose","url":"https://empv.it/en/research-notes/ai-on-premise-vs-cloud-when-it-makes-sense/"}},{"@type":"ListItem","position":8,"item":{"@type":"WebPage","@id":"https://empv.it/en/research-notes/from-email-to-order-without-replacing-the-erp/#webpage","name":"From email to order without replacing the ERP","url":"https://empv.it/en/research-notes/from-email-to-order-without-replacing-the-erp/"}},{"@type":"ListItem","position":9,"item":{"@type":"WebPage","@id":"https://empv.it/en/research-notes/automating-quote-requests-without-automating-the-decision/#webpage","name":"Automating a quote request without automating the decision","url":"https://empv.it/en/research-notes/automating-quote-requests-without-automating-the-decision/"}},{"@type":"ListItem","position":10,"item":{"@type":"WebPage","@id":"https://empv.it/en/research-notes/integrating-an-erp-without-replacing-it/#webpage","name":"When to integrate an ERP instead of replacing it","url":"https://empv.it/en/research-notes/integrating-an-erp-without-replacing-it/"}}]}}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell notes-shell" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/en/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/en/">Back home</a></header><main><section class="notes-index-hero"><div class="notes-index-hero-inner"><div class="eyebrow">EMPV / RESEARCH NOTES</div><h1>Notes on systems, AI and operations.</h1><p>Technical and operational notes on what we build, test and learn: architectures, automation, local AI, integrations and product decisions.</p></div></section><section class="notes-index-list section-pad"><div class="research-note-list"><article><div class="eyebrow">NOTE / 010 · NEWS NOTE / OPEN MODELS</div><h2><a href="/en/research-notes/mistral-large-4-european-open-weight-model-preview/">Mistral Large 4: a trillion-parameter European model in preview</a></h2><p>Mistral unveils a multimodal Mixture-of-Experts model trained on European infrastructure. The preview API is available, while weights are planned for late October. Independent tests find strengths in cyber and cost trade-offs.</p><p>Mistral Large 4 · Open-weight AI · Mixture-of-Experts · AI sovereignty</p></article><article><div class="eyebrow">NOTE / 009 · TECH NOTE / LOCAL AI</div><h2><a href="/en/research-notes/embeddinggemma-2-local-multimodal-retrieval/">EmbeddingGemma 2 brings multimodal retrieval on-device</a></h2><p>Google DeepMind maps text, code, images, video and audio into a shared 768-dimensional vector space. The 740M model is modular and designed for consumer hardware; corpus quality, memory and index cost still need to be tested.</p><p>EmbeddingGemma 2 · Multimodal retrieval · RAG · Local AI</p></article><article><div class="eyebrow">NOTE / 008 · TECH NOTE / AI AGENTS</div><h2><a href="/en/research-notes/thinkingbox-evaluating-agents-by-final-system-state/">ThinkingBox evaluates agents by the final state of the system</a></h2><p>The Microsoft and Hugging Face benchmark repeatedly runs 507 business workflows and checks databases and resulting side effects. An agent can finish without an error and report completion while still leaving the system in the wrong state.</p><p>ThinkingBox · AI agents · MCP · Agent evaluation</p></article><article><div class="eyebrow">NOTE / 007 · NEWS NOTE / AI AGENTS</div><h2><a href="/en/research-notes/openai-dots-always-on-agents-cloud-computer/">OpenAI launches Dots, always-on agents with their own cloud computer</a></h2><p>Dots run on GPT-6 Astra, keep working between conversations and can act across connected apps. They are available on Pro, Business Premium and Enterprise.</p><p>OpenAI Dots · GPT-6 Astra · AI agents · ChatGPT</p></article><article><div class="eyebrow">NOTE / 006 · NEWS NOTE / AI</div><h2><a href="/en/research-notes/gemini-4-argon-long-horizon-ai-agents/">Google introduces Gemini 4 Argon for long-running AI tasks</a></h2><p>Argon raises the output limit to one million tokens and is already being used inside Google for coding, data centers and cybersecurity. Access is still limited.</p><p>Gemini 4 Argon · Google DeepMind · AI agents · Long-horizon</p></article><article><div class="eyebrow">NOTE / 001 · TECH NOTE / LOCAL AI</div><h2><a href="/en/research-notes/evaluating-local-llms-before-production/">How to evaluate a local LLM before using it in production</a></h2><p>A model name and a benchmark score are not enough. Before a local model receives production tasks, workload, runtime, constraints and failure modes need to be tested together.</p><p>Local LLM · Evaluation · On-premise · Private AI</p></article><article><div class="eyebrow">NOTE / 002 · TECH NOTE / AI INFRASTRUCTURE</div><h2><a href="/en/research-notes/ai-on-premise-vs-cloud-when-it-makes-sense/">On-premise vs cloud AI: how to choose</a></h2><p>Running a model inside the company is not automatically safer, cheaper or more useful. It makes sense when control, latency, data ownership and workload justify the infrastructure.</p><p>On-premise AI · Cloud · Privacy · Infrastructure</p></article><article><div class="eyebrow">NOTE / 003 · FIELD NOTE / OPERATIONS</div><h2><a href="/en/research-notes/from-email-to-order-without-replacing-the-erp/">From email to order without replacing the ERP</a></h2><p>Many automation projects fail because they try to replace the core system. Often a layer that reads, structures, validates and prepares data before it enters the ERP is enough.</p><p>Orders · Email · Data entry · Integration</p></article><article><div class="eyebrow">NOTE / 004 · FIELD NOTE / COMMERCIAL OPS</div><h2><a href="/en/research-notes/automating-quote-requests-without-automating-the-decision/">Automating a quote request without automating the decision</a></h2><p>The bottleneck is not always calculating a price. Often it is collecting the information a person needs to make a fast and well-informed decision.</p><p>Quoting · Lead qualification · Human review · Workflow</p></article><article><div class="eyebrow">NOTE / 005 · SYSTEMS NOTE / INTEGRATION</div><h2><a href="/en/research-notes/integrating-an-erp-without-replacing-it/">When to integrate an ERP instead of replacing it</a></h2><p>An old or awkward system can still contain essential rules, data and dependencies. Before rewriting everything, identify which part of the work needs a new layer.</p><p>ERP · Integration · Custom software · Operations</p></article></div></section></main></div></div>
+  </body>
+</html>

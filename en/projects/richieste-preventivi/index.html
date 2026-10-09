@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="A digital flow that structures requests before evaluation, automating information collection while keeping the final decision human." />
+    <title>Request qualification and quoting system | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-BFBksyuh.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-D2cag0Se.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/en/projects/richieste-preventivi/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/progetti/richieste-preventivi/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/projects/richieste-preventivi/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/progetti/richieste-preventivi/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="Request qualification and quoting system | EMPV" />
+    <meta property="og:description" content="A digital flow that structures requests before evaluation, automating information collection while keeping the final decision human." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://empv.it/en/projects/richieste-preventivi/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="Request qualification and quoting system | EMPV" />
+    <meta name="twitter:description" content="A digital flow that structures requests before evaluation, automating information collection while keeping the final decision human." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/en/projects/richieste-preventivi/#webpage","url":"https://empv.it/en/projects/richieste-preventivi/","name":"Request qualification and quoting system | EMPV","description":"A digital flow that structures requests before evaluation, automating information collection while keeping the final decision human.","inLanguage":"en","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"CreativeWork","@id":"https://empv.it/en/projects/richieste-preventivi/#work","name":"Request qualification and quoting system","description":"A digital flow that structures requests before evaluation, automating information collection while keeping the final decision human.","url":"https://empv.it/en/projects/richieste-preventivi/","inLanguage":"en","creator":{"@id":"https://empv.it/#organization"},"keywords":["Lead flow","Richiesta guidata","Website","Human review"],"isPartOf":{"@id":"https://empv.it/#website"}},{"@type":"BreadcrumbList","@id":"https://empv.it/en/projects/richieste-preventivi/#breadcrumb","itemListElement":[{"@type":"ListItem","position":1,"name":"EMPV","item":"https://empv.it/en/"},{"@type":"ListItem","position":2,"name":"Projects","item":"https://empv.it/en/projects/"},{"@type":"ListItem","position":3,"name":"Request qualification and quoting system","item":"https://empv.it/en/projects/richieste-preventivi/"}]}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/en/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/en/projects/">Back to projects</a><a class="lang-switch" href="/it/progetti/richieste-preventivi/" hreflang="it">IT</a></header><main><section class="detail-hero"><div class="detail-hero-inner"><div class="detail-kicker-row"><span class="eyebrow">EMPV / Project</span><span class="detail-index">04</span></div><div class="detail-title-wrap"><p class="detail-kicker">More structured requests, human decision retained</p><p class="detail-project-name">Request qualification and quoting system</p><h1>Requests arrived, but the team had to reconstruct which services the customer needed and under what conditions before evaluating them.</h1></div><div class="detail-hero-bottom"><p class="detail-lead">Event type, audience size, venue, access constraints, equipment, transport, setup and technical support could emerge at different moments in the conversation. Before quoting, the team first had to rebuild the context.</p><div class="detail-status"><span>What we changed</span><strong>We did not automate the quote. We automated the information collection needed to prepare it well.</strong></div></div><div class="tags detail-tags"><span>Lead flow</span><span>Richiesta guidata</span><span>Website</span><span>Human review</span></div></div></section><section class="detail-comparison section-pad"><article><div class="eyebrow">Before</div><h2>Requests were hard to compare</h2><p>When information arrives in free form, the team must first reconstruct category, venue, participants, services, access constraints, logistics and contacts.</p></article><article><div class="eyebrow">System</div><h2>A flow that prepares human evaluation</h2><p>The flow collects a compact set of information and adapts some questions to event type. No public pricing and no automatic quotation: the final decision stays with the team.</p></article></section><section class="detail-blocks section-pad"><article class="detail-block"><div class="eyebrow">01 / The problem</div><div class="detail-block-main"><h2>Before quoting, the event has to be understood.</h2><p>Conferences, weddings, DJ sets and private parties do not need the same information. A generic form can create leads that still require the team to reconstruct the request before evaluating it.</p></div></article><article class="detail-block"><div class="eyebrow">02 / The decision</div><div class="detail-block-main"><h2>Structure the request without turning it into an endless configurator.</h2><p>The V1 keeps a small number of main paths and gathers event type, date, location, participants, services, power, access, logistics and contact details.</p></div></article><article class="detail-block"><div class="eyebrow">03 / The boundary</div><div class="detail-block-main"><h2>Technology prepares; the team decides.</h2><p>The summary is indicative, prices are not public and every request is evaluated directly by the team. That is a product choice, not missing automation.</p></div></article><article class="detail-block"><div class="eyebrow">04 / The outcome</div><div class="detail-block-main"><h2>A digital presence that produces more usable requests.</h2><p>The website and guided flow become one commercial entry point: the customer describes the event, the system structures the data and the team receives a more consistent context to work from.</p></div></article></section><section class="detail-end section-pad"><a href="/en/projects/"><span>Back to projects</span></a></section></main></div></div>
+  </body>
+</html>
