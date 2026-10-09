@@ -180,7 +180,7 @@ export const researchNotes: ResearchNote[] = [
       "it": "Mistral Large 4 è un risultato industriale europeo significativo, oggi accessibile in preview API. Le prove mostrano punti di forza nel cyber, ma costi, requisiti e autonomia di un deployment privato andranno verificati dopo il rilascio dei pesi.",
       "en": "Mistral Large 4 is a significant European infrastructure milestone, available today through an API preview. Cyber results stand out, but private-deployment cost, hardware needs and autonomy still need testing after the weights ship."
     },
-    "socialVersion": "20261009a"
+    "socialVersion": "20261009b"
   },
 
   {
