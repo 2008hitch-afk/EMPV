@@ -25,6 +25,164 @@ export type ResearchNote = {
 };
 
 export const researchNotes: ResearchNote[] = [
+    {
+    "id": "mistral-large-4",
+    "index": "010",
+    "slugs": {
+      "it": "mistral-large-4-modello-europeo-open-weight-preview",
+      "en": "mistral-large-4-european-open-weight-model-preview"
+    },
+    "title": {
+      "it": "Mistral Large 4: il modello europeo da un trilione di parametri",
+      "en": "Mistral Large 4: a trillion-parameter European model in preview"
+    },
+    "dek": {
+      "it": "Mistral presenta un modello multimodale Mixture-of-Experts addestrato su infrastruttura europea. La preview API è disponibile, ma i pesi sono previsti per fine ottobre. I test indipendenti mostrano punti di forza nel cyber e costi da valutare.",
+      "en": "Mistral unveils a multimodal Mixture-of-Experts model trained on European infrastructure. The preview API is available, while weights are planned for late October. Independent tests find strengths in cyber and cost trade-offs."
+    },
+    "category": {
+      "it": "NEWS NOTE / OPEN MODELS",
+      "en": "NEWS NOTE / OPEN MODELS"
+    },
+    "tags": {
+      "it": [
+        "Mistral Large 4",
+        "Open-weight AI",
+        "Mixture-of-Experts",
+        "Sovranità AI"
+      ],
+      "en": [
+        "Mistral Large 4",
+        "Open-weight AI",
+        "Mixture-of-Experts",
+        "AI sovereignty"
+      ]
+    },
+    "published": "2026-10-09",
+    "updated": "2026-10-09",
+    "readingTime": {
+      "it": "6 min",
+      "en": "6 min"
+    },
+    "sections": {
+      "it": [
+        {
+          "label": "01 / L'annuncio",
+          "title": "Per ora è una preview via API. I pesi non sono ancora scaricabili.",
+          "paragraphs": [
+            "Il [6 ottobre 2026](https://mistral.ai/news/mistral-large-4/) Mistral ha presentato Mistral Large 4 (ML4), nome informale «Le Chonk», aprendo l'accesso pubblico in anteprima tramite Mistral Studio. È il modello più grande dell'azienda francese, pensato per coding, workflow agentici e analisi multimodale.",
+            "La distinzione sulla disponibilità conta: al 9 ottobre si può usare la [preview API](https://docs.mistral.ai/models/mistral-large-4-0), mentre [Mistral](https://mistral.ai/news/mistral-large-4/) annuncia i pesi per la fine del mese. Non è quindi corretto descrivere ML4 come un modello già scaricabile e installabile in produzione."
+          ]
+        },
+        {
+          "label": "02 / Architettura",
+          "title": "Un trilione di parametri totali non significa usarli tutti per ogni token.",
+          "paragraphs": [
+            "La [documentazione tecnica](https://docs.mistral.ai/models/mistral-large-4-0) descrive un modello multimodale con architettura *granular Mixture-of-Experts* (MoE) da circa 1,05 trilioni di parametri e un encoder visivo da 1,6 miliardi. La pagina tecnica di Mistral indica 52 miliardi di parametri attivi, mentre [Artificial Analysis](https://artificialanalysis.ai/articles/mistral-large-4-france-ai) ne riporta 49 miliardi. Le due cifre circolano nei materiali pubblici; senza dettagli finali dell'architettura, è prudente non usarle come se fossero direttamente intercambiabili.",
+            "Il routing MoE attiva soltanto un sottoinsieme degli esperti per generare ciascun token. L'infrastruttura deve comunque gestire un modello complessivo nell'ordine del trilione di parametri: il dato sugli esperti attivi non equivale al footprint di un modello denso da 49 o 52 miliardi.",
+            "Mistral dichiara supporto multilingue su oltre 160 lingue. La model card indica una finestra di contesto fino a 1 milione di token, mentre [Artificial Analysis](https://artificialanalysis.ai/models/mistral-large-4) rileva circa 524.000 token per la configurazione API valutata. La dimensione effettivamente disponibile dipende dall'endpoint e va controllata prima di progettare applicazioni a contesto lungo."
+          ]
+        },
+        {
+          "label": "03 / Prestazioni",
+          "title": "I risultati migliori riguardano alcuni workload, non l'intera classifica dei modelli.",
+          "paragraphs": [
+            "Nel [materiale di lancio](https://mistral.ai/news/mistral-large-4/) Mistral riporta il 61,7% su DeepSWE v1.1, il 28,3% su Terminal-Bench 4.0 e il 59,9% su AutomationBench, relativo a workflow che coinvolgono più applicazioni. Su Cybench dichiara di risolvere il 93% delle prove. Sono numeri presentati dal produttore: harness, configurazioni e condizioni di confronto vanno esaminati prima di trasferirli a una valutazione aziendale.",
+            "Nella [valutazione indipendente di Artificial Analysis](https://artificialanalysis.ai/articles/mistral-large-4-france-ai), la preview ottiene 38 punti nell'Intelligence Index e 50 nel Cyber Index. La stessa fonte segnala però anche un costo per task: 1,13 dollari con il listino standard nel proprio Intelligence Index, contro 0,25 dollari per GLM-5.3-Flash e 0,27 per DeepSeek V4.1 Flash, modelli con punteggi vicini. Lo sconto iniziale dimezza temporaneamente il costo di ML4 a 0,57 dollari per task. Si tratta di misure su quel benchmark, non di una stima generale per ogni workload.",
+            "Nel confronto vanno considerate anche le policy dei modelli: in alcuni test di cybersecurity un modello può rifiutare l'operazione richiesta. [Mistral](https://mistral.ai/news/mistral-large-4/) sottolinea proprio questo aspetto e sta conducendo test con partner di cybersecurity e autorità selezionate. Le metriche misurano sia capacità tecniche sia comportamento del sistema in uno specifico ambiente di valutazione."
+          ]
+        },
+        {
+          "label": "04 / Infrastruttura europea",
+          "title": "L'addestramento europeo è documentato; l'autonomia operativa dipenderà anche dai pesi e dal deployment.",
+          "paragraphs": [
+            "Secondo [Mistral](https://mistral.ai/news/mistral-large-4/), ML4 è stato addestrato da zero usando 3.800 GPU NVIDIA Grace Blackwell nei data center europei dell'azienda. Anche la preview è servita dalla stessa infrastruttura. Si tratta di una scelta industriale concreta: training e inferenza non dipendono, per questa versione, dall'accesso a un servizio API statunitense.",
+            "Per un'impresa, però, «sovranità AI» può indicare cose diverse: dove transitano i dati, chi gestisce l'inferenza, chi controlla i log, chi può interrompere il servizio, e se sia possibile spostare il modello. L'arrivo dei pesi aggiungerebbe un'opzione di deployment autonomo, ma non renderebbe automaticamente semplice eseguire un MoE di queste dimensioni su hardware aziendale.",
+            "Abbiamo affrontato lo stesso confine operativo nella nota su [AI on-premise e cloud](https://empv.it/it/research-notes/ai-on-premise-vs-cloud-quando-conviene/): il luogo di esecuzione è una scelta che discende dai dati, dai vincoli di integrazione e dalla capacità di gestire il sistema."
+          ]
+        },
+        {
+          "label": "05 / Adozione aziendale",
+          "title": "Il test più utile riguarda un processo intero, non una risposta isolata.",
+          "paragraphs": [
+            "Le capacità dichiarate per documenti, immagini, uso di strumenti e ragionamento possono essere interessanti in workflow come analisi di documentazione tecnica, supporto a incident response o preparazione di dossier a partire da fonti eterogenee. Ma il modello è solo uno dei componenti: permessi, ricerca delle fonti, API, revisione umana e controllo delle azioni restano fuori dal checkpoint.",
+            "Un test riproducibile dovrebbe usare documenti e task del proprio dominio, definire in anticipo che cosa significa completare il lavoro, registrare errori e interventi umani, e misurare costo e latenza end-to-end. È il criterio già descritto nella nostra nota su [come valutare un LLM locale prima della produzione](https://empv.it/it/research-notes/valutare-llm-locale-prima-produzione/).",
+            "Per esempio, in un flusso di analisi di documenti industriali non basta che ML4 descriva correttamente un disegno. Bisogna controllare se identifica la revisione giusta, cita il documento di origine, evita informazioni non autorizzate e segnala quando un dettaglio non è leggibile."
+          ]
+        },
+        {
+          "label": "06 / Le verifiche aperte",
+          "title": "La versione scaricabile dovrà chiarire licenza, requisiti e riproducibilità dei test.",
+          "paragraphs": [
+            "Mistral ha annunciato che pubblicherà insieme ai pesi ulteriori informazioni su architettura, benchmark e post-training. Alla data di questa nota, i dettagli definitivi della licenza e il comportamento di una configurazione self-hosted non possono ancora essere valutati sul checkpoint pubblico, perché quel checkpoint non è stato rilasciato.",
+            "Il prossimo passaggio utile è quindi verificare il rilascio effettivo, i requisiti di memoria e acceleratori, il supporto dei runtime, le condizioni di licenza e la distanza fra prestazioni della preview API e deployment autonomo. La [valutazione preliminare di Artificial Analysis](https://artificialanalysis.ai/models/mistral-large-4) è un riferimento per l'API di oggi, non una garanzia per qualunque implementazione futura.",
+            "ML4 mostra che un laboratorio europeo può progettare, addestrare e servire un modello di questa scala sulla propria infrastruttura. Quanto di questo controllo possa essere trasferito alle aziende diventerà più chiaro solo dopo il rilascio dei pesi."
+          ]
+        }
+      ],
+      "en": [
+        {
+          "label": "01 / The announcement",
+          "title": "For now, it is an API preview. The weights cannot yet be downloaded.",
+          "paragraphs": [
+            "On [October 6, 2026](https://mistral.ai/news/mistral-large-4/), Mistral unveiled Mistral Large 4 (ML4), informally nicknamed “Le Chonk”, and opened a public preview through Mistral Studio. It is the French company's largest model yet, aimed at coding, agentic workflows and multimodal analysis.",
+            "Availability matters: as of October 9, developers can use the [preview API](https://docs.mistral.ai/models/mistral-large-4-0), while [Mistral](https://mistral.ai/news/mistral-large-4/) says weights are due at the end of October. It would be premature to describe ML4 as already downloadable for production deployment."
+          ]
+        },
+        {
+          "label": "02 / Architecture",
+          "title": "One trillion total parameters does not mean activating them all for each token.",
+          "paragraphs": [
+            "The [technical documentation](https://docs.mistral.ai/models/mistral-large-4-0) describes a multimodal *granular Mixture-of-Experts* (MoE) model with around 1.05 trillion total parameters and a 1.6-billion-parameter vision encoder. Mistral's model page lists 52 billion active parameters, while [Artificial Analysis](https://artificialanalysis.ai/articles/mistral-large-4-france-ai) reports 49 billion. Both figures appear in public launch materials; until final architecture details arrive, they should not be treated as directly interchangeable.",
+            "MoE routing activates only a subset of experts for each generated token. Infrastructure still needs to host a model with roughly a trillion total parameters: the active-parameter count is not the memory footprint of a conventional dense 49- or 52-billion-parameter model.",
+            "Mistral says the training covers more than 160 languages. Its model page advertises a context window of up to one million tokens, while [Artificial Analysis](https://artificialanalysis.ai/models/mistral-large-4) lists approximately 524,000 tokens for the API configuration it evaluated. Effective limits depend on the endpoint and should be checked before building a long-context application."
+          ]
+        },
+        {
+          "label": "03 / Performance",
+          "title": "The strongest results concern specific workloads, not every model benchmark.",
+          "paragraphs": [
+            "In its [launch announcement](https://mistral.ai/news/mistral-large-4/), Mistral reports 61.7% on DeepSWE v1.1, 28.3% on Terminal-Bench 4.0 and 59.9% on AutomationBench, which measures multi-application workflows. It also reports solving 93% of Cybench challenges. These are vendor-presented results: harnesses, settings and comparison conditions matter before applying them to an enterprise evaluation.",
+            "In [Artificial Analysis's independent evaluation](https://artificialanalysis.ai/articles/mistral-large-4-france-ai), the preview scores 38 on its Intelligence Index and 50 on its Cyber Index. The same source also highlights cost per task: $1.13 at standard API rates on its Intelligence Index, against $0.25 for GLM-5.3-Flash and $0.27 for DeepSeek V4.1 Flash, which have nearby intelligence scores. A temporary launch discount halves the ML4 figure to $0.57 per task. These are benchmark-specific costs, not estimates for all workloads.",
+            "Model policy also affects some cybersecurity tests: a model can refuse the requested action. [Mistral](https://mistral.ai/news/mistral-large-4/) highlights this constraint and is red-teaming ML4 with selected cybersecurity partners and government authorities. Benchmark scores reflect both technical capability and system behavior in a particular evaluation environment."
+          ]
+        },
+        {
+          "label": "04 / European infrastructure",
+          "title": "European training is documented. Operational autonomy depends on weights and deployment.",
+          "paragraphs": [
+            "According to [Mistral](https://mistral.ai/news/mistral-large-4/), ML4 was trained from scratch on 3,800 NVIDIA Grace Blackwell GPUs in the company's European data centers. The public preview is served from that same infrastructure. This is a concrete infrastructure decision: for this version, model training and inference do not depend on consuming a US vendor's model API.",
+            "For an enterprise, however, “AI sovereignty” can refer to different boundaries: data location, inference operations, log custody, service continuity and portability. Releasing the weights would introduce a self-deployment option, but it would not make a model of this size straightforward to run on ordinary enterprise hardware.",
+            "The same decision boundary appears in our note on [on-premise versus cloud AI](https://empv.it/en/research-notes/on-premise-vs-cloud-when-it-makes-sense/): deployment location should follow data requirements, integration constraints and the team's ability to operate the system."
+          ]
+        },
+        {
+          "label": "05 / Enterprise evaluation",
+          "title": "A useful test covers an entire workflow, not an isolated answer.",
+          "paragraphs": [
+            "Mistral's claimed capabilities across documents, images, tools and reasoning could be relevant to technical-document analysis, incident response support or preparing dossiers from mixed sources. The model is only one component, though: authorization, retrieval, APIs, human review and action controls sit outside its checkpoint.",
+            "A reproducible trial should use domain-specific documents and tasks, define successful completion in advance, log failures and human interventions, and measure end-to-end cost and latency. We outlined this approach in our note on [evaluating a local LLM before production](https://empv.it/en/research-notes/evaluating-local-llms-before-production/).",
+            "For example, when analysing industrial documents, correctly describing an engineering drawing is not enough. The system must identify the right revision, cite its source, avoid exposing unauthorized information and flag details that cannot be read reliably."
+          ]
+        },
+        {
+          "label": "06 / What is not yet established",
+          "title": "Downloadable weights still need to clarify licensing, deployment requirements and reproducibility.",
+          "paragraphs": [
+            "Mistral says it will publish more architecture details, benchmark results and post-training information with the weights. At the date of this note, final license terms and self-hosted behavior cannot be evaluated against a public checkpoint because that checkpoint has not been released.",
+            "The next meaningful checks are whether the weights arrive, how much accelerator memory they require, which runtimes support them, what license applies and how self-hosted performance compares with the preview API. [Artificial Analysis's early evaluation](https://artificialanalysis.ai/models/mistral-large-4) describes the current API, not every possible future deployment.",
+            "ML4 demonstrates that a European lab can design, train and serve a model at this scale on its own infrastructure. The degree to which enterprises can inherit that control will be clearer after the weights are released."
+          ]
+        }
+      ]
+    },
+    "takeaway": {
+      "it": "Mistral Large 4 è un risultato industriale europeo significativo, oggi accessibile in preview API. Le prove mostrano punti di forza nel cyber, ma costi, requisiti e autonomia di un deployment privato andranno verificati dopo il rilascio dei pesi.",
+      "en": "Mistral Large 4 is a significant European infrastructure milestone, available today through an API preview. Cyber results stand out, but private-deployment cost, hardware needs and autonomy still need testing after the weights ship."
+    },
+    "socialVersion": "20261009a"
+  },
+
   {
     "id": "embeddinggemma-2",
     "index": "009",
