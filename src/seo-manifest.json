@@ -267,6 +267,16 @@
           "title": "EmbeddingGemma 2 brings multimodal retrieval on-device | EMPV",
           "description": "EmbeddingGemma 2 maps text, code, images, video and audio into one local vector space. Architecture, memory, Matryoshka, benchmarks and embedding lock-in."
         }
+      },
+      "mistral-large-4": {
+        "it": {
+          "title": "Mistral Large 4: il modello europeo da un trilione di parametri | EMPV",
+          "description": "Architettura MoE, 1,05 trilioni di parametri, benchmark indipendenti e costi della preview. Il rilascio dei pesi open-weight è previsto a fine ottobre 2026."
+        },
+        "en": {
+          "title": "Mistral Large 4: a trillion-parameter European model in preview | EMPV",
+          "description": "MoE architecture, 1.05T parameters, independent benchmarks and API costs. Open weights are expected by the end of October 2026."
+        }
       }
     }
   }
