@@ -98,6 +98,35 @@ function cardVisual(noteId) {
         <circle cx="350" cy="238" r="7" fill="${orange}" stroke="none"/>
       </g>`;
   }
+  if (noteId === "mistral-large-4") {
+    // Schematic selective expert routing (not literal expert counts).
+    const lit = new Set(["0-1", "0-6", "1-0", "1-3", "2-4", "2-8", "3-2", "3-6", "4-1", "4-7", "5-3", "5-5"]);
+    const tiles = Array.from({ length: 6 }, (_, r) =>
+      Array.from({ length: 9 }, (_, c) => {
+        const active = lit.has(r + "-" + c);
+        const x = c * 29;
+        const y = r * 29;
+        return '<rect x="' + x + '" y="' + y + '" width="21" height="21" rx="4" fill="' +
+          (active ? orange : (r + c) % 4 === 0 ? "#252521" : "none") +
+          '" fill-opacity="' + (active ? "1" : "0.84") + '" stroke="' +
+          (active ? orange : faint) + '" stroke-width="1.5"/>';
+      }).join("")
+    ).join("");
+    return `
+      <g transform="translate(842 183)">
+        <text x="0" y="0" fill="#171715" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700" letter-spacing="2">MIXTURE OF EXPERTS</text>
+        <line x1="0" y1="17" x2="265" y2="17" stroke="${faint}" stroke-width="1"/>
+        <g transform="translate(2 38)">
+          ${tiles}
+        </g>
+        <path d="M20 241 H112 M160 241 H257" stroke="${faint}" stroke-width="1.5"/>
+        <circle cx="135" cy="241" r="7" fill="${orange}"/>
+        <text x="1" y="279" fill="#171715" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">1.05T</text>
+        <text x="2" y="298" fill="#77746e" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2">TOTAL</text>
+        <text x="175" y="279" fill="#171715" font-family="Arial, Helvetica, sans-serif" font-size="26" font-weight="700">52B</text>
+        <text x="176" y="298" fill="#77746e" font-family="Arial, Helvetica, sans-serif" font-size="11" font-weight="700" letter-spacing="1.2">ACTIVE</text>
+      </g>`;
+  }
   if (noteId === "embeddinggemma-2") {
     return `
       <g transform="translate(812 108)" fill="none" stroke-linecap="round" stroke-linejoin="round">
