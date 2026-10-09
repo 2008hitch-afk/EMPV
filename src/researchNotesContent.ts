@@ -181,7 +181,7 @@ export const researchNotes: ResearchNote[] = [
       "en": "Mistral Large 4 is a significant European infrastructure milestone, available today through an API preview. Cyber results stand out, but private-deployment cost, hardware needs and autonomy still need testing after the weights ship."
     },
     "socialVersion": "20261009a"
-  },,
+  },
 
   {
     "id": "embeddinggemma-2",
