@@ -10,7 +10,7 @@ export default function ContactPrompt({
   placement,
 }: {
   lang: SiteLang;
-  placement: "projects_index" | "project_detail";
+  placement: "home_projects" | "projects_index" | "project_detail";
 }) {
   const isIt = lang === "it";
   const emailSubject = isIt
