@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { ArrowLeft, ArrowUpRight, Check, Copy, Languages, Share2 } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import SiteFooter from "./SiteFooter";
+import ProcessContextLink from "./ProcessContextLink";
 import { trackAnalyticsEvent } from "./analytics";
 import { getResearchNoteById, researchNotes } from "./researchNotesContent";
 import { siteHref } from "./seo";
@@ -426,6 +427,10 @@ function ResearchNoteArticle({ lang, noteId }: { lang: SiteLang; noteId: string 
           <div className="section-code">EMPV / TAKEAWAY</div>
           <p>{note.takeaway[lang]}</p>
         </section>
+
+        {(noteId === "quote-intake" || noteId === "email-to-order") && (
+          <ProcessContextLink lang={lang} source="note" />
+        )}
 
         <ResearchNoteShare
           lang={lang}
