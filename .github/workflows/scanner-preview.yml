@@ -1,0 +1,127 @@
+name: Scanner mobile visual and performance preview
+
+on:
+  pull_request:
+    paths:
+      - "src/backgrounds/**"
+      - ".github/workflows/scanner-preview.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install site dependencies
+        run: npm install --no-audit --no-fund
+      - name: Build production-equivalent preview
+        env:
+          VITE_SITE_ORIGIN: "https://empv.it"
+          VITE_SITE_BASE_PATH: ""
+          VITE_ENABLE_BACKGROUND_LAB: "false"
+        run: |
+          npx tsc -b
+          npx vite build --base=/
+          node scripts/seo-build.mjs
+      - name: Install browser tooling
+        run: |
+          npm install --no-save --no-audit --no-fund playwright@1.55.1 lighthouse@12.8.2
+          npx playwright install chromium
+      - name: Start preview server
+        run: |
+          npx vite preview --host 127.0.0.1 --port 4173 --strictPort > /tmp/preview-server.log 2>&1 &
+          for attempt in $(seq 1 50); do
+            if curl --fail --silent http://127.0.0.1:4173/it/ >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/preview-server.log
+          exit 1
+      - name: Capture original and lite previews
+        run: |
+          mkdir -p artifacts
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import { chromium } from 'playwright';
+
+          const browser = await chromium.launch({ headless: true, args: ['--no-sandbox', '--enable-webgl', '--use-gl=angle', '--use-angle=swiftshader'] });
+          const results = [];
+          for (const entry of [
+            { name: 'mobile-lite', url: 'http://127.0.0.1:4173/it/' , width: 390, height: 844, mobile: true },
+            { name: 'mobile-full', url: 'http://127.0.0.1:4173/it/?scanner=full', width: 390, height: 844, mobile: true },
+            { name: 'desktop-full', url: 'http://127.0.0.1:4173/it/', width: 1440, height: 900, mobile: false },
+          ]) {
+            const context = await browser.newContext({ viewport: { width: entry.width, height: entry.height }, deviceScaleFactor: 1, isMobile: entry.mobile, hasTouch: entry.mobile, reducedMotion: 'no-preference' });
+            const page = await context.newPage();
+            const exceptions = [];
+            page.on('pageerror', error => exceptions.push(error.message));
+            await page.goto(entry.url, { waitUntil: 'networkidle', timeout: 60000 });
+            await page.evaluate(async () => document.fonts.ready);
+            await page.waitForTimeout(1600);
+            const snapshot = await page.evaluate(() => ({
+              title: document.title,
+              innerWidth: window.innerWidth,
+              scannerLiteNodes: document.querySelectorAll('.scanner-mobile-lite').length,
+              canvasNodes: document.querySelectorAll('.scanner-container canvas').length,
+              pageScrollWidth: document.documentElement.scrollWidth,
+              pageClientWidth: document.documentElement.clientWidth,
+              heroHeading: document.querySelector('h1')?.innerText || '',
+            }));
+            await page.screenshot({ path: 'artifacts/' + entry.name + '.png', fullPage: false });
+            results.push({ name: entry.name, ...snapshot, exceptions });
+            await context.close();
+          }
+          fs.writeFileSync('artifacts/screenshots-validation.json', JSON.stringify(results, null, 2));
+          console.log(JSON.stringify(results, null, 2));
+          await browser.close();
+          if (results.some(x => x.exceptions.length || x.pageScrollWidth > x.pageClientWidth)) process.exit(1);
+          if (results[0].scannerLiteNodes !== 1 || results[0].canvasNodes !== 0) process.exit(1);
+          if (results[1].scannerLiteNodes !== 0 || results[1].canvasNodes !== 1) process.exit(1);
+          if (results[2].scannerLiteNodes !== 0 || results[2].canvasNodes !== 1) process.exit(1);
+          NODE
+      - name: Lighthouse performance check (mobile, 2 runs each)
+        continue-on-error: true
+        run: |
+          for variant in lite full; do
+            if [ "$variant" = full ]; then suffix='?scanner=full'; else suffix=''; fi
+            for iteration in 1 2; do
+              npx lighthouse "http://127.0.0.1:4173/it/$suffix" \
+                --only-categories=performance \
+                --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage --enable-webgl --use-gl=angle --use-angle=swiftshader" \
+                --output=json \
+                --output-path="artifacts/lighthouse-${variant}-${iteration}.json" \
+                --quiet
+            done
+          done
+      - name: Summarize lighthouse
+        if: always()
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          const rows=[];
+          for(const variant of ['lite','full']){
+            for(const run of [1,2]){
+              const path = 'artifacts/lighthouse-' + variant + '-' + run + '.json';
+              if(!fs.existsSync(path)) continue;
+              const j=JSON.parse(fs.readFileSync(path, 'utf8'));
+              const a=j.audits;
+              rows.push({variant,run,score: Math.round(j.categories.performance.score*100),fcp: a['first-contentful-paint']?.numericValue,lcp:a['largest-contentful-paint']?.numericValue,tbt:a['total-blocking-time']?.numericValue,cls:a['cumulative-layout-shift']?.numericValue});
+            }
+          }
+          fs.writeFileSync('artifacts/lighthouse-summary.json', JSON.stringify(rows,null,2));
+          console.log(JSON.stringify(rows, null, 2));
+          NODE
+      - name: Upload screenshot and Lighthouse comparison
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scanner-mobile-comparison
+          path: artifacts/
+          retention-days: 14
