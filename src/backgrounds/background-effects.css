@@ -118,3 +118,85 @@
     transform: scale(1.035);
   }
 }
+
+
+/*
+ * Scanner Lite (narrow screens).
+ * A palette-aware scan field that stays on screen without starting OGL/WebGL.
+ * Only translate/opacity are animated; no continuous JS or shader compilation.
+ * The full Scanner implementation remains unchanged on desktop.
+ */
+.scanner-mobile-lite {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 88% 72% at 50% 44%,
+      color-mix(in srgb, var(--scanner-lite-mid) 10%, transparent),
+      transparent 72%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 12px,
+      color-mix(in srgb, var(--scanner-lite-dark) 8%, transparent) 12px 13px,
+      transparent 13px 32px
+    );
+}
+
+.scanner-mobile-lite::before,
+.scanner-mobile-lite::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.scanner-mobile-lite::before {
+  inset: -18% -16%;
+  background:
+    repeating-linear-gradient(
+      3deg,
+      transparent 0 15px,
+      color-mix(in srgb, var(--scanner-lite-mid) 30%, transparent) 15px 16px,
+      transparent 16px 39px
+    ),
+    repeating-linear-gradient(
+      -7deg,
+      transparent 0 37px,
+      color-mix(in srgb, var(--scanner-lite-light) 19%, transparent) 37px 38px,
+      transparent 38px 59px
+    );
+  opacity: 0.65;
+  -webkit-mask-image: radial-gradient(ellipse 78% 72% at 52% 44%, black 16%, transparent 94%);
+  mask-image: radial-gradient(ellipse 78% 72% at 52% 44%, black 16%, transparent 94%);
+}
+
+.scanner-mobile-lite::after {
+  inset: -22% -15%;
+  background: radial-gradient(
+    ellipse 66% 19% at 50% 43%,
+    color-mix(in srgb, var(--scanner-lite-light) 42%, transparent),
+    color-mix(in srgb, var(--scanner-lite-mid) 12%, transparent) 40%,
+    transparent 72%
+  );
+  opacity: 0.5;
+  transform: translate3d(0, -22%, 0) rotate(3deg);
+  animation: scanner-mobile-sweep 14s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes scanner-mobile-sweep {
+  from { transform: translate3d(0, -22%, 0) rotate(3deg); }
+  to { transform: translate3d(0, 22%, 0) rotate(3deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scanner-mobile-lite::after {
+    animation: none;
+    transform: none;
+    will-change: auto;
+  }
+}
