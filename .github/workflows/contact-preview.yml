@@ -78,7 +78,15 @@ jobs:
               };
             });
             await page.screenshot({path:'artifacts/'+variant.label+'.png',fullPage:false});
-            if(variant.label.includes('home'))await page.locator('.hero-contact-link').screenshot({path:'artifacts/'+variant.label+'-cta.png'});
+            await page.locator('.empv-cookie-consent-actions button').first().click();
+            if(variant.hero) {
+              const heroCta=page.locator('.hero-contact-link');
+              await heroCta.scrollIntoViewIfNeeded();
+              await heroCta.screenshot({path:'artifacts/'+variant.label+'-cta.png'});
+            }
+            if(variant.prompt) {
+              await page.locator('.contact-prompt').screenshot({path:'artifacts/'+variant.label+'-prompt.png'});
+            }
             results.push({...variant,expectedHero:variant.hero,expectedPrompt:variant.prompt,...state,errors});
             await context.close();
           }
