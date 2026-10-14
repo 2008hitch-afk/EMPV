@@ -35,7 +35,7 @@ jobs:
           npx playwright install chromium
       - name: Start preview server
         run: |
-          npx vite preview --host 127.0.0.1 --port 4173 --strictPort > /tmp/preview-server.log 2>&1 &
+          npx vite preview --base=/ --host 127.0.0.1 --port 4173 --strictPort > /tmp/preview-server.log 2>&1 &
           for attempt in $(seq 1 50); do
             if curl --fail --silent http://127.0.0.1:4173/it/ >/dev/null; then
               exit 0
