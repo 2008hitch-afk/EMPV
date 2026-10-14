@@ -11,6 +11,16 @@
       "description": "EMPV designs software, automation, AI systems and internal tools around business workflows, tools and operating constraints."
     }
   },
+  "processPage": {
+    "it": {
+      "title": "Automazione processi aziendali a Bergamo | EMPV",
+      "description": "Dalle richieste via email alla gestione commesse: come EMPV mappa i passaggi di lavoro, integra gli strumenti esistenti e automatizza dove serve."
+    },
+    "en": {
+      "title": "Business process automation in Bergamo | EMPV",
+      "description": "From email requests to job tracking: how EMPV maps workflows, integrates existing software and automates the steps that benefit from it."
+    }
+  },
   "sections": {
     "projects": {
       "it": {
