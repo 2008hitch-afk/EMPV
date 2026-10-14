@@ -1,0 +1,100 @@
+name: Mobile Scanner visual regression (temporary)
+
+on:
+  pull_request:
+    paths:
+      - "src/backgrounds/**"
+      - ".github/workflows/mobile-scanner-smoke.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm install --no-audit --no-fund
+      - name: Build production preview
+        env:
+          VITE_SITE_ORIGIN: https://empv.it
+          VITE_SITE_BASE_PATH: ""
+          VITE_ENABLE_BACKGROUND_LAB: "false"
+        run: |
+          npx tsc -b
+          npx vite build --base=/
+          node scripts/seo-build.mjs
+      - name: Install browser for smoke testing
+        run: |
+          npm install --no-save --no-audit --no-fund playwright@1.55.1
+          npx playwright install chromium
+      - name: Start preview
+        run: |
+          npx vite preview --base=/ --host 127.0.0.1 --port 4173 --strictPort > /tmp/preview.log 2>&1 &
+          for attempt in $(seq 1 50); do
+            if curl -fsS http://127.0.0.1:4173/it/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/preview.log
+          exit 1
+      - name: Assert mobile layers and capture preview
+        run: |
+          mkdir -p artifacts
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import { chromium } from 'playwright';
+
+          const browser=await chromium.launch({headless:true,args:['--no-sandbox','--enable-webgl','--use-gl=angle','--use-angle=swiftshader']});
+          const samples=[];
+          for (const test of [
+            {name:'mobile',width:390,height:844,mobile:true,reducedMotion:'no-preference'},
+            {name:'mobile-reduced',width:390,height:844,mobile:true,reducedMotion:'reduce'},
+            {name:'desktop',width:1440,height:900,mobile:false,reducedMotion:'no-preference'}
+          ]) {
+            const context=await browser.newContext({viewport:{width:test.width,height:test.height},isMobile:test.mobile,hasTouch:test.mobile,reducedMotion:test.reducedMotion});
+            const page=await context.newPage();
+            const errors=[];
+            page.on('pageerror',err=>errors.push(err.message));
+            await page.goto('http://127.0.0.1:4173/it/',{waitUntil:'networkidle',timeout:60000});
+            await page.waitForTimeout(750);
+            const data=await page.evaluate(()=>{
+              const lite=document.querySelector('.scanner-mobile-lite');
+              const main=lite?getComputedStyle(lite):null;
+              const before=lite?getComputedStyle(lite,'::before'):null;
+              const after=lite?getComputedStyle(lite,'::after'):null;
+              return {
+                liteNodes:document.querySelectorAll('.scanner-mobile-lite').length,
+                webglCanvas:document.querySelectorAll('.scanner-container canvas').length,
+                pseudoBeforeContent:before?.content||null,
+                pseudoAfterContent:after?.content||null,
+                pseudoAfterAnimation:after?.animationName||null,
+                pseudoAfterBg:after?.backgroundImage||null,
+                pseudoAfterPosition:after?.position||null,
+                layerOpacity:main?.opacity||null,
+                horizontalOverflow:document.documentElement.scrollWidth>document.documentElement.clientWidth
+              };
+            });
+            await page.screenshot({path:'artifacts/'+test.name+'.png'});
+            samples.push({...test,...data,errors});
+            await context.close();
+          }
+          await browser.close();
+          console.log(JSON.stringify(samples,null,2));
+          fs.writeFileSync('artifacts/summary.json',JSON.stringify(samples,null,2));
+          if(samples.some(s=>s.errors.length||s.horizontalOverflow)) process.exit(1);
+          if(samples[0].liteNodes!==1||samples[0].webglCanvas!==0||samples[0].pseudoBeforeContent==='none'||samples[0].pseudoAfterContent==='none'||samples[0].pseudoAfterPosition!=='absolute') process.exit(1);
+          if(samples[0].pseudoAfterAnimation!=='scanner-mobile-sweep') process.exit(1);
+          if(samples[1].pseudoAfterAnimation!=='none') process.exit(1);
+          if(samples[2].liteNodes!==0||samples[2].webglCanvas!==1) process.exit(1);
+          NODE
+      - name: Upload mobile screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: scanner-mobile-fixed-preview
+          path: artifacts/
+          retention-days: 7
