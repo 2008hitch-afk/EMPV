@@ -20,6 +20,7 @@ import BackgroundEffect, {
   type GalaxyPalette,
 } from "./backgrounds/BackgroundEffect";
 import ProjectDetail from "./ProjectDetail";
+import ProcessPage from "./processPage";
 import LegalPage from "./LegalPage";
 import ResearchNotes from "./ResearchNotes";
 import SectionIndex from "./SectionIndex";
@@ -879,6 +880,8 @@ function App() {
     page = <LegalPage slug={route.slug} initialLang={initialLang} />;
   } else if (route.kind === "detail") {
     page = <ProjectDetail slug={route.slug} initialLang={initialLang} />;
+  } else if (route.kind === "processPage") {
+    page = <ProcessPage lang={route.lang} />;
   } else if (route.kind === "sectionIndex") {
     page = <SectionIndex section={route.section} initialLang={initialLang} />;
   } else if (route.kind === "notesIndex") {

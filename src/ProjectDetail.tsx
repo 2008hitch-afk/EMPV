@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { getDetail, type SiteLang } from "./detailContent";
 import SiteFooter from "./SiteFooter";
 import ContactPrompt from "./ContactPrompt";
+import ProcessContextLink from "./ProcessContextLink";
 import { siteHref } from "./seo";
 
 type DetailPageProps = {
@@ -188,6 +189,7 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
           </section>
         )}
 
+        {detail.type === "project" && slug === "commesse-posa" && <ProcessContextLink lang={lang} source="project" />}
         {detail.type === "project" && <ContactPrompt lang={lang} placement="project_detail" />}
 
         <section className="detail-end section-pad">

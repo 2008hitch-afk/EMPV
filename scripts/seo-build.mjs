@@ -26,6 +26,7 @@ async function loadTypeScriptModule(relativePath) {
 const homeContent = await loadTypeScriptModule("../src/homeContent.ts");
 const detailContent = await loadTypeScriptModule("../src/detailContent.ts");
 const researchContent = await loadTypeScriptModule("../src/researchNotesContent.ts");
+const processContent = await loadTypeScriptModule("../src/processPageContent.ts");
 const businessCardContent = await loadTypeScriptModule("../src/businessCardData.ts");
 const copy = homeContent.copy;
 const selected = homeContent.selected;
@@ -33,6 +34,7 @@ const faqs = homeContent.faqs;
 const labs = homeContent.labs;
 const getDetail = detailContent.getDetail;
 const researchNotes = researchContent.researchNotes;
+const processPageContent = processContent.processPageContent;
 const getResearchNoteById = researchContent.getResearchNoteById;
 const businessCards = businessCardContent.businessCards;
 
@@ -400,6 +402,7 @@ function routePath(route) {
     return "/" + route.lang + "/" + segment + "/";
   }
   if (route.kind === "notesIndex") return "/" + route.lang + "/research-notes/";
+  if (route.kind === "processPage") return route.lang === "it" ? "/it/automazione-processi-aziendali/" : "/en/business-process-automation/";
   if (route.kind === "note") {
     const note = getResearchNoteById(route.noteId);
     const slug = note ? note.slugs[route.lang] : route.noteId;
@@ -434,6 +437,8 @@ const copyFor = route => route.kind === "home"
       ? manifest.sections[route.section][route.lang]
     : route.kind === "notesIndex"
       ? manifest.researchNotes.index[route.lang]
+      : route.kind === "processPage"
+        ? manifest.processPage[route.lang]
       : route.kind === "note"
         ? manifest.researchNotes.notes[route.noteId][route.lang]
         : manifest.legal[route.slug][route.lang];
@@ -464,6 +469,17 @@ const inlineMarkup = value => {
 const jsonForHtml = value => JSON.stringify(value).replaceAll("<", "\\u003c");
 const withBase = path => (basePath + path).replace(/\/+/g, "/") || "/";
 const hrefFor = route => withBase(routePath(route));
+
+
+function processContextMarkup(lang, source) {
+  const isIt = lang === "it";
+  const label = isIt ? "Un passo in più" : "A broader view";
+  const lead = source === "project"
+    ? (isIt ? "La continuità tra sopralluogo, ufficio e produzione è un esempio di un problema più ampio." : "Continuity between fieldwork, office and workshop is one example of a broader workflow problem.")
+    : (isIt ? "Quando questo passaggio coinvolge più strumenti e persone, il singolo automatismo non basta sempre." : "When this step involves multiple tools and people, a single automation is not always enough.");
+  const anchor = isIt ? "Come affrontiamo l'automazione dei processi aziendali" : "How we approach business process automation";
+  return '<aside class="process-context-link section-pad" aria-label="' + esc(label) + '"><span class="section-code">EMPV / ' + esc(label) + '</span><p>' + esc(lead) + ' <a href="' + esc(hrefFor({ kind: "processPage", lang })) + '">' + esc(anchor) + ' →</a></p></aside>';
+}
 
 function adaptAssets(html, path) {
   const depth = path.split("/").filter(Boolean).length;
@@ -597,6 +613,7 @@ function detailMarkup(route) {
     comparison,
     '<section class="detail-blocks section-pad">', blocks, '</section>',
     detail.boundary ? '<section class="detail-boundary section-pad"><div class="section-code">EMPV / NOTE</div><p>' + esc(detail.boundary) + '</p></section>' : "",
+    (detail.type === "project" && route.slug === "commesse-posa") ? processContextMarkup(route.lang, "project") : "",
     '<section class="detail-end section-pad"><a href="', esc(backHref), '"><span>', esc(backLabel), '</span></a></section>',
     '</main></div>'
   ].join("");
@@ -748,8 +765,58 @@ function noteMarkup(route) {
     '</div></section>',
     '<section class="detail-blocks section-pad research-note-blocks">', blocks, '</section>',
     '<section class="detail-boundary section-pad research-note-takeaway"><div class="section-code">EMPV / TAKEAWAY</div><p>', esc(note.takeaway[lang]), '</p></section>',
+    (note.id === "quote-intake" || note.id === "email-to-order") ? processContextMarkup(lang, "note") : "",
     shareMarkup(route, note),
     '<section class="detail-end section-pad"><a href="', esc(hrefFor({ kind: "notesIndex", lang })), '"><span>Research Notes</span></a></section>',
+    '</main></div>'
+  ].join("");
+}
+
+
+function processPageMarkup(route) {
+  const lang = route.lang;
+  const isIt = lang === "it";
+  const c = processPageContent[lang];
+  const otherLang = isIt ? "en" : "it";
+  const notesHref = hrefFor({ kind: "notesIndex", lang });
+  const emailSubject = isIt ? "EMPV — Parliamo di un processo aziendale" : "EMPV — Let's discuss a business workflow";
+  const emailHref = "mailto:hello@empv.it?subject=" + encodeURIComponent(emailSubject);
+  const blocks = c.sections.map(section =>
+    '<article class="detail-block research-note-block"><div class="eyebrow">' + esc(section.label) +
+    '</div><div class="detail-block-main"><h2>' + esc(section.title) + '</h2><div class="research-note-copy">' +
+    section.paragraphs.map(p => '<p>' + esc(p) + '</p>').join("") + '</div>' +
+    (section.bullets ? '<ul>' + section.bullets.map(item => '<li>' + esc(item) + '</li>').join("") + '</ul>' : "") +
+    '</div></article>'
+  ).join("");
+  const related = c.resources.map(item => {
+    const href = item.kind === "note"
+      ? hrefFor({ kind: "note", lang, noteId: item.id })
+      : hrefFor({ kind: "detail", lang, detailKind: "project", slug: item.id });
+    return '<a class="process-related-item" href="' + esc(href) + '"><span><strong>' + esc(item.title) + '</strong><small>' + esc(item.description) + '</small></span><span aria-hidden="true">↗</span></a>';
+  }).join("");
+  return [
+    '<div class="detail-shell process-page" data-prerendered="true">',
+    '<header class="topbar detail-topbar">',
+    '<a class="wordmark" href="', esc(hrefFor({ kind: "home", lang })), '" aria-label="EMPV home">EMPV</a>',
+    '<a class="detail-nav-back" href="', esc(notesHref), '">Research Notes</a>',
+    '<a class="lang-switch" href="', esc(hrefFor({ kind: "processPage", lang: otherLang })), '" hreflang="', otherLang, '">', otherLang.toUpperCase(), '</a>',
+    '</header><main>',
+    '<section class="detail-hero process-hero"><div class="detail-hero-inner">',
+    '<div class="detail-kicker-row"><span class="eyebrow">EMPV / ', isIt ? "Processi aziendali" : "Business workflows", '</span><span class="detail-index">EMPV / BERGAMO</span></div>',
+    '<div class="detail-title-wrap detail-title-project"><p class="detail-kicker">', esc(c.kicker), '</p><h1>', esc(c.title), '</h1></div>',
+    '<div class="detail-hero-bottom"><p class="detail-lead">', esc(c.lead), '</p><div class="detail-status"><span>', esc(c.principleLabel),
+    '</span><strong>', esc(c.principle), '</strong></div></div>',
+    '<div class="tags detail-tags">', c.tags.map(tag => '<span>' + esc(tag) + '</span>').join(""), '</div>',
+    '</div></section>',
+    '<section class="detail-blocks section-pad research-note-blocks">', blocks, '</section>',
+    '<section class="process-related section-pad" aria-labelledby="process-related-title"><div class="section-code">EMPV / ', esc(c.relatedLabel),
+    '</div><h2 id="process-related-title">', esc(c.relatedTitle), '</h2><p class="process-related-intro">', esc(c.relatedIntro), '</p>',
+    '<div class="process-related-list">', related, '</div></section>',
+    '<section class="process-contact section-pad" aria-labelledby="process-contact-title"><div class="section-code">EMPV / ', esc(c.contactLabel),
+    '</div><div class="process-contact-main"><h2 id="process-contact-title">', esc(c.contactTitle), '</h2><p>', esc(c.contactBody), '</p>',
+    '<div class="process-contact-actions"><a href="', esc(emailHref), '" data-contact-placement="process_page">', esc(c.emailLabel), ' ↗</a>',
+    '<a href="https://wa.me/393792438705" data-contact-placement="process_page">', esc(c.whatsappLabel), ' ↗</a></div></div></section>',
+    '<section class="detail-end section-pad"><a href="', esc(notesHref), '">', esc(c.backLabel), '</a></section>',
     '</main></div>'
   ].join("");
 }
@@ -790,6 +857,7 @@ function staticMarkup(route) {
   if (route.kind === "detail") return detailMarkup(route);
   if (route.kind === "sectionIndex") return sectionIndexMarkup(route);
   if (route.kind === "notesIndex") return notesIndexMarkup(route.lang);
+  if (route.kind === "processPage") return processPageMarkup(route);
   if (route.kind === "note") return noteMarkup(route);
   return legalMarkup(route);
 }
@@ -1116,6 +1184,7 @@ for (const lang of ["it", "en"]) {
   routes.push({ kind: "sectionIndex", lang, section: "projects" });
   routes.push({ kind: "sectionIndex", lang, section: "lab" });
   routes.push({ kind: "notesIndex", lang });
+  routes.push({ kind: "processPage", lang });
 }
 for (const note of researchNotes) {
   for (const lang of ["it", "en"]) routes.push({ kind: "note", lang, noteId: note.id });
@@ -1230,6 +1299,11 @@ for (const lab of labs.it) {
 }
 for (const lab of labs.en) {
   llmsLines.push("- [" + lab.name + " — EN](" + siteUrl + "/en/lab/" + lab.slug + "/): " + lab.description);
+}
+
+llmsLines.push("", "## Services and processes", "");
+for (const lang of ["it", "en"]) {
+  llmsLines.push("- [" + manifest.processPage[lang].title + "](" + siteUrl + routePath({ kind: "processPage", lang }) + "): " + manifest.processPage[lang].description);
 }
 
 llmsLines.push("", "## Research Notes", "");
