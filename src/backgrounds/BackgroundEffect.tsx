@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useRef } from "react";
+import { lazy, Suspense, useEffect, useRef, useState, type CSSProperties } from "react";
 import "./background-effects.css";
 
 export type BackgroundName =
@@ -87,6 +87,8 @@ const SlicedWaves = lazy(() => import("./SlicedWaves"));
 const SideRays = lazy(() => import("./SideRays"));
 const LightTunnel = lazy(() => import("./LightTunnel"));
 const Scanner = lazy(() => import("./Scanner"));
+
+const MOBILE_SCANNER_QUERY = "(max-width: 767px)";
 const Prism = lazy(() => import("./Prism"));
 const Dither = lazy(() => import("./Dither"));
 
@@ -265,12 +267,32 @@ export default function BackgroundEffect({
   const lightCss = tintToCss(lightTint);
   const paletteHue = tintHue(paletteTint);
   const motionLayerRef = useRef<HTMLDivElement>(null);
+  const [isCompactViewport, setIsCompactViewport] = useState(() =>
+    typeof window !== "undefined" && window.matchMedia(MOBILE_SCANNER_QUERY).matches,
+  );
+
+  useEffect(() => {
+    if (name !== "scanner") return;
+    const media = window.matchMedia(MOBILE_SCANNER_QUERY);
+    const update = () => setIsCompactViewport(media.matches);
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, [name]);
+
+  // The lightweight mobile treatment keeps Scanner present without creating a
+  // WebGL context or importing the shader bundle on narrow viewports.
+  // ?scanner=full is an opt-in diagnostic comparison, not the default.
+  const scannerLite = name === "scanner" && isCompactViewport &&
+    typeof window !== "undefined" &&
+    new URLSearchParams(window.location.search).get("scanner") !== "full";
+  const pointerParallaxEnabled = tuning.pointer && !scannerLite;
 
   useEffect(() => {
     const layer = motionLayerRef.current;
     if (!layer) return;
 
-    if (!tuning.pointer) {
+    if (!pointerParallaxEnabled) {
       layer.style.setProperty("--pointer-shift-x", "0px");
       layer.style.setProperty("--pointer-shift-y", "0px");
       layer.style.setProperty("--pointer-rotate-x", "0deg");
@@ -339,7 +361,7 @@ export default function BackgroundEffect({
       document.documentElement.removeEventListener("mouseleave", resetTarget);
       cancelAnimationFrame(raf);
     };
-  }, [tuning.pointer, depth, name]);
+  }, [pointerParallaxEnabled, depth, name]);
 
   if (name === "none") return null;
 
@@ -359,7 +381,7 @@ export default function BackgroundEffect({
     >
       <div
         ref={motionLayerRef}
-        className={`background-effect-motion-layer ${tuning.pointer ? "is-pointer-enabled" : ""}`}
+        className={`background-effect-motion-layer ${pointerParallaxEnabled ? "is-pointer-enabled" : ""}`}
       >
         <Suspense fallback={<div className="background-effect-loading" />}>
         {name === "particles" && (
@@ -562,7 +584,17 @@ export default function BackgroundEffect({
           />
         )}
 
-        {name === "scanner" && (
+        {name === "scanner" && (scannerLite ? (
+          <div
+            className="scanner-mobile-lite"
+            aria-hidden="true"
+            style={{
+              "--scanner-lite-dark": darkCss,
+              "--scanner-lite-mid": paletteCss,
+              "--scanner-lite-light": lightCss,
+            } as CSSProperties}
+          />
+        ) : (
           <Scanner
             color1={darkCss}
             color2={paletteCss}
@@ -591,7 +623,7 @@ export default function BackgroundEffect({
             mouseRadius={0.42}
             mouseStrength={0.42 + intensity * 0.38}
           />
-        )}
+        ))}
 
         {name === "prism" && (
           <Prism
