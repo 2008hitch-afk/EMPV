@@ -123,12 +123,12 @@ function bindClickTracking() {
     if (!rawHref) return;
 
     if (rawHref.startsWith("mailto:")) {
-      trackAnalyticsEvent("contact_click", { channel: "email" });
+      trackAnalyticsEvent("contact_click", { channel: "email", placement: element.dataset.contactPlacement || "footer" });
       return;
     }
 
     if (rawHref.startsWith("tel:")) {
-      trackAnalyticsEvent("contact_click", { channel: "phone" });
+      trackAnalyticsEvent("contact_click", { channel: "phone", placement: element.dataset.contactPlacement || "footer" });
       return;
     }
 
@@ -142,7 +142,7 @@ function bindClickTracking() {
     const host = url.hostname.toLowerCase();
 
     if (host === "wa.me" || host.endsWith(".wa.me")) {
-      trackAnalyticsEvent("contact_click", { channel: "whatsapp" });
+      trackAnalyticsEvent("contact_click", { channel: "whatsapp", placement: element.dataset.contactPlacement || "footer" });
       return;
     }
 

@@ -1,6 +1,7 @@
 import { ArrowLeft, ArrowUpRight, Languages } from "lucide-react";
 import { motion } from "motion/react";
 import SiteFooter from "./SiteFooter";
+import ContactPrompt from "./ContactPrompt";
 import { labs, selected, type Lang, type Project } from "./homeContent";
 import { siteHref, type SectionKind } from "./seo";
 import type { SiteLang } from "./detailContent";
@@ -143,6 +144,7 @@ export default function SectionIndex({ section, initialLang }: SectionIndexProps
             )}
           </div>
         </section>
+        {isProjects && <ContactPrompt lang={lang} placement="projects_index" />}
       </main>
 
       <SiteFooter lang={lang} />

@@ -8,6 +8,7 @@ import {
   useTransform,
 } from "motion/react";
 import AnalyticsConsent from "./AnalyticsConsent";
+import ContactPrompt from "./ContactPrompt";
 import BackgroundLab from "./BackgroundLab";
 import BusinessCard from "./BusinessCard";
 import BackgroundEffect, {
@@ -664,6 +665,14 @@ function PortfolioApp({
               <div className="hero-narrative">
                 <p className="hero-narrative-lead">{c.heroBody[0]}</p>
                 <p>{c.heroBody[1]}</p>
+                <a
+                  className="hero-contact-link"
+                  href={`mailto:hello@empv.it?subject=${encodeURIComponent(lang === "it" ? "EMPV — Parliamo di un processo aziendale" : "EMPV — Let's discuss a business process")}`}
+                  data-contact-placement="hero"
+                >
+                  <span>{lang === "it" ? "Parliamo del tuo processo" : "Let's talk about your process"}</span>
+                  <ArrowUpRight size={18} strokeWidth={1.4} aria-hidden="true" />
+                </a>
               </div>
               <a href="#work" className="scroll-cue">
                 {c.scroll}
@@ -721,6 +730,8 @@ function PortfolioApp({
             ))}
           </div>
         </section>
+
+        <ContactPrompt lang={lang} placement="home_projects" />
 
         <section className="labs section-pad" id="labs">
           <div className="section-head labs-head">

@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowUpRight, Languages } from "lucide-react";
 import { motion } from "motion/react";
 import { getDetail, type SiteLang } from "./detailContent";
 import SiteFooter from "./SiteFooter";
+import ContactPrompt from "./ContactPrompt";
 import { siteHref } from "./seo";
 
 type DetailPageProps = {
@@ -186,6 +187,8 @@ export default function ProjectDetail({ slug, initialLang = "it" }: DetailPagePr
             <p>{detail.boundary}</p>
           </section>
         )}
+
+        {detail.type === "project" && <ContactPrompt lang={lang} placement="project_detail" />}
 
         <section className="detail-end section-pad">
           <a href={backHref}>
