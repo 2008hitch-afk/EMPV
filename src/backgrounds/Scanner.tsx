@@ -224,12 +224,18 @@ const Scanner: React.FC<ScannerProps> = ({
     const container = containerRef.current;
     if (!container) return;
 
+    // Render the real shader on mobile, but at a reduced pixel cost.
+    // A static CSS approximation made the signature motion disappear.
+    const compactViewport = window.matchMedia('(max-width: 767px)').matches;
+    const mobileFrameInterval = compactViewport ? 1000 / 24 : 0;
+    const pixelRatio = window.devicePixelRatio || 1;
+
     const renderer = new Renderer({
       webgl: 2,
       alpha: true,
       premultipliedAlpha: true,
       antialias: false,
-      dpr: Math.min(window.devicePixelRatio || 1, 2)
+      dpr: compactViewport ? Math.min(pixelRatio, 1) : Math.min(pixelRatio, 2)
     });
 
     const gl = renderer.gl;
@@ -357,8 +363,14 @@ const Scanner: React.FC<ScannerProps> = ({
     let isVisible = true;
     let isPageVisible = !document.hidden;
     const t0 = performance.now();
+    let lastDraw = -Infinity;
 
     const loop = (t: number) => {
+      raf = requestAnimationFrame(loop);
+      // The animation time stays continuous; only GPU draws are throttled.
+      // 24 fps on narrow viewports retains visible motion at lower GPU load.
+      if (mobileFrameInterval && t - lastDraw < mobileFrameInterval) return;
+      lastDraw = t;
       (program.uniforms.iTime as { value: number }).value = (t - t0) * 0.001;
 
       if (!mouseEnabledRef.current) {
@@ -385,11 +397,13 @@ const Scanner: React.FC<ScannerProps> = ({
       (program.uniforms.uClickPulse as { value: number }).value = clickPulse;
 
       renderer.render({ scene: mesh });
-      raf = requestAnimationFrame(loop);
     };
 
     const tryStart = () => {
-      if (isVisible && isPageVisible && raf === 0) raf = requestAnimationFrame(loop);
+      if (isVisible && isPageVisible && raf === 0) {
+        lastDraw = -Infinity;
+        raf = requestAnimationFrame(loop);
+      }
     };
     const tryStop = () => {
       if (raf !== 0) {
