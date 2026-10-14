@@ -147,7 +147,34 @@
     );
 }
 
+/* Both layers must generate boxes: without content the scan field disappears. */
 .scanner-mobile-lite::before,
+.scanner-mobile-lite::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+}
+
+.scanner-mobile-lite::before {
+  inset: -18% -16%;
+  background:
+    repeating-linear-gradient(
+      3deg,
+      transparent 0 15px,
+      color-mix(in srgb, var(--scanner-lite-mid) 30%, transparent) 15px 16px,
+      transparent 16px 39px
+    ),
+    repeating-linear-gradient(
+      -7deg,
+      transparent 0 37px,
+      color-mix(in srgb, var(--scanner-lite-light) 19%, transparent) 37px 38px,
+      transparent 38px 59px
+    );
+  opacity: 0.65;
+  -webkit-mask-image: radial-gradient(ellipse 78% 72% at 52% 44%, black 16%, transparent 94%);
+  mask-image: radial-gradient(ellipse 78% 72% at 52% 44%, black 16%, transparent 94%);
+}
+
 .scanner-mobile-lite::after {
   inset: 0 -12%;
   background:
