@@ -284,13 +284,15 @@ export default function BackgroundEffect({
   // WebGL context or importing the shader bundle on narrow viewports.
   // ?scanner=full is an opt-in diagnostic comparison, not the default.
   const scannerLite = name === "scanner" && isCompactViewport &&
+    typeof window !== "undefined" &&
     new URLSearchParams(window.location.search).get("scanner") !== "full";
+  const pointerParallaxEnabled = tuning.pointer && !scannerLite;
 
   useEffect(() => {
     const layer = motionLayerRef.current;
     if (!layer) return;
 
-    if (!tuning.pointer) {
+    if (!pointerParallaxEnabled) {
       layer.style.setProperty("--pointer-shift-x", "0px");
       layer.style.setProperty("--pointer-shift-y", "0px");
       layer.style.setProperty("--pointer-rotate-x", "0deg");
@@ -359,7 +361,7 @@ export default function BackgroundEffect({
       document.documentElement.removeEventListener("mouseleave", resetTarget);
       cancelAnimationFrame(raf);
     };
-  }, [tuning.pointer, depth, name]);
+  }, [pointerParallaxEnabled, depth, name]);
 
   if (name === "none") return null;
 
@@ -379,7 +381,7 @@ export default function BackgroundEffect({
     >
       <div
         ref={motionLayerRef}
-        className={`background-effect-motion-layer ${tuning.pointer ? "is-pointer-enabled" : ""}`}
+        className={`background-effect-motion-layer ${pointerParallaxEnabled ? "is-pointer-enabled" : ""}`}
       >
         <Suspense fallback={<div className="background-effect-loading" />}>
         {name === "particles" && (
