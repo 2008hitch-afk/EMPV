@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="From email requests to job tracking: how EMPV maps workflows, integrates existing software and automates the steps that benefit from it." />
+    <title>Business process automation in Bergamo | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-Bk4lAgtg.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-6LWY0769.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/en/business-process-automation/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/automazione-processi-aziendali/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/business-process-automation/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/automazione-processi-aziendali/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="Business process automation in Bergamo | EMPV" />
+    <meta property="og:description" content="From email requests to job tracking: how EMPV maps workflows, integrates existing software and automates the steps that benefit from it." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://empv.it/en/business-process-automation/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="en_GB" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="Business process automation in Bergamo | EMPV" />
+    <meta name="twitter:description" content="From email requests to job tracking: how EMPV maps workflows, integrates existing software and automates the steps that benefit from it." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/en/business-process-automation/#webpage","url":"https://empv.it/en/business-process-automation/","name":"Business process automation in Bergamo | EMPV","description":"From email requests to job tracking: how EMPV maps workflows, integrates existing software and automates the steps that benefit from it.","inLanguage":"en","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell process-page" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/en/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/en/research-notes/">Research Notes</a><a class="lang-switch" href="/it/automazione-processi-aziendali/" hreflang="it">IT</a></header><main><section class="detail-hero process-hero"><div class="detail-hero-inner"><div class="detail-kicker-row"><span class="eyebrow">EMPV / Business workflows</span><span class="detail-index">EMPV / BERGAMO</span></div><div class="detail-title-wrap detail-title-project"><p class="detail-kicker">Business process automation · Bergamo</p><h1>Before automating, find out where the work gets lost.</h1></div><div class="detail-hero-bottom"><p class="detail-lead">A request arrives by email. Someone copies it into a spreadsheet, another person opens the ERP, and a colleague looks for the latest document. The problem is rarely one piece of software. It is the handoffs between tools and people.</p><div class="detail-status"><span>Where we start</span><strong>Follow the information through the entire workflow before deciding which part should be automated.</strong></div></div><div class="tags detail-tags"><span>Business workflows</span><span>Integrations</span><span>Custom software</span><span>AI when useful</span></div></div></section><section class="detail-blocks section-pad research-note-blocks"><article class="detail-block research-note-block"><div class="eyebrow">01 / Observe</div><div class="detail-block-main"><h2>Time is often lost between tools.</h2><div class="research-note-copy"><p>In companies that manage projects or a large volume of requests, the same information may travel through email inboxes, spreadsheets, ERPs and messages. Each handoff can mean another check, another manual entry or another call to reconstruct what happened.</p><p>Before choosing an automation, we follow one real case from start to finish: who receives it, where information is stored, who is allowed to change it and when the work is complete. That reveals both repeated tasks and decisions that must stay with people.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">02 / Design</div><div class="detail-block-main"><h2>Mapping the workflow prevents us from automating the wrong thing.</h2><div class="research-note-copy"><p>We compare the current workflow (AS-IS) with a possible future one (TO-BE). We identify which tools to keep, which data must be shared and where a person needs to approve what the system has prepared.</p><p>The answer may be an integration, a small internal web application, a deterministic rule or an AI capability. We do not introduce AI by default. It has to solve a specific, testable problem.</p></div><ul><li>One authoritative source for important records</li><li>Automation where the rules are clear</li><li>Human review and authorization where necessary</li><li>States and responsibilities the team can understand</li></ul></div></article><article class="detail-block research-note-block"><div class="eyebrow">03 / Keep what works</div><div class="detail-block-main"><h2>Your existing ERP may remain the source of truth.</h2><div class="research-note-copy"><p>Replacing an ERP is not always the answer. If it already handles orders, invoicing or inventory well, it may be better to connect the missing layer: request intake, document checks, data preparation or work tracking.</p><p>Integration feasibility must be checked rather than assumed. Available APIs, exports, permissions and data quality determine what can actually be built. If no reliable interface exists, we make that limitation clear.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">04 / Practical situations</div><div class="detail-block-main"><h2>Quotes, orders and jobs present different starting points.</h2><div class="research-note-copy"><p>An incomplete quote request can become a guided intake flow, collecting the necessary information while keeping the commercial assessment with the responsible person.</p><p>An order received by email can be interpreted and prepared for the ERP, but quantities, product codes and ambiguous conditions may still need review. For project-based work, the larger problem may be making documents and updates follow the job from site survey to installation.</p><p>These are examples of approaches, not promised results for every business.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">05 / Measure</div><div class="detail-block-main"><h2>The change should be visible in day-to-day work.</h2><div class="research-note-copy"><p>Before implementation, we agree on a measure people can understand: repeated data entries per request, elapsed time until a case is taken up, manual checks or the information missing at first contact.</p><p>We compare the same workflow before and after, including exceptions. We do not claim savings percentages without a measured baseline. If a change makes the work more complicated, it needs revision.</p></div></div></article></section><section class="process-related section-pad" aria-labelledby="process-related-title"><div class="section-code">EMPV / Further reading and projects</div><h2 id="process-related-title">Three ways to explore the details.</h2><p class="process-related-intro">Our Research Notes cover technical decisions. Our project pages show how real operational problems can be understood and addressed.</p><div class="process-related-list"><a class="process-related-item" href="/en/research-notes/automating-quote-requests-without-automating-the-decision/"><span><strong>Quote requests</strong><small>Collect information without automating commercial judgment.</small></span><span aria-hidden="true">↗</span></a><a class="process-related-item" href="/en/research-notes/from-email-to-order-without-replacing-the-erp/"><span><strong>From email to order</strong><small>Prepare data without replacing the ERP.</small></span><span aria-hidden="true">↗</span></a><a class="process-related-item" href="/en/projects/commesse-posa/"><span><strong>Jobs and installation</strong><small>Connect site surveys, office and workshop.</small></span><span aria-hidden="true">↗</span></a></div></section><section class="process-contact section-pad" aria-labelledby="process-contact-title"><div class="section-code">EMPV / A place to begin</div><div class="process-contact-main"><h2 id="process-contact-title">Which handoff takes the most manual work today?</h2><p>Describe one specific situation: where a request starts, which tools it passes through and who needs to act. We can then discuss whether a change makes sense and where to start.</p><div class="process-contact-actions"><a href="mailto:hello@empv.it?subject=EMPV%20%E2%80%94%20Let's%20discuss%20a%20business%20workflow" data-contact-placement="process_page">Email us ↗</a><a href="https://wa.me/393792438705" data-contact-placement="process_page">WhatsApp ↗</a></div></div></section><section class="detail-end section-pad"><a href="/en/research-notes/">Back to Research Notes</a></section></main></div></div>
+  </body>
+</html>
