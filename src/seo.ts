@@ -14,6 +14,7 @@ export type SiteRoute =
   | { kind: "detail"; lang: SiteLang; detailKind: DetailKind; slug: string }
   | { kind: "sectionIndex"; lang: SiteLang; section: SectionKind }
   | { kind: "notesIndex"; lang: SiteLang }
+  | { kind: "processPage"; lang: SiteLang }
   | { kind: "note"; lang: SiteLang; noteId: string }
   | { kind: "legal"; lang: SiteLang; slug: LegalSlug };
 
@@ -36,6 +37,7 @@ export function routePath(route: SiteRoute): string {
     return `/${route.lang}/${segment}/`;
   }
   if (route.kind === "notesIndex") return `/${route.lang}/research-notes/`;
+  if (route.kind === "processPage") return route.lang === "it" ? "/it/automazione-processi-aziendali/" : "/en/business-process-automation/";
   if (route.kind === "note") {
     const note = getResearchNoteById(route.noteId);
     const slug = note?.slugs[route.lang] ?? route.noteId;
@@ -95,6 +97,9 @@ export function parseCurrentRoute(): SiteRoute {
       return { kind: "detail", lang, detailKind: "lab", slug: parts[1] };
     }
     if (parts[0] === "research-notes" && !parts[1]) return { kind: "notesIndex", lang };
+    if ((lang === "it" && parts[0] === "automazione-processi-aziendali") || (lang === "en" && parts[0] === "business-process-automation")) {
+      if (!parts[1]) return { kind: "processPage", lang };
+    }
     if (parts[0] === "research-notes" && parts[1]) {
       const note = getResearchNoteBySlug(lang, parts[1]);
       if (note) return { kind: "note", lang, noteId: note.id };
@@ -132,6 +137,7 @@ function copyFor(route: SiteRoute): { title: string; description: string } {
   }
   if (route.kind === "sectionIndex") return manifest.sections[route.section][route.lang];
   if (route.kind === "notesIndex") return manifest.researchNotes.index[route.lang];
+  if (route.kind === "processPage") return manifest.processPage[route.lang];
   if (route.kind === "note") {
     const item = manifest.researchNotes.notes[route.noteId as keyof typeof manifest.researchNotes.notes];
     return item?.[route.lang] ?? manifest.researchNotes.index[route.lang];
