@@ -75,6 +75,42 @@ function wrapCardTitle(title, maxChars = 27, maxLines = 4) {
 function cardVisual(noteId) {
   const orange = "#ff5a24";
   const faint = "#d8d6cf";
+
+  if (noteId === "chatgpt-erp-mcp-integration") {
+    // AI assistant -> tool protocol -> existing business system.
+    // This is a conceptual architecture, not a screenshot or product branding.
+    return `
+      <g transform="translate(800 147)" font-family="Arial, Helvetica, sans-serif">
+        <text x="12" y="0" font-size="14" font-weight="700" letter-spacing="2.1" fill="#77746e">SYSTEM INTEGRATION</text>
+        <path d="M13 20 H346" stroke="#d8d6cf" stroke-width="1.5"/>
+        <path d="M109 130 H135 M233 130 H258" stroke="#ff5a24" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M127 121 L137 130 L127 139 M250 121 L260 130 L250 139" stroke="#ff5a24" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        <g>
+          <rect x="8" y="78" width="103" height="104" rx="15" fill="#f6f4ed" stroke="#171715" stroke-width="2"/>
+          <circle cx="59" cy="117" r="22" fill="none" stroke="#171715" stroke-width="2"/>
+          <path d="M43 117 H75 M59 101 V133" stroke="#ff5a24" stroke-width="2" stroke-linecap="round"/>
+          <text x="59" y="157" fill="#171715" text-anchor="middle" font-size="15" font-weight="700">ChatGPT</text>
+        </g>
+        <g>
+          <rect x="138" y="78" width="94" height="104" rx="15" fill="#ff5a24"/>
+          <path d="M155 110 H215 M155 119 H215" stroke="#fff8ee" stroke-width="2" opacity=".6"/>
+          <text x="185" y="151" fill="#fff8ee" text-anchor="middle" font-size="23" font-weight="700" letter-spacing="1">MCP</text>
+        </g>
+        <g>
+          <rect x="259" y="78" width="94" height="104" rx="15" fill="#f6f4ed" stroke="#171715" stroke-width="2"/>
+          <rect x="277" y="97" width="57" height="31" rx="4" fill="none" stroke="#171715" stroke-width="2"/>
+          <path d="M277 109 H334 M295 97 V128 M315 97 V128" stroke="#d8d6cf" stroke-width="1.5"/>
+          <text x="306" y="157" fill="#171715" text-anchor="middle" font-size="18" font-weight="700">ERP</text>
+        </g>
+        <path d="M305 182 V215 H185 V245" fill="none" stroke="#d8d6cf" stroke-width="2" stroke-dasharray="6 6"/>
+        <circle cx="306" cy="215" r="5" fill="#ff5a24"/>
+        <rect x="115" y="245" width="186" height="61" rx="11" fill="none" stroke="#d8d6cf" stroke-width="2"/>
+        <circle cx="139" cy="274" r="11" fill="none" stroke="#ff5a24" stroke-width="2"/>
+        <path d="M135 274 L138 278 L144 269" fill="none" stroke="#ff5a24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="161" y="279" fill="#171715" font-size="15" font-weight="700" letter-spacing=".5">PERMISSIONS</text>
+        <text x="14" y="340" fill="#77746e" font-size="14" font-weight="700" letter-spacing="1">READ · VALIDATE · APPROVE</text>
+      </g>`;
+  }
   if (noteId === "openai-dots") {
     return `
       <g transform="translate(820 82)">

@@ -26,6 +26,151 @@ export type ResearchNote = {
 
 export const researchNotes: ResearchNote[] = [
   {
+    "id": "chatgpt-erp-mcp-integration",
+    "index": "012",
+    "slugs": {
+      "it": "collegare-chatgpt-gestionale-api-mcp",
+      "en": "connect-chatgpt-erp-api-mcp"
+    },
+    "title": {
+      "it": "Come collegare ChatGPT a un gestionale aziendale: API, MCP e sicurezza",
+      "en": "How to connect ChatGPT to an ERP system: APIs, MCP and security"
+    },
+    "dek": {
+      "it": "Collegare ChatGPT a un gestionale permette di interrogare dati aziendali e preparare operazioni in linguaggio naturale. API e Model Context Protocol rendono possibile l'integrazione, ma accessi, permessi e modifiche devono rimanere sotto il controllo del software aziendale.",
+      "en": "Connecting ChatGPT to an ERP or CRM system makes it possible to query business data and prepare operations using natural language. APIs and Model Context Protocol provide the integration layer, while access rights and changes must remain under the business system's control."
+    },
+    "category": {
+      "it": "TECH NOTE / AI INTEGRATION",
+      "en": "TECH NOTE / AI INTEGRATION"
+    },
+    "tags": {
+      "it": [
+        "ChatGPT",
+        "Gestionale",
+        "MCP",
+        "API",
+        "Integrazione ERP"
+      ],
+      "en": [
+        "ChatGPT",
+        "ERP",
+        "MCP",
+        "API integration",
+        "Security"
+      ]
+    },
+    "published": "2026-10-19",
+    "updated": "2026-10-19",
+    "readingTime": {
+      "it": "3 min",
+      "en": "3 min"
+    },
+    "socialVersion": "20261019",
+    "sections": {
+      "it": [
+        {
+          "label": "01 / L'integrazione",
+          "title": "ChatGPT può lavorare con un gestionale già esistente",
+          "paragraphs": [
+            "Collegare ChatGPT a un ERP o a un CRM non richiede necessariamente di sostituire il software aziendale.",
+            "L'integrazione può consentire di consultare ordini, verificare disponibilità di magazzino, recuperare informazioni sui clienti o preparare bozze di documenti.",
+            "Nel 2026 OpenAI supporta [server MCP personalizzati in ChatGPT](https://help.openai.com/en/articles/12584461-connecting-custom-mcp-servers-in-chatgpt). Le azioni di scrittura dipendono dai permessi del workspace e dalla configurazione del server; il supporto ai server personalizzati è disponibile per Business ed Enterprise/Edu.",
+            "Anche [Odoo 20 documenta un server MCP](https://www.odoo.com/documentation/20.0/applications/productivity/ai/mcp_server.html) per collegare client AI al proprio sistema.",
+            "La disponibilità di un connettore, però, non significa che qualunque operazione aziendale sia automaticamente supportata o sicura."
+          ]
+        },
+        {
+          "label": "02 / Come funziona",
+          "title": "API e MCP hanno compiti differenti",
+          "paragraphs": [
+            "Le API permettono a un'applicazione di leggere o modificare dati attraverso interfacce definite dal software gestionale.",
+            "Il Model Context Protocol (MCP) è uno standard per esporre strumenti utilizzabili dagli assistenti AI. Un server MCP può richiamare le API del gestionale, applicando le autorizzazioni necessarie.",
+            "Consideriamo una richiesta: «Controlla l'ordine 125 e verifica se i prodotti sono disponibili».",
+            "In un'architettura progettata per questo scopo, ChatGPT può richiedere l'esecuzione di uno strumento, il server recupera i dati autorizzati e restituisce un risultato strutturato. Il modello lo utilizza per formulare la risposta.",
+            "Per creare un'applicazione AI aziendale autonoma esiste anche un percorso differente: la [OpenAI API con function calling](https://developers.openai.com/api/docs/guides/function-calling), che lascia al backend dell'applicazione l'esecuzione delle operazioni.",
+            "MCP e function calling non sono quindi sinonimi, anche se possono essere utilizzati per risolvere problemi simili."
+          ]
+        },
+        {
+          "label": "03 / Sicurezza",
+          "title": "Leggere un ordine e modificarlo richiede permessi diversi",
+          "paragraphs": [
+            "Un'integrazione dovrebbe distinguere gli strumenti di lettura dalle operazioni che cambiano dati o producono effetti economici.",
+            "Consultare lo stato di un ordine non equivale a confermarlo. Preparare una bozza di preventivo non equivale a inviarla al cliente.",
+            "La [documentazione OpenAI sui server MCP](https://developers.openai.com/plugins/build/mcp-server) richiede di verificare le autorizzazioni sul server per ogni richiesta, senza delegare questa decisione al modello.",
+            "Per le operazioni più delicate servono controlli aggiuntivi: identità dell'utente, permessi limitati, validazione dei dati, registrazione delle modifiche e conferma prima delle azioni importanti.",
+            "Un altro rischio riguarda le prompt injection: istruzioni malevole presenti nei contenuti consultati dall'assistente possono tentare di influenzarne il comportamento.",
+            "Il modello deve quindi operare attraverso funzioni circoscritte, evitando accessi indiscriminati al database aziendale."
+          ]
+        },
+        {
+          "label": "04 / Quando conviene",
+          "title": "Partire da una sola operazione, non dall'intero gestionale",
+          "paragraphs": [
+            "Per una PMI, il primo progetto può essere molto limitato: consultare lo stato degli ordini, recuperare disponibilità o preparare una richiesta di preventivo da sottoporre a verifica.",
+            "Prima di sviluppare il collegamento bisogna accertare quali API siano disponibili, quali dati possano essere esposti, chi sia autorizzato a utilizzarli e come vengano gestiti errori e duplicati.",
+            "Se il gestionale non dispone di interfacce adeguate, MCP non risolve automaticamente il problema.",
+            "Abbiamo già affrontato questa distinzione nella Research Note su [quando conviene integrare un gestionale invece di sostituirlo](https://empv.it/it/research-notes/integrare-gestionale-senza-sostituirlo/).",
+            "L'obiettivo di un'integrazione ben progettata è consentire all'AI di utilizzare funzioni aziendali specifiche, lasciando al gestionale la responsabilità dei dati e delle regole operative."
+          ]
+        }
+      ],
+      "en": [
+        {
+          "label": "01 / The integration",
+          "title": "ChatGPT can work with an existing ERP system",
+          "paragraphs": [
+            "Connecting ChatGPT to an ERP or CRM does not necessarily require replacing the software a company already uses.",
+            "An integration can enable users to check orders, retrieve inventory information, look up customer records or prepare document drafts.",
+            "In 2026, OpenAI supports [custom MCP servers in ChatGPT](https://help.openai.com/en/articles/12584461-connecting-custom-mcp-servers-in-chatgpt). Write actions depend on workspace permissions and server configuration; custom server connections are available to Business and Enterprise/Edu workspaces.",
+            "[Odoo 20 also documents an MCP server](https://www.odoo.com/documentation/20.0/applications/productivity/ai/mcp_server.html) for connecting AI clients to its ERP environment.",
+            "However, the availability of a connector does not mean every business operation is automatically supported or safe."
+          ]
+        },
+        {
+          "label": "02 / How it works",
+          "title": "APIs and MCP serve different purposes",
+          "paragraphs": [
+            "APIs allow applications to retrieve or modify information through interfaces provided by business software.",
+            "Model Context Protocol (MCP) is a standard for exposing tools to AI assistants. An MCP server can call an ERP's existing APIs while enforcing the required permissions.",
+            "Consider a request: “Check order 125 and confirm whether the products are available.”",
+            "In a system designed for this task, ChatGPT requests a tool call, the server retrieves authorized information and returns structured data. The model then uses that result to prepare its answer.",
+            "There is also another approach for building an independent business application: using the [OpenAI API with function calling](https://developers.openai.com/api/docs/guides/function-calling), where the application's backend executes the requested operations.",
+            "MCP and function calling are different integration mechanisms, although they can address similar use cases."
+          ]
+        },
+        {
+          "label": "03 / Security",
+          "title": "Reading an order and changing it require different permissions",
+          "paragraphs": [
+            "An integration should separate read-only tools from actions that modify records or produce financial consequences.",
+            "Checking an order's status is different from confirming it. Preparing a quotation draft is different from sending it to a customer.",
+            "[OpenAI's MCP server documentation](https://developers.openai.com/plugins/build/mcp-server) requires authorization checks on the server for every request, rather than relying on the model to decide what users can access.",
+            "Sensitive workflows also need identity verification, limited permissions, input validation, audit logs and approval before consequential actions.",
+            "Prompt injection is another concern. Malicious instructions embedded in retrieved content can attempt to influence the assistant's behavior.",
+            "Restricting available tools and avoiding unrestricted database access helps reduce that risk."
+          ]
+        },
+        {
+          "label": "04 / When integration makes sense",
+          "title": "Start with one workflow, not the entire ERP",
+          "paragraphs": [
+            "For a small or medium-sized company, an initial integration might cover only order-status queries, inventory lookups or quotation drafts that require human review.",
+            "Before implementation, the team should verify available APIs, data exposure, access controls and the handling of errors and duplicate requests.",
+            "If the existing ERP lacks suitable interfaces, MCP alone will not solve that limitation.",
+            "We explored this boundary in our Research Note on [when to integrate an ERP instead of replacing it](https://empv.it/en/research-notes/integrating-an-erp-without-replacing-it/).",
+            "A carefully designed integration gives AI access to specific business functions while keeping the ERP responsible for authoritative data and operational rules."
+          ]
+        }
+      ]
+    },
+    "takeaway": {
+      "it": "L'AI può usare funzioni del gestionale; permessi, approvazioni e integrità dei dati devono restare nelle regole del sistema aziendale.",
+      "en": "AI can use ERP functions, but access control, approvals and data integrity must remain enforced by the business system."
+    }
+  },
+  {
     "id": "seo-geo-ai-citations",
     "index": "011",
     "slugs": {

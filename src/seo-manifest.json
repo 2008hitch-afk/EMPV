@@ -297,6 +297,16 @@
           "title": "SEO and GEO: how AI search engines choose sources to cite | EMPV",
           "description": "How ChatGPT and AI search engines select sources to cite. A study of 468,037 citations examines retrieval, content and GEO visibility."
         }
+      },
+      "chatgpt-erp-mcp-integration": {
+        "it": {
+          "title": "Come collegare ChatGPT a un gestionale aziendale: API, MCP e sicurezza | EMPV",
+          "description": "Come collegare ChatGPT a un gestionale aziendale usando API e MCP. Architettura, permessi, sicurezza ed esempi pratici di integrazione."
+        },
+        "en": {
+          "title": "How to connect ChatGPT to an ERP system: APIs, MCP and security | EMPV",
+          "description": "How to connect ChatGPT to an ERP using APIs and MCP. Architecture, permissions, security and practical business integration examples."
+        }
       }
     }
   }
