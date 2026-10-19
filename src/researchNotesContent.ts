@@ -25,6 +25,137 @@ export type ResearchNote = {
 };
 
 export const researchNotes: ResearchNote[] = [
+  {
+    "id": "seo-geo-ai-citations",
+    "index": "011",
+    "slugs": {
+      "it": "seo-geo-come-ai-sceglie-fonti-citazioni",
+      "en": "seo-geo-how-ai-search-selects-citations"
+    },
+    "title": {
+      "it": "SEO e GEO: come i motori AI scelgono le fonti da citare",
+      "en": "SEO and GEO: how AI search engines choose sources to cite"
+    },
+    "dek": {
+      "it": "Uno studio su oltre 468.000 citazioni analizza come ChatGPT, Gemini e Perplexity selezionano le fonti. I risultati mostrano quanto contano il recupero delle pagine, la pertinenza dei contenuti e la conoscenza dei brand.",
+      "en": "A study of more than 468,000 citations examines how ChatGPT, Gemini and Perplexity select their sources. The findings highlight the role of retrieval, content relevance and prior brand knowledge."
+    },
+    "category": {
+      "it": "TECH NOTE / AI SEARCH",
+      "en": "TECH NOTE / AI SEARCH"
+    },
+    "tags": {
+      "it": [
+        "SEO",
+        "GEO",
+        "AI Search",
+        "Citazioni AI"
+      ],
+      "en": [
+        "SEO",
+        "GEO",
+        "AI Search",
+        "AI citations"
+      ]
+    },
+    "published": "2026-10-19",
+    "updated": "2026-10-19",
+    "readingTime": {
+      "it": "3 min",
+      "en": "3 min"
+    },
+    "socialVersion": "20261019",
+    "sections": {
+      "it": [
+        {
+          "label": "01 / Lo studio",
+          "title": "Essere ben posizionati non garantisce una citazione AI",
+          "paragraphs": [
+            "Il 10 ottobre 2026, Mahe Chen e Nick Koudas hanno pubblicato su [arXiv](https://arxiv.org/abs/2610.15033) uno studio dedicato alla Generative Engine Optimization (GEO).",
+            "La ricerca analizza 158.099 risposte e 468.037 citazioni raccolte in due mercati statunitensi.",
+            "Nel campione ChatGPT, le informazioni sul recupero delle pagine spiegano il 32% della variabilità delle citazioni tra pagine dello stesso sito. Le caratteristiche osservate delle pagine ne spiegano il 2,8%.",
+            "Non significa che la qualità dei contenuti conti soltanto per il 2,8%. Significa che il sistema di ricerca utilizzato dall'AI ha un peso importante nel determinare quali documenti entrano nella risposta."
+          ]
+        },
+        {
+          "label": "02 / Come vengono selezionate le fonti",
+          "title": "Una domanda può generare ricerche completamente diverse",
+          "paragraphs": [
+            "I motori AI possono scomporre una domanda in più ricerche, recuperare documenti e selezionare quelli da citare. Google descrive questo meccanismo come [query fan-out](https://developers.google.com/search/docs/appearance/ai-features).",
+            "Negli esperimenti, ChatGPT consulta mediamente 26 pagine per domanda e ne cita circa tre. Ripetendo la stessa domanda nello stesso giorno, la sovrapposizione media tra le pagine citate è appena del 15%.",
+            "Le caratteristiche dei contenuti hanno comunque un ruolo: titoli e paragrafi che corrispondono semanticamente alle domande sono associati a più citazioni.",
+            "FAQ, box riassuntivi e markup strutturato non mostrano invece vantaggi robusti nel confronto tra pagine dello stesso sito."
+          ]
+        },
+        {
+          "label": "03 / Il ruolo dei brand",
+          "title": "Un'azienda può comparire anche senza essere citata come fonte",
+          "paragraphs": [
+            "La ricerca evidenzia un secondo meccanismo: la conoscenza già presente nel modello.",
+            "Nel campione analizzato, il 46% delle menzioni di brand introdotte spontaneamente da ChatGPT non è supportato da una pagina citata che riporti quel nome.",
+            "Il modello può quindi menzionare un'azienda perché la conosce già, indipendentemente dalle fonti recuperate per quella risposta. Per le aziende meno note, la disponibilità di documentazione pertinente e fonti esterne può assumere maggiore importanza."
+          ]
+        },
+        {
+          "label": "04 / Cosa cambia per le aziende",
+          "title": "SEO e GEO richiedono informazioni accessibili e specifiche",
+          "paragraphs": [
+            "La Search Engine Optimization (SEO) resta la base tecnica: pagine indicizzabili, contenuti utili e collegamenti chiari. [Google conferma](https://developers.google.com/search/docs/appearance/ai-features) che AI Overviews e AI Mode non richiedono ottimizzazioni speciali.",
+            "Per la GEO diventa importante anche osservare come le informazioni aziendali vengono recuperate e utilizzate nelle risposte AI.",
+            "Una documentazione che descrive prodotti, processi, integrazioni e limiti operativi offre informazioni più precise di una pagina costruita soltanto su affermazioni commerciali generiche.",
+            "La misurazione sta evolvendo: [Google Search Console](https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports) espone dati sulle impression nelle funzioni AI, mentre [Bing Webmaster Tools](https://blogs.bing.com/webmaster/2026/10/introducing-topics-portfolio-beta-in-ai-performance/) permette di analizzare citazioni e argomenti.",
+            "Lo studio resta un preprint osservazionale, basato su mercati e configurazioni specifiche. Non dimostra che una singola tecnica possa garantire citazioni. Distingue però tre aspetti che le aziende possono iniziare a misurare separatamente: contenuti disponibili, pagine recuperate e fonti effettivamente citate."
+          ]
+        }
+      ],
+      "en": [
+        {
+          "label": "01 / The study",
+          "title": "Search rankings do not guarantee AI citations",
+          "paragraphs": [
+            "On October 10, 2026, Mahe Chen and Nick Koudas published a [research paper](https://arxiv.org/abs/2610.15033) examining Generative Engine Optimization (GEO).",
+            "The study covers 158,099 AI-generated answers and 468,037 citations across two US commercial markets.",
+            "In the ChatGPT sample, retrieval information explains 32% of citation-count variation between pages on the same website. Observed page features explain 2.8%.",
+            "This does not mean content quality accounts for only 2.8% of citations. It shows that the retrieval process plays a substantial role in determining which documents become sources."
+          ]
+        },
+        {
+          "label": "02 / How sources are selected",
+          "title": "One question can trigger several different searches",
+          "paragraphs": [
+            "AI search engines can break a question into multiple searches, retrieve documents and select sources for the final answer. Google calls this process [query fan-out](https://developers.google.com/search/docs/appearance/ai-features).",
+            "In the experiments, ChatGPT retrieves an average of 26 pages per question and cites approximately three. When researchers repeated the same question on the same day, only 15% of cited pages overlapped on average.",
+            "Content still matters. Pages with titles and paragraphs that semantically match relevant questions are associated with more citations.",
+            "FAQ blocks, summary boxes and structured data show no robust advantage when pages from the same website are compared."
+          ]
+        },
+        {
+          "label": "03 / Brand knowledge",
+          "title": "A company can be mentioned without a supporting citation",
+          "paragraphs": [
+            "The researchers identified another factor: knowledge already present in the model.",
+            "In the dataset, 46% of brand mentions introduced by ChatGPT without being requested were unsupported by any cited page mentioning that brand.",
+            "A model may therefore name a company based on prior knowledge rather than retrieved evidence. For smaller, less familiar businesses, relevant documentation and third-party sources can play a more significant role."
+          ]
+        },
+        {
+          "label": "04 / What this means for businesses",
+          "title": "SEO and GEO share a technical foundation",
+          "paragraphs": [
+            "Search Engine Optimization (SEO) remains essential: accessible pages, useful content and clear internal links. [Google confirms](https://developers.google.com/search/docs/appearance/ai-features) that AI Overviews and AI Mode require no special optimization beyond established search practices.",
+            "GEO adds another question: how do AI systems retrieve and reference company information?",
+            "Documentation that clearly describes products, workflows, integrations and operational limitations gives retrieval systems more specific information than generic marketing claims.",
+            "Measurement tools are also changing. [Google Search Console](https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports) provides generative AI impression reporting, while [Bing Webmaster Tools](https://blogs.bing.com/webmaster/2026/10/introducing-topics-portfolio-beta-in-ai-performance/) exposes citations and topic-level visibility.",
+            "The study is an observational preprint covering specific markets and model configurations. It does not establish a guaranteed technique for earning AI citations. It does, however, provide a useful distinction between available content, retrieved pages and sources actually cited."
+          ]
+        }
+      ]
+    },
+    "takeaway": {
+      "it": "Contenuti disponibili, pagine recuperate e citazioni sono tre livelli distinti della visibilità AI.",
+      "en": "Available content, retrieved pages and citations are three distinct layers of AI visibility."
+    }
+  },
     {
     "id": "mistral-large-4",
     "index": "010",

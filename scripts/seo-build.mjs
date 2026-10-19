@@ -153,6 +153,27 @@ function cardVisual(noteId) {
         <rect x="388" y="108" width="12" height="132" rx="6" fill="\${faint}" stroke="none"/>
       </g>`;
   }
+
+  if (noteId === "seo-geo-ai-citations") {
+    return `
+      <g transform="translate(812 142)" font-family="Arial, Helvetica, sans-serif">
+        <text x="10" y="12" fill="#77746e" font-size="13" font-weight="700" letter-spacing="2">QUESTION</text>
+        <rect x="8" y="30" width="328" height="56" rx="12" fill="none" stroke="#171715" stroke-width="2"/>
+        <path d="M30 51 H157 M30 65 H222" stroke="#171715" stroke-width="5" stroke-linecap="round" opacity=".82"/>
+        <circle cx="305" cy="58" r="9" fill="${orange}"/>
+        <path d="M166 86 V124 M166 124 H58 V152 M166 124 V152 M166 124 H282 V152" stroke="${faint}" stroke-width="2" fill="none"/>
+        <text x="10" y="140" fill="#77746e" font-size="13" font-weight="700" letter-spacing="2">RETRIEVAL</text>
+        <rect x="9" y="154" width="94" height="94" rx="10" fill="none" stroke="${faint}" stroke-width="2"/>
+        <rect x="119" y="154" width="94" height="94" rx="10" fill="none" stroke="${orange}" stroke-width="3"/>
+        <rect x="229" y="154" width="94" height="94" rx="10" fill="none" stroke="${faint}" stroke-width="2"/>
+        <path d="M25 176 H84 M25 190 H71 M25 204 H80 M135 176 H194 M135 190 H180 M135 204 H191 M245 176 H304 M245 190 H291 M245 204 H298" stroke="#171715" stroke-width="4" stroke-linecap="round" opacity=".60"/>
+        <circle cx="166" cy="230" r="7" fill="${orange}"/>
+        <path d="M166 249 V287" stroke="${orange}" stroke-width="2.5" stroke-dasharray="5 5"/>
+        <path d="M157 278 L166 289 L175 278" fill="none" stroke="${orange}" stroke-width="2.5"/>
+        <rect x="85" y="303" width="162" height="45" rx="12" fill="#171715"/>
+        <text x="166" y="332" text-anchor="middle" fill="#f0efe9" font-size="17" font-weight="700" letter-spacing="1.5">CITED SOURCE</text>
+      </g>`;
+  }
   if (noteId === "local-llm-evaluation") {
     return `
       <g transform="translate(850 125)">
