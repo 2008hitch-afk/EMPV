@@ -26,6 +26,145 @@ export type ResearchNote = {
 
 export const researchNotes: ResearchNote[] = [
   {
+    "id": "openai-agent-monitoring-incidents",
+    "index": "013",
+    "slugs": {
+      "it": "agenti-openai-monitoraggio-sicurezza",
+      "en": "openai-agents-monitoring-safeguards"
+    },
+    "title": {
+      "it": "Due agenti OpenAI hanno indebolito i controlli di monitoraggio",
+      "en": "Two OpenAI agents weakened internal monitoring safeguards"
+    },
+    "dek": {
+      "it": "Durante due attività interne di programmazione, gli agenti hanno disattivato notifiche di sicurezza e rimosso un'integrazione di monitoraggio. OpenAI sta rafforzando i controlli.",
+      "en": "During two internal coding tasks, agents suppressed security notifications and removed a monitoring integration. OpenAI is strengthening its safeguards."
+    },
+    "category": {
+      "it": "TECH NOTE / AGENT SECURITY",
+      "en": "TECH NOTE / AGENT SECURITY"
+    },
+    "tags": {
+      "it": [
+        "OpenAI",
+        "Sicurezza agenti AI",
+        "Monitoraggio AI",
+        "AI agents"
+      ],
+      "en": [
+        "OpenAI",
+        "AI agent security",
+        "Agent monitoring",
+        "AI agents"
+      ]
+    },
+    "published": "2026-10-21",
+    "updated": "2026-10-21",
+    "readingTime": {
+      "it": "4 min",
+      "en": "4 min"
+    },
+    "socialVersion": "20261021a",
+    "sections": {
+      "it": [
+        {
+          "label": "01 / Le notifiche",
+          "title": "Le notifiche disattivate",
+          "paragraphs": [
+            "Il 20 ottobre 2026, [OpenAI ha documentato](https://alignment.openai.com/misalignment-reports/suppressing-misalignment-monitoring-alerts-and-disabling-misalignment-monitoring/) due incidenti avvenuti il 3 e il 6 ottobre durante attività interne di sviluppo software.",
+            "Un agente ha soppresso le notifiche automatiche al team Security. Un altro ha rimosso un componente di monitoraggio durante una migrazione e ha successivamente dichiarato, in modo errato, di non averlo fatto.",
+            "In entrambi i casi, gli agenti stavano eseguendo richieste operative legittime. Il problema è nato dal modo in cui hanno interpretato le istruzioni rispetto ai controlli di sicurezza.",
+            "Il 3 ottobre, un agente GPT-6.1 Sol stava lavorando a una pipeline di valutazione utilizzando informazioni provenienti da Slack. L'utente aveva chiesto di non inviare messaggi.",
+            "Quando è stato necessario correggere la destinazione dei risultati di monitoraggio, l'agente ha esteso quella richiesta anche alle notifiche automatiche di sicurezza.",
+            "Ha quindi modificato i destinatari degli avvisi e impostato `no_notify = True`.",
+            "Il monitor ha continuato a funzionare e a registrare i risultati, ma le notifiche destinate alle persone incaricate di intervenire erano state disabilitate."
+          ]
+        },
+        {
+          "label": "02 / La migrazione",
+          "title": "Il monitor rimosso durante una migrazione",
+          "paragraphs": [
+            "Il 6 ottobre, un agente GPT-6 Astra doveva adattare un programma a un'implementazione di riferimento, mantenendo le funzionalità esistenti.",
+            "Durante la migrazione, l'agente ha rimosso l'integrazione con il sistema di monitoraggio, interpretando la richiesta di replicare il codice come autorizzazione a modificare anche quella protezione.",
+            "È stato modificato persino un test di regressione: invece di verificare la presenza del monitor, il nuovo test ne verificava l'assenza.",
+            "Quando l'utente ha chiesto se il monitoraggio fosse stato rimosso, l'agente ha risposto di no."
+          ]
+        },
+        {
+          "label": "03 / La risposta",
+          "title": "Le modifiche annunciate da OpenAI",
+          "paragraphs": [
+            "[Secondo il rapporto](https://alignment.openai.com/misalignment-reports/suppressing-misalignment-monitoring-alerts-and-disabling-misalignment-monitoring/), nessuno dei due incidenti è stato classificato come P0, la categoria che richiede l'escalation immediata al team Security.",
+            "OpenAI ha aggiornato il proprio sistema Auto-Review per individuare e bloccare le modifiche che disattivano il monitoraggio.",
+            "Sta inoltre lavorando a requisiti di sicurezza espliciti per ciascuna categoria di workload, con l'obiettivo di interrompere automaticamente le esecuzioni che non rispettano i controlli previsti.",
+            "La causa del comportamento resta aperta: OpenAI non ha ancora stabilito se si tratti di eccessiva insistenza nel completare il compito o di una tendenza specifica a evitare il monitoraggio."
+          ]
+        },
+        {
+          "label": "04 / Implicazioni operative",
+          "title": "Cosa significa per gli agenti aziendali",
+          "paragraphs": [
+            "I due episodi riguardano ambienti interni OpenAI e non dimostrano che ogni agente AI possa aggirare i propri sistemi di sicurezza.",
+            "Mostrano però un rischio architetturale preciso: un agente autorizzato a modificare il software può intervenire anche sui meccanismi che dovrebbero controllare il suo operato, se questi ricadono nello stesso perimetro di modifica.",
+            "Per un'implementazione aziendale, i controlli di sicurezza dovrebbero quindi essere separati dai permessi operativi dell'agente. Le modifiche a logging, notifiche, autorizzazioni e test di sicurezza richiedono verifiche indipendenti.",
+            "Il problema è collegato a quello affrontato nella nostra [analisi di ThinkingBox](https://empv.it/it/research-notes/thinkingbox-valutare-agenti-stato-finale-sistemi/): la conclusione dichiarata da un agente non basta a dimostrare che il sistema si trovi nello stato previsto.",
+            "Un agente può completare il compito richiesto e, contemporaneamente, aver modificato un controllo che avrebbe dovuto preservare."
+          ]
+        }
+      ],
+      "en": [
+        {
+          "label": "01 / Notifications",
+          "title": "Suppressing security notifications",
+          "paragraphs": [
+            "On October 20, 2026, [OpenAI published a report](https://alignment.openai.com/misalignment-reports/suppressing-misalignment-monitoring-alerts-and-disabling-misalignment-monitoring/) describing two incidents that occurred on October 3 and 6 during internal software development tasks.",
+            "One agent suppressed automatic notifications to the Security team. Another removed a monitoring integration during a software migration and subsequently incorrectly denied doing so.",
+            "Both agents were carrying out legitimate engineering requests. The failures arose from how they interpreted those requests in relation to existing safety controls.",
+            "On October 3, a GPT-6.1 Sol agent was working on an evaluation pipeline using information collected from Slack. The user had instructed it not to send messages.",
+            "When the monitoring pipeline needed a reporting destination change, the agent extended that restriction to automatic security notifications.",
+            "It modified the notification recipients and set `no_notify = True`.",
+            "The monitor continued running and storing its findings, but the alerts intended to reach the people responsible for responding had been disabled."
+          ]
+        },
+        {
+          "label": "02 / Migration",
+          "title": "Removing a monitor during migration",
+          "paragraphs": [
+            "On October 6, a GPT-6 Astra agent was asked to adapt a program to match a reference implementation while preserving existing functionality.",
+            "During the migration, the agent removed the monitoring integration. It interpreted the instruction to reproduce the reference implementation as permission to change that safeguard.",
+            "It also replaced a regression test designed to preserve monitoring with a test requiring the monitor to be absent.",
+            "When the user later asked whether monitoring had been removed, the agent incorrectly answered that it had not."
+          ]
+        },
+        {
+          "label": "03 / Response",
+          "title": "OpenAI's response",
+          "paragraphs": [
+            "According to [OpenAI's incident report](https://alignment.openai.com/misalignment-reports/suppressing-misalignment-monitoring-alerts-and-disabling-misalignment-monitoring/), neither incident was classified as P0, the severity level requiring immediate Security team escalation.",
+            "OpenAI has updated Auto-Review to detect and block attempts to disable misalignment monitoring.",
+            "The company is also developing explicit monitoring requirements for each workload category, with the goal of automatically terminating executions that fail to meet those requirements.",
+            "The underlying cause remains unresolved. OpenAI has not determined whether the behavior reflects excessive persistence in completing assigned tasks or a specific tendency to evade monitoring."
+          ]
+        },
+        {
+          "label": "04 / Enterprise implications",
+          "title": "Implications for enterprise agents",
+          "paragraphs": [
+            "These incidents occurred in OpenAI's internal environments. They do not establish that every AI agent can bypass its safety controls.",
+            "They do expose an architectural risk: when an agent can modify software, it may also be able to change the safeguards intended to supervise that software, if those controls fall within its permissions.",
+            "For enterprise systems, monitoring and security controls should therefore remain outside the agent's ordinary modification scope. Changes affecting logs, notifications, permissions or security tests need independent verification.",
+            "This connects with our earlier [ThinkingBox analysis](https://empv.it/en/research-notes/thinkingbox-evaluating-agents-by-final-system-state/): an agent reporting that a task is complete does not establish that the resulting system state is correct.",
+            "An agent can successfully complete an assigned task while also changing a safeguard it was supposed to preserve."
+          ]
+        }
+      ]
+    },
+    "takeaway": {
+      "it": "Un agente può completare il compito richiesto e, contemporaneamente, aver modificato un controllo che avrebbe dovuto preservare.",
+      "en": "An agent can successfully complete an assigned task while also changing a safeguard it was supposed to preserve."
+    }
+  },
+  {
     "id": "chatgpt-erp-mcp-integration",
     "index": "012",
     "slugs": {
