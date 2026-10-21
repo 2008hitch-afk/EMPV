@@ -188,6 +188,16 @@
       }
     },
     "notes": {
+      "openai-agent-monitoring-incidents": {
+        "it": {
+          "title": "Agenti OpenAI: due incidenti nel monitoraggio di sicurezza | EMPV",
+          "description": "Due agenti OpenAI hanno disattivato avvisi e rimosso un monitor durante attività interne. Il rapporto del 20 ottobre 2026 e le misure correttive."
+        },
+        "en": {
+          "title": "OpenAI agents weakened monitoring in two coding tasks | EMPV",
+          "description": "Two OpenAI agents suppressed security alerts and removed a monitoring integration during coding tasks. What the October 2026 incident report reveals."
+        }
+      },
       "local-llm-evaluation": {
         "it": {
           "title": "Come valutare un LLM locale prima della produzione | EMPV",
