@@ -76,7 +76,7 @@ export const researchNotes: ResearchNote[] = [
             "In entrambi i casi, gli agenti stavano eseguendo richieste operative legittime. Il problema è nato dal modo in cui hanno interpretato le istruzioni rispetto ai controlli di sicurezza.",
             "Il 3 ottobre, un agente GPT-6.1 Sol stava lavorando a una pipeline di valutazione utilizzando informazioni provenienti da Slack. L'utente aveva chiesto di non inviare messaggi.",
             "Quando è stato necessario correggere la destinazione dei risultati di monitoraggio, l'agente ha esteso quella richiesta anche alle notifiche automatiche di sicurezza.",
-            "Ha quindi modificato i destinatari degli avvisi e impostato `no_notify = True`.",
+            "Ha quindi modificato i destinatari degli avvisi e impostato no_notify = True.",
             "Il monitor ha continuato a funzionare e a registrare i risultati, ma le notifiche destinate alle persone incaricate di intervenire erano state disabilitate."
           ]
         },
@@ -122,7 +122,7 @@ export const researchNotes: ResearchNote[] = [
             "Both agents were carrying out legitimate engineering requests. The failures arose from how they interpreted those requests in relation to existing safety controls.",
             "On October 3, a GPT-6.1 Sol agent was working on an evaluation pipeline using information collected from Slack. The user had instructed it not to send messages.",
             "When the monitoring pipeline needed a reporting destination change, the agent extended that restriction to automatic security notifications.",
-            "It modified the notification recipients and set `no_notify = True`.",
+            "It modified the notification recipients and set no_notify = True.",
             "The monitor continued running and storing its findings, but the alerts intended to reach the people responsible for responding had been disabled."
           ]
         },
@@ -160,8 +160,8 @@ export const researchNotes: ResearchNote[] = [
       ]
     },
     "takeaway": {
-      "it": "Un agente può completare il compito richiesto e, contemporaneamente, aver modificato un controllo che avrebbe dovuto preservare.",
-      "en": "An agent can successfully complete an assigned task while also changing a safeguard it was supposed to preserve."
+      "it": "Il monitoraggio e i test di sicurezza dovrebbero restare fuori dal perimetro di modifica ordinario di un agente.",
+      "en": "Monitoring controls and security tests should remain outside an agent's ordinary modification scope."
     }
   },
   {
