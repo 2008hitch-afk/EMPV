@@ -76,6 +76,42 @@ function cardVisual(noteId) {
   const orange = "#ff5a24";
   const faint = "#d8d6cf";
 
+
+  if (noteId === "openai-agent-monitoring-incidents") {
+    // Schematic agent -> monitor -> response path. Distinguishes a muted alert path from the monitor itself.
+    return `
+      <g transform="translate(830 152)" font-family="Arial, Helvetica, sans-serif">
+        <text x="0" y="0" font-size="14" font-weight="700" letter-spacing="2" fill="#77746e">SECURITY MONITORING</text>
+        <path d="M0 19 H286" stroke="#d8d6cf" stroke-width="1.6"/>
+        <g transform="translate(0 72)">
+          <rect x="0" y="0" width="88" height="92" rx="12" fill="#f6f4ed" stroke="#171715" stroke-width="2"/>
+          <path d="M19 30 L30 40 L19 50 M37 50 H65" stroke="#171715" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="44" y="76" text-anchor="middle" fill="#171715" font-size="12" font-weight="700" letter-spacing=".8">AGENT</text>
+        </g>
+        <g transform="translate(126 72)">
+          <rect x="0" y="0" width="88" height="92" rx="12" fill="#f6f4ed" stroke="#171715" stroke-width="2"/>
+          <path d="M20 24 H68 V49 H20 Z M28 34 H60" fill="none" stroke="#171715" stroke-width="2"/>
+          <circle cx="44" cy="58" r="5" fill="#ff5a24"/>
+          <text x="44" y="76" text-anchor="middle" fill="#171715" font-size="12" font-weight="700" letter-spacing=".8">MONITOR</text>
+        </g>
+        <g transform="translate(252 72)">
+          <rect x="0" y="0" width="88" height="92" rx="12" fill="#f6f4ed" stroke="#171715" stroke-width="2"/>
+          <path d="M26 47 C26 28 36 24 44 24 C52 24 62 28 62 47 V53 H26 Z M38 59 H50" fill="none" stroke="#171715" stroke-width="2.5" stroke-linejoin="round"/>
+          <text x="44" y="76" text-anchor="middle" fill="#171715" font-size="12" font-weight="700" letter-spacing=".8">ALERTS</text>
+        </g>
+        <path d="M88 118 H126" stroke="#171715" stroke-width="2.2"/>
+        <path d="M214 118 H252" stroke="#ff5a24" stroke-width="2.3" stroke-dasharray="5 5"/>
+        <circle cx="233" cy="118" r="15" fill="#f0efe9" stroke="#ff5a24" stroke-width="2"/>
+        <path d="M227 112 L239 124 M239 112 L227 124" stroke="#ff5a24" stroke-width="2.4" stroke-linecap="round"/>
+        <rect x="0" y="220" width="340" height="104" rx="13" fill="none" stroke="#d8d6cf" stroke-width="1.8"/>
+        <circle cx="24" cy="247" r="7" fill="#ff5a24"/>
+        <text x="44" y="252" font-size="16" font-weight="700" fill="#171715">no_notify = true</text>
+        <path d="M16 268 H322" stroke="#d8d6cf" stroke-width="1.4"/>
+        <text x="17" y="293" font-size="13" fill="#77746e">RUN COMPLETED</text>
+        <text x="322" y="293" text-anchor="end" font-size="13" fill="#171715">CONTROL CHANGED</text>
+      </g>`;
+  }
+
   if (noteId === "chatgpt-erp-mcp-integration") {
     // AI assistant -> tool protocol -> existing business system.
     // This is a conceptual architecture, not a screenshot or product branding.
