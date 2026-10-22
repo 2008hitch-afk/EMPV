@@ -31,14 +31,16 @@ footer.empv-glass-footer {
   border-radius: 30px;
   color: var(--ink);
   /* Real translucent glass: show the original EMPV page through it. */
+  /* More genuinely see-through over EMPV's already-light background.
+     No secondary scene/backdrop is introduced. */
   background: linear-gradient(
     138deg,
-    rgba(255, 255, 255, .185) 0%,
-    rgba(239, 246, 255, .245) 46%,
-    rgba(222, 235, 254, .19) 100%
+    rgba(255, 255, 255, .075) 0%,
+    rgba(239, 246, 255, .095) 46%,
+    rgba(222, 235, 254, .085) 100%
   );
-  -webkit-backdrop-filter: blur(8px) saturate(1.28) brightness(1.065);
-  backdrop-filter: blur(8px) saturate(1.28) brightness(1.065);
+  -webkit-backdrop-filter: blur(3px) saturate(1.18);
+  backdrop-filter: blur(3px) saturate(1.18);
   box-shadow:
     0 31px 76px rgba(33, 60, 105, .16),
     0 9px 23px rgba(41, 58, 94, .065),
@@ -62,12 +64,12 @@ footer.empv-glass-footer {
   background:
     radial-gradient(
       ellipse 32% 66% at var(--glass-spot-x) var(--glass-spot-y),
-      color-mix(in srgb, var(--glass-accent) 10%, transparent),
+      color-mix(in srgb, var(--glass-accent) 19%, transparent),
       transparent 82%
     ),
     radial-gradient(
       ellipse 28% 50% at 99% 2%,
-      rgba(255, 255, 255, .1),
+      color-mix(in srgb, var(--glass-accent) 9%, transparent),
       transparent 78%
     );
   transition: opacity .25s ease;
@@ -82,18 +84,18 @@ footer.empv-glass-footer {
   background:
     radial-gradient(
       ellipse 22% 38% at var(--glass-mirror-x) var(--glass-mirror-y),
-      rgba(255, 255, 255, .5),
-      rgba(255, 255, 255, .06) 56%,
+      rgba(255, 255, 255, .75),
+      rgba(255, 255, 255, .09) 56%,
       transparent 85%
     ),
     linear-gradient(
       112deg,
-      rgba(255, 255, 255, .22) 0%,
-      transparent 19%,
-      rgba(255, 255, 255, .035) 34%,
-      transparent 48%,
-      rgba(255, 255, 255, .1) 73%,
-      transparent 88%
+      color-mix(in srgb, var(--glass-accent) 9%, transparent) 0%,
+      rgba(255, 255, 255, .29) 19%,
+      transparent 36%,
+      color-mix(in srgb, var(--glass-accent) 7%, transparent) 50%,
+      rgba(255, 255, 255, .27) 76%,
+      transparent 94%
     );
   transition: opacity .25s ease;
 }
