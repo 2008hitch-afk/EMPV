@@ -1427,21 +1427,13 @@ footer {
 }
 
 footer {
-  padding: 70px var(--page-gutter) var(--page-gutter);
+  padding: 54px var(--page-gutter) var(--page-gutter);
   background: var(--paper);
 }
 
-.footer-mark {
-  font-size: clamp(7rem, 22vw, 22rem);
-  line-height: 0.72;
-  letter-spacing: -0.095em;
-  font-weight: 700;
-  overflow: hidden;
-}
-
 .footer-meta {
-  margin-top: 70px;
-  padding-top: 18px;
+  margin-top: 0;
+  padding-top: 24px;
   border-top: 1px solid var(--hairline);
   display: grid;
   grid-template-columns: 1fr 1fr auto;
@@ -1551,7 +1543,7 @@ footer {
   }
 
   footer {
-    padding: 70px 18px 24px;
+    padding: 42px 18px 24px;
   }
 
   .footer-meta {
@@ -1599,9 +1591,6 @@ footer {
     font-size: clamp(2rem, 9vw, 2.8rem);
   }
 
-  .footer-mark {
-    font-size: 22vw;
-  }
 }
 
 @media (hover: none), (pointer: coarse) {
@@ -2367,8 +2356,7 @@ footer {
 :root[data-visual-theme="galaxy"] .project-row-identity h3,
 :root[data-visual-theme="galaxy"] .lab-identity h3,
 :root[data-visual-theme="galaxy"] .faq-intro h2,
-:root[data-visual-theme="galaxy"] .person-editorial-copy h3,
-:root[data-visual-theme="galaxy"] .footer-mark {
+:root[data-visual-theme="galaxy"] .person-editorial-copy h3 {
   color: color-mix(in oklch, var(--ink) 94%, var(--galaxy-accent) 6%);
   background: none;
   -webkit-background-clip: border-box;
@@ -2436,8 +2424,7 @@ footer {
 .detail-comparison h2,
 .detail-block h2,
 .detail-boundary p,
-.detail-end a,
-.footer-mark {
+.detail-end a {
   overflow: visible;
   padding-inline: 0.045em;
   padding-block: 0.07em 0.11em;
@@ -2452,10 +2439,6 @@ footer {
 
 .person-editorial-copy h3 {
   line-height: 0.94;
-}
-
-.footer-mark {
-  line-height: 0.78;
 }
 
 
@@ -2493,10 +2476,6 @@ footer {
 
 .hero h1 {
   line-height: 0.94;
-}
-
-.footer-mark {
-  line-height: 0.84;
 }
 
 .section-head,
