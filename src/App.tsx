@@ -201,8 +201,8 @@ function PersonProfile({
     surface.style.setProperty("--team-tilt-y", `${((x - 0.5) * 7).toFixed(2)}deg`);
     surface.style.setProperty("--team-glow-x", `${(x * 100).toFixed(1)}%`);
     surface.style.setProperty("--team-glow-y", `${(y * 100).toFixed(1)}%`);
-    surface.style.setProperty("--team-portrait-x", `${((x - 0.5) * 7).toFixed(2)}px`);
-    surface.style.setProperty("--team-portrait-y", `${((y - 0.5) * 7).toFixed(2)}px`);
+    surface.style.setProperty("--team-portrait-x", `${((x - 0.5) * 3).toFixed(2)}px`);
+    surface.style.setProperty("--team-portrait-y", `${((y - 0.5) * 3).toFixed(2)}px`);
   }
 
   function handleCardPointerLeave(event: ReactPointerEvent<HTMLDivElement>) {
