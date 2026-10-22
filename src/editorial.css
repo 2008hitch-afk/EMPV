@@ -23,6 +23,8 @@
   --empv-leading-subheading: 1.16;
   --empv-leading-list: 1.13;
   --empv-leading-body: 1.72;
+  --empv-tracking-display: -.06em;
+  --empv-tracking-heading: -.052em;
 
   --empv-space-section: clamp(68px, 6.8vw, 100px);
   --empv-space-row: clamp(29px, 3.25vw, 44px);
