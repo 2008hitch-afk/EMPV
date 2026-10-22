@@ -317,6 +317,16 @@
           "title": "How to connect ChatGPT to an ERP system: APIs, MCP and security | EMPV",
           "description": "How to connect ChatGPT to an ERP using APIs and MCP. Architecture, permissions, security and practical business integration examples."
         }
+      },
+      "php2shell-php-security-2026": {
+        "it": {
+          "title": "PHP2Shell: vulnerabilità PHP e aggiornamenti urgenti | EMPV",
+          "description": "PHP2Shell: CVE-2026-109618 e CVE-2026-109619. Le versioni PHP corrette, i controlli immediati e gli attacchi osservati prima della divulgazione."
+        },
+        "en": {
+          "title": "PHP2Shell: critical PHP vulnerabilities and fixes | EMPV",
+          "description": "PHP2Shell: CVE-2026-109618 and CVE-2026-109619. Fixed PHP releases, immediate security checks and exploitation attempts before disclosure."
+        }
       }
     }
   }
