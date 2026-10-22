@@ -7,76 +7,75 @@
  * All color-dependent surfaces use existing theme tokens.
  */
 :root {
-  --empv-editorial-section-title: clamp(2.25rem, 4.35vw, 4.65rem);
-  --empv-editorial-entry-title: clamp(1.75rem, 2.65vw, 2.75rem);
-  --empv-editorial-paragraph: clamp(0.95rem, 1.08vw, 1.08rem);
-  --empv-editorial-body-line: 1.68;
-  --empv-editorial-row-space: clamp(27px, 3.2vw, 47px);
-  --empv-editorial-column-gap: clamp(28px, 4.2vw, 78px);
+  /* EMPV type/spacing scale — the only source of editorial font sizes.
+     Homepage Hero and Team portrait typography intentionally remain independent. */
+  --empv-type-page-title: clamp(3.65rem, 5vw, 4.8rem);
+  --empv-type-section-title: clamp(2.6rem, 3.85vw, 3.85rem);
+  --empv-type-subheading: clamp(1.88rem, 2.65vw, 2.58rem);
+  --empv-type-list-title: clamp(1.78rem, 2.42vw, 2.44rem);
+  --empv-type-lead: clamp(1.05rem, 1.28vw, 1.26rem);
+  --empv-type-body: clamp(1rem, 1.08vw, 1.08rem);
+  --empv-type-small: .88rem;
+  --empv-type-meta: .75rem;
+
+  --empv-leading-page: 1.085;
+  --empv-leading-section: 1.1;
+  --empv-leading-subheading: 1.16;
+  --empv-leading-list: 1.13;
+  --empv-leading-body: 1.72;
+
+  --empv-space-section: clamp(68px, 6.8vw, 100px);
+  --empv-space-row: clamp(29px, 3.25vw, 44px);
+  --empv-space-column: clamp(28px, 4.2vw, 72px);
   --empv-editorial-accent: var(--galaxy-accent, var(--signal));
 }
 
 /* Shared editorial rhythm throughout the homepage, excluding its hero. */
 :is(.people, .work, .labs, .faq, .contact-prompt).section-pad {
-  padding-top: clamp(68px, 7vw, 108px);
-  padding-bottom: clamp(68px, 7vw, 108px);
+  padding-top: var(--empv-space-section);
+  padding-bottom: var(--empv-space-section);
 }
 :is(.people, .work, .labs) .section-head {
   grid-template-columns: minmax(0, 1.08fr) minmax(260px, .78fr);
   align-items: end;
-  column-gap: var(--empv-editorial-column-gap);
+  column-gap: var(--empv-space-column);
   margin-bottom: clamp(34px, 4vw, 56px);
 }
 :is(.work, .labs, .people) .section-head h2,
 .faq-intro h2 {
-  font-size: var(--empv-editorial-section-title);
-  line-height: 1.06;
-  letter-spacing: -.058em;
-  font-weight: 600;
   max-width: 960px;
 }
 :is(.work, .labs, .people) .section-head > p,
 .faq-intro > p,
 .contact-prompt-main > p {
   max-width: 460px;
-  font-size: var(--empv-editorial-paragraph);
-  line-height: var(--empv-editorial-body-line);
 }
 
 /* Work and Lab share the same grid logic, not the same content density. */
 .project-row {
   grid-template-columns: minmax(0, .91fr) minmax(0, 1.09fr) 24px;
-  gap: var(--empv-editorial-column-gap);
+  gap: var(--empv-space-column);
   align-items: start;
-  padding: var(--empv-editorial-row-space) 0;
-}
-.project-row-identity h3 {
-  max-width: 680px;
-  font-size: var(--empv-editorial-entry-title);
-  line-height: 1.09;
-  letter-spacing: -.055em;
-  font-weight: 600;
+  padding: var(--empv-space-row) 0;
 }
 .project-row-content { gap: 17px; }
 .project-row-description p {
   max-width: 650px;
   margin-top: 9px;
-  font-size: var(--empv-editorial-paragraph);
-  line-height: 1.63;
 }
 .project-row-tags {
   gap: 7px;
   padding-top: 16px;
   border-color: var(--hairline);
 }
-.project-row-tags span { font-size: .62rem; }
+.project-row-tags span { font-size: var(--empv-type-meta); }
 .project-row-kind,
 .project-row-description > span,
 .lab-kind,
 .lab-question > span,
 .lab-state > span,
 .lab-focus > span {
-  font-size: .67rem;
+  font-size: var(--empv-type-meta);
   letter-spacing: .048em;
 }
 .project-row-arrow, .lab-arrow { align-self: start; margin-top: 4px; }
@@ -84,30 +83,16 @@
 .lab-row {
   grid-template-columns: 28px minmax(0, .86fr) minmax(0, 1.14fr) 24px;
   gap: clamp(19px, 2.85vw, 54px);
-  padding: var(--empv-editorial-row-space) 0;
-}
-.lab-identity h3 {
-  font-size: var(--empv-editorial-entry-title);
-  line-height: 1.09;
-  letter-spacing: -.054em;
-  font-weight: 600;
+  padding: var(--empv-space-row) 0;
 }
 .lab-content { gap: 17px; }
 .lab-question strong {
-  font-size: clamp(1.03rem, 1.4vw, 1.35rem);
-  line-height: 1.42;
-  letter-spacing: -.029em;
   max-width: 660px;
-  font-weight: 550;
 }
 .lab-evidence {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: clamp(15px, 2.4vw, 38px);
   padding-top: 15px;
-}
-.lab-state p, .lab-focus p {
-  line-height: 1.63;
-  font-size: clamp(.78rem, .85vw, .89rem);
 }
 
 /* FAQ: an intentional two-column composition, with reduced horizontal drift. */
@@ -125,9 +110,6 @@
   padding: 22px 0 24px;
 }
 .faq-question {
-  font-size: clamp(1.08rem, 1.46vw, 1.38rem);
-  letter-spacing: -.033em;
-  line-height: 1.4;
   max-width: 660px;
 }
 .faq-answer {
@@ -142,12 +124,7 @@
 }
 .contact-prompt-main {
   grid-template-columns: minmax(0, 1.04fr) minmax(0, .96fr);
-  column-gap: var(--empv-editorial-column-gap);
-}
-.contact-prompt h2 {
-  font-size: clamp(2.15rem, 3.95vw, 4.3rem);
-  letter-spacing: -.057em;
-  line-height: 1.1;
+  column-gap: var(--empv-space-column);
 }
 .contact-action {
   min-height: 52px;
@@ -155,7 +132,7 @@
   justify-content: space-between;
   padding: 6px 6px 6px 20px;
   border-radius: 999px;
-  font-size: .78rem;
+  font-size: var(--empv-type-meta);
   line-height: 1.35;
   font-weight: 600;
   white-space: nowrap;
@@ -419,31 +396,20 @@
 }
 .notes-index-hero h1 {
   max-width: 1000px;
-  font-size: clamp(3rem, 5.5vw, 6.35rem);
-  line-height: 1.04;
-  letter-spacing: -.062em;
-  font-weight: 600;
 }
 .notes-index-hero p {
   max-width: 660px;
-  font-size: var(--empv-editorial-paragraph);
-  line-height: 1.72;
 }
 .research-note-row {
   grid-template-columns: 100px minmax(0, 1fr) 24px;
-  gap: var(--empv-editorial-column-gap);
-  padding: clamp(29px, 3.1vw, 46px) 0;
+  gap: var(--empv-space-column);
+  padding: var(--empv-space-row) 0;
 }
 .research-note-main h2 {
   max-width: 920px;
-  font-size: clamp(1.85rem, 3vw, 3.1rem);
-  line-height: 1.1;
-  letter-spacing: -.053em;
-  font-weight: 600;
 }
 .research-note-main > p {
   max-width: 690px;
-  font-size: var(--empv-editorial-paragraph);
 }
 .research-note-meta { margin-top: 21px; padding-top: 13px; }
 .detail-hero {
@@ -454,66 +420,35 @@
   min-height: calc(74svh - 164px);
 }
 .detail-title-wrap { margin-bottom: clamp(39px, 5vw, 64px); }
-.detail-title-wrap h1 {
-  font-size: clamp(3.8rem, 6.4vw, 7.6rem);
-  line-height: 1.03;
-  letter-spacing: -.068em;
-}
-.detail-title-project h1,
-.research-note-title h1,
-.process-hero .detail-title-project h1 {
-  font-size: clamp(3rem, 5vw, 5.95rem);
-  line-height: 1.04;
-  letter-spacing: -.06em;
-}
-.detail-lead {
-  font-size: clamp(1.02rem, 1.35vw, 1.3rem);
-  line-height: 1.62;
-}
 .detail-comparison { gap: 28px; }
 .detail-comparison article {
   min-height: 290px;
   padding-top: clamp(58px, 6vw, 78px);
   padding-bottom: clamp(58px, 6vw, 78px);
 }
-.detail-comparison h2 {
-  font-size: clamp(1.85rem, 2.9vw, 3.1rem);
-  line-height: 1.09;
-}
 .detail-block {
   grid-template-columns: minmax(145px, .44fr) minmax(0, 1.56fr);
-  gap: var(--empv-editorial-column-gap);
-  padding: clamp(54px, 6vw, 82px) 0;
+  gap: var(--empv-space-column);
+  padding: var(--empv-space-section) 0;
 }
 .detail-block h2 {
   max-width: 810px;
   margin-bottom: 22px;
-  font-size: clamp(1.9rem, 3.05vw, 3.15rem);
-  line-height: 1.11;
-}
-.detail-block p, .research-note-copy p {
-  max-width: 760px;
-  font-size: clamp(.96rem, 1.06vw, 1.08rem);
-  line-height: 1.8;
 }
 .detail-boundary {
   grid-template-columns: minmax(145px, .44fr) minmax(0, 1.56fr);
-  gap: var(--empv-editorial-column-gap);
-  padding-top: clamp(57px, 6vw, 84px);
-  padding-bottom: clamp(57px, 6vw, 84px);
+  gap: var(--empv-space-column);
+  padding-top: var(--empv-space-section);
+  padding-bottom: var(--empv-space-section);
 }
 .detail-boundary p { font-size: clamp(1.6rem, 2.6vw, 2.7rem); line-height: 1.2; }
 .detail-end { min-height: 27vh; padding-top: 65px; }
 .detail-end a { font-size: clamp(2rem, 3.4vw, 3.6rem); }
-.process-related { padding-block: clamp(65px, 7vw, 95px); }
-.process-related h2, .process-contact h2 {
-  font-size: clamp(2rem, 3.35vw, 3.65rem);
-  line-height: 1.11;
-}
+.process-related { padding-block: var(--empv-space-section); }
 .process-contact {
   grid-template-columns: minmax(145px, .44fr) minmax(0, 1.56fr);
-  gap: var(--empv-editorial-column-gap);
-  padding-block: clamp(70px, 7vw, 102px);
+  gap: var(--empv-space-column);
+  padding-block: var(--empv-space-section);
 }
 .process-related-item strong {
   font-size: clamp(1.16rem, 1.64vw, 1.65rem);
@@ -537,6 +472,14 @@
   .lab-arrow { grid-column: 3; grid-row: 1; }
 }
 @media (max-width: 900px) {
+  :root {
+    --empv-type-page-title: clamp(2.7rem, 6.2vw, 4rem);
+    --empv-type-section-title: clamp(2.1rem, 4.8vw, 2.8rem);
+    --empv-type-subheading: clamp(1.65rem, 3.8vw, 2.2rem);
+    --empv-type-list-title: clamp(1.55rem, 3.8vw, 2.2rem);
+    --empv-space-section: clamp(58px, 8.4vw, 76px);
+    --empv-space-row: clamp(28px, 4vw, 36px);
+  }
   :is(.people, .work, .labs) .section-head { grid-template-columns: 1fr; gap: 22px; }
   .faq-layout { grid-template-columns: 1fr; gap: 35px; }
   .faq-intro { position: static; }
@@ -547,24 +490,24 @@
   .team-card-surface { min-height: 510px; }
   .detail-hero { min-height: auto; }
   .detail-hero-inner { min-height: 68svh; }
-  .detail-title-wrap h1 { font-size: clamp(3.25rem, 7vw, 5rem); }
-  .detail-title-project h1,
-  .research-note-title h1,
-  .process-hero .detail-title-project h1 { font-size: clamp(2.7rem, 6.4vw, 4.5rem); }
   .detail-block, .detail-boundary, .process-contact { grid-template-columns: 1fr; gap: 24px; }
   .research-note-row { grid-template-columns: 80px minmax(0, 1fr) 24px; gap: 20px; }
   .notes-index-hero { min-height: clamp(330px, 51svh, 580px); }
 }
 @media (max-width: 560px) {
   :root {
-    --empv-editorial-section-title: clamp(2rem, 8.7vw, 2.65rem);
-    --empv-editorial-entry-title: clamp(1.62rem, 7.1vw, 2rem);
-    --empv-editorial-paragraph: .96rem;
-    --empv-editorial-row-space: 29px;
+    --empv-type-page-title: clamp(2.35rem, 10vw, 2.75rem);
+    --empv-type-section-title: clamp(2rem, 8.4vw, 2.35rem);
+    --empv-type-subheading: clamp(1.65rem, 7vw, 1.95rem);
+    --empv-type-list-title: clamp(1.58rem, 6.8vw, 1.88rem);
+    --empv-type-lead: 1.04rem;
+    --empv-type-body: 1rem;
+    --empv-space-section: 64px;
+    --empv-space-row: 28px;
   }
   :is(.people, .work, .labs, .faq, .contact-prompt).section-pad {
-    padding-top: 66px;
-    padding-bottom: 66px;
+    padding-top: var(--empv-space-section);
+    padding-bottom: var(--empv-space-section);
   }
   .people .people-grid { padding-top: 25px; gap: 17px; }
   .team-card-surface { min-height: 472px; padding: 22px; border-radius: 25px; }
@@ -573,35 +516,19 @@
   .team-name { font-size: clamp(1.7rem, 7.6vw, 2.2rem); margin-top: 21px; }
   .team-role { font-size: .79rem; }
   .team-description { font-size: .78rem; margin-top: 19px; }
-  .contact-prompt h2 { font-size: clamp(2rem, 8.3vw, 2.75rem); }
   .contact-prompt-actions { flex-direction: column; align-items: stretch; }
   .contact-action { width: 100%; min-height: 52px; }
   .project-row { padding: 28px 0 31px; }
-  .project-row-description p { font-size: .96rem; }
   .lab-row { grid-template-columns: 22px minmax(0, 1fr) 20px; gap: 13px; padding-block: 28px; }
   .lab-evidence { grid-template-columns: 1fr; gap: 12px; }
-  .lab-question strong { font-size: 1.04rem; }
   .faq-item summary { grid-template-columns: 27px minmax(0, 1fr) 20px; gap: 11px; }
-  .faq-question { font-size: 1.05rem; }
   .faq-answer { grid-template-columns: 27px minmax(0, 1fr) 20px; gap: 11px; }
   .notes-index-hero { min-height: 340px; padding-top: 105px; padding-bottom: 48px; }
-  .notes-index-hero h1 { font-size: clamp(2.85rem, 10.5vw, 3.55rem); }
   .research-note-row { grid-template-columns: minmax(0, 1fr) 20px; gap: 12px; padding-block: 31px; }
   .research-note-index { grid-column: 1; }
   .research-note-main { grid-column: 1 / -1; }
   .research-note-arrow { grid-column: 2; grid-row: 1; }
-  .research-note-main h2 { font-size: clamp(1.7rem, 7.3vw, 2.15rem); }
   .detail-hero-inner { min-height: 55svh; }
-  .detail-title-wrap h1 { font-size: clamp(2.55rem, 9.5vw, 3.7rem); }
-  .detail-title-project h1,
-  .research-note-title h1,
-  .process-hero .detail-title-project h1 {
-    font-size: clamp(2.4rem, 9.3vw, 3.55rem);
-    line-height: 1.09;
-  }
-  .detail-comparison h2 { font-size: clamp(1.7rem, 7vw, 2.25rem); }
-  .detail-block h2 { font-size: clamp(1.75rem, 7vw, 2.3rem); }
-  .process-related h2, .process-contact h2 { font-size: clamp(1.9rem, 7.8vw, 2.55rem); }
 }
 @media (hover: none), (pointer: coarse) {
   .team-card-surface { transform: none !important; }
