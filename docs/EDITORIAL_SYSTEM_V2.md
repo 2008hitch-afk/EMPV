@@ -44,3 +44,47 @@ Revisioni grafiche approvate per l'homepage **al di sotto** della Hero, l'indice
 ## Pubblicazione
 
 Le modifiche vengono sviluppate su branch dedicato. Prima di fondere in `main`, accertarsi che la CI del pull request sia superata. Il deployment GitHub Pages è attivato dal push/merge su `main`.
+
+## Consolidamento tipografico (ottobre 2026)
+
+Il sistema editoriale è stato consolidato, senza modificare la Hero né il Team già approvati. Le dimensioni non sono più definite separatamente per Progetti, AI Lab, Research Notes e articoli.
+
+### Fonte unica dei valori
+
+In `src/editorial.css`, alla radice `:root`, sono definiti:
+
+| Token | Ruolo | Desktop |
+| --- | --- | --- |
+| `--empv-type-page-title` | H1 di indici e dettagli | 58–77 px |
+| `--empv-type-section-title` | H2 di sezioni principali | 42–62 px |
+| `--empv-type-subheading` | H2 degli articoli/progetti | 30–41 px |
+| `--empv-type-list-title` | Titolo di Progetti, Lab e Research Notes nelle liste | 28–39 px |
+| `--empv-type-lead` | Introduzioni e domande rilevanti | 17–20 px |
+| `--empv-type-body` | Paragrafi e liste leggibili | 16–17 px |
+| `--empv-type-small` | Didascalie e dettagli tecnici | 14 px |
+| `--empv-type-meta` | Micro-label, tag, data e metadata | 12 px |
+
+Le dimensioni effettive sono fluide entro gli intervalli; `@media (max-width:900px)` e `@media (max-width:560px)` risolvono le proporzioni per tablet e mobile. Interlinee e tracking fanno riferimento ai token `--empv-leading-*` e `--empv-tracking-*`. Spaziature verticali condivise: `--empv-space-section`, `--empv-space-row`, `--empv-space-column`.
+
+### Regole semantiche
+
+- Il titolo H1 dei dettagli Progetto, AI Lab, Research Note, Processo e delle pagine indice usa un unico `--empv-type-page-title`.
+- Progetti, AI Lab e Research Notes nei rispettivi elenchi usano `--empv-type-list-title`.
+- I sottotitoli dei contenuti lunghi usano `--empv-type-subheading`; il corpo testo `--empv-type-body`.
+- Negli articoli i punti elenco sono frasi leggibili, non etichette tutte maiuscole da 11 px.
+- Metadati e micro-label hanno un minimo di riferimento di 12 px, non 10 px, e restano differenziati per colore.
+- Le card Team e i biglietti da visita personali mantengono la propria personalità grafica. La homepage Hero rimane intoccabile.
+- IT e EN condividono i CSS: consentire ritorni a capo naturali, senza break obbligati nei titoli delle pagine interne.
+
+### QA di rilascio
+
+Controllare le seguenti tipologie alle larghezze 320, 390, 768, 1440 e 1920 px, in IT e EN:
+- /it/ e /en/ (esclusa Hero)
+- /it/progetti/ e /en/projects/
+- /it/lab/ e /en/lab/
+- dettaglio Progetto e AI Lab
+- /it/research-notes/ e /en/research-notes/
+- articolo Research Notes
+- pagina Processo
+
+Verificare in particolare consistenza H1/H2, paragrafi e liste leggibili, eventuale clipping dei titoli, spaziature, link, accessibilità e assenza di overflow orizzontale.
