@@ -26,6 +26,129 @@ export type ResearchNote = {
 
 export const researchNotes: ResearchNote[] = [
   {
+    "id": "php2shell-php-security-2026",
+    "index": "014",
+    "slugs": {
+      "it": "php2shell-vulnerabilita-php-cosa-fare",
+      "en": "php2shell-php-vulnerabilities-security-fixes"
+    },
+    "title": {
+      "it": "PHP2Shell: due vulnerabilità critiche in PHP. Cosa aggiornare e come proteggere i server",
+      "en": "PHP2Shell: two critical PHP vulnerabilities and what server administrators should do"
+    },
+    "dek": {
+      "it": "Due vulnerabilità PHP consentono potenzialmente l'esecuzione di codice senza autenticazione. Le versioni corrette, i controlli immediati e le evidenze degli attacchi rilevati prima dell'annuncio.",
+      "en": "Two critical PHP flaws can enable unauthenticated remote code execution. Fixed releases, immediate checks and the exploitation attempts observed before disclosure."
+    },
+    "category": {
+      "it": "TECH NOTE / SECURITY",
+      "en": "TECH NOTE / SECURITY"
+    },
+    "tags": {
+      "it": [
+        "PHP2Shell",
+        "PHP",
+        "Sicurezza PHP",
+        "CVE-2026-109618",
+        "CVE-2026-109619"
+      ],
+      "en": [
+        "PHP2Shell",
+        "PHP security",
+        "Remote code execution",
+        "CVE-2026-109618",
+        "CVE-2026-109619"
+      ]
+    },
+    "published": "2026-10-22",
+    "updated": "2026-10-22",
+    "readingTime": {
+      "it": "3 min",
+      "en": "3 min"
+    },
+    "socialVersion": "20261022",
+    "sections": {
+      "it": [
+        {
+          "label": "01 / La vulnerabilità",
+          "title": "Due falle nell'interprete PHP",
+          "paragraphs": [
+            "Il 21 ottobre 2026 il [PHP Security Team](https://www.php.net/archive/2026.php#2026-10-21-5) ha rilasciato gli aggiornamenti per CVE-2026-109618 e CVE-2026-109619, conosciute insieme come PHP2Shell. Entrambe possono consentire l'esecuzione di codice da remoto senza autenticazione.",
+            "Il problema interessa il runtime PHP che elabora le richieste HTTP: non richiede necessariamente un difetto nel codice dell'applicazione. Il team PHP considera particolarmente esposte le installazioni Apache con mod_php, ma include anche PHP-FPM, php-cgi, FrankenPHP e LiteSpeed.",
+            "Le vulnerabilità riguardano la gestione della memoria durante le richieste: la prima coinvolge la pulizia dopo errori di memoria esaurita; la seconda uno stato globale collegato a richieste precedenti che può rimanere accessibile dopo la liberazione della memoria."
+          ]
+        },
+        {
+          "label": "02 / Correzioni",
+          "title": "Quali versioni PHP installare",
+          "paragraphs": [
+            "Le versioni correttive pubblicate sono **PHP 8.5.12, 8.4.27, 8.3.36 e 8.2.35**. Bisogna identificare il runtime effettivamente utilizzato dai servizi esposti e applicare la versione corretta per il proprio ramo.",
+            "Per i rami precedenti occorre verificare le patch del distributore oppure migrare a una versione supportata. Nei sistemi che usano aggiornamenti di sicurezza retroportati, il solo numero della versione non è una prova sufficiente dell'assenza della correzione.",
+            "Prima dell'intervento conviene effettuare e verificare un backup di file e database; dopo, testare l'applicazione, controllare la versione PHP attiva e accertare che i processi interessati siano stati riavviati."
+          ]
+        },
+        {
+          "label": "03 / Verifiche operative",
+          "title": "L'aggiornamento non sostituisce l'analisi dei log",
+          "paragraphs": [
+            "È opportuno esaminare log HTTP, errori PHP, file modificati in modo anomalo e processi sospetti anche per il periodo precedente al rilascio della patch. Un aggiornamento corregge la vulnerabilità, ma non annulla un'eventuale compromissione avvenuta in precedenza.",
+            "Se non è possibile intervenire subito, il [PHP Security Team](https://www.php.net/archive/2026.php#2026-10-21-5) documenta mitigazioni temporanee. Devono essere valutate rispetto alla configurazione e al funzionamento del servizio, e non coprono tutti i percorsi di attacco. La correzione completa rimane l'aggiornamento."
+          ]
+        },
+        {
+          "label": "04 / Attacchi osservati",
+          "title": "Segnalazioni precedenti alla divulgazione",
+          "paragraphs": [
+            "[Amazon Threat Intelligence](https://aws.amazon.com/blogs/security/amazon-threat-intelligence-identifies-php2shell-exploitation-prior-to-public-disclosure-in-madpot/) riferisce di avere osservato tentativi di sfruttamento attraverso MadPot già il 17 ottobre 2026, quattro giorni prima della divulgazione pubblica.",
+            "L'attività osservata non permette di determinare quanti server di produzione siano stati compromessi. L'[NCSC-NL](https://github.com/NCSC-NL/php2shell) raccoglie informazioni operative per i responsabili della risposta e della protezione dei sistemi.",
+            "Per chi gestisce infrastrutture aziendali, la priorità resta individuare le istanze PHP esposte, verificare le patch e conservare le evidenze utili a riconoscere possibili incidenti."
+          ]
+        }
+      ],
+      "en": [
+        {
+          "label": "01 / Vulnerabilities",
+          "title": "Two flaws in the PHP runtime",
+          "paragraphs": [
+            "On October 21, 2026, the [PHP Security Team](https://www.php.net/archive/2026.php#2026-10-21-5) released patches for CVE-2026-109618 and CVE-2026-109619, collectively known as PHP2Shell. Both vulnerabilities can allow unauthenticated remote code execution.",
+            "The issues affect the PHP runtime handling HTTP requests and do not necessarily depend on a flaw in application code. PHP considers Apache with mod_php at particularly high risk, while also listing PHP-FPM, php-cgi, FrankenPHP and LiteSpeed.",
+            "The first issue involves memory handling during cleanup after out-of-memory errors. The second involves request-owned global state that may remain accessible after its backing memory has been freed."
+          ]
+        },
+        {
+          "label": "02 / Patches",
+          "title": "Which PHP versions should be installed",
+          "paragraphs": [
+            "The fixed versions are **PHP 8.5.12, 8.4.27, 8.3.36 and 8.2.35**. Administrators should identify the runtime actually serving web requests and deploy the appropriate update.",
+            "Older branches need a supported vendor patch or migration. On systems with backported security fixes, the displayed PHP version alone may not establish patch status.",
+            "Before updating, create and verify backups of application files and databases. Afterwards, test the application, confirm the active PHP release and make sure affected processes have restarted."
+          ]
+        },
+        {
+          "label": "03 / Immediate checks",
+          "title": "Patching does not replace log review",
+          "paragraphs": [
+            "Review HTTP and PHP error logs, unexpected file changes and suspicious processes, including activity from before the patch release. Applying an update does not remove changes introduced by an attacker before remediation.",
+            "If immediate patching is impossible, the [PHP Security Team](https://www.php.net/archive/2026.php#2026-10-21-5) documents temporary risk-reduction measures. They require configuration-specific assessment and do not cover every exploitation path. Updating remains the only complete fix."
+          ]
+        },
+        {
+          "label": "04 / Exploitation reports",
+          "title": "Attempts were observed before disclosure",
+          "paragraphs": [
+            "[Amazon Threat Intelligence](https://aws.amazon.com/blogs/security/amazon-threat-intelligence-identifies-php2shell-exploitation-prior-to-public-disclosure-in-madpot/) reported observing exploitation attempts through its MadPot infrastructure as early as October 17, 2026, four days before public disclosure.",
+            "These observations do not establish how many production servers were successfully compromised. The [NCSC-NL](https://github.com/NCSC-NL/php2shell) maintains operational information for defenders.",
+            "For organizations operating PHP services, the practical priorities are identifying exposed instances, verifying patch status and retaining the evidence needed to investigate possible incidents."
+          ]
+        }
+      ]
+    },
+    "takeaway": {
+      "it": "Verificare la versione PHP effettivamente in uso, aggiornare il runtime e analizzare anche i log anteriori alla patch.",
+      "en": "Verify the PHP runtime actually serving requests, patch it and review logs from before disclosure."
+    }
+  },
+  {
     "id": "openai-agent-monitoring-incidents",
     "index": "013",
     "slugs": {
