@@ -606,24 +606,63 @@ function adaptAssets(html, path) {
 
 function homeMarkup(lang) {
   const c = copy[lang];
-  const projects = selected[lang].map(project =>
-    '<article><h3><a href="' +
-    hrefFor({ kind: "detail", lang, detailKind: "project", slug: project.slug }) +
-    '">' + esc(project.name) + '</a></h3><p>' + esc(project.description) +
-    '</p><p>' + project.meta.map(esc).join(" · ") + '</p></article>'
-  ).join("");
+  const it = lang === "it";
+  const contactLabel = it ? "Profilo e contatti" : "Profile and contact";
+  const projectLabel = it ? "Cosa abbiamo costruito" : "What we built";
+  const questionLabel = it ? "Cosa stiamo testando" : "What we are testing";
+  const repoLabel = it ? "Stato del repo" : "Repository state";
+  const focusLabel = it ? "Focus corrente" : "Current focus";
+  const contactSubject = it
+    ? "EMPV — Parliamo di un processo aziendale"
+    : "EMPV — Let's discuss a business process";
 
-  const labItems = labs[lang].map(project =>
-    '<article><h3><a href="' +
-    hrefFor({ kind: "detail", lang, detailKind: "lab", slug: project.slug }) +
-    '">' + esc(project.name) + '</a></h3><p>' + esc(project.description) +
-    '</p><p><strong>' + (lang === "it" ? "Domanda: " : "Question: ") +
-    '</strong>' + esc(project.question) + '</p><p>' + esc(project.state) + '</p></article>'
-  ).join("");
+  // Keep the crawler/no-JavaScript content visually aligned with the actual React UI.
+  // This source is replaced by React when JavaScript runs; do not modify the Hero.
+  const teamCard = (name, role, description, person, portrait, variant) => [
+    '<article class="person team-person person--', variant, '">',
+    '<div class="team-card-surface">',
+    '<div class="team-card-content">',
+    '<div class="team-portrait" role="img" aria-label="', esc(name), '">',
+    '<img src="', esc(withBase("/team/" + portrait)), '" alt="" width="170" height="170" loading="lazy" decoding="async">',
+    '</div>',
+    '<h3 class="team-name">', esc(name), '</h3>',
+    '<p class="team-role">', esc(role), '</p>',
+    '<p class="team-description">', esc(description), '</p>',
+    '</div>',
+    '<a class="team-profile-action" href="', esc(hrefFor({kind:"businessCard",lang:"it",person})), '">',
+    '<span>', esc(contactLabel), '</span><span aria-hidden="true">↗</span>',
+    '</a></div></article>'
+  ].join("");
 
-  const faqItems = faqs[lang].map(item =>
-    '<details><summary>' + esc(item.question) + '</summary><p>' + esc(item.answer) + '</p></details>'
-  ).join("");
+  const projects = selected[lang].map(project => [
+    '<a class="project-row" href="', esc(hrefFor({ kind: "detail", lang, detailKind: "project", slug: project.slug })), '">',
+    '<div class="project-row-identity"><span class="project-row-kind">', esc(project.kind), '</span>',
+    '<h3>', esc(project.name), '</h3></div>',
+    '<div class="project-row-content"><div class="project-row-description">',
+    '<span>', esc(projectLabel), '</span><p>', esc(project.description), '</p></div>',
+    '<div class="project-row-tags">', project.meta.map(tag => '<span>' + esc(tag) + '</span>').join(""), '</div>',
+    '</div><span class="project-row-arrow" aria-hidden="true">↗</span></a>'
+  ].join("")).join("");
+
+  const labItems = labs[lang].map(project => [
+    '<a class="lab-row lab-register-row" href="', esc(hrefFor({kind:"detail",lang,detailKind:"lab",slug:project.slug})), '">',
+    '<div class="lab-index">', esc(project.index), '</div>',
+    '<div class="lab-identity"><span class="lab-kind">', esc(project.kind), '</span><h3>', esc(project.name), '</h3></div>',
+    '<div class="lab-content">',
+    '<div class="lab-question"><span>', esc(questionLabel), '</span><strong>', esc(project.question), '</strong></div>',
+    '<div class="lab-evidence">',
+    '<div class="lab-state"><span>', esc(repoLabel), '</span><p>', esc(project.state), '</p></div>',
+    '<div class="lab-focus"><span>', esc(focusLabel), '</span><p>', esc(project.focus), '</p></div>',
+    '</div></div><span class="lab-arrow" aria-hidden="true">↗</span></a>'
+  ].join("")).join("");
+
+  const faqItems = faqs[lang].map((item, index) => [
+    '<details class="faq-item"><summary>',
+    '<span class="faq-index">', String(index + 1).padStart(2,"0"), '</span>',
+    '<span class="faq-question">', esc(item.question), '</span>',
+    '<span class="faq-toggle" aria-hidden="true">+</span></summary>',
+    '<div class="faq-answer"><p>', esc(item.answer), '</p></div></details>'
+  ].join("")).join("");
 
   return [
     '<div class="site-shell" data-prerendered="true">',
@@ -640,15 +679,27 @@ function homeMarkup(lang) {
     '<h1><span>', esc(c.heroTitleA), '</span> <span class="outline">', esc(c.heroTitleB), '</span></h1>',
     '<div class="hero-bottom"><p>', esc(c.heroBody), '</p></div>',
     '</div></section>',
-    '<section class="people section-pad" id="people"><div class="section-head"><div><div class="eyebrow">', esc(c.peopleLabel), '</div><h2>', esc(c.peopleTitle), '</h2></div></div>',
+    '<section class="people section-pad" id="people"><div class="section-head people-head"><div><div class="eyebrow">', esc(c.peopleLabel), '</div><h2>', esc(c.peopleTitle), '</h2></div></div>',
     '<div class="people-grid">',
-    '<article class="person person-editorial"><div class="person-editorial-copy"><p class="role">', esc(c.enricoRole), '</p><h3><a class="person-profile-link" href="', esc(hrefFor({ kind: "businessCard", lang: "it", person: "enrico" })), '">Enrico Peruffo</a></h3><p class="person-description">', esc(c.enricoText), '</p></div></article>',
-    '<article class="person person-editorial"><div class="person-editorial-copy"><p class="role">', esc(c.micheleRole), '</p><h3><a class="person-profile-link" href="', esc(hrefFor({ kind: "businessCard", lang: "it", person: "michele" })), '">Michele Valleri</a></h3><p class="person-description">', esc(c.micheleText), '</p></div></article>',
+    teamCard("Enrico Peruffo",c.enricoRole,c.enricoText,"enrico","enrico-peruffo.webp","a"),
+    teamCard("Michele Valleri",c.micheleRole,c.micheleText,"michele","michele-valleri.avif","b"),
     '</div></section>',
     '<section class="work section-pad" id="work"><div class="section-head"><div><div class="eyebrow">', esc(c.selectedLabel), '</div><h2>', esc(c.selectedTitle), '</h2></div><p>', esc(c.selectedIntro), '</p></div>',
     '<div class="project-list">', projects, '</div></section>',
+    '<section class="contact-prompt section-pad">',
+    '<div class="contact-prompt-main"><div><div class="eyebrow">EMPV / ', it ? "PARLIAMONE" : "LET'S TALK", '</div>',
+    '<h2>', it ? "Da quale processo partiamo?" : "Which process should we start with?", '</h2></div>',
+    '<p>', it ? "Raccontaci come lavorate oggi e cosa vorreste migliorare. Valutiamo insieme se e come intervenire." :
+    "Tell us how your team works today and what you would like to improve. We'll assess together whether and how we can help.", '</p></div>',
+    '<div class="contact-prompt-actions">',
+    '<a class="contact-action contact-action-primary" href="mailto:hello@empv.it?subject=', encodeURIComponent(contactSubject), '">',
+    '<span class="contact-action-label">', it ? "Raccontaci il processo" : "Tell us about the process", '</span>',
+    '<span class="contact-action-icon" aria-hidden="true">↗</span></a>',
+    '<a class="contact-action contact-action-secondary" href="https://wa.me/393792438705">',
+    '<span class="contact-action-label">', it ? "Scrivici su WhatsApp" : "Message us on WhatsApp", '</span>',
+    '<span class="contact-action-icon" aria-hidden="true">↗</span></a></div></section>',
     '<section class="labs section-pad" id="labs"><div class="section-head labs-head"><div><div class="eyebrow">', esc(c.labsLabel), '</div><h2>', esc(c.labsTitle), '</h2></div><p>', esc(c.labsIntro), '</p></div>',
-    '<div class="lab-list">', labItems, '</div><p class="labs-note">', esc(c.labsNote), '</p></section>',
+    '<div class="lab-list">', labItems, '</div></section>',
     '<section class="faq section-pad" id="faq"><div class="faq-layout"><div class="faq-intro"><div class="eyebrow">', esc(c.faqLabel), '</div><h2>', esc(c.faqTitle), '</h2><p>', esc(c.faqIntro), '</p></div>',
     '<div class="faq-list">', faqItems, '</div></div></section>',
     '</main>',
