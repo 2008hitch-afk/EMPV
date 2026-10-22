@@ -743,7 +743,7 @@ footer {
 .project-row-kind,
 .project-row-description > span {
   display: block;
-  font-size: 0.64rem;
+  font-size: var(--empv-type-meta);
   font-weight: 600;
   letter-spacing: 0.045em;
   text-transform: uppercase;
@@ -793,7 +793,7 @@ footer {
   border-radius: 999px;
   padding: 6px 10px;
   font-family: var(--ui);
-  font-size: 0.62rem;
+  font-size: var(--empv-type-meta);
   text-transform: uppercase;
 }
 
@@ -832,9 +832,6 @@ footer {
   }
 
 
-  .project-row-description p {
-    font-size: 0.98rem;
-  }
 }
 
 
@@ -944,7 +941,6 @@ footer {
 
 .lab-focus p {
   color: var(--muted);
-
 }
 
 .lab-arrow {
@@ -1093,7 +1089,7 @@ footer {
 .faq-index {
   padding-top: 6px;
   font-family: var(--ui);
-  font-size: 0.64rem;
+  font-size: var(--empv-type-meta);
   color: var(--muted);
   letter-spacing: 0.04em;
 }
@@ -1134,7 +1130,7 @@ footer {
   margin: 0;
   max-width: 760px;
   color: var(--text-muted-strong);
-  font-size: 0.98rem;
+  font-size: var(--empv-type-body);
   line-height: 1.72;
   text-wrap: pretty;
 }
@@ -1245,9 +1241,6 @@ footer {
     padding-bottom: 26px;
   }
 
-  .faq-answer p {
-    font-size: 0.95rem;
-  }
 }
 
 .people {
@@ -1716,7 +1709,7 @@ footer {
 
 .detail-index {
   font-family: var(--ui);
-  font-size: 0.72rem;
+  font-size: var(--empv-type-meta);
   color: var(--muted);
 }
 
@@ -1732,7 +1725,7 @@ footer {
 .detail-kicker {
   margin: 0 0 14px;
   font-family: var(--ui);
-  font-size: 0.68rem;
+  font-size: var(--empv-type-meta);
   text-transform: uppercase;
   letter-spacing: 0.045em;
   color: var(--muted);
@@ -1788,7 +1781,7 @@ footer {
   display: block;
   margin-bottom: 11px;
   font-family: var(--ui);
-  font-size: 0.62rem;
+  font-size: var(--empv-type-meta);
   text-transform: uppercase;
   letter-spacing: 0.045em;
   color: var(--muted);
@@ -1796,10 +1789,10 @@ footer {
 
 .detail-status strong {
   display: block;
-  font-size: clamp(1rem, 1.35vw, 1.22rem);
+  font-size: var(--empv-type-lead);
   line-height: 1.48;
   letter-spacing: -0.018em;
-  font-weight: 550;
+  font-weight: 600;
   text-wrap: pretty;
 }
 
@@ -1854,7 +1847,7 @@ footer {
 .detail-comparison p {
   margin: 0;
   max-width: 620px;
-  font-size: 1rem;
+  font-size: var(--empv-type-body);
   line-height: 1.68;
   color: var(--text-muted-strong);
   text-wrap: pretty;
@@ -2079,9 +2072,6 @@ line-height: 1.56;
   }
 
   .detail-block p,
-  .detail-comparison p {
-    font-size: 0.98rem;
-  }
 }
 
 
@@ -2713,10 +2703,10 @@ line-height: 1.56;
 .research-note-share-inner > p {
   margin: 0;
   max-width: 520px;
-  font-size: clamp(1.55rem, 2.4vw, 2.5rem);
-  line-height: 1.08;
+  font-size: var(--empv-type-subheading);
+  line-height: var(--empv-leading-subheading);
   letter-spacing: -0.045em;
-  font-weight: 560;
+  font-weight: 600;
 }
 
 .research-note-share-actions {
@@ -3019,8 +3009,8 @@ line-height: 0.98;
   max-width: 490px;
   margin: 0;
   color: var(--text-soft);
-  font-size: clamp(0.97rem, 1.1vw, 1.06rem);
-  line-height: 1.6;
+  font-size: var(--empv-type-body);
+  line-height: var(--empv-leading-body);
   text-wrap: pretty;
 }
 
@@ -3109,7 +3099,7 @@ line-height: 0.98;
   max-width: 940px;
   margin: 28px 0 24px;
   font-size: var(--empv-type-section-title);
-  line-height: 1;
+  line-height: var(--empv-leading-section);
   letter-spacing: -0.052em;
   font-weight: 600;
   text-wrap: balance;
@@ -3118,8 +3108,8 @@ line-height: 0.98;
 .process-contact-main > p {
   max-width: 750px;
   margin: 0;
-  font-size: 1.04rem;
-  line-height: 1.7;
+  font-size: var(--empv-type-body);
+  line-height: var(--empv-leading-body);
   color: var(--text-soft);
 }
 .process-related-list {
@@ -3140,7 +3130,7 @@ line-height: 0.98;
   font-size: clamp(1.2rem, 2vw, 2rem);
   line-height: 1.22;
   letter-spacing: -0.03em;
-  font-weight: 550;
+  font-weight: 600;
 }
 .process-related-item small {
   display: block;
@@ -3224,8 +3214,6 @@ line-height: 0.98;
   .process-context-link { padding-block: 34px 44px; }
 }
 @media (max-width: 560px) {
-  .process-hero .detail-title-project h1 {
-line-height: 1.03; }
   .process-related-item { gap: 16px; }
   .process-related-item strong { font-size: 1.3rem; }
   .process-contact-actions { gap: 18px 28px; }
