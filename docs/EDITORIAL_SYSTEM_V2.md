@@ -88,3 +88,11 @@ Controllare le seguenti tipologie alle larghezze 320, 390, 768, 1440 e 1920 px, 
 - pagina Processo
 
 Verificare in particolare consistenza H1/H2, paragrafi e liste leggibili, eventuale clipping dei titoli, spaziature, link, accessibilità e assenza di overflow orizzontale.
+
+## Footer, informazioni legali e preferenze cookie (ottobre 2026)
+
+- Il footer è intenzionalmente compatto: non reinserire il marchio `EMPV` gigante (`.footer-mark`) in alcuna pagina o nel markup prerenderizzato. Il marchio resta nella colonna anagrafica.
+- Mantenere le tre colonne `EMPV`, `Legale/Legal` e `Contatti/Contact`, sia desktop che mobile.
+- **Informativa cookie / Cookie policy** è una pagina informativa pubblicata su `/it/cookie-storage/` o `/en/cookie-storage/` e descrive analytics, cookie, localStorage e modalità di revoca. Conservare i percorsi canonici esistenti.
+- **Impostazioni cookie / Cookie settings** è un'azione, non una seconda pagina. Emette `empv:open-cookie-settings` e apre `AnalyticsConsent` per rivedere o revocare la scelta sugli analytics.
+- Non eliminare una delle due voci solo perché parlano entrambe di cookie; svolgono ruoli differenti. Non alterare la logica GA4/consenso mentre si fanno modifiche grafiche.

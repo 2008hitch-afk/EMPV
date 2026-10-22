@@ -703,7 +703,7 @@ function homeMarkup(lang) {
     '<section class="faq section-pad" id="faq"><div class="faq-layout"><div class="faq-intro"><div class="eyebrow">', esc(c.faqLabel), '</div><h2>', esc(c.faqTitle), '</h2><p>', esc(c.faqIntro), '</p></div>',
     '<div class="faq-list">', faqItems, '</div></div></section>',
     '</main>',
-    '<footer><div class="footer-mark">EMPV</div><div class="footer-meta"><div class="footer-column footer-identity"><strong>EMPV</strong><span>Systems · Products · AI · Research</span><span>',
+    '<footer><div class="footer-meta"><div class="footer-column footer-identity"><strong>EMPV</strong><span>Systems · Products · AI · Research</span><span>',
     lang === "it" ? "Bergamo, Italia" : "Bergamo, Italy",
     '</span><span>© 2026 EMPV</span></div><div class="footer-column"><a href="mailto:hello@empv.it">hello@empv.it</a><a href="https://wa.me/393792438705">WhatsApp</a><a href="https://www.linkedin.com/company/emp26/">LinkedIn</a><a href="https://x.com/EMPV26">X / @EMPV26</a></div></div></footer>',
     '</div>'
@@ -837,7 +837,7 @@ function sectionIndexMarkup(route) {
     '<section class="', isProjects ? "work" : "labs", ' section-pad"><div class="', isProjects ? "project-list" : "lab-list", '">',
     rows,
     '</div></section></main>',
-    '<footer><div class="footer-mark">EMPV</div><div class="footer-meta"><div class="footer-column footer-identity"><strong>EMPV</strong><span>Systems · Products · AI · Research</span><span>',
+    '<footer><div class="footer-meta"><div class="footer-column footer-identity"><strong>EMPV</strong><span>Systems · Products · AI · Research</span><span>',
     lang === "it" ? "Bergamo, Italia" : "Bergamo, Italy",
     '</span><span>© 2026 EMPV</span></div><div class="footer-column"><a href="mailto:hello@empv.it">hello@empv.it</a><a href="https://wa.me/393792438705">WhatsApp</a><a href="https://www.linkedin.com/company/emp26/">LinkedIn</a><a href="https://x.com/EMPV26">X / @EMPV26</a></div></div></footer>',
     '</div>'

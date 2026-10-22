@@ -77,7 +77,7 @@ export default function AnalyticsConsent({ lang }: { lang: SiteLang }) {
             : "We use Google Analytics 4 to understand how the site is used and which content is viewed. Without consent GA4 is not loaded. You can change your choice at any time."}
         </p>
         <a href={siteHref({ kind: "legal", lang, slug: "cookies" })}>
-          Cookie &amp; Storage
+          {isIt ? "Informativa cookie" : "Cookie policy"}
         </a>
       </div>
 

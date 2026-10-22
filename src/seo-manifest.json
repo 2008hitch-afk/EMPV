@@ -157,12 +157,12 @@
     },
     "cookies": {
       "it": {
-        "title": "Cookie & Storage | EMPV",
-        "description": "Informazioni su localStorage, preferenze visuali e tecnologie di archiviazione utilizzate dal sito EMPV."
+        "title": "Cookie e archiviazione locale | EMPV",
+        "description": "Informativa sui cookie analytics, localStorage e preferenze utilizzate dal sito EMPV, con indicazioni per gestire il consenso."
       },
       "en": {
-        "title": "Cookie & Storage | EMPV",
-        "description": "Information about localStorage, visual preferences and browser storage technologies used by the EMPV website."
+        "title": "Cookies and local storage | EMPV",
+        "description": "Information about analytics cookies, local storage and preferences used on EMPV, including how to manage consent."
       }
     },
     "legal": {
