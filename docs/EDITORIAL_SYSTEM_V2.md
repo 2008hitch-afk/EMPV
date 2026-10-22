@@ -101,7 +101,7 @@ Verificare in particolare consistenza H1/H2, paragrafi e liste leggibili, eventu
 
 - Struttura visiva in `src/SiteFooter.tsx` e `src/footer-glass.css`. L'HTML prerenderizzato delle pagine principali è allineato tramite `footerMarkup(lang)` in `scripts/seo-build.mjs`.
 - **Vincolo prioritario:** il footer si sovrappone allo **sfondo esistente EMPV**. Non introdurre lo sfondo grafico/scena a raggi usato esclusivamente nell'anteprima v11, né modificare il background globale o la Hero.
-- Il pannello deve restare semitrasparente (circa 20–25% di tinta), con `backdrop-filter: blur(8px)`, riflesso ottico e glow derivati da `--galaxy-accent` o `--signal`.
+- Il pannello deve restare realmente trasparente anche sul fondo chiaro EMPV (circa 7–10% di tinta), con `backdrop-filter: blur(3px)`, riflesso ottico accentuato e glow derivati da `--galaxy-accent` o `--signal`.
 - Lieve tilt su mouse soltanto, coerente con le card Team; touch e `prefers-reduced-motion` senza inclinazione.
 - Quattro aree: identità e social, Esplora, Legale, Contatti; dati societari e copyright in basso. Navigazione IT/EN.
 - Mantenere `Informativa cookie` come pagina e `Impostazioni cookie` come azione che riapre il pannello reale di consenso tramite `empv:open-cookie-settings`. Privacy e altre informazioni legali rimangono raggiungibili.
