@@ -1,4 +1,4 @@
-import { ArrowUpRight, Mail, MessageCircle } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import type { SiteLang } from "./detailContent";
 
 /**
@@ -38,9 +38,10 @@ export default function ContactPrompt({
           href={`mailto:hello@empv.it?subject=${encodeURIComponent(emailSubject)}`}
           data-contact-placement={placement}
         >
-          <Mail size={17} strokeWidth={1.4} aria-hidden="true" />
-          <span>{isIt ? "Raccontaci il processo" : "Tell us about the process"}</span>
-          <ArrowUpRight size={17} strokeWidth={1.4} aria-hidden="true" />
+          <span className="contact-action-label">{isIt ? "Raccontaci il processo" : "Tell us about the process"}</span>
+          <span className="contact-action-icon" aria-hidden="true">
+            <ArrowUpRight size={18} strokeWidth={1.6} />
+          </span>
         </a>
         <a
           className="contact-action contact-action-secondary"
@@ -49,9 +50,10 @@ export default function ContactPrompt({
           rel="noreferrer"
           data-contact-placement={placement}
         >
-          <MessageCircle size={17} strokeWidth={1.4} aria-hidden="true" />
-          <span>{isIt ? "Scrivici su WhatsApp" : "Message us on WhatsApp"}</span>
-          <ArrowUpRight size={17} strokeWidth={1.4} aria-hidden="true" />
+          <span className="contact-action-label">{isIt ? "Scrivici su WhatsApp" : "Message us on WhatsApp"}</span>
+          <span className="contact-action-icon" aria-hidden="true">
+            <ArrowUpRight size={18} strokeWidth={1.6} />
+          </span>
         </a>
       </div>
     </section>

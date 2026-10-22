@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, type PointerEvent as ReactPointerEvent } from "react";
 import { ArrowDownRight, ArrowUpRight, Languages } from "lucide-react";
 import {
   AnimatePresence,
@@ -177,6 +177,7 @@ function PersonProfile({
   variant,
   photoSrc,
   profileHref,
+  lang,
 }: {
   name: string;
   role: string;
@@ -184,35 +185,62 @@ function PersonProfile({
   variant: "a" | "b";
   photoSrc: string;
   profileHref: string;
+  lang: Lang;
 }) {
-  const index = variant === "a" ? "01" : "02";
+  const reduceMotion = useReducedMotion();
+
+  function handleCardPointerMove(event: ReactPointerEvent<HTMLDivElement>) {
+    if (event.pointerType !== "mouse" || reduceMotion) return;
+    const surface = event.currentTarget;
+    const bounds = surface.getBoundingClientRect();
+    const x = Math.max(0, Math.min(1, (event.clientX - bounds.left) / bounds.width));
+    const y = Math.max(0, Math.min(1, (event.clientY - bounds.top) / bounds.height));
+
+    // Deliberately restrained tilt; CSS disables it for touch and reduced motion.
+    surface.style.setProperty("--team-tilt-x", `${((0.5 - y) * 7).toFixed(2)}deg`);
+    surface.style.setProperty("--team-tilt-y", `${((x - 0.5) * 7).toFixed(2)}deg`);
+    surface.style.setProperty("--team-glow-x", `${(x * 100).toFixed(1)}%`);
+    surface.style.setProperty("--team-glow-y", `${(y * 100).toFixed(1)}%`);
+    surface.style.setProperty("--team-portrait-x", `${((x - 0.5) * 7).toFixed(2)}px`);
+    surface.style.setProperty("--team-portrait-y", `${((y - 0.5) * 7).toFixed(2)}px`);
+  }
+
+  function handleCardPointerLeave(event: ReactPointerEvent<HTMLDivElement>) {
+    const surface = event.currentTarget;
+    surface.style.setProperty("--team-tilt-x", "0deg");
+    surface.style.setProperty("--team-tilt-y", "0deg");
+    surface.style.setProperty("--team-glow-x", "50%");
+    surface.style.setProperty("--team-glow-y", "55%");
+    surface.style.setProperty("--team-portrait-x", "0px");
+    surface.style.setProperty("--team-portrait-y", "0px");
+  }
 
   return (
     <motion.article
-      className={`person person-editorial person--${variant}`}
+      className={`person team-person person--${variant}`}
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-10%" }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="person-meta">
-        <span className="person-index">{index}</span>
-        <span className="person-meta-rule" aria-hidden="true" />
-        <p className="role">{role}</p>
-      </div>
-
-      <div className="person-editorial-copy">
-        <h3><a className="person-profile-link" href={profileHref}>{name}</a></h3>
-        <p className="person-description">{text}</p>
-      </div>
-
-      <div className={`person-photo person-photo--${variant} has-photo`}>
-        <img
-          src={photoSrc}
-          alt={name}
-          loading="lazy"
-          decoding="async"
-        />
+      <div
+        className="team-card-surface"
+        onPointerMove={handleCardPointerMove}
+        onPointerLeave={handleCardPointerLeave}
+        onPointerCancel={handleCardPointerLeave}
+      >
+        <div className="team-card-content">
+          <div className="team-portrait" role="img" aria-label={name}>
+            <img src={photoSrc} alt="" loading="lazy" decoding="async" />
+          </div>
+          <h3 className="team-name">{name}</h3>
+          <p className="team-role">{role}</p>
+          <p className="team-description">{text}</p>
+        </div>
+        <a className="team-profile-action" href={profileHref}>
+          <span>{lang === "it" ? "Profilo e contatti" : "Profile and contact"}</span>
+          <ArrowUpRight size={18} strokeWidth={1.5} aria-hidden="true" />
+        </a>
       </div>
     </motion.article>
   );
@@ -695,6 +723,7 @@ function PortfolioApp({
           <div className="people-grid">
             <PersonProfile
               name="Enrico Peruffo"
+              lang={lang}
               role={c.enricoRole}
               text={c.enricoText}
               variant="a"
@@ -703,6 +732,7 @@ function PortfolioApp({
             />
             <PersonProfile
               name="Michele Valleri"
+              lang={lang}
               role={c.micheleRole}
               text={c.micheleText}
               variant="b"
