@@ -700,7 +700,7 @@ footer {
   max-width: 980px;
   font-size: var(--empv-type-section-title);
   line-height: var(--empv-leading-section);
-  letter-spacing: -0.062em;
+  letter-spacing: var(--empv-tracking-heading);
   font-weight: 600;
   text-wrap: balance;
 }
@@ -755,7 +755,7 @@ footer {
   max-width: 680px;
   font-size: var(--empv-type-list-title);
   line-height: var(--empv-leading-list);
-  letter-spacing: -0.057em;
+  letter-spacing: var(--empv-tracking-heading);
   font-weight: 600;
   text-wrap: balance;
 }
@@ -896,7 +896,7 @@ footer {
   margin: 10px 0 0;
   font-size: var(--empv-type-list-title);
   line-height: var(--empv-leading-list);
-  letter-spacing: -0.057em;
+  letter-spacing: var(--empv-tracking-heading);
   font-weight: 600;
   text-wrap: balance;
 }
@@ -1038,7 +1038,7 @@ footer {
   max-width: 680px;
   font-size: var(--empv-type-section-title);
   line-height: var(--empv-leading-section);
-  letter-spacing: -0.06em;
+  letter-spacing: var(--empv-tracking-heading);
   font-weight: 600;
   text-wrap: balance;
 }
@@ -1743,7 +1743,7 @@ footer {
   margin: 0;
   font-size: var(--empv-type-page-title);
   line-height: var(--empv-leading-page);
-  letter-spacing: -0.075em;
+  letter-spacing: var(--empv-tracking-display);
   font-weight: 600;
   text-wrap: balance;
 }
@@ -1751,7 +1751,7 @@ footer {
 .detail-title-project h1 {
   font-size: var(--empv-type-page-title);
   line-height: var(--empv-leading-page);
-  letter-spacing: -0.064em;
+  letter-spacing: var(--empv-tracking-display);
   text-wrap: balance;
 }
 
@@ -1840,7 +1840,7 @@ footer {
   max-width: 590px;
   font-size: var(--empv-type-subheading);
   line-height: var(--empv-leading-subheading);
-  letter-spacing: -0.052em;
+  letter-spacing: var(--empv-tracking-heading);
   font-weight: 600;
 }
 
@@ -1884,7 +1884,7 @@ footer {
   max-width: 900px;
   font-size: var(--empv-type-subheading);
   line-height: var(--empv-leading-subheading);
-  letter-spacing: -0.052em;
+  letter-spacing: var(--empv-tracking-heading);
   font-weight: 600;
   text-wrap: balance;
 }
@@ -2545,7 +2545,7 @@ line-height: 1.56;
   max-width: 1180px;
   font-size: var(--empv-type-page-title);
   line-height: var(--empv-leading-page);
-  letter-spacing: -0.072em;
+  letter-spacing: var(--empv-tracking-display);
   font-weight: 600;
   text-wrap: balance;
 }
@@ -2610,7 +2610,7 @@ line-height: 1.56;
   max-width: 1050px;
   font-size: var(--empv-type-list-title);
   line-height: var(--empv-leading-list);
-  letter-spacing: -0.06em;
+  letter-spacing: var(--empv-tracking-heading);
   font-weight: 600;
   text-wrap: balance;
 }
@@ -3000,7 +3000,7 @@ line-height: 0.98;
   max-width: 840px;
   font-size: var(--empv-type-section-title);
   line-height: var(--empv-leading-section);
-  letter-spacing: -0.065em;
+  letter-spacing: var(--empv-tracking-heading);
   font-weight: 600;
   text-wrap: balance;
 }
@@ -3100,7 +3100,7 @@ line-height: 0.98;
   margin: 28px 0 24px;
   font-size: var(--empv-type-section-title);
   line-height: var(--empv-leading-section);
-  letter-spacing: -0.052em;
+  letter-spacing: var(--empv-tracking-heading);
   font-weight: 600;
   text-wrap: balance;
 }
