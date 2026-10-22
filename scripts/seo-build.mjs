@@ -77,6 +77,27 @@ function cardVisual(noteId) {
   const faint = "#d8d6cf";
 
 
+  if (noteId === "php2shell-php-security-2026") {
+    // PHP runtime and security patch schematic; integrates with existing EMPV card template.
+    return `
+      <g transform="translate(806 150)" font-family="Arial, Helvetica, sans-serif">
+        <text x="16" y="0" font-size="14" font-weight="700" letter-spacing="2" fill="#77746e">RUNTIME / SECURITY</text>
+        <path d="M16 20 H340" stroke="#d8d6cf" stroke-width="1.5"/>
+        <rect x="17" y="65" width="322" height="222" rx="22" fill="#f6f4ed" stroke="#171715" stroke-width="2"/>
+        <rect x="35" y="86" width="286" height="49" rx="10" fill="#e5e7f2" stroke="#777bb3" stroke-width="2"/>
+        <text x="178" y="119" text-anchor="middle" fill="#4a5289" font-size="29" font-weight="700" letter-spacing="1">PHP</text>
+        <path d="M57 170 H303" stroke="#d8d6cf" stroke-width="1.5"/>
+        <text x="48" y="200" font-size="15" font-weight="700" fill="#171715">CVE-2026-109618</text>
+        <circle cx="306" cy="193" r="8" fill="#ff5a24"/>
+        <text x="48" y="238" font-size="15" font-weight="700" fill="#171715">CVE-2026-109619</text>
+        <circle cx="306" cy="231" r="8" fill="#ff5a24"/>
+        <path d="M31 310 H329" stroke="#d8d6cf" stroke-width="1.5"/>
+        <rect x="34" y="333" width="286" height="52" rx="10" fill="#ff5a24"/>
+        <path d="M57 358 L68 369 L87 347" fill="none" stroke="#fff9f1" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="112" y="366" fill="#fff9f1" font-size="18" font-weight="700">PATCH AVAILABLE</text>
+      </g>`;
+  }
+
   if (noteId === "openai-agent-monitoring-incidents") {
     // Schematic agent -> monitor -> response path. Distinguishes a muted alert path from the monitor itself.
     return `
