@@ -7,14 +7,12 @@ export default function SiteFooter({ lang }: { lang: SiteLang }) {
   const isIt = lang === "it";
   const legalLinks: Array<{ slug: LegalSlug; label: string }> = [
     { slug: "privacy", label: "Privacy Policy" },
-    { slug: "cookies", label: "Cookie & Storage" },
+    { slug: "cookies", label: isIt ? "Informativa cookie" : "Cookie policy" },
     { slug: "legal", label: isIt ? "Note legali" : "Legal notice" },
   ];
 
   return (
     <footer>
-      <div className="footer-mark">EMPV</div>
-
       <div className="footer-meta">
         <div className="footer-column footer-identity">
           <strong>EMPV</strong>
