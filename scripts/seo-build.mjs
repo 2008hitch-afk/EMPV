@@ -646,6 +646,50 @@ function footerMarkup(lang) {
   ].join("");
 }
 
+
+// Prerendered equivalent of ProjectGlassCard: same layout/links before hydration.
+function glassCardMarkup(item, lang, kind) {
+  const lab = kind === "lab";
+  const icon =
+    item.slug === "psicologia-operations" || item.slug === "vertical-operations" ? "calendar" :
+    item.slug === "pet-resort-operations" || item.slug === "local-ai" ? "grid" :
+    item.slug === "richieste-preventivi" || item.slug === "opportunity-engine" ? "arrows" : "nodes";
+
+  const shapes = {
+    calendar: '<rect x="5" y="7" width="22" height="20" rx="3"/><path d="M10 4v6M22 4v6M5 14h22M11 19h5M11 23h10"/>',
+    grid: '<rect x="5" y="5" width="9" height="9" rx="2"/><rect x="18" y="5" width="9" height="9" rx="2"/><rect x="5" y="18" width="9" height="9" rx="2"/><path d="M19 21h7M22.5 17.5v7"/>',
+    arrows: '<path d="M4 9h18l-5-5M22 9l-5 5M28 22H10l5-5M10 22l5 5"/>',
+    nodes: '<path d="M7 8.5 16 6l9 9-10 11-9-9z"/><circle cx="7" cy="8.5" r="2.5"/><circle cx="16" cy="6" r="2.5"/><circle cx="25" cy="15" r="2.5"/><circle cx="15" cy="26" r="2.5"/><circle cx="6" cy="17" r="2.5"/>'
+  };
+  const href = hrefFor({ kind: "detail", lang, detailKind: lab ? "lab" : "project", slug: item.slug });
+  const label = lang === "it" ? "Apri il dettaglio" : "Open details";
+  const svgArrow = '<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.45" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg>';
+  const center = lab ? [
+    '<p class="empv-card-question">', esc(item.question), '</p>',
+    '<div class="empv-card-meta"><div><small>', lang === "it" ? "Stato del repo" : "Repository state",
+    '</small><p>', esc(item.state), '</p></div><div><small>',
+    lang === "it" ? "Focus corrente" : "Current focus",
+    '</small><p>', esc(item.focus), '</p></div></div>'
+  ].join("") : [
+    '<p class="empv-card-description">', esc(item.description), '</p>',
+    '<div class="empv-card-tags">', item.meta.map(tag => '<span>' + esc(tag) + '</span>').join(""), '</div>'
+  ].join("");
+
+  return [
+    '<div class="empv-card-entry"><a class="empv-glass-card empv-glass-card--', kind,
+    '" href="', esc(href), '" aria-label="', esc(item.name + " — " + label), '">',
+    '<div class="empv-card-top"><span class="empv-card-type">', esc(item.index), ' / ', esc(item.kind), '</span>',
+    '<span class="empv-card-disc"><svg class="empv-card-icon" viewBox="0 0 32 32" aria-hidden="true" focusable="false">',
+    shapes[icon], '</svg></span></div>',
+    '<h3 class="empv-card-title">', esc(item.name), '</h3>',
+    center,
+    '<div class="empv-card-action"><span>',
+    lab ? (lang === "it" ? "Esplora la ricerca" : "Explore research") :
+      (lang === "it" ? "Scopri il progetto" : "View project"),
+    '</span>', svgArrow, '</div></a></div>'
+  ].join("");
+}
+
 function homeMarkup(lang) {
   const c = copy[lang];
   const it = lang === "it";
@@ -676,27 +720,8 @@ function homeMarkup(lang) {
     '</a></div></article>'
   ].join("");
 
-  const projects = selected[lang].map(project => [
-    '<a class="project-row" href="', esc(hrefFor({ kind: "detail", lang, detailKind: "project", slug: project.slug })), '">',
-    '<div class="project-row-identity"><span class="project-row-kind">', esc(project.kind), '</span>',
-    '<h3>', esc(project.name), '</h3></div>',
-    '<div class="project-row-content"><div class="project-row-description">',
-    '<span>', esc(projectLabel), '</span><p>', esc(project.description), '</p></div>',
-    '<div class="project-row-tags">', project.meta.map(tag => '<span>' + esc(tag) + '</span>').join(""), '</div>',
-    '</div><span class="project-row-arrow" aria-hidden="true">↗</span></a>'
-  ].join("")).join("");
-
-  const labItems = labs[lang].map(project => [
-    '<a class="lab-row lab-register-row" href="', esc(hrefFor({kind:"detail",lang,detailKind:"lab",slug:project.slug})), '">',
-    '<div class="lab-index">', esc(project.index), '</div>',
-    '<div class="lab-identity"><span class="lab-kind">', esc(project.kind), '</span><h3>', esc(project.name), '</h3></div>',
-    '<div class="lab-content">',
-    '<div class="lab-question"><span>', esc(questionLabel), '</span><strong>', esc(project.question), '</strong></div>',
-    '<div class="lab-evidence">',
-    '<div class="lab-state"><span>', esc(repoLabel), '</span><p>', esc(project.state), '</p></div>',
-    '<div class="lab-focus"><span>', esc(focusLabel), '</span><p>', esc(project.focus), '</p></div>',
-    '</div></div><span class="lab-arrow" aria-hidden="true">↗</span></a>'
-  ].join("")).join("");
+  const projects = selected[lang].map(project => glassCardMarkup(project, lang, "project")).join("");
+  const labItems = labs[lang].map(project => glassCardMarkup(project, lang, "lab")).join("");
 
   const faqItems = faqs[lang].map((item, index) => [
     '<details class="faq-item"><summary>',
@@ -727,7 +752,7 @@ function homeMarkup(lang) {
     teamCard("Michele Valleri",c.micheleRole,c.micheleText,"michele","michele-valleri.avif","b"),
     '</div></section>',
     '<section class="work section-pad" id="work"><div class="section-head"><div><div class="eyebrow">', esc(c.selectedLabel), '</div><h2>', esc(c.selectedTitle), '</h2></div><p>', esc(c.selectedIntro), '</p></div>',
-    '<div class="project-list">', projects, '</div></section>',
+    '<div class="project-list empv-card-grid">', projects, '</div></section>',
     '<section class="contact-prompt section-pad">',
     '<div class="contact-prompt-main"><div><div class="eyebrow">EMPV / ', it ? "PARLIAMONE" : "LET'S TALK", '</div>',
     '<h2>', it ? "Da quale processo partiamo?" : "Which process should we start with?", '</h2></div>',
@@ -741,7 +766,7 @@ function homeMarkup(lang) {
     '<span class="contact-action-label">', it ? "Scrivici su WhatsApp" : "Message us on WhatsApp", '</span>',
     '<span class="contact-action-icon" aria-hidden="true">↗</span></a></div></section>',
     '<section class="labs section-pad" id="labs"><div class="section-head labs-head"><div><div class="eyebrow">', esc(c.labsLabel), '</div><h2>', esc(c.labsTitle), '</h2></div><p>', esc(c.labsIntro), '</p></div>',
-    '<div class="lab-list">', labItems, '</div></section>',
+    '<div class="lab-list empv-card-grid">', labItems, '</div></section>',
     '<section class="faq section-pad" id="faq"><div class="faq-layout"><div class="faq-intro"><div class="eyebrow">', esc(c.faqLabel), '</div><h2>', esc(c.faqTitle), '</h2><p>', esc(c.faqIntro), '</p></div>',
     '<div class="faq-list">', faqItems, '</div></div></section>',
     '</main>',
@@ -840,26 +865,7 @@ function sectionIndexMarkup(route) {
       : "Research directions and prototypes used to test which AI ideas hold up technically, operationally and as products.");
   const alternateLang = lang === "it" ? "en" : "it";
   const items = isProjects ? selected[lang] : labs[lang];
-  const rows = items.map(item => {
-    if (isProjects) {
-      return '<a class="project-row" href="' +
-        esc(hrefFor({ kind: "detail", lang, detailKind: "project", slug: item.slug })) +
-        '"><div class="project-row-identity"><span class="project-row-kind">' + esc(item.kind) +
-        '</span><h3>' + esc(item.name) + '</h3></div><div class="project-row-content"><div class="project-row-description"><span>' +
-        (lang === "it" ? "Cosa abbiamo costruito" : "What we built") + '</span><p>' + esc(item.description) +
-        '</p></div><div class="project-row-tags">' + item.meta.map(meta => '<span>' + esc(meta) + '</span>').join("") +
-        '</div></div></a>';
-    }
-    return '<a class="lab-row lab-register-row" href="' +
-      esc(hrefFor({ kind: "detail", lang, detailKind: "lab", slug: item.slug })) +
-      '"><div class="lab-index">' + esc(item.index) + '</div><div class="lab-identity"><span class="lab-kind">' +
-      esc(item.kind) + '</span><h3>' + esc(item.name) + '</h3></div><div class="lab-content"><div class="lab-question"><span>' +
-      (lang === "it" ? "Cosa stiamo testando" : "What we are testing") + '</span><strong>' + esc(item.question) +
-      '</strong></div><div class="lab-evidence"><div class="lab-state"><span>' +
-      (lang === "it" ? "Stato del repo" : "Repository state") + '</span><p>' + esc(item.state) +
-      '</p></div><div class="lab-focus"><span>' + (lang === "it" ? "Focus corrente" : "Current focus") +
-      '</span><p>' + esc(item.focus) + '</p></div></div></div></a>';
-  }).join("");
+  const rows = items.map(item => glassCardMarkup(item, lang, isProjects ? "project" : "lab")).join("");
 
   return [
     '<div class="detail-shell section-index-shell" data-prerendered="true">',
@@ -874,7 +880,7 @@ function sectionIndexMarkup(route) {
     '<div class="eyebrow">EMPV / ', isProjects ? (lang === "it" ? "PROGETTI" : "PROJECTS") : "AI LAB", '</div>',
     '<h1>', esc(title), '</h1><p>', esc(intro), '</p>',
     '</div></section>',
-    '<section class="', isProjects ? "work" : "labs", ' section-pad"><div class="', isProjects ? "project-list" : "lab-list", '">',
+    '<section class="', isProjects ? "work" : "labs", ' section-pad"><div class="', isProjects ? "project-list empv-card-grid" : "lab-list empv-card-grid", '">',
     rows,
     '</div></section></main>',
     footerMarkup(lang),

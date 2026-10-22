@@ -106,3 +106,14 @@ Verificare in particolare consistenza H1/H2, paragrafi e liste leggibili, eventu
 - Quattro aree: identità e social, Esplora, Legale, Contatti; dati societari e copyright in basso. Navigazione IT/EN.
 - Mantenere `Informativa cookie` come pagina e `Impostazioni cookie` come azione che riapre il pannello reale di consenso tramite `empv:open-cookie-settings`. Privacy e altre informazioni legali rimangono raggiungibili.
 - Non usare immagini nuove, librerie UI aggiuntive o uno sfondo specifico per il footer.
+
+## Card Progetti e AI Lab — Glass (preview 12 approvata, ottobre 2026)
+
+- Gli elenchi di Progetti e AI Lab, in homepage e nelle rispettive pagine indice IT/EN, utilizzano **Team · Glass** dell'anteprima HTML 12: superfici chiare semitrasparenti, due colonne desktop, un'unica colonna mobile, glow legato a Customize e lieve tilt 3D con il mouse.
+- `src/ProjectGlassCard.tsx` è il componente condiviso per i due tipi; `src/project-glass.css` ne contiene esclusivamente lo stile. Non duplicare markup o stili per homepage e pagine indice.
+- `scripts/seo-build.mjs` usa `glassCardMarkup` per rendere le stesse card anche nell'HTML statico prerenderizzato, senza salti visuali.
+- Progetti: categoria, icona, titolo, descrizione, tag e invito al dettaglio. AI Lab: categoria, icona, titolo, domanda di ricerca, stato e focus, invito al dettaglio. I testi derivano sempre da `src/homeContent.ts`.
+- Su touch e quando l'utente preferisce movimento ridotto, **nessuna inclinazione**; i link devono funzionare tramite mouse, tastiera e touchscreen.
+- Non estendere automaticamente questo stile a Research Notes, FAQ, Team, hero o footer: tutti restano nel design già approvato.
+- Non introdurre varianti scure o righe editoriali come default: il solo stile approvato per queste nove card è Glass.
+- QA: verificare UI a 320, 390, 768, 1440 e 1920 px, entrambe le lingue, homepage/indici, funzionamento card e Customize, assenza di overflow.

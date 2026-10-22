@@ -1,7 +1,8 @@
-import { ArrowLeft, ArrowUpRight, Languages } from "lucide-react";
+import { ArrowLeft, Languages } from "lucide-react";
 import { motion } from "motion/react";
 import SiteFooter from "./SiteFooter";
 import ContactPrompt from "./ContactPrompt";
+import ProjectGlassCard from "./ProjectGlassCard";
 import { labs, selected, type Lang, type Project } from "./homeContent";
 import { siteHref, type SectionKind } from "./seo";
 import type { SiteLang } from "./detailContent";
@@ -12,67 +13,11 @@ type SectionIndexProps = {
 };
 
 function ProjectIndexRow({ project, href, lang }: { project: Project; href: string; lang: Lang }) {
-  return (
-    <motion.a
-      className="project-row"
-      href={href}
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-8%" }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-    >
-      <div className="project-row-identity">
-        <span className="project-row-kind">{project.kind}</span>
-        <h3>{project.name}</h3>
-      </div>
-      <div className="project-row-content">
-        <div className="project-row-description">
-          <span>{lang === "it" ? "Cosa abbiamo costruito" : "What we built"}</span>
-          <p>{project.description}</p>
-        </div>
-        <div className="project-row-tags">
-          {project.meta.map((item) => <span key={item}>{item}</span>)}
-        </div>
-      </div>
-      <ArrowUpRight className="project-row-arrow" size={22} strokeWidth={1.25} />
-    </motion.a>
-  );
+  return <ProjectGlassCard project={project} href={href} lang={lang} kind="project" />;
 }
 
 function LabIndexRow({ project, href, lang }: { project: Project; href: string; lang: Lang }) {
-  return (
-    <motion.a
-      className="lab-row lab-register-row"
-      href={href}
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-8%" }}
-      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-    >
-      <div className="lab-index">{project.index}</div>
-      <div className="lab-identity">
-        <span className="lab-kind">{project.kind}</span>
-        <h3>{project.name}</h3>
-      </div>
-      <div className="lab-content">
-        <div className="lab-question">
-          <span>{lang === "it" ? "Cosa stiamo testando" : "What we are testing"}</span>
-          <strong>{project.question}</strong>
-        </div>
-        <div className="lab-evidence">
-          <div className="lab-state">
-            <span>{lang === "it" ? "Stato del repo" : "Repository state"}</span>
-            <p>{project.state}</p>
-          </div>
-          <div className="lab-focus">
-            <span>{lang === "it" ? "Focus corrente" : "Current focus"}</span>
-            <p>{project.focus}</p>
-          </div>
-        </div>
-      </div>
-      <ArrowUpRight className="lab-arrow" size={22} strokeWidth={1.25} />
-    </motion.a>
-  );
+  return <ProjectGlassCard project={project} href={href} lang={lang} kind="lab" />;
 }
 
 export default function SectionIndex({ section, initialLang }: SectionIndexProps) {
@@ -124,7 +69,7 @@ export default function SectionIndex({ section, initialLang }: SectionIndexProps
         </section>
 
         <section className={isProjects ? "work section-pad" : "labs section-pad"}>
-          <div className={isProjects ? "project-list" : "lab-list"}>
+          <div className={isProjects ? "project-list empv-card-grid" : "lab-list empv-card-grid"}>
             {items.map((item) =>
               isProjects ? (
                 <ProjectIndexRow
