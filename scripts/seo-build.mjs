@@ -604,6 +604,48 @@ function adaptAssets(html, path) {
     .replaceAll('href="./assets/', 'href="' + prefix + 'assets/');
 }
 
+// Static/no-JavaScript view: same footer structure, on the site's existing background.
+function footerMarkup(lang) {
+  const isIt = lang === "it";
+  const home = hrefFor({kind:"home",lang});
+  const legal = slug => hrefFor({kind:"legal",lang,slug});
+  const emailIcon = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>';
+  const chatIcon = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8A8.5 8.5 0 0 1 8.7 3.9a8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5Z"/></svg>';
+  return [
+    '<footer class="empv-glass-footer"><div class="empv-glass-panel"><div class="empv-glass-content">',
+    '<div class="empv-glass-grid"><div class="empv-glass-identity">',
+    '<a class="empv-glass-logo" href="', esc(home), '">EMPV</a>',
+    '<p class="empv-glass-tagline">Systems · Products · AI · Research</p>',
+    '<p class="empv-glass-manifesto">', esc(isIt ? "La tua azienda. Prima mappata. Poi evoluta." : "Your company. First mapped. Then evolved."), '</p>',
+    '<div class="empv-glass-socials" aria-label="', esc(isIt ? "Social e contatti EMPV" : "EMPV social and contacts"), '">',
+    '<a href="https://www.linkedin.com/company/emp26/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn EMPV"><span class="empv-glass-in">in</span></a>',
+    '<a href="https://x.com/EMPV26" target="_blank" rel="noopener noreferrer" aria-label="X EMPV"><span class="empv-glass-x">𝕏</span></a>',
+    '<a href="https://wa.me/393792438705" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp EMPV">', chatIcon, '</a>',
+    '<a href="mailto:hello@empv.it" aria-label="Email EMPV">', emailIcon, '</a></div>',
+    '<p class="empv-glass-location">', esc(isIt ? "Bergamo, Italia" : "Bergamo, Italy"), '</p></div>',
+    '<nav class="empv-glass-links" aria-label="', esc(isIt ? "Esplora EMPV" : "Explore EMPV"), '">',
+    '<h2>', isIt ? "Esplora" : "Explore", '</h2>',
+    '<a href="', esc(home), '#people">', isIt ? "Chi siamo" : "Team", '</a>',
+    '<a href="', esc(hrefFor({kind:"sectionIndex",lang,section:"projects"})), '">', isIt ? "Progetti" : "Projects", '</a>',
+    '<a href="', esc(hrefFor({kind:"sectionIndex",lang,section:"lab"})), '">AI Lab</a>',
+    '<a href="', esc(hrefFor({kind:"notesIndex",lang})), '">Research Notes</a></nav>',
+    '<nav class="empv-glass-links" aria-label="', esc(isIt ? "Informazioni legali" : "Legal information"), '">',
+    '<h2>', isIt ? "Legale" : "Legal", '</h2>',
+    '<a href="', esc(legal("privacy")), '">Privacy policy</a>',
+    '<a href="', esc(legal("cookies")), '">', isIt ? "Informativa cookie" : "Cookie policy", '</a>',
+    '<a href="', esc(legal("legal")), '">', isIt ? "Note legali" : "Legal notice", '</a>',
+    '<button type="button">', isIt ? "Impostazioni cookie" : "Cookie settings", '</button></nav>',
+    '<div class="empv-glass-links empv-glass-contact"><h2>', isIt ? "Contatti" : "Contact", '</h2>',
+    '<a href="mailto:hello@empv.it">hello@empv.it</a>',
+    '<a href="https://wa.me/393792438705">WhatsApp</a>',
+    '<a href="https://www.linkedin.com/company/emp26/">LinkedIn</a>',
+    '<a href="https://x.com/EMPV26">X / @EMPV26</a></div></div>',
+    '<div class="empv-glass-bottom"><div><span>P.IVA 04942220163</span><span>© 2026 EMPV</span></div>',
+    '<strong>', isIt ? "Bergamo, Italia" : "Bergamo, Italy", '</strong></div>',
+    '</div></div></footer>'
+  ].join("");
+}
+
 function homeMarkup(lang) {
   const c = copy[lang];
   const it = lang === "it";
@@ -703,9 +745,7 @@ function homeMarkup(lang) {
     '<section class="faq section-pad" id="faq"><div class="faq-layout"><div class="faq-intro"><div class="eyebrow">', esc(c.faqLabel), '</div><h2>', esc(c.faqTitle), '</h2><p>', esc(c.faqIntro), '</p></div>',
     '<div class="faq-list">', faqItems, '</div></div></section>',
     '</main>',
-    '<footer><div class="footer-meta"><div class="footer-column footer-identity"><strong>EMPV</strong><span>Systems · Products · AI · Research</span><span>',
-    lang === "it" ? "Bergamo, Italia" : "Bergamo, Italy",
-    '</span><span>© 2026 EMPV</span></div><div class="footer-column"><a href="mailto:hello@empv.it">hello@empv.it</a><a href="https://wa.me/393792438705">WhatsApp</a><a href="https://www.linkedin.com/company/emp26/">LinkedIn</a><a href="https://x.com/EMPV26">X / @EMPV26</a></div></div></footer>',
+    footerMarkup(lang),
     '</div>'
   ].join("");
 }
@@ -837,9 +877,7 @@ function sectionIndexMarkup(route) {
     '<section class="', isProjects ? "work" : "labs", ' section-pad"><div class="', isProjects ? "project-list" : "lab-list", '">',
     rows,
     '</div></section></main>',
-    '<footer><div class="footer-meta"><div class="footer-column footer-identity"><strong>EMPV</strong><span>Systems · Products · AI · Research</span><span>',
-    lang === "it" ? "Bergamo, Italia" : "Bergamo, Italy",
-    '</span><span>© 2026 EMPV</span></div><div class="footer-column"><a href="mailto:hello@empv.it">hello@empv.it</a><a href="https://wa.me/393792438705">WhatsApp</a><a href="https://www.linkedin.com/company/emp26/">LinkedIn</a><a href="https://x.com/EMPV26">X / @EMPV26</a></div></div></footer>',
+    footerMarkup(lang),
     '</div>'
   ].join("");
 }

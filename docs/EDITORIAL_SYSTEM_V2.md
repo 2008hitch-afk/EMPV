@@ -96,3 +96,13 @@ Verificare in particolare consistenza H1/H2, paragrafi e liste leggibili, eventu
 - **Informativa cookie / Cookie policy** è una pagina informativa pubblicata su `/it/cookie-storage/` o `/en/cookie-storage/` e descrive analytics, cookie, localStorage e modalità di revoca. Conservare i percorsi canonici esistenti.
 - **Impostazioni cookie / Cookie settings** è un'azione, non una seconda pagina. Emette `empv:open-cookie-settings` e apre `AnalyticsConsent` per rivedere o revocare la scelta sugli analytics.
 - Non eliminare una delle due voci solo perché parlano entrambe di cookie; svolgono ruoli differenti. Non alterare la logica GA4/consenso mentre si fanno modifiche grafiche.
+
+## Footer flottante Optical Glass (v11 approvata, ottobre 2026)
+
+- Struttura visiva in `src/SiteFooter.tsx` e `src/footer-glass.css`. L'HTML prerenderizzato delle pagine principali è allineato tramite `footerMarkup(lang)` in `scripts/seo-build.mjs`.
+- **Vincolo prioritario:** il footer si sovrappone allo **sfondo esistente EMPV**. Non introdurre lo sfondo grafico/scena a raggi usato esclusivamente nell'anteprima v11, né modificare il background globale o la Hero.
+- Il pannello deve restare semitrasparente (circa 20–25% di tinta), con `backdrop-filter: blur(8px)`, riflesso ottico e glow derivati da `--galaxy-accent` o `--signal`.
+- Lieve tilt su mouse soltanto, coerente con le card Team; touch e `prefers-reduced-motion` senza inclinazione.
+- Quattro aree: identità e social, Esplora, Legale, Contatti; dati societari e copyright in basso. Navigazione IT/EN.
+- Mantenere `Informativa cookie` come pagina e `Impostazioni cookie` come azione che riapre il pannello reale di consenso tramite `empv:open-cookie-settings`. Privacy e altre informazioni legali rimangono raggiungibili.
+- Non usare immagini nuove, librerie UI aggiuntive o uno sfondo specifico per il footer.
