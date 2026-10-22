@@ -853,12 +853,24 @@ function notesIndexMarkup(lang) {
     ? "Note su sistemi, AI e operazioni."
     : "Notes on systems, AI and operations.";
 
-  const rows = researchNotes.map(note =>
-    '<article><div class="eyebrow">NOTE / ' + esc(note.index) + ' · ' + esc(note.category[lang]) +
-    '</div><h2><a href="' + hrefFor({ kind: "note", lang, noteId: note.id }) + '">' +
-    esc(note.title[lang]) + '</a></h2><p>' + esc(note.dek[lang]) + '</p><p>' +
-    esc(note.tags[lang].join(" · ")) + '</p></article>'
-  ).join("");
+  // Match the client-side ResearchNotesIndex grid, so the crawler/no-JS
+  // version does not briefly render unstyled <article> elements.
+  const formatPublished = value => new Intl.DateTimeFormat(lang === "it" ? "it-IT" : "en-GB", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  }).format(new Date(value + "T12:00:00Z"));
+
+  const rows = researchNotes.map(note => [
+    '<a class="research-note-row" href="', esc(hrefFor({ kind: "note", lang, noteId: note.id })), '">',
+    '<span class="research-note-index">NOTE / ', esc(note.index), '</span>',
+    '<div class="research-note-main"><span class="research-note-category">', esc(note.category[lang]), '</span>',
+    '<h2>', esc(note.title[lang]), '</h2><p>', esc(note.dek[lang]), '</p>',
+    '<div class="research-note-meta"><span>', esc(formatPublished(note.published)), '</span>',
+    '<span>', esc(note.readingTime[lang]), '</span>',
+    note.tags[lang].slice(0, 3).map(tag => '<span>' + esc(tag) + '</span>').join(""),
+    '</div></div><span class="research-note-arrow" aria-hidden="true">↗</span></a>',
+  ].join("")).join("");
 
   return [
     '<div class="detail-shell notes-shell" data-prerendered="true">',
