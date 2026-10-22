@@ -177,6 +177,7 @@ function PersonProfile({
   variant,
   photoSrc,
   profileHref,
+  lang,
 }: {
   name: string;
   role: string;
@@ -184,6 +185,7 @@ function PersonProfile({
   variant: "a" | "b";
   photoSrc: string;
   profileHref: string;
+  lang: Lang;
 }) {
   const reduceMotion = useReducedMotion();
 
@@ -236,7 +238,7 @@ function PersonProfile({
           <p className="team-description">{text}</p>
         </div>
         <a className="team-profile-action" href={profileHref}>
-          <span>{name === "Enrico Peruffo" || name === "Michele Valleri" ? "Profilo e contatti" : "Profile and contact"}</span>
+          <span>{lang === "it" ? "Profilo e contatti" : "Profile and contact"}</span>
           <ArrowUpRight size={18} strokeWidth={1.5} aria-hidden="true" />
         </a>
       </div>
@@ -721,6 +723,7 @@ function PortfolioApp({
           <div className="people-grid">
             <PersonProfile
               name="Enrico Peruffo"
+              lang={lang}
               role={c.enricoRole}
               text={c.enricoText}
               variant="a"
@@ -729,6 +732,7 @@ function PortfolioApp({
             />
             <PersonProfile
               name="Michele Valleri"
+              lang={lang}
               role={c.micheleRole}
               text={c.micheleText}
               variant="b"
