@@ -455,6 +455,56 @@
   line-height: 1.36;
 }
 
+/* Legible metadata, scoped away from the immutable homepage Hero. */
+.detail-shell .eyebrow,
+.detail-shell .section-code,
+.people .eyebrow,
+.work .eyebrow,
+.labs .eyebrow,
+.faq .eyebrow,
+.contact-prompt .eyebrow {
+  font-size: var(--empv-type-meta);
+  line-height: 1.5;
+}
+.research-note-index,
+.research-note-category,
+.research-note-meta,
+.detail-status span,
+.detail-index,
+.detail-kicker,
+.faq-index {
+  font-size: var(--empv-type-meta);
+}
+
+/* Research Notes are reading content: bullets should not inherit
+   the uppercase technical-register treatment used in older project lists. */
+.research-note-block ul {
+  margin-top: clamp(22px, 2.8vw, 32px);
+  padding-left: 1.25rem;
+  border-top: 0;
+  list-style: disc;
+}
+.research-note-block li {
+  padding: 5px 0 7px;
+  border-bottom: 0;
+  color: var(--text-soft);
+  font-size: var(--empv-type-body);
+  line-height: var(--empv-leading-body);
+  letter-spacing: -.01em;
+  text-transform: none;
+}
+.research-note-block li::marker {
+  color: var(--galaxy-accent, var(--signal));
+}
+/* Match section spacing in the article's share/end regions, too. */
+.notes-index-list {
+  padding-bottom: var(--empv-space-section);
+}
+.research-note-share {
+  padding-top: var(--empv-space-section);
+  padding-bottom: var(--empv-space-section);
+}
+
 /* Media and language-specific safe fallbacks. */
 @media (max-width: 980px) {
   .project-row {
