@@ -328,7 +328,7 @@
   /* Scale below 1 rather than 1.12: do not enlarge/crop the original portraits. */
   transform: translate(var(--team-portrait-x), var(--team-portrait-y)) scale(.98);
   transform-origin: center center;
-  filter: grayscale(1) contrast(1.035) brightness(1.11);
+  filter: none;
   transition: transform 310ms cubic-bezier(.22, 1, .36, 1);
   color: transparent;
   font-size: 0;
