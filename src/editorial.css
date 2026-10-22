@@ -323,18 +323,19 @@
   width: clamp(188px, 17vw, 218px);
   height: clamp(188px, 17vw, 218px);
   flex: 0 0 auto;
-  border: 1px solid rgba(237, 242, 255, .24);
+  border: 1px solid rgba(255, 255, 255, .66);
   border-radius: 50%;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 70%, color-mix(in oklch, var(--empv-editorial-accent) 14%, #26364e), #26364e 82%);
-  box-shadow: inset 0 0 27px rgba(255, 255, 255, .025), 0 12px 39px rgba(0, 0, 0, .18);
+  /* Clean white backdrop for the original portraits, independent from Customize. */
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgba(17, 25, 40, .04), 0 12px 39px rgba(0, 0, 0, .14);
   transform: translateZ(15px);
 }
 .team-portrait::after {
   content: "";
   position: absolute;
   inset: 8px;
-  border: 1px solid rgba(240, 246, 255, .07);
+  border: 1px solid rgba(17, 25, 40, .055);
   border-radius: 50%;
   pointer-events: none;
 }
