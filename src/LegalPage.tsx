@@ -651,14 +651,14 @@ const pageMeta = {
   },
   cookies: {
     it: {
-      eyebrow: "EMPV / Storage",
-      title: "Cookie & Storage",
-      lead: "Cosa viene salvato nel browser, perché lo facciamo e come puoi cancellarlo.",
+      eyebrow: "EMPV / Cookie",
+      title: "Cookie e archiviazione locale",
+      lead: "Quali cookie e dati locali utilizziamo, a cosa servono e come gestire il consenso.",
     },
     en: {
-      eyebrow: "EMPV / Storage",
-      title: "Cookie & Storage",
-      lead: "What is stored in your browser, why it is used and how you can remove it.",
+      eyebrow: "EMPV / Cookies",
+      title: "Cookies and local storage",
+      lead: "Which cookies and local data we use, why we use them, and how to manage consent.",
     },
   },
   legal: {
@@ -704,7 +704,7 @@ export default function LegalPage({
 
   const legalLinks: Array<{ slug: LegalPageSlug; it: string; en: string }> = [
     { slug: "privacy", it: "Privacy", en: "Privacy" },
-    { slug: "cookies", it: "Cookie & Storage", en: "Cookie & Storage" },
+    { slug: "cookies", it: "Informativa cookie", en: "Cookie policy" },
     { slug: "legal", it: "Note legali", en: "Legal notice" },
   ];
 
