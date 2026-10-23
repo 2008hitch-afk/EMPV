@@ -188,6 +188,16 @@
       }
     },
     "notes": {
+      "mistral-timestral-forecasting": {
+        "it": {
+          "title": "Timestral: l’AI che non scrive. Prevede. | EMPV",
+          "description": "Timestral di Mistral AI prevede serie temporali su CPU: quattro modelli, benchmark zero-shot, dati industriali, licenze e limiti operativi."
+        },
+        "en": {
+          "title": "Timestral: AI that doesn't write. It forecasts. | EMPV",
+          "description": "Mistral's Timestral forecasts time series on CPUs: four model sizes, zero-shot benchmarks, industrial applications, licenses and practical limits."
+        }
+      },
       "openai-agent-monitoring-incidents": {
         "it": {
           "title": "Agenti OpenAI: due incidenti nel monitoraggio di sicurezza | EMPV",

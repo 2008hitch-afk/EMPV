@@ -26,6 +26,148 @@ export type ResearchNote = {
 
 export const researchNotes: ResearchNote[] = [
   {
+    "id": "mistral-timestral-forecasting",
+    "index": "015",
+    "slugs": {
+      "it": "timestral-ai-che-non-scrive-prevede",
+      "en": "timestral-ai-that-forecasts"
+    },
+    "title": {
+      "it": "Timestral: l’AI che non scrive. Prevede.",
+      "en": "Timestral: AI that doesn't write. It forecasts."
+    },
+    "dek": {
+      "it": "Dai consumi energetici alla produzione industriale, il nuovo modello di Mistral analizza i dati storici per stimare cosa potrebbe succedere dopo.",
+      "en": "From energy consumption to industrial production, Mistral's new model uses historical data to estimate what may happen next."
+    },
+    "category": {
+      "it": "TECH NOTE / MODELLI",
+      "en": "TECH NOTE / MODELS"
+    },
+    "tags": {
+      "it": [
+        "Timestral",
+        "Mistral AI",
+        "Serie temporali",
+        "Previsioni",
+        "AI on-premise"
+      ],
+      "en": [
+        "Timestral",
+        "Mistral AI",
+        "Time series",
+        "Forecasting",
+        "On-premise AI"
+      ]
+    },
+    "published": "2026-10-23",
+    "readingTime": {
+      "it": "4 min",
+      "en": "4 min"
+    },
+    "socialVersion": "20261023a",
+    "sections": {
+      "it": [
+        {
+          "label": "01 / Il modello",
+          "title": "Un modello per i dati che cambiano nel tempo",
+          "paragraphs": [
+            "Il 15 ottobre 2026 [Mistral AI](https://mistral.ai/it/news/timestral/) ha presentato Timestral, una famiglia di modelli per le serie temporali: sequenze di misurazioni registrate nel tempo, come consumi elettrici, temperature, ordini o volumi di produzione.",
+            "Timestral non è un chatbot e non è progettato per generare testi. Il suo compito è osservare l'andamento di una o più grandezze e stimare come potrebbero evolvere.",
+            "La caratteristica centrale è la previsione zero-shot: un modello preaddestrato può produrre una prima stima su una nuova serie storica senza dover essere addestrato da zero sui dati di quell'azienda."
+          ]
+        },
+        {
+          "label": "02 / Architettura e prestazioni",
+          "title": "Quattro dimensioni, previsioni probabilistiche e inferenza su CPU",
+          "paragraphs": [
+            "La famiglia comprende modelli da 5, 28, 123 e 209 milioni di parametri. Il contesto arriva fino a 32.768 osservazioni temporali e l'output comprende 21 quantili: invece di un solo numero, il sistema può esprimere diversi livelli di incertezza della previsione.",
+            "Timestral può elaborare più variabili insieme e utilizzare informazioni note sul futuro, come un calendario produttivo o una chiusura programmata. Il [repository ufficiale](https://github.com/mistralai/timestral) documenta sia gli input storici sia le variabili esterne.",
+            "Mistral dichiara che l'inferenza non richiede una GPU. Nel test pubblicato, una previsione sulle successive 24 ore, partendo da tre settimane di misure a intervalli di 15 minuti, richiede da 10 a 140 millisecondi su una CPU server a otto thread, secondo la dimensione del modello. Questi tempi descrivono l'ambiente di prova, non qualsiasi macchina."
+          ]
+        },
+        {
+          "label": "03 / Risultati pubblicati",
+          "title": "Primo nei benchmark zero-shot secondo Mistral",
+          "paragraphs": [
+            "Nel proprio [annuncio tecnico](https://mistral.ai/news/timestral/), Mistral riporta il primo posto fra i modelli preaddestrati utilizzati in modalità zero-shot sui benchmark GIFT-Eval, TIME e fev-bench. I confronti riguardano metriche e dataset pubblici specifici.",
+            "È un risultato rilevante per un modello relativamente compatto, ma non equivale a dimostrare che Timestral sia sempre più accurato dei metodi statistici classici o delle soluzioni già calibrate sui dati di una singola azienda.",
+            "Prima di un'adozione operativa servono test su periodi storici esclusi dalla configurazione, confronti con una baseline semplice e una valutazione di errori, tempi di calcolo e stabilità delle previsioni."
+          ]
+        },
+        {
+          "label": "04 / In azienda",
+          "title": "Dalla previsione dei consumi ai sensori industriali",
+          "paragraphs": [
+            "Immaginiamo uno stabilimento che registri ogni quindici minuti il consumo elettrico delle macchine. Il modello potrebbe stimare il profilo di consumo del giorno successivo tenendo conto dello storico e, dove disponibili, dei turni o dei programmi di produzione.",
+            "Lo stesso approccio può essere sperimentato per domanda, scorte, volumi di ordini e grandezze rilevate dai sensori: temperatura, vibrazioni o pressione. Una previsione probabilistica permette anche di evidenziare valori che si allontanano da quanto atteso.",
+            "Uno scostamento, però, non identifica da solo un guasto. Per comprenderne la causa servono manutenzioni precedenti, condizioni operative, eventi di produzione e verifiche umane. Prevedere un dato non significa conoscere automaticamente l'intervento corretto."
+          ]
+        },
+        {
+          "label": "05 / Disponibilità e limiti",
+          "title": "Il modello è scaricabile. Il sistema va comunque progettato.",
+          "paragraphs": [
+            "Mistral ha pubblicato il [codice di inferenza su GitHub](https://github.com/mistralai/timestral) con licenza Apache 2.0 e i [pesi dei modelli su Hugging Face](https://huggingface.co/mistralai/Timestral-209M) con una distinta licenza Modified MIT. È importante verificare entrambe le condizioni prima dell'uso.",
+            "I modelli possono funzionare su CPU o GPU e possono essere caricati da file locali. Questo rende praticabile una sperimentazione anche su infrastrutture private, senza inviare necessariamente i dati di produzione a un servizio cloud.",
+            "Il valore operativo arriva solo se la previsione è collegata a dati affidabili, vincoli reali, soglie comprensibili e persone responsabili delle decisioni. Timestral può essere una componente del sistema; non lo sostituisce."
+          ]
+        }
+      ],
+      "en": [
+        {
+          "label": "01 / The model",
+          "title": "A model for data that changes over time",
+          "paragraphs": [
+            "On October 15, 2026, [Mistral AI](https://mistral.ai/news/timestral/) introduced Timestral, a family of models for time series: measurements collected over time, such as energy consumption, temperature, orders or production volumes.",
+            "Timestral is not a chatbot and is not designed to generate prose. Its job is to examine how one or more quantities have changed and estimate what may happen next.",
+            "Its main feature is *zero-shot forecasting*: a pretrained model can generate an initial forecast for a new dataset without being trained from scratch on that company's historical records."
+          ]
+        },
+        {
+          "label": "02 / Architecture and performance",
+          "title": "Four sizes, probabilistic forecasts and CPU inference",
+          "paragraphs": [
+            "The family includes 5M, 28M, 123M and 209M-parameter models. It supports up to 32,768 time steps of context and produces 21 quantiles, expressing a range of outcomes rather than just one predicted number.",
+            "Timestral can model several related variables together and use information known in advance, such as production schedules or planned shutdowns. The [official repository](https://github.com/mistralai/timestral) documents both historical inputs and external covariates.",
+            "Mistral says inference does not require a GPU. In its published test, forecasting the next 24 hours from three weeks of 15-minute observations takes 10 to 140 milliseconds on an eight-thread server CPU, depending on model size. These are test-environment measurements, not guarantees for every machine."
+          ]
+        },
+        {
+          "label": "03 / Published results",
+          "title": "Top zero-shot benchmark results reported by Mistral",
+          "paragraphs": [
+            "In its [technical announcement](https://mistral.ai/news/timestral/), Mistral reports first-place results among pretrained, zero-shot models on GIFT-Eval, TIME and fev-bench. The comparison is based on particular public datasets and metrics.",
+            "Those results are notable for a relatively compact model, but they do not establish that Timestral will always outperform classical statistical methods or forecasting systems already tuned to a particular company.",
+            "Before operational use, teams should evaluate it on held-out historical periods, compare it with a simple baseline and measure errors, compute costs and forecast stability."
+          ]
+        },
+        {
+          "label": "04 / Business applications",
+          "title": "From energy demand to industrial sensors",
+          "paragraphs": [
+            "Consider a factory recording machine-level electricity consumption every fifteen minutes. A model could estimate the next day's load from the historical pattern and, when available, shift plans or production schedules.",
+            "The same approach could be tested for demand, inventory, order volumes and sensor measurements such as temperature, vibration or pressure. Probabilistic forecasts can also help highlight readings that fall outside expected ranges.",
+            "An unexpected reading, however, does not identify a failed component by itself. Maintenance history, operating conditions, production events and human investigation are still needed. Forecasting a measurement is not the same as determining the correct action."
+          ]
+        },
+        {
+          "label": "05 / Availability and limitations",
+          "title": "The model is downloadable. The operational system still needs design.",
+          "paragraphs": [
+            "Mistral released the [inference code on GitHub](https://github.com/mistralai/timestral) under Apache 2.0 and the [model weights on Hugging Face](https://huggingface.co/mistralai/Timestral-209M) under a separate Modified MIT license. Both sets of terms should be reviewed before use.",
+            "The models run on CPUs or GPUs and can load files locally. This makes it possible to test forecasting on private infrastructure without necessarily sending production data to a cloud service.",
+            "Operational value depends on reliable input data, real-world constraints, understandable thresholds and people accountable for decisions. Timestral can be one component of that system; it is not the system itself."
+          ]
+        }
+      ]
+    },
+    "takeaway": {
+      "it": "Una previsione diventa utile quando entra nei processi aziendali, con dati affidabili, limiti dichiarati e decisioni verificabili.",
+      "en": "A forecast becomes useful when it is connected to business processes, reliable data, explicit limits and accountable decisions."
+    }
+  },
+  {
     "id": "php2shell-php-security-2026",
     "index": "014",
     "slugs": {

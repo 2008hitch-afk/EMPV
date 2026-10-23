@@ -77,6 +77,37 @@ function cardVisual(noteId) {
   const faint = "#d8d6cf";
 
 
+  if (noteId === "mistral-timestral-forecasting") {
+    // Historical series (solid) and a forward projection (orange with uncertainty band).
+    // The values are schematic, not real measured or predicted sensor readings.
+    return `
+      <g transform="translate(790 158)" font-family="Arial, Helvetica, sans-serif">
+        <text x="8" y="0" font-size="14" font-weight="700" letter-spacing="2" fill="#77746e">TIME SERIES / FORECAST</text>
+        <path d="M8 19 H350" stroke="#d8d6cf" stroke-width="1.5"/>
+        <rect x="8" y="55" width="341" height="277" rx="13" fill="#f6f4ed" stroke="#d8d6cf" stroke-width="1.6"/>
+        <g stroke="#dedbd3" stroke-width="1">
+          <path d="M27 113 H330 M27 165 H330 M27 217 H330 M27 269 H330"/>
+          <path d="M78 90 V292 M130 90 V292 M182 90 V292 M234 90 V292 M286 90 V292"/>
+        </g>
+        <path d="M200 90 V292" fill="none" stroke="#7b7770" stroke-width="1.8" stroke-dasharray="5 5"/>
+        <path d="M27 251 L55 223 L81 232 L109 185 L134 200 L162 153 L184 165 L200 151"
+          fill="none" stroke="#171715" stroke-width="3.7" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M200 151 L227 111 L253 118 L280 79 L307 83 L330 64 L330 215 L307 224 L280 199 L253 212 L227 192 L200 151Z"
+          fill="#ff5a24" fill-opacity="0.12" stroke="none"/>
+        <path d="M200 151 L227 151 L253 164 L280 125 L307 148 L330 133"
+          fill="none" stroke="#ff5a24" stroke-width="3.7" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="7 6"/>
+        <circle cx="200" cy="151" r="5.5" fill="#ff5a24" stroke="#f6f4ed" stroke-width="2"/>
+        <g font-size="12" font-weight="700" letter-spacing="1.1">
+          <text x="30" y="311" fill="#77746e">OBSERVED</text>
+          <text x="211" y="311" fill="#ff5a24">PREDICTED</text>
+        </g>
+        <path d="M30 363 H62" stroke="#171715" stroke-width="3" stroke-linecap="round"/>
+        <text x="70" y="367" font-size="13" fill="#77746e">HISTORY</text>
+        <path d="M200 363 H232" stroke="#ff5a24" stroke-width="3" stroke-dasharray="6 5"/>
+        <text x="241" y="367" font-size="13" fill="#77746e">FORECAST</text>
+      </g>`;
+  }
+
   if (noteId === "php2shell-php-security-2026") {
     // PHP runtime and security patch schematic; integrates with existing EMPV card template.
     return `
