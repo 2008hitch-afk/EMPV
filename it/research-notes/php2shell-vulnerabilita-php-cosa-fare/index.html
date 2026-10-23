@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="PHP2Shell: CVE-2026-109618 e CVE-2026-109619. Le versioni PHP corrette, i controlli immediati e gli attacchi osservati prima della divulgazione." />
+    <title>PHP2Shell: vulnerabilità PHP e aggiornamenti urgenti | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-BbGjweF-.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Cqsd0oq4.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/it/research-notes/php2shell-vulnerabilita-php-cosa-fare/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/research-notes/php2shell-vulnerabilita-php-cosa-fare/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/research-notes/php2shell-php-vulnerabilities-security-fixes/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/research-notes/php2shell-vulnerabilita-php-cosa-fare/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="PHP2Shell: vulnerabilità PHP e aggiornamenti urgenti | EMPV" />
+    <meta property="og:description" content="PHP2Shell: CVE-2026-109618 e CVE-2026-109619. Le versioni PHP corrette, i controlli immediati e gli attacchi osservati prima della divulgazione." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://empv.it/it/research-notes/php2shell-vulnerabilita-php-cosa-fare/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:image" content="https://empv.it/social/research-notes/php2shell-php-security-2026-it-20261022.png" />
+    <meta property="og:image:url" content="https://empv.it/social/research-notes/php2shell-php-security-2026-it-20261022.png" />
+    <meta property="og:image:secure_url" content="https://empv.it/social/research-notes/php2shell-php-security-2026-it-20261022.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="PHP2Shell: due vulnerabilità critiche in PHP. Cosa aggiornare e come proteggere i server" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="PHP2Shell: vulnerabilità PHP e aggiornamenti urgenti | EMPV" />
+    <meta name="twitter:description" content="PHP2Shell: CVE-2026-109618 e CVE-2026-109619. Le versioni PHP corrette, i controlli immediati e gli attacchi osservati prima della divulgazione." />
+    <meta name="twitter:image" content="https://empv.it/social/research-notes/php2shell-php-security-2026-it-20261022.png" />
+    <meta name="twitter:image:alt" content="PHP2Shell: due vulnerabilità critiche in PHP. Cosa aggiornare e come proteggere i server" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/it/research-notes/php2shell-vulnerabilita-php-cosa-fare/#webpage","url":"https://empv.it/it/research-notes/php2shell-vulnerabilita-php-cosa-fare/","name":"PHP2Shell: vulnerabilità PHP e aggiornamenti urgenti | EMPV","description":"PHP2Shell: CVE-2026-109618 e CVE-2026-109619. Le versioni PHP corrette, i controlli immediati e gli attacchi osservati prima della divulgazione.","inLanguage":"it","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"Article","@id":"https://empv.it/it/research-notes/php2shell-vulnerabilita-php-cosa-fare/#article","headline":"PHP2Shell: due vulnerabilità critiche in PHP. Cosa aggiornare e come proteggere i server","description":"Due vulnerabilità PHP consentono potenzialmente l'esecuzione di codice senza autenticazione. Le versioni corrette, i controlli immediati e le evidenze degli attacchi rilevati prima dell'annuncio.","datePublished":"2026-10-22","dateModified":"2026-10-22","inLanguage":"it","keywords":["PHP2Shell","PHP","Sicurezza PHP","CVE-2026-109618","CVE-2026-109619"],"image":{"@type":"ImageObject","url":"https://empv.it/social/research-notes/php2shell-php-security-2026-it-20261022.png","width":1200,"height":630},"mainEntityOfPage":{"@id":"https://empv.it/it/research-notes/php2shell-vulnerabilita-php-cosa-fare/#webpage"},"author":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}],"publisher":{"@id":"https://empv.it/#organization"}}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell notes-shell" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/it/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/it/research-notes/">Research Notes</a><a class="lang-switch" href="/en/research-notes/php2shell-php-vulnerabilities-security-fixes/" hreflang="en">EN</a></header><main><section class="detail-hero research-note-hero"><div class="detail-hero-inner"><div class="detail-kicker-row"><span class="eyebrow">EMPV / RESEARCH NOTES</span><span class="detail-index">NOTE / 014</span></div><div class="detail-title-wrap detail-title-project research-note-title"><p class="detail-kicker">TECH NOTE / SECURITY</p><h1>PHP2Shell: due vulnerabilità critiche in PHP. Cosa aggiornare e come proteggere i server</h1></div><div class="detail-hero-bottom"><p class="detail-lead">Due vulnerabilità PHP consentono potenzialmente l'esecuzione di codice senza autenticazione. Le versioni corrette, i controlli immediati e le evidenze degli attacchi rilevati prima dell'annuncio.</p><div class="detail-status"><span>Pubblicata</span><strong>2026-10-22 · 3 min</strong></div></div><div class="tags detail-tags"><span>PHP2Shell</span><span>PHP</span><span>Sicurezza PHP</span><span>CVE-2026-109618</span><span>CVE-2026-109619</span></div></div></section><section class="detail-blocks section-pad research-note-blocks"><article class="detail-block research-note-block"><div class="eyebrow">01 / La vulnerabilità</div><div class="detail-block-main"><h2>Due falle nell'interprete PHP</h2><div class="research-note-copy"><p>Il 21 ottobre 2026 il <a href="https://www.php.net/archive/2026.php#2026-10-21-5" target="_blank" rel="noreferrer noopener">PHP Security Team</a> ha rilasciato gli aggiornamenti per CVE-2026-109618 e CVE-2026-109619, conosciute insieme come PHP2Shell. Entrambe possono consentire l'esecuzione di codice da remoto senza autenticazione.</p><p>Il problema interessa il runtime PHP che elabora le richieste HTTP: non richiede necessariamente un difetto nel codice dell'applicazione. Il team PHP considera particolarmente esposte le installazioni Apache con mod_php, ma include anche PHP-FPM, php-cgi, FrankenPHP e LiteSpeed.</p><p>Le vulnerabilità riguardano la gestione della memoria durante le richieste: la prima coinvolge la pulizia dopo errori di memoria esaurita; la seconda uno stato globale collegato a richieste precedenti che può rimanere accessibile dopo la liberazione della memoria.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">02 / Correzioni</div><div class="detail-block-main"><h2>Quali versioni PHP installare</h2><div class="research-note-copy"><p>Le versioni correttive pubblicate sono **PHP 8.5.12, 8.4.27, 8.3.36 e 8.2.35**. Bisogna identificare il runtime effettivamente utilizzato dai servizi esposti e applicare la versione corretta per il proprio ramo.</p><p>Per i rami precedenti occorre verificare le patch del distributore oppure migrare a una versione supportata. Nei sistemi che usano aggiornamenti di sicurezza retroportati, il solo numero della versione non è una prova sufficiente dell'assenza della correzione.</p><p>Prima dell'intervento conviene effettuare e verificare un backup di file e database; dopo, testare l'applicazione, controllare la versione PHP attiva e accertare che i processi interessati siano stati riavviati.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">03 / Verifiche operative</div><div class="detail-block-main"><h2>L'aggiornamento non sostituisce l'analisi dei log</h2><div class="research-note-copy"><p>È opportuno esaminare log HTTP, errori PHP, file modificati in modo anomalo e processi sospetti anche per il periodo precedente al rilascio della patch. Un aggiornamento corregge la vulnerabilità, ma non annulla un'eventuale compromissione avvenuta in precedenza.</p><p>Se non è possibile intervenire subito, il <a href="https://www.php.net/archive/2026.php#2026-10-21-5" target="_blank" rel="noreferrer noopener">PHP Security Team</a> documenta mitigazioni temporanee. Devono essere valutate rispetto alla configurazione e al funzionamento del servizio, e non coprono tutti i percorsi di attacco. La correzione completa rimane l'aggiornamento.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">04 / Attacchi osservati</div><div class="detail-block-main"><h2>Segnalazioni precedenti alla divulgazione</h2><div class="research-note-copy"><p><a href="https://aws.amazon.com/blogs/security/amazon-threat-intelligence-identifies-php2shell-exploitation-prior-to-public-disclosure-in-madpot/" target="_blank" rel="noreferrer noopener">Amazon Threat Intelligence</a> riferisce di avere osservato tentativi di sfruttamento attraverso MadPot già il 17 ottobre 2026, quattro giorni prima della divulgazione pubblica.</p><p>L'attività osservata non permette di determinare quanti server di produzione siano stati compromessi. L'<a href="https://github.com/NCSC-NL/php2shell" target="_blank" rel="noreferrer noopener">NCSC-NL</a> raccoglie informazioni operative per i responsabili della risposta e della protezione dei sistemi.</p><p>Per chi gestisce infrastrutture aziendali, la priorità resta individuare le istanze PHP esposte, verificare le patch e conservare le evidenze utili a riconoscere possibili incidenti.</p></div></div></article></section><section class="detail-boundary section-pad research-note-takeaway"><div class="section-code">EMPV / TAKEAWAY</div><p>Verificare la versione PHP effettivamente in uso, aggiornare il runtime e analizzare anche i log anteriori alla patch.</p></section><section class="research-note-share section-pad" aria-label="Condividi questa Research Note"><div class="section-code">EMPV / CONDIVIDI</div><div class="research-note-share-inner"><p>Condividi questa Research Note.</p><div class="research-note-share-actions"><a class="research-note-share-primary" href="https://empv.it/it/research-notes/php2shell-vulnerabilita-php-cosa-fare/?share=20261022">Condividi</a><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fempv.it%2Fit%2Fresearch-notes%2Fphp2shell-vulnerabilita-php-cosa-fare%2F%3Fshare%3D20261022" target="_blank" rel="noreferrer noopener">LinkedIn</a><a href="https://twitter.com/intent/tweet?text=PHP2Shell%3A%20due%20vulnerabilit%C3%A0%20critiche%20in%20PHP.%20Cosa%20aggiornare%20e%20come%20proteggere%20i%20server%20%E2%80%94%20EMPV%20Research%20Notes&amp;url=https%3A%2F%2Fempv.it%2Fit%2Fresearch-notes%2Fphp2shell-vulnerabilita-php-cosa-fare%2F%3Fshare%3D20261022" target="_blank" rel="noreferrer noopener">X</a><a href="https://wa.me/?text=PHP2Shell%3A%20due%20vulnerabilit%C3%A0%20critiche%20in%20PHP.%20Cosa%20aggiornare%20e%20come%20proteggere%20i%20server%20%E2%80%94%20EMPV%20Research%20Notes%20https%3A%2F%2Fempv.it%2Fit%2Fresearch-notes%2Fphp2shell-vulnerabilita-php-cosa-fare%2F%3Fshare%3D20261022" target="_blank" rel="noreferrer noopener">WhatsApp</a><a href="https://empv.it/it/research-notes/php2shell-vulnerabilita-php-cosa-fare/?share=20261022">Copia link</a></div></div></section><section class="detail-end section-pad"><a href="/it/research-notes/"><span>Research Notes</span></a></section></main></div></div>
+  </body>
+</html>

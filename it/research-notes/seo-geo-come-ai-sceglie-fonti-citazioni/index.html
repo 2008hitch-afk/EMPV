@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="Come ChatGPT e i motori AI scelgono le fonti da citare: uno studio su 468.037 citazioni analizza retrieval, contenuti e visibilità GEO." />
+    <title>SEO e GEO: come i motori AI scelgono le fonti da citare | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-BbGjweF-.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Cqsd0oq4.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/it/research-notes/seo-geo-come-ai-sceglie-fonti-citazioni/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/research-notes/seo-geo-come-ai-sceglie-fonti-citazioni/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/research-notes/seo-geo-how-ai-search-selects-citations/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/research-notes/seo-geo-come-ai-sceglie-fonti-citazioni/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="SEO e GEO: come i motori AI scelgono le fonti da citare | EMPV" />
+    <meta property="og:description" content="Come ChatGPT e i motori AI scelgono le fonti da citare: uno studio su 468.037 citazioni analizza retrieval, contenuti e visibilità GEO." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://empv.it/it/research-notes/seo-geo-come-ai-sceglie-fonti-citazioni/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:image" content="https://empv.it/social/research-notes/seo-geo-ai-citations-it-20261019.png" />
+    <meta property="og:image:url" content="https://empv.it/social/research-notes/seo-geo-ai-citations-it-20261019.png" />
+    <meta property="og:image:secure_url" content="https://empv.it/social/research-notes/seo-geo-ai-citations-it-20261019.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="SEO e GEO: come i motori AI scelgono le fonti da citare" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="SEO e GEO: come i motori AI scelgono le fonti da citare | EMPV" />
+    <meta name="twitter:description" content="Come ChatGPT e i motori AI scelgono le fonti da citare: uno studio su 468.037 citazioni analizza retrieval, contenuti e visibilità GEO." />
+    <meta name="twitter:image" content="https://empv.it/social/research-notes/seo-geo-ai-citations-it-20261019.png" />
+    <meta name="twitter:image:alt" content="SEO e GEO: come i motori AI scelgono le fonti da citare" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/it/research-notes/seo-geo-come-ai-sceglie-fonti-citazioni/#webpage","url":"https://empv.it/it/research-notes/seo-geo-come-ai-sceglie-fonti-citazioni/","name":"SEO e GEO: come i motori AI scelgono le fonti da citare | EMPV","description":"Come ChatGPT e i motori AI scelgono le fonti da citare: uno studio su 468.037 citazioni analizza retrieval, contenuti e visibilità GEO.","inLanguage":"it","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"Article","@id":"https://empv.it/it/research-notes/seo-geo-come-ai-sceglie-fonti-citazioni/#article","headline":"SEO e GEO: come i motori AI scelgono le fonti da citare","description":"Uno studio su oltre 468.000 citazioni analizza come ChatGPT, Gemini e Perplexity selezionano le fonti. I risultati mostrano quanto contano il recupero delle pagine, la pertinenza dei contenuti e la conoscenza dei brand.","datePublished":"2026-10-19","dateModified":"2026-10-19","inLanguage":"it","keywords":["SEO","GEO","AI Search","Citazioni AI"],"image":{"@type":"ImageObject","url":"https://empv.it/social/research-notes/seo-geo-ai-citations-it-20261019.png","width":1200,"height":630},"mainEntityOfPage":{"@id":"https://empv.it/it/research-notes/seo-geo-come-ai-sceglie-fonti-citazioni/#webpage"},"author":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}],"publisher":{"@id":"https://empv.it/#organization"}}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell notes-shell" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/it/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/it/research-notes/">Research Notes</a><a class="lang-switch" href="/en/research-notes/seo-geo-how-ai-search-selects-citations/" hreflang="en">EN</a></header><main><section class="detail-hero research-note-hero"><div class="detail-hero-inner"><div class="detail-kicker-row"><span class="eyebrow">EMPV / RESEARCH NOTES</span><span class="detail-index">NOTE / 011</span></div><div class="detail-title-wrap detail-title-project research-note-title"><p class="detail-kicker">TECH NOTE / AI SEARCH</p><h1>SEO e GEO: come i motori AI scelgono le fonti da citare</h1></div><div class="detail-hero-bottom"><p class="detail-lead">Uno studio su oltre 468.000 citazioni analizza come ChatGPT, Gemini e Perplexity selezionano le fonti. I risultati mostrano quanto contano il recupero delle pagine, la pertinenza dei contenuti e la conoscenza dei brand.</p><div class="detail-status"><span>Pubblicata</span><strong>2026-10-19 · 3 min</strong></div></div><div class="tags detail-tags"><span>SEO</span><span>GEO</span><span>AI Search</span><span>Citazioni AI</span></div></div></section><section class="detail-blocks section-pad research-note-blocks"><article class="detail-block research-note-block"><div class="eyebrow">01 / Lo studio</div><div class="detail-block-main"><h2>Essere ben posizionati non garantisce una citazione AI</h2><div class="research-note-copy"><p>Il 10 ottobre 2026, Mahe Chen e Nick Koudas hanno pubblicato su <a href="https://arxiv.org/abs/2610.15033" target="_blank" rel="noreferrer noopener">arXiv</a> uno studio dedicato alla Generative Engine Optimization (GEO).</p><p>La ricerca analizza 158.099 risposte e 468.037 citazioni raccolte in due mercati statunitensi.</p><p>Nel campione ChatGPT, le informazioni sul recupero delle pagine spiegano il 32% della variabilità delle citazioni tra pagine dello stesso sito. Le caratteristiche osservate delle pagine ne spiegano il 2,8%.</p><p>Non significa che la qualità dei contenuti conti soltanto per il 2,8%. Significa che il sistema di ricerca utilizzato dall'AI ha un peso importante nel determinare quali documenti entrano nella risposta.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">02 / Come vengono selezionate le fonti</div><div class="detail-block-main"><h2>Una domanda può generare ricerche completamente diverse</h2><div class="research-note-copy"><p>I motori AI possono scomporre una domanda in più ricerche, recuperare documenti e selezionare quelli da citare. Google descrive questo meccanismo come <a href="https://developers.google.com/search/docs/appearance/ai-features" target="_blank" rel="noreferrer noopener">query fan-out</a>.</p><p>Negli esperimenti, ChatGPT consulta mediamente 26 pagine per domanda e ne cita circa tre. Ripetendo la stessa domanda nello stesso giorno, la sovrapposizione media tra le pagine citate è appena del 15%.</p><p>Le caratteristiche dei contenuti hanno comunque un ruolo: titoli e paragrafi che corrispondono semanticamente alle domande sono associati a più citazioni.</p><p>FAQ, box riassuntivi e markup strutturato non mostrano invece vantaggi robusti nel confronto tra pagine dello stesso sito.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">03 / Il ruolo dei brand</div><div class="detail-block-main"><h2>Un'azienda può comparire anche senza essere citata come fonte</h2><div class="research-note-copy"><p>La ricerca evidenzia un secondo meccanismo: la conoscenza già presente nel modello.</p><p>Nel campione analizzato, il 46% delle menzioni di brand introdotte spontaneamente da ChatGPT non è supportato da una pagina citata che riporti quel nome.</p><p>Il modello può quindi menzionare un'azienda perché la conosce già, indipendentemente dalle fonti recuperate per quella risposta. Per le aziende meno note, la disponibilità di documentazione pertinente e fonti esterne può assumere maggiore importanza.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">04 / Cosa cambia per le aziende</div><div class="detail-block-main"><h2>SEO e GEO richiedono informazioni accessibili e specifiche</h2><div class="research-note-copy"><p>La Search Engine Optimization (SEO) resta la base tecnica: pagine indicizzabili, contenuti utili e collegamenti chiari. <a href="https://developers.google.com/search/docs/appearance/ai-features" target="_blank" rel="noreferrer noopener">Google conferma</a> che AI Overviews e AI Mode non richiedono ottimizzazioni speciali.</p><p>Per la GEO diventa importante anche osservare come le informazioni aziendali vengono recuperate e utilizzate nelle risposte AI.</p><p>Una documentazione che descrive prodotti, processi, integrazioni e limiti operativi offre informazioni più precise di una pagina costruita soltanto su affermazioni commerciali generiche.</p><p>La misurazione sta evolvendo: <a href="https://developers.google.com/search/blog/2026/06/gen-ai-performance-reports" target="_blank" rel="noreferrer noopener">Google Search Console</a> espone dati sulle impression nelle funzioni AI, mentre <a href="https://blogs.bing.com/webmaster/2026/10/introducing-topics-portfolio-beta-in-ai-performance/" target="_blank" rel="noreferrer noopener">Bing Webmaster Tools</a> permette di analizzare citazioni e argomenti.</p><p>Lo studio resta un preprint osservazionale, basato su mercati e configurazioni specifiche. Non dimostra che una singola tecnica possa garantire citazioni. Distingue però tre aspetti che le aziende possono iniziare a misurare separatamente: contenuti disponibili, pagine recuperate e fonti effettivamente citate.</p></div></div></article></section><section class="detail-boundary section-pad research-note-takeaway"><div class="section-code">EMPV / TAKEAWAY</div><p>Contenuti disponibili, pagine recuperate e citazioni sono tre livelli distinti della visibilità AI.</p></section><section class="research-note-share section-pad" aria-label="Condividi questa Research Note"><div class="section-code">EMPV / CONDIVIDI</div><div class="research-note-share-inner"><p>Condividi questa Research Note.</p><div class="research-note-share-actions"><a class="research-note-share-primary" href="https://empv.it/it/research-notes/seo-geo-come-ai-sceglie-fonti-citazioni/?share=20261019">Condividi</a><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fempv.it%2Fit%2Fresearch-notes%2Fseo-geo-come-ai-sceglie-fonti-citazioni%2F%3Fshare%3D20261019" target="_blank" rel="noreferrer noopener">LinkedIn</a><a href="https://twitter.com/intent/tweet?text=SEO%20e%20GEO%3A%20come%20i%20motori%20AI%20scelgono%20le%20fonti%20da%20citare%20%E2%80%94%20EMPV%20Research%20Notes&amp;url=https%3A%2F%2Fempv.it%2Fit%2Fresearch-notes%2Fseo-geo-come-ai-sceglie-fonti-citazioni%2F%3Fshare%3D20261019" target="_blank" rel="noreferrer noopener">X</a><a href="https://wa.me/?text=SEO%20e%20GEO%3A%20come%20i%20motori%20AI%20scelgono%20le%20fonti%20da%20citare%20%E2%80%94%20EMPV%20Research%20Notes%20https%3A%2F%2Fempv.it%2Fit%2Fresearch-notes%2Fseo-geo-come-ai-sceglie-fonti-citazioni%2F%3Fshare%3D20261019" target="_blank" rel="noreferrer noopener">WhatsApp</a><a href="https://empv.it/it/research-notes/seo-geo-come-ai-sceglie-fonti-citazioni/?share=20261019">Copia link</a></div></div></section><section class="detail-end section-pad"><a href="/it/research-notes/"><span>Research Notes</span></a></section></main></div></div>
+  </body>
+</html>

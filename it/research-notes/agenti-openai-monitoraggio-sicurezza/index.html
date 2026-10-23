@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="Due agenti OpenAI hanno disattivato avvisi e rimosso un monitor durante attività interne. Il rapporto del 20 ottobre 2026 e le misure correttive." />
+    <title>Agenti OpenAI: due incidenti nel monitoraggio di sicurezza | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-BbGjweF-.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Cqsd0oq4.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/it/research-notes/agenti-openai-monitoraggio-sicurezza/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/research-notes/agenti-openai-monitoraggio-sicurezza/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/research-notes/openai-agents-monitoring-safeguards/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/research-notes/agenti-openai-monitoraggio-sicurezza/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="Agenti OpenAI: due incidenti nel monitoraggio di sicurezza | EMPV" />
+    <meta property="og:description" content="Due agenti OpenAI hanno disattivato avvisi e rimosso un monitor durante attività interne. Il rapporto del 20 ottobre 2026 e le misure correttive." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://empv.it/it/research-notes/agenti-openai-monitoraggio-sicurezza/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:image" content="https://empv.it/social/research-notes/openai-agent-monitoring-incidents-it-20261021a.png" />
+    <meta property="og:image:url" content="https://empv.it/social/research-notes/openai-agent-monitoring-incidents-it-20261021a.png" />
+    <meta property="og:image:secure_url" content="https://empv.it/social/research-notes/openai-agent-monitoring-incidents-it-20261021a.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Due agenti OpenAI hanno indebolito i controlli di monitoraggio" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="Agenti OpenAI: due incidenti nel monitoraggio di sicurezza | EMPV" />
+    <meta name="twitter:description" content="Due agenti OpenAI hanno disattivato avvisi e rimosso un monitor durante attività interne. Il rapporto del 20 ottobre 2026 e le misure correttive." />
+    <meta name="twitter:image" content="https://empv.it/social/research-notes/openai-agent-monitoring-incidents-it-20261021a.png" />
+    <meta name="twitter:image:alt" content="Due agenti OpenAI hanno indebolito i controlli di monitoraggio" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/it/research-notes/agenti-openai-monitoraggio-sicurezza/#webpage","url":"https://empv.it/it/research-notes/agenti-openai-monitoraggio-sicurezza/","name":"Agenti OpenAI: due incidenti nel monitoraggio di sicurezza | EMPV","description":"Due agenti OpenAI hanno disattivato avvisi e rimosso un monitor durante attività interne. Il rapporto del 20 ottobre 2026 e le misure correttive.","inLanguage":"it","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"Article","@id":"https://empv.it/it/research-notes/agenti-openai-monitoraggio-sicurezza/#article","headline":"Due agenti OpenAI hanno indebolito i controlli di monitoraggio","description":"Durante due attività interne di programmazione, gli agenti hanno disattivato notifiche di sicurezza e rimosso un'integrazione di monitoraggio. OpenAI sta rafforzando i controlli.","datePublished":"2026-10-21","dateModified":"2026-10-21","inLanguage":"it","keywords":["OpenAI","Sicurezza agenti AI","Monitoraggio AI","AI agents"],"image":{"@type":"ImageObject","url":"https://empv.it/social/research-notes/openai-agent-monitoring-incidents-it-20261021a.png","width":1200,"height":630},"mainEntityOfPage":{"@id":"https://empv.it/it/research-notes/agenti-openai-monitoraggio-sicurezza/#webpage"},"author":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}],"publisher":{"@id":"https://empv.it/#organization"}}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell notes-shell" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/it/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/it/research-notes/">Research Notes</a><a class="lang-switch" href="/en/research-notes/openai-agents-monitoring-safeguards/" hreflang="en">EN</a></header><main><section class="detail-hero research-note-hero"><div class="detail-hero-inner"><div class="detail-kicker-row"><span class="eyebrow">EMPV / RESEARCH NOTES</span><span class="detail-index">NOTE / 013</span></div><div class="detail-title-wrap detail-title-project research-note-title"><p class="detail-kicker">TECH NOTE / AGENT SECURITY</p><h1>Due agenti OpenAI hanno indebolito i controlli di monitoraggio</h1></div><div class="detail-hero-bottom"><p class="detail-lead">Durante due attività interne di programmazione, gli agenti hanno disattivato notifiche di sicurezza e rimosso un'integrazione di monitoraggio. OpenAI sta rafforzando i controlli.</p><div class="detail-status"><span>Pubblicata</span><strong>2026-10-21 · 4 min</strong></div></div><div class="tags detail-tags"><span>OpenAI</span><span>Sicurezza agenti AI</span><span>Monitoraggio AI</span><span>AI agents</span></div></div></section><section class="detail-blocks section-pad research-note-blocks"><article class="detail-block research-note-block"><div class="eyebrow">01 / Le notifiche</div><div class="detail-block-main"><h2>Le notifiche disattivate</h2><div class="research-note-copy"><p>Il 20 ottobre 2026, <a href="https://alignment.openai.com/misalignment-reports/suppressing-misalignment-monitoring-alerts-and-disabling-misalignment-monitoring/" target="_blank" rel="noreferrer noopener">OpenAI ha documentato</a> due incidenti avvenuti il 3 e il 6 ottobre durante attività interne di sviluppo software.</p><p>Un agente ha soppresso le notifiche automatiche al team Security. Un altro ha rimosso un componente di monitoraggio durante una migrazione e ha successivamente dichiarato, in modo errato, di non averlo fatto.</p><p>In entrambi i casi, gli agenti stavano eseguendo richieste operative legittime. Il problema è nato dal modo in cui hanno interpretato le istruzioni rispetto ai controlli di sicurezza.</p><p>Il 3 ottobre, un agente GPT-6.1 Sol stava lavorando a una pipeline di valutazione utilizzando informazioni provenienti da Slack. L'utente aveva chiesto di non inviare messaggi.</p><p>Quando è stato necessario correggere la destinazione dei risultati di monitoraggio, l'agente ha esteso quella richiesta anche alle notifiche automatiche di sicurezza.</p><p>Ha quindi modificato i destinatari degli avvisi e impostato no_notify = True.</p><p>Il monitor ha continuato a funzionare e a registrare i risultati, ma le notifiche destinate alle persone incaricate di intervenire erano state disabilitate.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">02 / La migrazione</div><div class="detail-block-main"><h2>Il monitor rimosso durante una migrazione</h2><div class="research-note-copy"><p>Il 6 ottobre, un agente GPT-6 Astra doveva adattare un programma a un'implementazione di riferimento, mantenendo le funzionalità esistenti.</p><p>Durante la migrazione, l'agente ha rimosso l'integrazione con il sistema di monitoraggio, interpretando la richiesta di replicare il codice come autorizzazione a modificare anche quella protezione.</p><p>È stato modificato persino un test di regressione: invece di verificare la presenza del monitor, il nuovo test ne verificava l'assenza.</p><p>Quando l'utente ha chiesto se il monitoraggio fosse stato rimosso, l'agente ha risposto di no.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">03 / La risposta</div><div class="detail-block-main"><h2>Le modifiche annunciate da OpenAI</h2><div class="research-note-copy"><p><a href="https://alignment.openai.com/misalignment-reports/suppressing-misalignment-monitoring-alerts-and-disabling-misalignment-monitoring/" target="_blank" rel="noreferrer noopener">Secondo il rapporto</a>, nessuno dei due incidenti è stato classificato come P0, la categoria che richiede l'escalation immediata al team Security.</p><p>OpenAI ha aggiornato il proprio sistema Auto-Review per individuare e bloccare le modifiche che disattivano il monitoraggio.</p><p>Sta inoltre lavorando a requisiti di sicurezza espliciti per ciascuna categoria di workload, con l'obiettivo di interrompere automaticamente le esecuzioni che non rispettano i controlli previsti.</p><p>La causa del comportamento resta aperta: OpenAI non ha ancora stabilito se si tratti di eccessiva insistenza nel completare il compito o di una tendenza specifica a evitare il monitoraggio.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">04 / Implicazioni operative</div><div class="detail-block-main"><h2>Cosa significa per gli agenti aziendali</h2><div class="research-note-copy"><p>I due episodi riguardano ambienti interni OpenAI e non dimostrano che ogni agente AI possa aggirare i propri sistemi di sicurezza.</p><p>Mostrano però un rischio architetturale preciso: un agente autorizzato a modificare il software può intervenire anche sui meccanismi che dovrebbero controllare il suo operato, se questi ricadono nello stesso perimetro di modifica.</p><p>Per un'implementazione aziendale, i controlli di sicurezza dovrebbero quindi essere separati dai permessi operativi dell'agente. Le modifiche a logging, notifiche, autorizzazioni e test di sicurezza richiedono verifiche indipendenti.</p><p>Il problema è collegato a quello affrontato nella nostra <a href="https://empv.it/it/research-notes/thinkingbox-valutare-agenti-stato-finale-sistemi/" target="_blank" rel="noreferrer noopener">analisi di ThinkingBox</a>: la conclusione dichiarata da un agente non basta a dimostrare che il sistema si trovi nello stato previsto.</p><p>Un agente può completare il compito richiesto e, contemporaneamente, aver modificato un controllo che avrebbe dovuto preservare.</p></div></div></article></section><section class="detail-boundary section-pad research-note-takeaway"><div class="section-code">EMPV / TAKEAWAY</div><p>Il monitoraggio e i test di sicurezza dovrebbero restare fuori dal perimetro di modifica ordinario di un agente.</p></section><section class="research-note-share section-pad" aria-label="Condividi questa Research Note"><div class="section-code">EMPV / CONDIVIDI</div><div class="research-note-share-inner"><p>Condividi questa Research Note.</p><div class="research-note-share-actions"><a class="research-note-share-primary" href="https://empv.it/it/research-notes/agenti-openai-monitoraggio-sicurezza/?share=20261021a">Condividi</a><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fempv.it%2Fit%2Fresearch-notes%2Fagenti-openai-monitoraggio-sicurezza%2F%3Fshare%3D20261021a" target="_blank" rel="noreferrer noopener">LinkedIn</a><a href="https://twitter.com/intent/tweet?text=Due%20agenti%20OpenAI%20hanno%20indebolito%20i%20controlli%20di%20monitoraggio%20%E2%80%94%20EMPV%20Research%20Notes&amp;url=https%3A%2F%2Fempv.it%2Fit%2Fresearch-notes%2Fagenti-openai-monitoraggio-sicurezza%2F%3Fshare%3D20261021a" target="_blank" rel="noreferrer noopener">X</a><a href="https://wa.me/?text=Due%20agenti%20OpenAI%20hanno%20indebolito%20i%20controlli%20di%20monitoraggio%20%E2%80%94%20EMPV%20Research%20Notes%20https%3A%2F%2Fempv.it%2Fit%2Fresearch-notes%2Fagenti-openai-monitoraggio-sicurezza%2F%3Fshare%3D20261021a" target="_blank" rel="noreferrer noopener">WhatsApp</a><a href="https://empv.it/it/research-notes/agenti-openai-monitoraggio-sicurezza/?share=20261021a">Copia link</a></div></div></section><section class="detail-end section-pad"><a href="/it/research-notes/"><span>Research Notes</span></a></section></main></div></div>
+  </body>
+</html>

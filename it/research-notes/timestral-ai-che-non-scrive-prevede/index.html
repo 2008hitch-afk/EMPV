@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="Timestral di Mistral AI prevede serie temporali su CPU: quattro modelli, benchmark zero-shot, dati industriali, licenze e limiti operativi." />
+    <title>Timestral: l’AI che non scrive. Prevede. | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-BbGjweF-.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Cqsd0oq4.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/it/research-notes/timestral-ai-che-non-scrive-prevede/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/research-notes/timestral-ai-che-non-scrive-prevede/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/research-notes/timestral-ai-that-forecasts/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/research-notes/timestral-ai-che-non-scrive-prevede/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="Timestral: l’AI che non scrive. Prevede. | EMPV" />
+    <meta property="og:description" content="Timestral di Mistral AI prevede serie temporali su CPU: quattro modelli, benchmark zero-shot, dati industriali, licenze e limiti operativi." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://empv.it/it/research-notes/timestral-ai-che-non-scrive-prevede/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:image" content="https://empv.it/social/research-notes/mistral-timestral-forecasting-it-20261023a.png" />
+    <meta property="og:image:url" content="https://empv.it/social/research-notes/mistral-timestral-forecasting-it-20261023a.png" />
+    <meta property="og:image:secure_url" content="https://empv.it/social/research-notes/mistral-timestral-forecasting-it-20261023a.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Timestral: l’AI che non scrive. Prevede." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="Timestral: l’AI che non scrive. Prevede. | EMPV" />
+    <meta name="twitter:description" content="Timestral di Mistral AI prevede serie temporali su CPU: quattro modelli, benchmark zero-shot, dati industriali, licenze e limiti operativi." />
+    <meta name="twitter:image" content="https://empv.it/social/research-notes/mistral-timestral-forecasting-it-20261023a.png" />
+    <meta name="twitter:image:alt" content="Timestral: l’AI che non scrive. Prevede." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/it/research-notes/timestral-ai-che-non-scrive-prevede/#webpage","url":"https://empv.it/it/research-notes/timestral-ai-che-non-scrive-prevede/","name":"Timestral: l’AI che non scrive. Prevede. | EMPV","description":"Timestral di Mistral AI prevede serie temporali su CPU: quattro modelli, benchmark zero-shot, dati industriali, licenze e limiti operativi.","inLanguage":"it","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"Article","@id":"https://empv.it/it/research-notes/timestral-ai-che-non-scrive-prevede/#article","headline":"Timestral: l’AI che non scrive. Prevede.","description":"Dai consumi energetici alla produzione industriale, il nuovo modello di Mistral analizza i dati storici per stimare cosa potrebbe succedere dopo.","datePublished":"2026-10-23","dateModified":"2026-10-23","inLanguage":"it","keywords":["Timestral","Mistral AI","Serie temporali","Previsioni","AI on-premise"],"image":{"@type":"ImageObject","url":"https://empv.it/social/research-notes/mistral-timestral-forecasting-it-20261023a.png","width":1200,"height":630},"mainEntityOfPage":{"@id":"https://empv.it/it/research-notes/timestral-ai-che-non-scrive-prevede/#webpage"},"author":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}],"publisher":{"@id":"https://empv.it/#organization"}}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell notes-shell" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/it/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/it/research-notes/">Research Notes</a><a class="lang-switch" href="/en/research-notes/timestral-ai-that-forecasts/" hreflang="en">EN</a></header><main><section class="detail-hero research-note-hero"><div class="detail-hero-inner"><div class="detail-kicker-row"><span class="eyebrow">EMPV / RESEARCH NOTES</span><span class="detail-index">NOTE / 015</span></div><div class="detail-title-wrap detail-title-project research-note-title"><p class="detail-kicker">TECH NOTE / MODELLI</p><h1>Timestral: l’AI che non scrive. Prevede.</h1></div><div class="detail-hero-bottom"><p class="detail-lead">Dai consumi energetici alla produzione industriale, il nuovo modello di Mistral analizza i dati storici per stimare cosa potrebbe succedere dopo.</p><div class="detail-status"><span>Pubblicata</span><strong>2026-10-23 · 4 min</strong></div></div><div class="tags detail-tags"><span>Timestral</span><span>Mistral AI</span><span>Serie temporali</span><span>Previsioni</span><span>AI on-premise</span></div></div></section><section class="detail-blocks section-pad research-note-blocks"><article class="detail-block research-note-block"><div class="eyebrow">01 / Il modello</div><div class="detail-block-main"><h2>Un modello per i dati che cambiano nel tempo</h2><div class="research-note-copy"><p>Il 15 ottobre 2026 <a href="https://mistral.ai/it/news/timestral/" target="_blank" rel="noreferrer noopener">Mistral AI</a> ha presentato Timestral, una famiglia di modelli per le serie temporali: sequenze di misurazioni registrate nel tempo, come consumi elettrici, temperature, ordini o volumi di produzione.</p><p>Timestral non è un chatbot e non è progettato per generare testi. Il suo compito è osservare l'andamento di una o più grandezze e stimare come potrebbero evolvere.</p><p>La caratteristica centrale è la previsione zero-shot: un modello preaddestrato può produrre una prima stima su una nuova serie storica senza dover essere addestrato da zero sui dati di quell'azienda.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">02 / Architettura e prestazioni</div><div class="detail-block-main"><h2>Quattro dimensioni, previsioni probabilistiche e inferenza su CPU</h2><div class="research-note-copy"><p>La famiglia comprende modelli da 5, 28, 123 e 209 milioni di parametri. Il contesto arriva fino a 32.768 osservazioni temporali e l'output comprende 21 quantili: invece di un solo numero, il sistema può esprimere diversi livelli di incertezza della previsione.</p><p>Timestral può elaborare più variabili insieme e utilizzare informazioni note sul futuro, come un calendario produttivo o una chiusura programmata. Il <a href="https://github.com/mistralai/timestral" target="_blank" rel="noreferrer noopener">repository ufficiale</a> documenta sia gli input storici sia le variabili esterne.</p><p>Mistral dichiara che l'inferenza non richiede una GPU. Nel test pubblicato, una previsione sulle successive 24 ore, partendo da tre settimane di misure a intervalli di 15 minuti, richiede da 10 a 140 millisecondi su una CPU server a otto thread, secondo la dimensione del modello. Questi tempi descrivono l'ambiente di prova, non qualsiasi macchina.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">03 / Risultati pubblicati</div><div class="detail-block-main"><h2>Primo nei benchmark zero-shot secondo Mistral</h2><div class="research-note-copy"><p>Nel proprio <a href="https://mistral.ai/news/timestral/" target="_blank" rel="noreferrer noopener">annuncio tecnico</a>, Mistral riporta il primo posto fra i modelli preaddestrati utilizzati in modalità zero-shot sui benchmark GIFT-Eval, TIME e fev-bench. I confronti riguardano metriche e dataset pubblici specifici.</p><p>È un risultato rilevante per un modello relativamente compatto, ma non equivale a dimostrare che Timestral sia sempre più accurato dei metodi statistici classici o delle soluzioni già calibrate sui dati di una singola azienda.</p><p>Prima di un'adozione operativa servono test su periodi storici esclusi dalla configurazione, confronti con una baseline semplice e una valutazione di errori, tempi di calcolo e stabilità delle previsioni.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">04 / In azienda</div><div class="detail-block-main"><h2>Dalla previsione dei consumi ai sensori industriali</h2><div class="research-note-copy"><p>Immaginiamo uno stabilimento che registri ogni quindici minuti il consumo elettrico delle macchine. Il modello potrebbe stimare il profilo di consumo del giorno successivo tenendo conto dello storico e, dove disponibili, dei turni o dei programmi di produzione.</p><p>Lo stesso approccio può essere sperimentato per domanda, scorte, volumi di ordini e grandezze rilevate dai sensori: temperatura, vibrazioni o pressione. Una previsione probabilistica permette anche di evidenziare valori che si allontanano da quanto atteso.</p><p>Uno scostamento, però, non identifica da solo un guasto. Per comprenderne la causa servono manutenzioni precedenti, condizioni operative, eventi di produzione e verifiche umane. Prevedere un dato non significa conoscere automaticamente l'intervento corretto.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">05 / Disponibilità e limiti</div><div class="detail-block-main"><h2>Il modello è scaricabile. Il sistema va comunque progettato.</h2><div class="research-note-copy"><p>Mistral ha pubblicato il <a href="https://github.com/mistralai/timestral" target="_blank" rel="noreferrer noopener">codice di inferenza su GitHub</a> con licenza Apache 2.0 e i <a href="https://huggingface.co/mistralai/Timestral-209M" target="_blank" rel="noreferrer noopener">pesi dei modelli su Hugging Face</a> con una distinta licenza Modified MIT. È importante verificare entrambe le condizioni prima dell'uso.</p><p>I modelli possono funzionare su CPU o GPU e possono essere caricati da file locali. Questo rende praticabile una sperimentazione anche su infrastrutture private, senza inviare necessariamente i dati di produzione a un servizio cloud.</p><p>Il valore operativo arriva solo se la previsione è collegata a dati affidabili, vincoli reali, soglie comprensibili e persone responsabili delle decisioni. Timestral può essere una componente del sistema; non lo sostituisce.</p></div></div></article></section><section class="detail-boundary section-pad research-note-takeaway"><div class="section-code">EMPV / TAKEAWAY</div><p>Una previsione diventa utile quando entra nei processi aziendali, con dati affidabili, limiti dichiarati e decisioni verificabili.</p></section><section class="research-note-share section-pad" aria-label="Condividi questa Research Note"><div class="section-code">EMPV / CONDIVIDI</div><div class="research-note-share-inner"><p>Condividi questa Research Note.</p><div class="research-note-share-actions"><a class="research-note-share-primary" href="https://empv.it/it/research-notes/timestral-ai-che-non-scrive-prevede/?share=20261023a">Condividi</a><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fempv.it%2Fit%2Fresearch-notes%2Ftimestral-ai-che-non-scrive-prevede%2F%3Fshare%3D20261023a" target="_blank" rel="noreferrer noopener">LinkedIn</a><a href="https://twitter.com/intent/tweet?text=Timestral%3A%20l%E2%80%99AI%20che%20non%20scrive.%20Prevede.%20%E2%80%94%20EMPV%20Research%20Notes&amp;url=https%3A%2F%2Fempv.it%2Fit%2Fresearch-notes%2Ftimestral-ai-che-non-scrive-prevede%2F%3Fshare%3D20261023a" target="_blank" rel="noreferrer noopener">X</a><a href="https://wa.me/?text=Timestral%3A%20l%E2%80%99AI%20che%20non%20scrive.%20Prevede.%20%E2%80%94%20EMPV%20Research%20Notes%20https%3A%2F%2Fempv.it%2Fit%2Fresearch-notes%2Ftimestral-ai-che-non-scrive-prevede%2F%3Fshare%3D20261023a" target="_blank" rel="noreferrer noopener">WhatsApp</a><a href="https://empv.it/it/research-notes/timestral-ai-che-non-scrive-prevede/?share=20261023a">Copia link</a></div></div></section><section class="detail-end section-pad"><a href="/it/research-notes/"><span>Research Notes</span></a></section></main></div></div>
+  </body>
+</html>

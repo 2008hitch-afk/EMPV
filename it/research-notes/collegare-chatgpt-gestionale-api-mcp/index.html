@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="Come collegare ChatGPT a un gestionale aziendale usando API e MCP. Architettura, permessi, sicurezza ed esempi pratici di integrazione." />
+    <title>Come collegare ChatGPT a un gestionale aziendale: API, MCP e sicurezza | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-BbGjweF-.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Cqsd0oq4.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/it/research-notes/collegare-chatgpt-gestionale-api-mcp/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/research-notes/collegare-chatgpt-gestionale-api-mcp/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/research-notes/connect-chatgpt-erp-api-mcp/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/research-notes/collegare-chatgpt-gestionale-api-mcp/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="Come collegare ChatGPT a un gestionale aziendale: API, MCP e sicurezza | EMPV" />
+    <meta property="og:description" content="Come collegare ChatGPT a un gestionale aziendale usando API e MCP. Architettura, permessi, sicurezza ed esempi pratici di integrazione." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://empv.it/it/research-notes/collegare-chatgpt-gestionale-api-mcp/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="it_IT" />
+    <meta property="og:image" content="https://empv.it/social/research-notes/chatgpt-erp-mcp-integration-it-20261019.png" />
+    <meta property="og:image:url" content="https://empv.it/social/research-notes/chatgpt-erp-mcp-integration-it-20261019.png" />
+    <meta property="og:image:secure_url" content="https://empv.it/social/research-notes/chatgpt-erp-mcp-integration-it-20261019.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Come collegare ChatGPT a un gestionale aziendale: API, MCP e sicurezza" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="Come collegare ChatGPT a un gestionale aziendale: API, MCP e sicurezza | EMPV" />
+    <meta name="twitter:description" content="Come collegare ChatGPT a un gestionale aziendale usando API e MCP. Architettura, permessi, sicurezza ed esempi pratici di integrazione." />
+    <meta name="twitter:image" content="https://empv.it/social/research-notes/chatgpt-erp-mcp-integration-it-20261019.png" />
+    <meta name="twitter:image:alt" content="Come collegare ChatGPT a un gestionale aziendale: API, MCP e sicurezza" />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/it/research-notes/collegare-chatgpt-gestionale-api-mcp/#webpage","url":"https://empv.it/it/research-notes/collegare-chatgpt-gestionale-api-mcp/","name":"Come collegare ChatGPT a un gestionale aziendale: API, MCP e sicurezza | EMPV","description":"Come collegare ChatGPT a un gestionale aziendale usando API e MCP. Architettura, permessi, sicurezza ed esempi pratici di integrazione.","inLanguage":"it","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}},{"@type":"Article","@id":"https://empv.it/it/research-notes/collegare-chatgpt-gestionale-api-mcp/#article","headline":"Come collegare ChatGPT a un gestionale aziendale: API, MCP e sicurezza","description":"Collegare ChatGPT a un gestionale permette di interrogare dati aziendali e preparare operazioni in linguaggio naturale. API e Model Context Protocol rendono possibile l'integrazione, ma accessi, permessi e modifiche devono rimanere sotto il controllo del software aziendale.","datePublished":"2026-10-19","dateModified":"2026-10-19","inLanguage":"it","keywords":["ChatGPT","Gestionale","MCP","API","Integrazione ERP"],"image":{"@type":"ImageObject","url":"https://empv.it/social/research-notes/chatgpt-erp-mcp-integration-it-20261019.png","width":1200,"height":630},"mainEntityOfPage":{"@id":"https://empv.it/it/research-notes/collegare-chatgpt-gestionale-api-mcp/#webpage"},"author":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}],"publisher":{"@id":"https://empv.it/#organization"}}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell notes-shell" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/it/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/it/research-notes/">Research Notes</a><a class="lang-switch" href="/en/research-notes/connect-chatgpt-erp-api-mcp/" hreflang="en">EN</a></header><main><section class="detail-hero research-note-hero"><div class="detail-hero-inner"><div class="detail-kicker-row"><span class="eyebrow">EMPV / RESEARCH NOTES</span><span class="detail-index">NOTE / 012</span></div><div class="detail-title-wrap detail-title-project research-note-title"><p class="detail-kicker">TECH NOTE / AI INTEGRATION</p><h1>Come collegare ChatGPT a un gestionale aziendale: API, MCP e sicurezza</h1></div><div class="detail-hero-bottom"><p class="detail-lead">Collegare ChatGPT a un gestionale permette di interrogare dati aziendali e preparare operazioni in linguaggio naturale. API e Model Context Protocol rendono possibile l'integrazione, ma accessi, permessi e modifiche devono rimanere sotto il controllo del software aziendale.</p><div class="detail-status"><span>Pubblicata</span><strong>2026-10-19 · 3 min</strong></div></div><div class="tags detail-tags"><span>ChatGPT</span><span>Gestionale</span><span>MCP</span><span>API</span><span>Integrazione ERP</span></div></div></section><section class="detail-blocks section-pad research-note-blocks"><article class="detail-block research-note-block"><div class="eyebrow">01 / L'integrazione</div><div class="detail-block-main"><h2>ChatGPT può lavorare con un gestionale già esistente</h2><div class="research-note-copy"><p>Collegare ChatGPT a un ERP o a un CRM non richiede necessariamente di sostituire il software aziendale.</p><p>L'integrazione può consentire di consultare ordini, verificare disponibilità di magazzino, recuperare informazioni sui clienti o preparare bozze di documenti.</p><p>Nel 2026 OpenAI supporta <a href="https://help.openai.com/en/articles/12584461-connecting-custom-mcp-servers-in-chatgpt" target="_blank" rel="noreferrer noopener">server MCP personalizzati in ChatGPT</a>. Le azioni di scrittura dipendono dai permessi del workspace e dalla configurazione del server; il supporto ai server personalizzati è disponibile per Business ed Enterprise/Edu.</p><p>Anche <a href="https://www.odoo.com/documentation/20.0/applications/productivity/ai/mcp_server.html" target="_blank" rel="noreferrer noopener">Odoo 20 documenta un server MCP</a> per collegare client AI al proprio sistema.</p><p>La disponibilità di un connettore, però, non significa che qualunque operazione aziendale sia automaticamente supportata o sicura.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">02 / Come funziona</div><div class="detail-block-main"><h2>API e MCP hanno compiti differenti</h2><div class="research-note-copy"><p>Le API permettono a un'applicazione di leggere o modificare dati attraverso interfacce definite dal software gestionale.</p><p>Il Model Context Protocol (MCP) è uno standard per esporre strumenti utilizzabili dagli assistenti AI. Un server MCP può richiamare le API del gestionale, applicando le autorizzazioni necessarie.</p><p>Consideriamo una richiesta: «Controlla l'ordine 125 e verifica se i prodotti sono disponibili».</p><p>In un'architettura progettata per questo scopo, ChatGPT può richiedere l'esecuzione di uno strumento, il server recupera i dati autorizzati e restituisce un risultato strutturato. Il modello lo utilizza per formulare la risposta.</p><p>Per creare un'applicazione AI aziendale autonoma esiste anche un percorso differente: la <a href="https://developers.openai.com/api/docs/guides/function-calling" target="_blank" rel="noreferrer noopener">OpenAI API con function calling</a>, che lascia al backend dell'applicazione l'esecuzione delle operazioni.</p><p>MCP e function calling non sono quindi sinonimi, anche se possono essere utilizzati per risolvere problemi simili.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">03 / Sicurezza</div><div class="detail-block-main"><h2>Leggere un ordine e modificarlo richiede permessi diversi</h2><div class="research-note-copy"><p>Un'integrazione dovrebbe distinguere gli strumenti di lettura dalle operazioni che cambiano dati o producono effetti economici.</p><p>Consultare lo stato di un ordine non equivale a confermarlo. Preparare una bozza di preventivo non equivale a inviarla al cliente.</p><p>La <a href="https://developers.openai.com/plugins/build/mcp-server" target="_blank" rel="noreferrer noopener">documentazione OpenAI sui server MCP</a> richiede di verificare le autorizzazioni sul server per ogni richiesta, senza delegare questa decisione al modello.</p><p>Per le operazioni più delicate servono controlli aggiuntivi: identità dell'utente, permessi limitati, validazione dei dati, registrazione delle modifiche e conferma prima delle azioni importanti.</p><p>Un altro rischio riguarda le prompt injection: istruzioni malevole presenti nei contenuti consultati dall'assistente possono tentare di influenzarne il comportamento.</p><p>Il modello deve quindi operare attraverso funzioni circoscritte, evitando accessi indiscriminati al database aziendale.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">04 / Quando conviene</div><div class="detail-block-main"><h2>Partire da una sola operazione, non dall'intero gestionale</h2><div class="research-note-copy"><p>Per una PMI, il primo progetto può essere molto limitato: consultare lo stato degli ordini, recuperare disponibilità o preparare una richiesta di preventivo da sottoporre a verifica.</p><p>Prima di sviluppare il collegamento bisogna accertare quali API siano disponibili, quali dati possano essere esposti, chi sia autorizzato a utilizzarli e come vengano gestiti errori e duplicati.</p><p>Se il gestionale non dispone di interfacce adeguate, MCP non risolve automaticamente il problema.</p><p>Abbiamo già affrontato questa distinzione nella Research Note su <a href="https://empv.it/it/research-notes/integrare-gestionale-senza-sostituirlo/" target="_blank" rel="noreferrer noopener">quando conviene integrare un gestionale invece di sostituirlo</a>.</p><p>L'obiettivo di un'integrazione ben progettata è consentire all'AI di utilizzare funzioni aziendali specifiche, lasciando al gestionale la responsabilità dei dati e delle regole operative.</p></div></div></article></section><section class="detail-boundary section-pad research-note-takeaway"><div class="section-code">EMPV / TAKEAWAY</div><p>L'AI può usare funzioni del gestionale; permessi, approvazioni e integrità dei dati devono restare nelle regole del sistema aziendale.</p></section><section class="research-note-share section-pad" aria-label="Condividi questa Research Note"><div class="section-code">EMPV / CONDIVIDI</div><div class="research-note-share-inner"><p>Condividi questa Research Note.</p><div class="research-note-share-actions"><a class="research-note-share-primary" href="https://empv.it/it/research-notes/collegare-chatgpt-gestionale-api-mcp/?share=20261019">Condividi</a><a href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fempv.it%2Fit%2Fresearch-notes%2Fcollegare-chatgpt-gestionale-api-mcp%2F%3Fshare%3D20261019" target="_blank" rel="noreferrer noopener">LinkedIn</a><a href="https://twitter.com/intent/tweet?text=Come%20collegare%20ChatGPT%20a%20un%20gestionale%20aziendale%3A%20API%2C%20MCP%20e%20sicurezza%20%E2%80%94%20EMPV%20Research%20Notes&amp;url=https%3A%2F%2Fempv.it%2Fit%2Fresearch-notes%2Fcollegare-chatgpt-gestionale-api-mcp%2F%3Fshare%3D20261019" target="_blank" rel="noreferrer noopener">X</a><a href="https://wa.me/?text=Come%20collegare%20ChatGPT%20a%20un%20gestionale%20aziendale%3A%20API%2C%20MCP%20e%20sicurezza%20%E2%80%94%20EMPV%20Research%20Notes%20https%3A%2F%2Fempv.it%2Fit%2Fresearch-notes%2Fcollegare-chatgpt-gestionale-api-mcp%2F%3Fshare%3D20261019" target="_blank" rel="noreferrer noopener">WhatsApp</a><a href="https://empv.it/it/research-notes/collegare-chatgpt-gestionale-api-mcp/?share=20261019">Copia link</a></div></div></section><section class="detail-end section-pad"><a href="/it/research-notes/"><span>Research Notes</span></a></section></main></div></div>
+  </body>
+</html>

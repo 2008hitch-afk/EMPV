@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (() => {
+        const root = document.documentElement;
+        const validBackgrounds = new Set([
+          "none", "particles", "aero", "beams", "threads", "waves", "galaxy",
+          "orb", "silk", "sliced-waves", "side-rays", "light-tunnel",
+          "scanner", "prism", "dither"
+        ]);
+        const validPalettes = new Set([
+          "mist", "zinc", "mauve", "olive", "taupe", "amber", "blue", "indigo"
+        ]);
+        const aliases = { steel: "mist", sage: "olive" };
+
+        let stored = {};
+        try {
+          stored = JSON.parse(localStorage.getItem("empv-visual-preferences") || "{}") || {};
+        } catch {}
+
+        const params = new URLSearchParams(location.search);
+        const requestedBackground = params.get("bg");
+        const requestedPalette = params.get("palette");
+        const aliasedPalette = requestedPalette && aliases[requestedPalette]
+          ? aliases[requestedPalette]
+          : requestedPalette;
+
+        const background = validBackgrounds.has(requestedBackground)
+          ? requestedBackground
+          : validBackgrounds.has(stored.background)
+            ? stored.background
+            : "scanner";
+
+        const palette = validPalettes.has(aliasedPalette)
+          ? aliasedPalette
+          : validPalettes.has(stored.palette)
+            ? stored.palette
+            : "blue";
+
+        root.dataset.visualTheme = background === "none" ? "default" : "galaxy";
+        root.dataset.galaxyPalette = palette;
+
+        try {
+          const finePointer = matchMedia("(hover: hover) and (pointer: fine)").matches;
+          const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+          if (finePointer && !reducedMotion) {
+            root.classList.add("empv-custom-cursor-enabled");
+          }
+        } catch {}
+      })();
+    </script>
+    <meta name="theme-color" content="#ecebe5" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <meta name="google-site-verification" content="UnScA5DO68Suf6LYORZ-bKoSW_KV0KH6diJ9HCuVAqg" />
+    <meta name="description" content="Dalle richieste via email alla gestione commesse: come EMPV mappa i passaggi di lavoro, integra gli strumenti esistenti e automatizza dove serve." />
+    <title>Automazione processi aziendali a Bergamo | EMPV</title>
+    <script type="module" crossorigin src="/assets/index-BbGjweF-.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-Cqsd0oq4.css">
+      <meta name="robots" content="index,follow,max-image-preview:large" />
+    <link rel="canonical" href="https://empv.it/it/automazione-processi-aziendali/" />
+    <link rel="alternate" hreflang="it" href="https://empv.it/it/automazione-processi-aziendali/" />
+    <link rel="alternate" hreflang="en" href="https://empv.it/en/business-process-automation/" />
+    <link rel="alternate" hreflang="x-default" href="https://empv.it/it/automazione-processi-aziendali/" />
+    <link rel="describedby" href="https://empv.it/llms.txt" type="text/markdown" />
+    <meta property="og:title" content="Automazione processi aziendali a Bergamo | EMPV" />
+    <meta property="og:description" content="Dalle richieste via email alla gestione commesse: come EMPV mappa i passaggi di lavoro, integra gli strumenti esistenti e automatizza dove serve." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://empv.it/it/automazione-processi-aziendali/" />
+    <meta property="og:site_name" content="EMPV" />
+    <meta property="og:locale" content="it_IT" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@EMPV26" />
+    <meta name="twitter:title" content="Automazione processi aziendali a Bergamo | EMPV" />
+    <meta name="twitter:description" content="Dalle richieste via email alla gestione commesse: come EMPV mappa i passaggi di lavoro, integra gli strumenti esistenti e automatizza dove serve." />
+    <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://empv.it/#organization","name":"EMPV","url":"https://empv.it","email":"hello@empv.it","telephone":"+39 379 243 8705","logo":{"@type":"ImageObject","@id":"https://empv.it/#logo","url":"https://empv.it/favicon-96x96.png","contentUrl":"https://empv.it/favicon-96x96.png","width":96,"height":96},"image":{"@id":"https://empv.it/#logo"},"sameAs":["https://www.linkedin.com/company/emp26/","https://x.com/EMPV26"],"address":{"@type":"PostalAddress","addressLocality":"Bergamo","addressCountry":"IT"},"member":[{"@id":"https://empv.it/#enrico-peruffo"},{"@id":"https://empv.it/#michele-valleri"}]},{"@type":"Person","@id":"https://empv.it/#enrico-peruffo","name":"Enrico Peruffo","jobTitle":"AI Systems & Architecture","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"Person","@id":"https://empv.it/#michele-valleri","name":"Michele Valleri","jobTitle":"AI Product & Process Design","memberOf":{"@id":"https://empv.it/#organization"}},{"@type":"WebSite","@id":"https://empv.it/#website","name":"EMPV","url":"https://empv.it","inLanguage":["it","en"],"publisher":{"@id":"https://empv.it/#organization"}},{"@type":"WebPage","@id":"https://empv.it/it/automazione-processi-aziendali/#webpage","url":"https://empv.it/it/automazione-processi-aziendali/","name":"Automazione processi aziendali a Bergamo | EMPV","description":"Dalle richieste via email alla gestione commesse: come EMPV mappa i passaggi di lavoro, integra gli strumenti esistenti e automatizza dove serve.","inLanguage":"it","isPartOf":{"@id":"https://empv.it/#website"},"about":{"@id":"https://empv.it/#organization"}}]}</script>
+  </head>
+  <body>
+    <div id="root"><div class="detail-shell process-page" data-prerendered="true"><header class="topbar detail-topbar"><a class="wordmark" href="/it/" aria-label="EMPV home">EMPV</a><a class="detail-nav-back" href="/it/research-notes/">Research Notes</a><a class="lang-switch" href="/en/business-process-automation/" hreflang="en">EN</a></header><main><section class="detail-hero process-hero"><div class="detail-hero-inner"><div class="detail-kicker-row"><span class="eyebrow">EMPV / Processi aziendali</span><span class="detail-index">EMPV / BERGAMO</span></div><div class="detail-title-wrap detail-title-project"><p class="detail-kicker">Automazione dei processi aziendali · Bergamo</p><h1>Prima di automatizzare, capiamo dove si perde il lavoro.</h1></div><div class="detail-hero-bottom"><p class="detail-lead">Una richiesta arriva via email. Qualcuno la ricopia in Excel, un'altra persona apre il gestionale e un terzo collega cerca il documento aggiornato. Il problema non è quasi mai un singolo software: sono i passaggi che non si parlano.</p><div class="detail-status"><span>Il punto di partenza</span><strong>Capire il percorso di un'informazione prima di decidere quale parte del lavoro automatizzare.</strong></div></div><div class="tags detail-tags"><span>Processi aziendali</span><span>Integrazioni</span><span>Software su misura</span><span>AI quando serve</span></div></div></section><section class="detail-blocks section-pad research-note-blocks"><article class="detail-block research-note-block"><div class="eyebrow">01 / Dove guardare</div><div class="detail-block-main"><h2>Il tempo si perde spesso tra uno strumento e l'altro.</h2><div class="research-note-copy"><p>Nelle aziende che lavorano su commessa o gestiscono molte richieste, lo stesso dato può attraversare caselle email, fogli di calcolo, gestionali e messaggi. Ogni passaggio può richiedere una verifica, un reinserimento o una telefonata per ricostruire il contesto.</p><p>Prima di parlare di automazione, seguiamo una pratica dall'inizio alla fine: chi la riceve, dove vengono raccolte le informazioni, chi può cambiarle e quando si considera conclusa. È qui che emergono le attività ripetute e le decisioni che non possono essere delegate.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">02 / Come interveniamo</div><div class="detail-block-main"><h2>Mappare il processo serve a non automatizzare l'errore.</h2><div class="research-note-copy"><p>Mettiamo a confronto il flusso attuale (AS-IS) con quello possibile (TO-BE). Identifichiamo gli strumenti da conservare, i dati da condividere e i punti in cui una persona deve confermare ciò che il sistema ha preparato.</p><p>Un intervento può essere un'integrazione, una piccola applicazione interna, una regola deterministica oppure una funzione AI. Non scegliamo l'AI per principio: la utilizziamo soltanto quando aggiunge una capacità utile e verificabile.</p></div><ul><li>Una sola fonte autorevole per ogni dato importante</li><li>Passaggi automatici dove le regole sono chiare</li><li>Verifiche e autorizzazioni umane dove servono</li><li>Stati e responsabilità comprensibili al team</li></ul></div></article><article class="detail-block research-note-block"><div class="eyebrow">03 / Cosa non serve rifare</div><div class="detail-block-main"><h2>Il gestionale esistente può rimanere al centro.</h2><div class="research-note-copy"><p>Sostituire un ERP non è sempre la soluzione al problema. Se il software già gestisce correttamente ordini, fatture o magazzino, può essere più sensato collegargli il pezzo mancante: raccolta delle richieste, controllo dei documenti, preparazione dei dati o avanzamento delle attività.</p><p>L'integrazione va verificata prima di essere promessa. API disponibili, esportazioni, permessi e qualità dei dati determinano quello che si può fare davvero. Dove non esiste un'interfaccia affidabile, lo segnaliamo e valutiamo alternative.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">04 / Situazioni concrete</div><div class="detail-block-main"><h2>Preventivi, ordini e commesse sono punti di partenza diversi.</h2><div class="research-note-copy"><p>Una richiesta di preventivo incompleta può diventare un percorso guidato che raccoglie prima i dati necessari, lasciando la valutazione commerciale a chi ne ha la responsabilità.</p><p>Un ordine ricevuto per email può essere interpretato e preparato per il gestionale, ma deve esistere una verifica quando quantità, codici o condizioni non sono univoci. In una commessa, invece, la priorità può essere far seguire misure, documenti e aggiornamenti al lavoro, dal sopralluogo fino alla posa.</p><p>Questi esempi illustrano problemi e approcci diversi, non risultati standard promessi a qualsiasi azienda.</p></div></div></article><article class="detail-block research-note-block"><div class="eyebrow">05 / Come misuriamo</div><div class="detail-block-main"><h2>Una modifica ha senso se cambia qualcosa nel lavoro quotidiano.</h2><div class="research-note-copy"><p>Prima dell'intervento scegliamo una misura comprensibile: quanti reinserimenti richiede una pratica, quanto tempo passa tra richiesta e presa in carico, quante verifiche manuali sono necessarie o quante informazioni mancano alla prima raccolta.</p><p>Confrontiamo lo stesso processo prima e dopo, tenendo conto delle eccezioni. Non promettiamo percentuali di risparmio senza una base reale. Se il risultato non è misurabile o il cambiamento complica il lavoro, va rivisto.</p></div></div></article></section><section class="process-related section-pad" aria-labelledby="process-related-title"><div class="section-code">EMPV / Approfondimenti e progetti</div><h2 id="process-related-title">Tre esempi per entrare nel dettaglio.</h2><p class="process-related-intro">Nelle Research Notes affrontiamo le scelte tecniche. Nei progetti mostriamo come un problema operativo può essere ricostruito e affrontato.</p><div class="process-related-list"><a class="process-related-item" href="/it/research-notes/automatizzare-richieste-preventivo-senza-automatizzare-decisione/"><span><strong>Richieste di preventivo</strong><small>Raccogliere informazioni senza automatizzare la decisione.</small></span><span aria-hidden="true">↗</span></a><a class="process-related-item" href="/it/research-notes/da-email-a-ordine-senza-rifare-gestionale/"><span><strong>Da email a ordine</strong><small>Preparare i dati senza sostituire il gestionale.</small></span><span aria-hidden="true">↗</span></a><a class="process-related-item" href="/it/progetti/commesse-posa/"><span><strong>Commesse e posa</strong><small>Collegare sopralluogo, ufficio e officina.</small></span><span aria-hidden="true">↗</span></a></div></section><section class="process-contact section-pad" aria-labelledby="process-contact-title"><div class="section-code">EMPV / Da dove partire</div><div class="process-contact-main"><h2 id="process-contact-title">Quale passaggio richiede oggi più lavoro manuale?</h2><p>Basta descriverci una situazione concreta: da dove arriva la richiesta, quali strumenti attraversa e chi deve intervenire. Valutiamo insieme se abbia senso modificare il processo e con quale priorità.</p><div class="process-contact-actions"><a href="mailto:hello@empv.it?subject=EMPV%20%E2%80%94%20Parliamo%20di%20un%20processo%20aziendale" data-contact-placement="process_page">Scrivici ↗</a><a href="https://wa.me/393792438705" data-contact-placement="process_page">WhatsApp ↗</a></div></div></section><section class="detail-end section-pad"><a href="/it/research-notes/">Torna alle Research Notes</a></section></main></div></div>
+  </body>
+</html>
